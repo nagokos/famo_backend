@@ -67,6 +67,7 @@ jobs:
                   "text": {
                     "type": "markdwn",
                     "text": ":circleci-pass: *Success!!*",
+                    "emoji": true
                   }
                 },
                 {
