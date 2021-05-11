@@ -65,9 +65,9 @@ jobs:
                 {
                   "type": "header",
                   "text": {
-                    "type": "markdwn",
+                    "type": "plain_text",
                     "text": ":circleci-pass: *Success!!*",
-                    "emoji": true
+                    "emoji": "true"
                   }
                 },
                 {
@@ -113,8 +113,9 @@ jobs:
                 {
                   "type": "header",
                   "text": {
-                    "type": "mrkdwn",
+                    "type": "plain_text",
                     "text": ":circleci-fail: *Failed* :bangbang:",
+                    "emoji": "true"
                   }
                 },
                 {
