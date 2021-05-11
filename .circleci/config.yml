@@ -67,7 +67,7 @@ jobs:
                   "text": {
                     "type": "plain_text",
                     "text": ":circleci-pass: All test suites were passed!",
-                    "emoji": true
+                    "emoji": "true"
                   }
                 },
                 {
