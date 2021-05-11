@@ -1,19 +1,20 @@
-versions: 2
+version: 2
 jobs:
   build:
     working_directory: ~/repo
     docker:
       - image: circleci/ruby:3.0.0-node-browsers
         environment:
-          - BUNDLER_VERSIONS: 2.2.3
-          - RAILS_ENV: 'test'
-          - MYSQL_HOST: 127.0.0.1
+          BUNDLER_VERSIONS: 2.2.3
+          RAILS_ENV: 'test'
+          MYSQL_HOST: 127.0.0.1
 
       - image: circleci/mysql:8.0
         command: --default-authentication-plugin=mysql_native_password
         environment:
-          - MYSQL_USER: root
-          - MYSQL_DATABASE: circle_test
+          MYSQL_USER: root
+          MYSQL_DATABASE: circle_test
+
     steps:
       - checkout
 
@@ -47,10 +48,10 @@ jobs:
           command: bundle exec rubocop
 
       - store_test_results:
-        path: /tmp/test-results
+          path: /tmp/test-results
       - store_atrifacts:
-        path: /tmp/test-results
-        destination: test-results
+          path: /tmp/test-results
+          destination: test-results
 
 
 
