@@ -1,4 +1,8 @@
-version: 2
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4.4.2
+
 jobs:
   build:
     working_directory: ~/repo
@@ -53,6 +57,21 @@ jobs:
           path: /tmp/test-results
           destination: test-results
 
-
-
-
+      - slack/notify: #slack通知のステップ名。orbs3は設定方法が全く異なるので注意。
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification* :smile:"
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always #circleの結果指定。failの場合は失敗時、passは成功時。alwaysは結果問わず。
+          channel: '#circleci通知'
