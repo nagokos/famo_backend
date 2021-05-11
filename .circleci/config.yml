@@ -66,7 +66,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": ":circleci-pass: success!!",
+                    "text": ":circleci-pass: *Success!!*",
                     "emoji": true
                   }
                 },
@@ -114,7 +114,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": ":circleci-fail: テストに失敗しました",
+                    "text": ":circleci-fail: *Failed* :bangbang:",
                     "emoji": true
                   }
                 },
