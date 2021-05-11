@@ -41,7 +41,7 @@ jobs:
 
       - run: mv config/database.ci.yml config/database.yml
       - run: bundle exec rails db:create
-      - run: bundle exec rails db:schema:load
+      # - run: bundle exec rails db:schema:load
 
       - run:
           name: Rubocop
