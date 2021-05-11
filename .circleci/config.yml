@@ -1,0 +1,57 @@
+versions: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:3.0.0-node-browsers
+        environment:
+          - BUNDLER_VERSIONS: 2.2.3
+          - RAILS_ENV: 'test'
+          - MYSQL_HOST: 127.0.0.1
+
+      - image: circleci/mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          - MYSQL_USER: root
+          - MYSQL_DATABASE: circle_test
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+
+      - run:
+          name: bundle install
+          command: |
+            gem install bundler -v 2.2.3
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - run:
+          name: yarn install
+          command: yarn install
+
+      - save_cache:
+         paths:
+          - ./vendor/bundle
+          - ./node_modules
+         key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+
+      - run: mv config/database.ci.yml config.database.yml
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:schema:load
+
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+
+      - store_test_results:
+        path: /tmp/test-results
+      - store_atrifacts:
+        path: /tmp/test-results
+        destination: test-results
+
+
+
+
