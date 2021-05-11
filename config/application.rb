@@ -34,6 +34,11 @@ module Myapp
       g.helper false
       g.template_engine false
       g.skip_routes true
+      g.test_framework :rspec,
+                       view_spaces: false,
+                       helper_spaces: false,
+                       controller_spaces: false,
+                       routing_spaces: false
     end
     # Configuration for the application, engines, and railties goes here.
     #
