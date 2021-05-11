@@ -12,8 +12,8 @@ jobs:
       - image: circleci/mysql:8.0
         command: --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_USER: root
           MYSQL_DATABASE: circle_test
+          MYSQL_ROOT_PASSWORD: password
 
     steps:
       - checkout
@@ -39,7 +39,7 @@ jobs:
           - ./node_modules
          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
 
-      - run: mv config/database.ci.yml config.database.yml
+      - run: mv config/database.ci.yml config/database.yml
       - run: bundle exec rails db:create
       - run: bundle exec rails db:schema:load
 
