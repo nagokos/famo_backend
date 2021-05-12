@@ -17,6 +17,7 @@ services:
       - bundle_path:/bundle
     environment:
       - BUNDLE_PATH=/bundle
+      - WEBPACKER_DEV_SERVER_HOST=web
     ports:
       - '3000:3000'
       - '3035:3035'
