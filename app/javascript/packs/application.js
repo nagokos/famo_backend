@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import App from '../app.vue'
 
+// Vue-router
+import VueRouter from "vue-router"
+import router from "./router"
+Vue.use(VueRouter)
+
 // Vuetify
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
@@ -18,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: "#app",
     vuetify,
+    router,
     render: h => h(App)
   })
   app.$mount("#app")
