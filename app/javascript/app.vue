@@ -1,22 +1,20 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+  <v-app>
+    <the-header />
+    <router-view />
+  </v-app>
 </template>
 
 <script>
+import TheHeader from "./components/shared/TheHeader"
+
 export default {
-  data: function () {
+  components: {
+    TheHeader
+  },
+  data() {
     return {
-      message: "Hello Vue!"
     }
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>

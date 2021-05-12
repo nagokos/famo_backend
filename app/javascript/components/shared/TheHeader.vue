@@ -1,7 +1,5 @@
 <template>
-  <v-icon>
-    mdi-human
-  </v-icon>
+  <v-app-bar></v-app-bar>
 </template>
 
 <script>
