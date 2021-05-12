@@ -104,3 +104,51 @@ jobs:
             }
           event: pass #circleの結果指定。failの場合は失敗時、passは成功時。alwaysは結果問わず。
           channel: '#circleci通知'
+
+      - slack/notify: #slack通知のステップ名。orbs3は設定方法が全く異なるので注意。
+          custom: |
+            {
+              "text": "",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Test suite failed ❗️❗️",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository*: $CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch*: $CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author*: $CIRCLE_USERNAME"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Job"
+                      },
+                      "url": "$CIRCLE_BUILD_URL"
+                    }
+                  ]
+                }
+              ]
+            }
+          event: fail #circleの結果指定。failの場合は失敗時、passは成功時。alwaysは結果問わず。
+          channel: '#circleci通知'
