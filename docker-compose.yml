@@ -11,7 +11,7 @@ services:
       - mysql-data:/var/lib/mysql
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bundle exec foreman start -f Procfile
     volumes:
       - .:/myapp
       - bundle_path:/bundle
@@ -19,6 +19,7 @@ services:
       - BUNDLE_PATH=/bundle
     ports:
       - '3000:3000'
+      - '3035:3035'
     depends_on:
       - db
     stdin_open: true
