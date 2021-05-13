@@ -1,16 +1,21 @@
 <template>
   <v-app>
     <the-header />
-    <router-view />
+      <v-main>
+        <router-view />
+      </v-main>
+    <the-footer />
   </v-app>
 </template>
 
 <script>
 import TheHeader from "./components/shared/TheHeader"
+import TheFooter from "./components/shared/TheFooter"
 
 export default {
   components: {
-    TheHeader
+    TheHeader,
+    TheFooter
   },
   data() {
     return {

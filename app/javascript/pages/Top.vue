@@ -1,7 +1,4 @@
 <template>
-  <v-icon>
-    mdi-human
-  </v-icon>
 </template>
 
 <script>
