@@ -4,7 +4,7 @@
     flat
     color="#3949AB"
   >
-    <v-toolbar max-width="1200" flat color="#3949AB" class="mx-auto">
+    <v-toolbar max-width="1000" flat color="#3949AB" class="mx-auto">
       <v-toolbar-title class="font-weight-bold text-h5" style="color: white;">Famo</v-toolbar-title>
       <v-spacer />
         <v-toolbar-items>
