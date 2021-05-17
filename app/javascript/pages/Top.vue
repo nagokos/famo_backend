@@ -19,13 +19,14 @@
               x-large
               depressed
               style="font-weight: bold"
+              @click="toLoginPage"
             >
               今すぐはじめる
             </v-btn>
           </v-col>
           <v-col>
             <v-img
-              max-width="400"
+              max-width="420"
               src="/img/football.svg"
             />
           </v-col>
@@ -114,10 +115,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-    }
-  },
   computed: {
     bkPoint() {
       return this.$vuetify.breakpoint.name
@@ -133,8 +130,8 @@ export default {
     console.log(this.$vuetify.breakpoint.name);
   },
   methods: {
-    push() {
-      console.log('a');
+    toLoginPage() {
+      this.$router.push({ name: "login" })
     }
   }
 }
@@ -142,7 +139,7 @@ export default {
 
 <style scoped>
   .top {
-    max-width: 1000px;
+    max-width: 1050px;
     margin: 0 auto;
   }
   .player-search {
