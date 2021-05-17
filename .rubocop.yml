@@ -33,9 +33,9 @@ Naming/AccessorMethodName:
 Metrics/AbcSize:
   Max: 25   #default 15
 
-# 一行の長さは１２０文字まで。 コメントは制限しない
+# 一行の長さは１５０文字まで。 コメントは制限しない
 Metrics/LineLength:
-  Max: 120
+  Max: 150
   IgnoredPatterns: ['\A#']
   Exclude:
     - "db/migrate/*.rb"
