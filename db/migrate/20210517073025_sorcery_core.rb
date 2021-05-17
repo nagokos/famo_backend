@@ -4,8 +4,8 @@ class SorceryCore < ActiveRecord::Migration[6.1]
       t.string :first_name,       null: false
       t.string :last_name,        null: false
       t.string :avatar,           null: false
-      t.date   :birth_date,        null: false
-      t.integer :role
+      t.date   :birth_date,       null: false
+      t.integer :role,            null: false, default: 0
       t.text   :introduction
       t.string :email,            null: false
       t.string :crypted_password

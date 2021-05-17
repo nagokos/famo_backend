@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2021_05_17_073025) do
     t.string "last_name", null: false
     t.string "avatar", null: false
     t.date "birth_date", null: false
-    t.integer "role"
+    t.integer "role", default: 0, null: false
     t.text "introduction"
     t.string "email", null: false
     t.string "crypted_password"
