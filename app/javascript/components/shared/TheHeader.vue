@@ -19,11 +19,13 @@
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items>
-        <v-btn @click="toLoginPage" text>
+        <v-btn
+          text
+          @click="toLoginPage"
+        >
           <span
             class="caption"
             style="text-transform: none; color: white;"
-
           >登録 ｜ ログイン</span>
         </v-btn>
       </v-toolbar-items>
