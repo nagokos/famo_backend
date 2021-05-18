@@ -224,7 +224,7 @@ export default {
     },
     async sendUserData() {
       try {
-        const response = this.$axios.post("/api/v1/users", {
+        const response = await this.$axios.post("/api/v1/users", {
           user: this.user
         })
         console.log(response);
