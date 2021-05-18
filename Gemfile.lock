@@ -283,7 +283,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mysql2 (~> 0.5)
   pry-byebug
-  puma (~> 5.0)
+  puma (~> 5.3)
   rails (~> 6.1.3, >= 6.1.3.2)
   rails-i18n
   rails_best_practices
