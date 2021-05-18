@@ -11,9 +11,9 @@ module UserAuthenticator
 
   def current_user
     return unless cookie[:token].present?
-    encoded_token = cookie[:token]
-    payload = decode(encoded_token)
-    @current_user = User.find_by(id: payload['user_id'])
+
+    payload = decode(cookie[:token])
+    @current_user ||= User.find_by(id: payload['user_id'])
   end
 
   private
