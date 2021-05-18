@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_05_17_073025) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "avatar", null: false
+    t.string "avatar"
     t.date "birth_date", null: false
     t.integer "role", default: 0, null: false
     t.text "introduction"

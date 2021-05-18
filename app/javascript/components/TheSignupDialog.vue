@@ -6,40 +6,87 @@
       :persistent="true"
     >
       <v-card>
-        <v-card-title class="font-weight-black" style="justify-content: center;">
+        <v-card-title
+          class="font-weight-black"
+          style="justify-content: center;"
+        >
           新規登録
         </v-card-title>
         <v-divider />
 
         <v-container v-if="!emailRegister">
           <v-row>
-            <v-col cols="12" align="center" class="mt-10">
-              <v-btn width="250" x-large  class="font-weight-bold" @click="signupForm">
-                <v-icon color="#EF5350" class="mr-2">
+            <v-col
+              cols="12"
+              align="center"
+              class="mt-10"
+            >
+              <v-btn
+                width="250"
+                x-large
+                class="font-weight-bold"
+                @click="signupForm"
+              >
+                <v-icon
+                  color="#EF5350"
+                  class="mr-2"
+                >
                   mdi-email
                 </v-icon>
                 メールアドレスで登録
               </v-btn>
             </v-col>
-            <v-col cols="12" align="center">
-              <v-btn width="250" x-large  class="font-weight-bold" >
-                <v-img src="/img/line.png" class="mr-2" max-width="25" max-height="25"></v-img>
+            <v-col
+              cols="12"
+              align="center"
+            >
+              <v-btn
+                width="250"
+                x-large
+                class="font-weight-bold"
+              >
+                <v-img
+                  src="/img/line.png"
+                  class="mr-2"
+                  max-width="25"
+                  max-height="25"
+                />
                 LINEで登録
               </v-btn>
             </v-col>
-            <v-col cols="12" align="center" class="mb-14">
-              <v-btn width="250" x-large  class="font-weight-bold" style="text-transform: none;">
-                <v-img src="/img/facebook.png" class="mr-2" max-width="25" max-height="25" ></v-img>
+            <v-col
+              cols="12"
+              align="center"
+              class="mb-14"
+            >
+              <v-btn
+                width="250"
+                x-large
+                class="font-weight-bold"
+                style="text-transform: none;"
+              >
+                <v-img
+                  src="/img/facebook.png"
+                  class="mr-2"
+                  max-width="25"
+                  max-height="25"
+                />
                 FaceBookで登録
               </v-btn>
             </v-col>
           </v-row>
         </v-container>
 
-        <v-card-text class="pb-0" v-if="emailRegister">
+        <v-card-text
+          v-if="emailRegister"
+          class="pb-0"
+        >
           <v-container>
             <v-row>
-              <v-col cols="6" class="mt-3">
+              <v-col
+                cols="6"
+                class="mt-3"
+              >
                 <v-text-field
                   v-model="user.last_name"
                   outlined
@@ -48,7 +95,10 @@
                   placeholder="例）中山"
                 />
               </v-col>
-              <v-col cols="6" class="mt-3">
+              <v-col
+                cols="6"
+                class="mt-3"
+              >
                 <v-text-field
                   v-model="user.first_name"
                   outlined
@@ -57,7 +107,10 @@
                   label="名"
                 />
               </v-col>
-              <v-col cols="12" class="pt-0">
+              <v-col
+                cols="12"
+                class="pt-0"
+              >
                 <v-menu
                   ref="menu"
                   v-model="menu"
@@ -65,7 +118,7 @@
                   transition="scale-transition"
                   min-width="auto"
                 >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-text-field
                       v-model="user.birth_date"
                       label="生年月日"
@@ -74,7 +127,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                    ></v-text-field>
+                    />
                   </template>
                   <v-date-picker
                     v-model="user.birth_date"
@@ -84,10 +137,13 @@
                     :day-format="date => new Date(date).getDate()"
                     locale="jp-ja"
                     @change="save"
-                  ></v-date-picker>
+                  />
                 </v-menu>
               </v-col>
-              <v-col cols="12" class="pt-0">
+              <v-col
+                cols="12"
+                class="pt-0"
+              >
                 <v-text-field
                   v-model="user.email"
                   outlined
@@ -96,7 +152,10 @@
                   placeholder="例）famo0123@example.com"
                 />
               </v-col>
-              <v-col cols="12" class="pt-0">
+              <v-col
+                cols="12"
+                class="pt-0"
+              >
                 <v-text-field
                   v-model="user.password"
                   :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -107,7 +166,7 @@
                   dense
                   counter
                   @click:append="show = !show"
-                ></v-text-field>
+                />
               </v-col>
               <v-col class="pt-0 mb-8">
                 <v-btn
@@ -124,7 +183,6 @@
             </v-row>
           </v-container>
         </v-card-text>
-
       </v-card>
     </v-dialog>
   </div>
@@ -165,7 +223,14 @@ export default {
       this.$refs.menu.save(date)
     },
     async sendUserData() {
-      console.log(this.user);
+      try {
+        const response = this.$axios.post("/api/v1/users", {
+          user: this.user
+        })
+        console.log(response);
+      } catch(err) {
+        console.log(err.response);
+      }
     }
   }
 }

@@ -6,6 +6,10 @@ import VueRouter from "vue-router"
 import router from "./router"
 Vue.use(VueRouter)
 
+// Axios
+import Axios from "../plugins/axios"
+Vue.prototype.$axios = Axios
+
 // Vuetify
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
