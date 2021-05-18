@@ -22,6 +22,7 @@ group :development, :test do
   gem 'rails_best_practices', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'pry-byebug'
 end
 
 group :development do

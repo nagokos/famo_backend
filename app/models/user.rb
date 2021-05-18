@@ -5,7 +5,6 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true, length: { maximum: 30 }
   validates :last_name, presence: true, length: { maximum: 30 }
-  validates :avatar, presence: true
   validates :birth_date, presence: true
   validates :role, presence: true
   validates :introduction, length: { maximum: 10_000 }
