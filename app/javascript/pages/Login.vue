@@ -7,7 +7,6 @@
           md="6"
         >
           <v-card
-            outlined
             class="mt-13"
           >
             <v-card-title style="justify-content: center;">
@@ -31,6 +30,7 @@
                       block
                       color="#EF5350"
                       class="mb-13 font-weight-black"
+                      @click="openRegister"
                     >
                       新規会員登録
                     </v-btn>
@@ -45,7 +45,6 @@
           md="6"
         >
           <v-card
-            outlined
             class="mt-13"
           >
             <v-card-title style="justify-content: center;">
@@ -81,12 +80,24 @@
         </v-col>
       </v-row>
     </v-container>
+    <the-signup-dialog
+      ref="signupDialog"
+    />
   </div>
 </template>
 
 <script>
-export default {
+import TheSignupDialog from "../components/TheSignupDialog"
 
+export default {
+  components: {
+    TheSignupDialog
+  },
+  methods: {
+    openRegister() {
+      this.$refs.signupDialog.open()
+    }
+  }
 }
 </script>
 

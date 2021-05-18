@@ -25,7 +25,7 @@
         >
           <span
             class="caption"
-            style="text-transform: none; color: white;"
+            style="color: white;"
           >登録 ｜ ログイン</span>
         </v-btn>
       </v-toolbar-items>
