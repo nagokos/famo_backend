@@ -63,7 +63,6 @@
                 rounded
                 small
                 class="font-weight-bold"
-                @click="push"
               >
                 プリンス
               </v-btn>
@@ -125,9 +124,6 @@ export default {
       else return 'text-h4 font-weight-black'
     },
 
-  },
-  mounted() {
-    console.log(this.$vuetify.breakpoint.name);
   },
   methods: {
     toLoginPage() {
