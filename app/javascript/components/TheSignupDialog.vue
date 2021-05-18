@@ -223,7 +223,14 @@ export default {
       this.$refs.menu.save(date)
     },
     async sendUserData() {
-      console.log(this.user);
+      try {
+        const response = this.$axios.post("/api/v1/users", {
+          user: this.user
+        })
+        console.log(response);
+      } catch(err) {
+        console.log(err.response);
+      }
     }
   }
 }
