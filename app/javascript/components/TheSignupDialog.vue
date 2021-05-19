@@ -93,6 +93,7 @@
                   dense
                   label="性"
                   placeholder="例）中山"
+                  background-color="#ECEFF1"
                 />
               </v-col>
               <v-col
@@ -105,6 +106,7 @@
                   dense
                   placeholder="例）太郎"
                   label="名"
+                  background-color="#ECEFF1"
                 />
               </v-col>
               <v-col
@@ -127,6 +129,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      background-color="#ECEFF1"
                     />
                   </template>
                   <v-date-picker
@@ -150,6 +153,7 @@
                   dense
                   label="メールアドレス"
                   placeholder="例）famo0123@example.com"
+                  background-color="#ECEFF1"
                 />
               </v-col>
               <v-col
@@ -166,6 +170,7 @@
                   dense
                   counter
                   @click:append="show = !show"
+                  background-color="#ECEFF1"
                 />
               </v-col>
               <v-col class="pt-0 mb-8">
