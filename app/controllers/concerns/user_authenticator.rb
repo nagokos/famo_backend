@@ -6,7 +6,7 @@ module UserAuthenticator
 
   def create_token(user)
     preload = { user_id: user.id, exp: 1.month.from_now.to_i }
-    issue_token(preload)
+    encode(preload)
   end
 
   def current_user
@@ -18,11 +18,11 @@ module UserAuthenticator
 
   private
 
-  def issue_token(preload)
+  def encode(preload)
     JWT.encode(preload, SECRET_KEY_BASE, 'HS256')
   end
 
   def decode(encoded_token)
-    JWT.decode(encoded_token, SECRET_KEY_BASE, true, algorithm: 'HS256')
+    JWT.decode(encoded_token, SECRET_KEY_BASE, true, algorithm: 'HS256').first
   end
 end

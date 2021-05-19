@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const state = ({
+const state = () => ({
   currentUser: ""
 })
 
@@ -22,13 +22,14 @@ const actions = {
     if (currentUser) {
       return currentUser
     }
-    dispatch("fetchCurrenUser")
+    dispatch("getCurrentUserFromAPI")
   },
-  fetchCurrentUser({ commit }) {
+  async getCurrentUserFromAPI({ commit }) {
     try {
-
+      const response = await axios.get("/api/v1/users/current")
+      commit("setCurrentUser", response.data)
     } catch(err) {
-
+      return null
     }
   }
 }

@@ -135,11 +135,11 @@ export default {
     },
     async sendLoginData() {
       try {
-        const response = await this.$axios.post("/api/v1/login", {
+        await this.$axios.post("/api/v1/login", {
           email: this.email,
           password: this.password,
         })
-        console.log(response);
+        await this.$store.dispatch("user/getCurrentUserFromAPI")
       } catch(err) {
         console.log(err.response);
       }
