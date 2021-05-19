@@ -6,11 +6,18 @@
       :persistent="true"
     >
       <v-card>
-        <v-card-title
-          class="font-weight-black"
-          style="justify-content: center;"
+        <v-btn
+          icon
+          @click="closeSignupDialog"
         >
-          新規登録
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+        <v-card-title
+          class="font-weight-black pt-0"
+        >
+          <span class="mx-auto">新規登録</span>
         </v-card-title>
         <v-divider />
 
@@ -245,6 +252,12 @@ export default {
   methods: {
     open() {
       this.dialog = true
+    },
+    closeSignupDialog() {
+      if (this.emailRegister === true) {
+        return this.emailRegister = false
+      }
+      this.dialog = false
     },
     signupForm() {
       this.emailRegister = true
