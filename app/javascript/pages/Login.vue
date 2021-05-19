@@ -15,7 +15,10 @@
             </v-card-title>
             <v-divider />
             <div class="signup">
-              <v-col align="center" class="register-area">
+              <v-col
+                align="center"
+                class="register-area"
+              >
                 <p
                   class="mb-5"
                   style="color: #616161; font-size: 15px;"
@@ -52,7 +55,10 @@
             <div class="signup">
               <v-container class="mt-12">
                 <v-row>
-                  <v-col cols="12" align="center">
+                  <v-col
+                    cols="12"
+                    align="center"
+                  >
                     <v-text-field
                       v-model="email"
                       label="メールアドレス"
@@ -60,7 +66,10 @@
                       background-color="#ECEFF1"
                     />
                   </v-col>
-                  <v-col cols="12" class="pt-0">
+                  <v-col
+                    cols="12"
+                    class="pt-0"
+                  >
                     <v-text-field
                       v-model="password"
                       :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -72,7 +81,10 @@
                       @click:append="show = !show"
                     />
                   </v-col>
-                  <v-col cols="12" class="pt-0">
+                  <v-col
+                    cols="12"
+                    class="pt-0"
+                  >
                     <v-btn
                       outlined
                       depressed
@@ -86,20 +98,34 @@
                     </v-btn>
                   </v-col>
                   <v-col cols="12 pb-0">
-                    <p class="caption">- 他サイトのアカウントで登録済みの方はこちら -</p>
+                    <p class="caption">
+                      - 他サイトのアカウントで登録済みの方はこちら -
+                    </p>
                   </v-col>
-                  <v-col cols="6" align="center">
-                    <v-avatar size="55" class="ml-14">
+                  <v-col
+                    cols="6"
+                    align="center"
+                  >
+                    <v-avatar
+                      size="55"
+                      class="ml-14"
+                    >
                       <v-img
                         src="/img/line.png"
-                      ></v-img>
+                      />
                     </v-avatar>
                   </v-col>
-                  <v-col cols="6" align="center">
-                    <v-avatar size="55" class="mr-14">
+                  <v-col
+                    cols="6"
+                    align="center"
+                  >
+                    <v-avatar
+                      size="55"
+                      class="mr-14"
+                    >
                       <v-img
                         src="/img/facebook.png"
-                      ></v-img>
+                      />
                     </v-avatar>
                   </v-col>
                 </v-row>
