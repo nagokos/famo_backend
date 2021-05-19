@@ -10,6 +10,11 @@ Vue.use(VueRouter)
 import Axios from "../plugins/axios"
 Vue.prototype.$axios = Axios
 
+// Vuex
+import Vuex from "vuex"
+import store from "../store/index"
+Vue.use(Vuex)
+
 // Vuetify
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
@@ -28,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el: "#app",
     vuetify,
     router,
+    store,
     render: h => h(App)
   })
   app.$mount("#app")

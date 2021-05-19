@@ -5,24 +5,24 @@ module UserAuthenticator
   SECRET_KEY_BASE = Rails.application.secrets.secret_key_base
 
   def create_token(user)
-    preload = { user_id: user.id, exp: 1.month_from.now.to_i }
-    issue_token(preload)
+    preload = { user_id: user.id, exp: 1.month.from_now.to_i }
+    encode(preload)
   end
 
   def current_user
-    return unless cookie[:token].present?
+    return unless cookies[:token].present?
 
-    payload = decode(cookie[:token])
+    payload = decode(cookies[:token])
     @current_user ||= User.find_by(id: payload['user_id'])
   end
 
   private
 
-  def issue_token(preload)
+  def encode(preload)
     JWT.encode(preload, SECRET_KEY_BASE, 'HS256')
   end
 
   def decode(encoded_token)
-    JWT.decode(encoded_token, SECRET_KEY_BASE, true, algorithm: 'HS256')
+    JWT.decode(encoded_token, SECRET_KEY_BASE, true, algorithm: 'HS256').first
   end
 end

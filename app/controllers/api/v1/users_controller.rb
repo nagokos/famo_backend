@@ -8,8 +8,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  def update; end
-
   private
 
   def user_params
