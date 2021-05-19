@@ -19,7 +19,7 @@
               x-large
               depressed
               style="font-weight: bold"
-              @click="toLoginPage"
+              @click="openRegister"
             >
               今すぐはじめる
             </v-btn>
@@ -109,11 +109,19 @@
         </v-row>
       </v-container>
     </div>
+    <the-signup-dialog
+      ref="signupDialog"
+    />
   </div>
 </template>
 
 <script>
+import TheSignupDialog from "../components/TheSignupDialog"
+
 export default {
+  components: {
+    TheSignupDialog
+  },
   computed: {
     bkPoint() {
       return this.$vuetify.breakpoint.name
@@ -123,11 +131,10 @@ export default {
       if (bk === 'lg') return 'text-h3 font-weight-black mt-4'
       else return 'text-h4 font-weight-black'
     },
-
   },
   methods: {
-    toLoginPage() {
-      this.$router.push({ name: "login" })
+    openRegister() {
+      this.$refs.signupDialog.open()
     }
   }
 }
