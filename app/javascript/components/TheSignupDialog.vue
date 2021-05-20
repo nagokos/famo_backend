@@ -88,7 +88,10 @@
           v-if="emailRegister"
           class="pb-0"
         >
-          <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+          <ValidationObserver
+            ref="observer"
+            v-slot="{ handleSubmit }"
+          >
             <v-form>
               <v-container>
                 <v-row>
@@ -96,7 +99,11 @@
                     cols="6"
                     class="mt-3"
                   >
-                    <ValidationProvider rules="required|max:30" name="性" v-slot="{ errors }">
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required|max:30"
+                      name="性"
+                    >
                       <v-text-field
                         v-model="user.last_name"
                         outlined
@@ -113,7 +120,11 @@
                     cols="6"
                     class="mt-3"
                   >
-                    <ValidationProvider rules="required|max:30" name="名" v-slot="{ errors }">
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required|max:30"
+                      name="名"
+                    >
                       <v-text-field
                         v-model="user.first_name"
                         outlined
@@ -138,7 +149,11 @@
                       min-width="auto"
                     >
                       <template #activator="{ on, attrs }">
-                        <ValidationProvider rules="required|birthDateFormat" name="生年月日" v-slot="{ errors }">
+                        <ValidationProvider
+                          v-slot="{ errors }"
+                          rules="required|birthDateFormat"
+                          name="生年月日"
+                        >
                           <v-text-field
                             v-model="user.birth_date"
                             label="生年月日"
@@ -146,10 +161,10 @@
                             dense
                             readonly
                             v-bind="attrs"
-                            v-on="on"
                             background-color="#ECEFF1"
                             required
                             :error-messages="errors"
+                            v-on="on"
                           />
                         </ValidationProvider>
                       </template>
@@ -168,7 +183,12 @@
                     cols="12"
                     class="pt-0"
                   >
-                    <ValidationProvider vid="email" rules="required|email" name="メールアドレス" v-slot="{ errors }">
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      vid="email"
+                      rules="required|email"
+                      name="メールアドレス"
+                    >
                       <v-text-field
                         v-model="user.email"
                         outlined
@@ -185,7 +205,11 @@
                     cols="12"
                     class="pt-0"
                   >
-                    <ValidationProvider rules="required|min:6" name="パスワード" v-slot="{ errors }">
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required|min:6"
+                      name="パスワード"
+                    >
                       <v-text-field
                         v-model="user.password"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -195,10 +219,10 @@
                         outlined
                         dense
                         counter
-                        @click:append="show = !show"
                         background-color="#ECEFF1"
                         required
                         :error-messages="errors"
+                        @click:append="show = !show"
                       />
                     </ValidationProvider>
                   </v-col>
