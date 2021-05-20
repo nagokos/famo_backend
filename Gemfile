@@ -16,6 +16,7 @@ gem 'rails-i18n'
 gem 'sorcery'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'foreman'
@@ -23,7 +24,6 @@ group :development, :test do
   gem 'rails_best_practices', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false
-  gem 'awesome_print'
 end
 
 group :development do
@@ -34,9 +34,9 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'webdrivers'
-  gem 'shoulda-matchers'
   gem 'rspec_junit_formatter'
+  gem 'shoulda-matchers'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
