@@ -6,7 +6,6 @@ FactoryBot.define do
     role { 0 }
     introduction { '' }
     sequence(:email, 'rails_1@example.com')
-    password { 'foobar' }
-    password_confirmation {'foobar'}
+    password { 'Foobar0123' }
   end
 end
