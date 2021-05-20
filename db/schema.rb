@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_073025) do
+ActiveRecord::Schema.define(version: 2021_05_20_151828) do
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "avatar"
+    t.string "avatar", default: "https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png", null: false
     t.date "birth_date", null: false
     t.integer "role", default: 0, null: false
     t.text "introduction"
