@@ -53,7 +53,10 @@
             </v-card-title>
             <v-divider />
             <div class="signup">
-              <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+              <ValidationObserver
+                ref="observer"
+                v-slot="{ handleSubmit }"
+              >
                 <v-form>
                   <v-container class="mt-12">
                     <v-row>
@@ -61,7 +64,11 @@
                         cols="12"
                         align="center"
                       >
-                        <ValidationProvider rules="required" name="メールアドレス" v-slot="{ errors }">
+                        <ValidationProvider
+                          v-slot="{ errors }"
+                          rules="required"
+                          name="メールアドレス"
+                        >
                           <v-text-field
                             v-model="email"
                             label="メールアドレス"
@@ -76,7 +83,11 @@
                         cols="12"
                         class="pt-0"
                       >
-                        <ValidationProvider rules="required" name="パスワード" v-slot="{ errors }">
+                        <ValidationProvider
+                          v-slot="{ errors }"
+                          rules="required"
+                          name="パスワード"
+                        >
                           <v-text-field
                             v-model="password"
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -85,9 +96,9 @@
                             hint="６文字以上で入力してください"
                             outlined
                             background-color="#ECEFF1"
-                            @click:append="show = !show"
                             required
                             :error-messages="errors"
+                            @click:append="show = !show"
                           />
                         </ValidationProvider>
                       </v-col>

@@ -16,6 +16,7 @@ gem 'rails-i18n'
 gem 'sorcery'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'foreman'
@@ -33,6 +34,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'rspec_junit_formatter'
+  gem 'shoulda-matchers'
   gem 'webdrivers'
 end
 
