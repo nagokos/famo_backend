@@ -23,6 +23,7 @@ group :development, :test do
   gem 'rails_best_practices', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'awesome_print'
 end
 
 group :development do
