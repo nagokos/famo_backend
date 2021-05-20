@@ -34,6 +34,7 @@ end
 group :test do
   gem 'capybara'
   gem 'webdrivers'
+  gem 'shoulda-matchers'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
