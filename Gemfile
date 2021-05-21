@@ -19,6 +19,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'foreman'
   gem 'pry-byebug'
   gem 'rails_best_practices', require: false
