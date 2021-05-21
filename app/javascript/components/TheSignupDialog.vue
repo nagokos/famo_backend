@@ -298,6 +298,7 @@ export default {
         Object.assign(this.$data, this.$options.data())
         this.$refs.observer.reset()
       } catch(err) {
+        console.log(err.response);
         this.$refs.observer.setErrors({
           email: ["このメールアドレスは既に使用されています"]
         })
