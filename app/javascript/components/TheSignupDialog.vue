@@ -151,7 +151,7 @@
                       <template #activator="{ on, attrs }">
                         <ValidationProvider
                           v-slot="{ errors }"
-                          rules="required|birthDateFormat"
+                          :rules="{ required: true, formFormat: /\d{4}-\d{2}-\d{2}/ }"
                           name="生年月日"
                         >
                           <v-text-field
@@ -186,7 +186,8 @@
                     <ValidationProvider
                       v-slot="{ errors }"
                       vid="email"
-                      rules="required|email"
+                      :rules="{ required: true,
+                                formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i }"
                       name="メールアドレス"
                     >
                       <v-text-field
@@ -207,7 +208,7 @@
                   >
                     <ValidationProvider
                       v-slot="{ errors }"
-                      rules="required|min:6"
+                      :rules="{ required: true, min: 8, formFormat: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}$/i }"
                       name="パスワード"
                     >
                       <v-text-field
@@ -215,7 +216,9 @@
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show ? 'text' : 'password'"
                         label="パスワード"
-                        hint="６文字以上で入力してください"
+                        placeholder="８文字以上の半角英数字"
+                        hint="＊英字、数字の両方を含めてください"
+                        :persistent-hint="true"
                         outlined
                         dense
                         counter
@@ -282,6 +285,7 @@ export default {
         return this.emailRegister = false
       }
       this.dialog = false
+      Object.assign(this.$data, this.$options.data())
     },
     signupForm() {
       this.emailRegister = true
