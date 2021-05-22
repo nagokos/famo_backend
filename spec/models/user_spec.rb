@@ -35,13 +35,12 @@ RSpec.describe User, type: :model do
                                         'foo@bar+baz.com').for(:email)
       end
       it 'valid password' do
-        is_expected.to allow_values('Rails0123',
-                                    '0123RAILs').for(:password)
+        is_expected.to allow_values('rails0123',
+                                    'Rails0123',
+                                    'a1' * 200).for(:password)
       end
       it 'invalid password' do
-        is_expected.to_not allow_values(' ' * 8,
-                                        'RAILS0123',
-                                        'rails0123').for(:password)
+        is_expected.to_not allow_values(' ' * 8).for(:password)
       end
     end
 
