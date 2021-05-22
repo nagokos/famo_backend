@@ -93,8 +93,8 @@
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                             :type="show ? 'text' : 'password'"
                             label="パスワード"
-                            hint="６文字以上で入力してください"
                             outlined
+                            counter
                             background-color="#ECEFF1"
                             required
                             :error-messages="errors"
