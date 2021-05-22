@@ -18,6 +18,7 @@ module UserAuthenticator
 
   def require_login
     return if current_user
+
     render json: { message: 'ログインしてください' }, status: :unauthorized
   end
 
