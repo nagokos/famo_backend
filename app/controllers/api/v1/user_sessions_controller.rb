@@ -4,9 +4,9 @@ class Api::V1::UserSessionsController < Api::V1::BaseController
     if user
       token = create_token(user)
       cookies[:token] = { value: token, expires: 1.month.from_now, secure: Rails.env.production?, httponly: true, same_site: 'Lax' }
-      render json: user
+      head :ok
     else
-      render json: { message: 'ログインに失敗しました' }, status: :bad_request
+      render json: { message: 'ログインに失敗しました' }, status: :unauthorized
     end
   end
 
