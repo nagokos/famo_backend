@@ -10,8 +10,15 @@
           icon
           @click="closeSignupDialog"
         >
-          <v-icon>
+          <v-icon
+            v-if="!emailRegister"
+          >
             mdi-close
+          </v-icon>
+          <v-icon
+            v-if="emailRegister"
+          >
+            mdi-arrow-left
           </v-icon>
         </v-btn>
         <v-card-title
