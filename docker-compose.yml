@@ -25,7 +25,17 @@ services:
       - db
     stdin_open: true
     tty: true
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - '8025:8025'
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
+    volumes:
+      - maildir:/tmp
 volumes:
   bundle_path:
+  maildir:
   mysql-data:
     driver: local
