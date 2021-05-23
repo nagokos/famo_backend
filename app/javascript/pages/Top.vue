@@ -17,7 +17,6 @@
               color="black"
               class="mt-4"
               x-large
-              depressed
               style="font-weight: bold"
               @click="openRegister"
             >
