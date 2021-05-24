@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_save :email_downcase
+  after_save :setup_activation, if: -> { email_changed? }
 
   authenticates_with_sorcery!
 
