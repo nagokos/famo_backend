@@ -8,6 +8,15 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  def active
+    if user = User.load_from_activation_token(params[:id])
+      user.activate!
+      redirect_to root_path
+    else
+      render json: { message: '認証済み又はリンクの有効期限が切れています' }, status: :bad_request
+    end
+  end
+
   private
 
   def user_params
