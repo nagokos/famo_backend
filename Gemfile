@@ -15,6 +15,9 @@ gem 'rails-i18n'
 # 認証
 gem 'sorcery'
 
+# 定数管理
+gem 'config'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

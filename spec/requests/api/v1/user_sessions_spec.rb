@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe "Api::V1::UserSessions", type: :request do
   describe "POST /api/v1/login" do
     let(:user) { create(:user) }
-    before { @header = { 'X-Requested-With': 'XMLHttpRequest' } }
+    before do
+      user.activate!
+      @header = { 'X-Requested-With': 'XMLHttpRequest' }
+    end
 
     context 'パラメーターが妥当な場合' do
       before do

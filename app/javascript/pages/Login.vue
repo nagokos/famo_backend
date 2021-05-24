@@ -26,7 +26,6 @@
                   アカウントをお持ちでない方は<br>新規登録をしてください
                 </p>
                 <v-btn
-                  depressed
                   dark
                   x-large
                   block
