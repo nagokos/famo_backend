@@ -25,4 +25,8 @@ class User < ApplicationRecord
   def email_downcase
     self.email = email.downcase
   end
+
+  def set_activation_token_exp
+    self.activation_token_expires_at = Time.zone.now.since(1.day)
+  end
 end

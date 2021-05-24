@@ -1,12 +1,12 @@
 AllCops:
   # 除外
   Exclude:
-    - 'vendor/**/*'
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'tmp/**/*'
-    - 'node_modules/**/*'
-    - 'spec/**/*'
+    - "vendor/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "tmp/**/*"
+    - "node_modules/**/*"
+    - "spec/**/*"
 
 # 日本語でのコメントを許可
 Style/AsciiComments:
@@ -29,6 +29,10 @@ Naming/AccessorMethodName:
   Exclude:
     - "app/controllers/**/*"
 
+Metrics/BlockLength:
+  Exclude:
+    - "config/**/*"
+
 # 緩めに設定する
 Metrics/AbcSize:
   Max: 25   #default 15
@@ -36,7 +40,7 @@ Metrics/AbcSize:
 # 一行の長さは１５０文字まで。 コメントは制限しない
 Metrics/LineLength:
   Max: 150
-  IgnoredPatterns: ['\A#']
+  IgnoredPatterns: ["^ *# "]
   Exclude:
     - "db/migrate/*.rb"
 
