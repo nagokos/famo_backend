@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true, format: { with: EMAIL_FORMAT }
   validates :password, presence: true, length: { minimum: 8 }, format: { with: PASSWORD_FORMAT },
                        if: -> { new_record? || changes[:crypted_password] }
+  validates :activation_token, uniqueness: true, allow_nil: true
 
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
