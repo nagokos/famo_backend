@@ -40,7 +40,7 @@
                 </p>
                 <p style="font-size: 8px;">
                   ＊アカウント認証メールが届かない方は
-                  <strong @click="openSendAccountDialog" style="cursor: pointer; color: red;">こちら</strong>
+                  <strong @click="openActivationEmail" style="cursor: pointer; color: red;">こちら</strong>
                   をクリック
                 </p>
               </v-col>
@@ -204,6 +204,9 @@ export default {
       } catch(err) {
         console.log(err.response);
       }
+    },
+    openActivationEmail() {
+      this.$refs.activationEmailDialog.open()
     }
   }
 }
