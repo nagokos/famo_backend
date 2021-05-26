@@ -385,8 +385,6 @@ export default {
         const response = await this.$axios.post("/api/v1/users", {
           user: this.user
         })
-        this.dialog = false
-        Object.assign(this.$data, this.$options.data())
         this.$refs.observer.reset()
       } catch(err) {
         console.log(err.response);
