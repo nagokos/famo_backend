@@ -1,7 +1,7 @@
 class Api::V1::UserSessionsController < Api::V1::BaseController
   def create
     if (user = User.authenticate(params[:email], params[:password]))
-      token = create_token(user)
+      token = user.create_token
       cookies[:token] = { value: token, expires: 1.month.from_now, secure: Rails.env.production?, httponly: true, same_site: 'Lax' }
       head :ok
     else

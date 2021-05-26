@@ -65,6 +65,7 @@ RSpec.configure do |config|
   config.include Requests::JsonHelpers, type: :request
   config.include UserSessions
   config.include UserAuthenticator
+  config.include JwtToken
 end
 
 Shoulda::Matchers.configure do |config|

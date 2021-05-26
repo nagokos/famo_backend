@@ -1,7 +1,8 @@
 class User < ApplicationRecord
+  include JwtToken
+
   before_save :email_downcase, if: -> { email_changed? }
-  before_create :set_activation_token_exp
-  before_update :setup_activation, if: -> { email_changed? }
+  before_update :setup_activation_attributes, if: -> { email_changed? }
   after_update :send_activation_needed_email!, if: -> { previous_changes['email'].present? }
 
   authenticates_with_sorcery!
@@ -22,13 +23,19 @@ class User < ApplicationRecord
 
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
+  def setup_activation_attributes
+    setup_activation
+    self.activation_token_expires_at = Time.zone.now.since(1.day)
+  end
+
+  def activate_attributes
+    activate!
+    update_column(:activation_token_expires_at, nil)
+  end
+
   private
 
   def email_downcase
     self.email = email.downcase
-  end
-
-  def set_activation_token_exp
-    self.activation_token_expires_at = Time.zone.now.since(1.day)
   end
 end

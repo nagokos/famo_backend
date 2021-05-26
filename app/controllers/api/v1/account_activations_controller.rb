@@ -1,8 +1,7 @@
 class Api::V1::AccountActivationsController < ApplicationController
   def create
     if (user = User.find_by(email: params[:email]))
-      user.setup_activation
-      user.activation_token_expires_at = Time.zone.now.since(1.day)
+      user.setup_activation_attributes
 
       if user.save
         UserMailer.activation_needed_email(user).deliver_now
