@@ -1,6 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
   def create
     user = User.new(user_params)
+    user.activation_token_expires_at = Time.zone.now.since(1.day)
     if user.save
       head :created
     else
