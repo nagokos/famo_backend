@@ -13,6 +13,7 @@
           <v-row>
             <v-col cols="12" class="pb-0">
               <v-text-field
+                v-model="email"
                 outlined
                 label="メールアドレス"
                 dense
@@ -24,6 +25,7 @@
               <v-btn
                 color="blue darken-1"
                 text
+                @click="sendEmail"
               >
                 送信
               </v-btn>
@@ -39,12 +41,23 @@
 export default {
   data() {
     return {
-      dialog: false
+      dialog: false,
+      email: ""
     }
   },
   methods: {
     open() {
       this.dialog = true
+    },
+    async sendEmail() {
+      try {
+        await this.$axios.post("/api/v1/account_activations", {
+          email: this.email
+        })
+        Object.assign(this.$data, this.$options.data())
+      } catch(err) {
+        console.log(err.response);
+      }
     }
   }
 }
