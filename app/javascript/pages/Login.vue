@@ -40,7 +40,7 @@
                 </p>
                 <p style="font-size: 8px;">
                   ＊アカウント認証メールが届かない方は
-                  <strong @click="openSendAccountDialog" style="cursor: pointer; color: red;">こちら</strong>
+                  <strong @click="openActivationEmail" style="cursor: pointer; color: red;">こちら</strong>
                   をクリック
                 </p>
               </v-col>
@@ -168,15 +168,20 @@
     <the-signup-dialog
       ref="signupDialog"
     />
+    <resend-activation-email-dialog
+      ref="activationEmailDialog"
+    />
   </div>
 </template>
 
 <script>
 import TheSignupDialog from "../components/TheSignupDialog"
+import ResendActivationEmailDialog from "../components/ResendActivationEmailDialog"
 
 export default {
   components: {
-    TheSignupDialog
+    TheSignupDialog,
+    ResendActivationEmailDialog
   },
   data() {
     return {
@@ -199,6 +204,9 @@ export default {
       } catch(err) {
         console.log(err.response);
       }
+    },
+    openActivationEmail() {
+      this.$refs.activationEmailDialog.open()
     }
   }
 }
