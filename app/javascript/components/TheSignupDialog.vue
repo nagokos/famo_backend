@@ -394,6 +394,16 @@ export default {
           email: ["このメールアドレスは既に使用されています"]
         })
       }
+    },
+    async sendAgainEmail() {
+      try {
+        const response = await this.$axios.post("/api/v1/account_activations", {
+          email: this.user.email
+        })
+        console.log(response);
+      } catch(err) {
+        console.log(err.response);
+      }
     }
   }
 }
