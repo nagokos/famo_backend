@@ -168,15 +168,20 @@
     <the-signup-dialog
       ref="signupDialog"
     />
+    <the-send-account-activation-dialog
+      ref="accountActivationDialog"
+    />
   </div>
 </template>
 
 <script>
 import TheSignupDialog from "../components/TheSignupDialog"
+import TheSendAccountActivationDialog from "../components/TheSendAccountActivationDialog"
 
 export default {
   components: {
-    TheSignupDialog
+    TheSignupDialog,
+    TheSendAccountActivationDialog
   },
   data() {
     return {
