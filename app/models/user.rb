@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include JwtToken
+
   before_save :email_downcase, if: -> { email_changed? }
   before_create :set_activation_token_exp
   before_update :setup_activation, if: -> { email_changed? }
