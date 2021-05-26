@@ -11,7 +11,7 @@
           @click="closeSignupDialog"
         >
           <v-icon
-            v-if="!emailRegister"
+            v-if="registerSelect || sendNeededEmail"
           >
             mdi-close
           </v-icon>
@@ -28,7 +28,7 @@
         </v-card-title>
         <v-divider />
 
-        <v-container v-if="!emailRegister">
+        <v-container v-if="registerSelect">
           <v-row>
             <v-col
               cols="12"
@@ -193,8 +193,10 @@
                     <ValidationProvider
                       v-slot="{ errors }"
                       vid="email"
-                      :rules="{ required: true,
-                                formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i }"
+                      :rules="{
+                        required: true,
+                        formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i
+                      }"
                       name="メールアドレス"
                     >
                       <v-text-field
@@ -254,6 +256,79 @@
             </v-form>
           </ValidationObserver>
         </v-card-text>
+        <v-card-text v-if="sendNeededEmail">
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                class="pb-0 mt-9"
+                align="center"
+              >
+                <p
+                  class="font-weight-bold"
+                  style="color: black"
+                >
+                  ご登録されたアドレスにアカウント認証メールを送信しました
+                </p>
+              </v-col>
+              <v-col
+                cols="12"
+                class="pt-0"
+              >
+                <v-sheet
+                  class="d-flex"
+                  rounded
+                  color="grey lighten-3"
+                  height="50"
+                >
+                  <v-col
+                    cols="12"
+                    align="center"
+                  >
+                    <p>{{ user.email }}</p>
+                  </v-col>
+                </v-sheet>
+              </v-col>
+              <v-col
+                cols="12"
+                class="pt-0"
+              >
+                <p style="font-size: 8px;">
+                  ＊リンクをクリックしてアカウントを認証してください。
+                  <br>
+                  ＊リンクの有効期限は２４時間以内です。
+                </p>
+              </v-col>
+            </v-row>
+            <v-divider />
+          </v-container>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                class="pb-0"
+                align="center"
+              >
+                <p
+                  class="font-weight-bold"
+                  style="color: black"
+                >
+                  メールが届かない方はこちら
+                </p>
+              </v-col>
+              <v-col class="pt-0">
+                <v-btn
+                  block
+                  depressed
+                  outlined
+                  @click="sendAgainEmail"
+                >
+                  再度送信
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </div>
@@ -264,7 +339,9 @@ export default {
   data() {
     return {
       dialog: false,
+      registerSelect: false,
       emailRegister: false,
+      sendNeededEmail: false,
       password: "",
       show: false,
       menu: false,
@@ -286,16 +363,19 @@ export default {
   methods: {
     open() {
       this.dialog = true
+      this.registerSelect = true
     },
     closeSignupDialog() {
       if (this.emailRegister === true) {
-        return this.emailRegister = false
+        this.emailRegister = false
+        return this.registerSelect = true
       }
       this.dialog = false
       Object.assign(this.$data, this.$options.data())
     },
     signupForm() {
       this.emailRegister = true
+      this.registerSelect = false
     },
     save(date) {
       this.$refs.menu.save(date)
