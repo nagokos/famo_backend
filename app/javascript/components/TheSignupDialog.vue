@@ -385,14 +385,24 @@ export default {
         const response = await this.$axios.post("/api/v1/users", {
           user: this.user
         })
-        this.dialog = false
-        Object.assign(this.$data, this.$options.data())
         this.$refs.observer.reset()
+        this.emailRegister = false
+        this.sendNeededEmail = true
       } catch(err) {
         console.log(err.response);
         this.$refs.observer.setErrors({
           email: ["このメールアドレスは既に使用されています"]
         })
+      }
+    },
+    async sendAgainEmail() {
+      try {
+        const response = await this.$axios.post("/api/v1/account_activations", {
+          email: this.user.email
+        })
+        console.log(response);
+      } catch(err) {
+        console.log(err.response);
       }
     }
   }
