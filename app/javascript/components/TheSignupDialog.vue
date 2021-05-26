@@ -386,6 +386,8 @@ export default {
           user: this.user
         })
         this.$refs.observer.reset()
+        this.emailRegister = false
+        this.sendNeededEmail = true
       } catch(err) {
         console.log(err.response);
         this.$refs.observer.setErrors({
