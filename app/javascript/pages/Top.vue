@@ -108,18 +108,18 @@
         </v-row>
       </v-container>
     </div>
-    <the-signup-dialog
+    <signup-dialog
       ref="signupDialog"
     />
   </div>
 </template>
 
 <script>
-import TheSignupDialog from "../components/TheSignupDialog"
+import SignupDialog from "../components/SignupDialog"
 
 export default {
   components: {
-    TheSignupDialog
+    SignupDialog
   },
   computed: {
     bkPoint() {
