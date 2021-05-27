@@ -262,11 +262,13 @@
         >
           <template #resend>
             <v-container>
-              <v-divider />
+              <v-divider
+                class="mt-n3"
+              />
               <v-row>
                 <v-col
                   cols="12"
-                  class="pb-0"
+                  class="mt-6 pb-0"
                   align="center"
                 >
                   <p
