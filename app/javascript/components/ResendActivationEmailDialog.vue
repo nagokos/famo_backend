@@ -5,7 +5,15 @@
     :persistent="true"
   >
     <v-card>
-      <v-card-title>
+      <v-btn
+        icon
+        @click="closeDialog"
+      >
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
+      <v-card-title class="pt-0">
         <span class="mx-auto">認証メール再送信</span>
       </v-card-title>
       <v-divider />
