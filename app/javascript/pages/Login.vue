@@ -175,10 +175,6 @@ export default {
     max-width: 1050px;
     margin: 0 auto;
   }
-  .signup {
-    max-width: 300px;
-    margin-top: 110px;
-  }
   .login {
     max-width: 300px;
   }
