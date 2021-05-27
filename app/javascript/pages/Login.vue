@@ -6,46 +6,7 @@
           cols="12"
           md="6"
         >
-          <v-card
-            class="mt-13"
-            height="530"
-          >
-            <v-card-title style="justify-content: center;">
-              <span class="font-weight-black">新規登録</span>
-            </v-card-title>
-            <v-divider />
-            <div class="signup mx-auto">
-              <v-col
-                align="center"
-              >
-                <p
-                  style="color: #616161; font-size: 15px;"
-                >
-                  アカウントをお持ちでない方は<br>新規登録をしてください
-                </p>
-                <v-btn
-                  dark
-                  x-large
-                  block
-                  color="#EF5350"
-                  class="font-weight-black"
-                  @click="openRegister"
-                >
-                  新規会員登録
-                </v-btn>
-              </v-col>
-              <v-col>
-                <p style="font-size: 8px;">
-                  ＊会員登録することでFamoの利用規約・プライバシーポリシーに同意するものとします。
-                </p>
-                <p style="font-size: 8px;">
-                  ＊アカウント認証メールが届かない方は
-                  <strong @click="openActivationEmail" style="cursor: pointer; color: red;">こちら</strong>
-                  をクリック
-                </p>
-              </v-col>
-            </div>
-          </v-card>
+          <signup />
         </v-col>
         <v-col
           cols="12"
@@ -165,23 +126,15 @@
         </v-col>
       </v-row>
     </v-container>
-    <signup-dialog
-      ref="signupDialog"
-    />
-    <resend-activation-email-dialog
-      ref="activationEmailDialog"
-    />
   </div>
 </template>
 
 <script>
-import SignupDialog from "../components/SignupDialog"
-import ResendActivationEmailDialog from "../components/ResendActivationEmailDialog"
+import Signup from "../components/Signup"
 
 export default {
   components: {
-    SignupDialog,
-    ResendActivationEmailDialog
+    Signup,
   },
   data() {
     return {
@@ -216,10 +169,6 @@ export default {
   .register-login {
     max-width: 1050px;
     margin: 0 auto;
-  }
-  .signup {
-    max-width: 300px;
-    margin-top: 110px;
   }
   .login {
     max-width: 300px;
