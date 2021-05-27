@@ -16,7 +16,7 @@
             mdi-close
           </v-icon>
           <v-icon
-            v-if="emailRegister"
+            v-if="signupForm"
           >
             mdi-arrow-left
           </v-icon>
@@ -94,25 +94,10 @@ export default {
     return {
       dialog: false,
       registerSelect: false,
-      emailRegister: false,
+      signupForm: false,
       sendActivationEmail: false,
-      password: "",
-      show: false,
-      menu: false,
-      activePicker: "",
-      user: {
-        first_name: "",
-        last_name: "",
-        birth_date: "",
-        email: "",
-        password: ""
-      }
+      email: ""
     }
-  },
-  watch: {
-    menu (val) {
-      val && setTimeout(() => (this.activePicker = "YEAR"))
-    },
   },
   methods: {
     open() {
@@ -120,44 +105,25 @@ export default {
       this.registerSelect = true
     },
     closeDialog() {
-      if (this.emailRegister === true) {
-        this.emailRegister = false
+      if (this.signupForm === true) {
+        this.signupForm = false
         return this.registerSelect = true
       }
-      this.dialog = false
       Object.assign(this.$data, this.$options.data())
     },
-    signupForm() {
-      this.emailRegister = true
+    showForm() {
+      this.signupForm = true
       this.registerSelect = false
     },
-    save(date) {
-      this.$refs.menu.save(date)
-    },
-    async sendUserData() {
-      try {
-        const response = await this.$axios.post("/api/v1/users", {
-          user: this.user
-        })
-        this.$refs.observer.reset()
-        this.emailRegister = false
-        this.sendActivationEmail = true
-      } catch(err) {
-        console.log(err.response);
-        this.$refs.observer.setErrors({
-          email: ["このメールアドレスは既に使用されています"]
-        })
-      }
+    showSendEmail(email) {
+      this.signupForm = false
+      this.sendActivationEmail = true
+      this.email = email
     },
     async resendEmail() {
-      try {
-        const response = await this.$axios.post("/api/v1/account_activations", {
-          email: this.user.email
-        })
-        console.log(response);
-      } catch(err) {
-        console.log(err.response);
-      }
+      await this.$axios.post("/api/v1/account_activations", {
+        email: this.email
+      })
     }
   }
 }
