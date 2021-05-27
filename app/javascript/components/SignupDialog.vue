@@ -8,10 +8,10 @@
       <v-card>
         <v-btn
           icon
-          @click="closeSignupDialog"
+          @click="closeDialog"
         >
           <v-icon
-            v-if="registerSelect || sendNeededEmail"
+            v-if="registerSelect || sendActivationEmail"
           >
             mdi-close
           </v-icon>
@@ -256,92 +256,60 @@
             </v-form>
           </ValidationObserver>
         </v-card-text>
-        <v-card-text v-if="sendNeededEmail">
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                class="pb-0 mt-9"
-                align="center"
-              >
-                <p
-                  class="font-weight-bold"
-                  style="color: black"
+        <the-send-activation-email
+          v-if="sendActivationEmail"
+          :email="user.email"
+        >
+          <template #resend>
+            <v-container>
+              <v-divider
+                class="mt-n3"
+              />
+              <v-row>
+                <v-col
+                  cols="12"
+                  class="mt-6 pb-0"
+                  align="center"
                 >
-                  ご登録されたアドレスにアカウント認証メールを送信しました
-                </p>
-              </v-col>
-              <v-col
-                cols="12"
-                class="pt-0"
-              >
-                <v-sheet
-                  class="d-flex"
-                  rounded
-                  color="grey lighten-3"
-                  height="50"
-                >
-                  <v-col
-                    cols="12"
-                    align="center"
+                  <p
+                    class="font-weight-bold"
+                    style="color: black"
                   >
-                    <p>{{ user.email }}</p>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-              <v-col
-                cols="12"
-                class="pt-0"
-              >
-                <p style="font-size: 8px;">
-                  ＊リンクをクリックしてアカウントを認証してください。
-                  <br>
-                  ＊リンクの有効期限は２４時間以内です。
-                </p>
-              </v-col>
-            </v-row>
-            <v-divider />
-          </v-container>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                class="pb-0"
-                align="center"
-              >
-                <p
-                  class="font-weight-bold"
-                  style="color: black"
-                >
-                  メールが届かない方はこちら
-                </p>
-              </v-col>
-              <v-col class="pt-0">
-                <v-btn
-                  block
-                  depressed
-                  outlined
-                  @click="sendAgainEmail"
-                >
-                  再度送信
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
+                    メールが届かない方はこちら
+                  </p>
+                </v-col>
+                <v-col class="pt-0">
+                  <v-btn
+                    block
+                    depressed
+                    outlined
+                    @click="resendEmail"
+                  >
+                    再度送信
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </template>
+        </the-send-activation-email>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
+import TheSendActivationEmail from "./TheSendActivationEmail"
+
 export default {
+  components: {
+    TheSendActivationEmail
+  },
   data() {
     return {
       dialog: false,
       registerSelect: false,
       emailRegister: false,
-      sendNeededEmail: false,
+      sendActivationEmail: false,
       password: "",
       show: false,
       menu: false,
@@ -365,7 +333,7 @@ export default {
       this.dialog = true
       this.registerSelect = true
     },
-    closeSignupDialog() {
+    closeDialog() {
       if (this.emailRegister === true) {
         this.emailRegister = false
         return this.registerSelect = true
@@ -387,7 +355,7 @@ export default {
         })
         this.$refs.observer.reset()
         this.emailRegister = false
-        this.sendNeededEmail = true
+        this.sendActivationEmail = true
       } catch(err) {
         console.log(err.response);
         this.$refs.observer.setErrors({
@@ -395,7 +363,7 @@ export default {
         })
       }
     },
-    async sendAgainEmail() {
+    async resendEmail() {
       try {
         const response = await this.$axios.post("/api/v1/account_activations", {
           email: this.user.email
