@@ -28,68 +28,15 @@
         </v-card-title>
         <v-divider />
 
-        <v-container v-if="registerSelect">
-          <v-row>
-            <v-col
-              cols="12"
-              align="center"
-              class="mt-10"
-            >
-              <v-btn
-                width="250"
-                x-large
-                class="font-weight-bold"
-                @click="signupForm"
-              >
-                <v-icon
-                  color="#EF5350"
-                  class="mr-2"
-                >
-                  mdi-email
-                </v-icon>
-                メールアドレスで登録
-              </v-btn>
-            </v-col>
-            <v-col
-              cols="12"
-              align="center"
-            >
-              <v-btn
-                width="250"
-                x-large
-                class="font-weight-bold"
-              >
-                <v-img
-                  src="/img/line.png"
-                  class="mr-2"
-                  max-width="25"
-                  max-height="25"
-                />
-                LINEで登録
-              </v-btn>
-            </v-col>
-            <v-col
-              cols="12"
-              align="center"
-              class="mb-14"
-            >
-              <v-btn
-                width="250"
-                x-large
-                class="font-weight-bold"
-                style="text-transform: none;"
-              >
-                <v-img
-                  src="/img/facebook.png"
-                  class="mr-2"
-                  max-width="25"
-                  max-height="25"
-                />
-                FaceBookで登録
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
+        <signup-dialog-select
+          v-if="registerSelect"
+          @email-register="showForm"
+        />
+
+        <signup-dialog-form
+          v-if="signupForm"
+          @create-user="showSendEmail"
+        />
 
         <v-card-text
           v-if="emailRegister"
