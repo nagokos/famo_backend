@@ -126,20 +126,15 @@
         </v-col>
       </v-row>
     </v-container>
-    <resend-activation-email-dialog
-      ref="activationEmailDialog"
-    />
   </div>
 </template>
 
 <script>
 import Signup from "../components/Signup"
-import ResendActivationEmailDialog from "../components/ResendActivationEmailDialog"
 
 export default {
   components: {
     Signup,
-    ResendActivationEmailDialog
   },
   data() {
     return {
