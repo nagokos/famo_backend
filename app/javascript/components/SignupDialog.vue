@@ -81,10 +81,14 @@
 
 <script>
 import TheSendActivationEmail from "./TheSendActivationEmail"
+import SignupDialogSelect from "./SignupDialogSelect"
+import SignupDialogForm from "./SignupDialogForm"
 
 export default {
   components: {
-    TheSendActivationEmail
+    TheSendActivationEmail,
+    SignupDialogSelect,
+    SignupDialogForm
   },
   data() {
     return {
