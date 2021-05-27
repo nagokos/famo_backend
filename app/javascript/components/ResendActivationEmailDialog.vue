@@ -17,7 +17,7 @@
         <span class="mx-auto">認証メール再送信</span>
       </v-card-title>
       <v-divider />
-      <v-card-text class="pt-6 pb-0">
+      <v-card-text v-if="emailForm" class="pt-6 pb-0">
         <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
           <v-form>
             <v-container>
@@ -47,7 +47,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="handleSubmit(sendEmail)"
+                    @click="handleSubmit(sendEmailData)"
                   >
                     送信
                   </v-btn>
@@ -57,28 +57,44 @@
           </v-form>
         </ValidationObserver>
       </v-card-text>
+      <the-send-activation-email
+        v-if="sendActivationEmail"
+        :email="email"
+      />
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import TheSendActivationEmail from "./TheSendActivationEmail"
+
 export default {
+  components: {
+    TheSendActivationEmail
+  },
   data() {
     return {
       dialog: false,
-      email: ""
+      email: "",
+      emailForm: false,
+      sendActivationEmail: false
     }
   },
   methods: {
     open() {
       this.dialog = true
+      this.emailForm = true
     },
-    async sendEmail() {
+    closeDialog() {
+      Object.assign(this.$data, this.$options.data())
+    },
+    async sendEmailData() {
       try {
         await this.$axios.post("/api/v1/account_activations", {
           email: this.email
         })
-        Object.assign(this.$data, this.$options.data())
+        this.emailForm = false
+        this.sendActivationEmail = true
       } catch(err) {
         this.$refs.observer.setErrors({
           email: ["ユーザーが見つかりませんでした"]
