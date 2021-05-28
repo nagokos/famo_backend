@@ -1,6 +1,5 @@
 module UserAuthenticator
   extend ActiveSupport::Concern
-  require 'jwt'
 
   def current_user
     return unless cookies[:token].present?
