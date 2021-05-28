@@ -2,14 +2,12 @@ class Api::V1::AccountActivationsController < ApplicationController
   def create
     if (user = User.find_by(email: params[:email]))
       user.setup_activation_attributes
-
       if user.save
         UserMailer.activation_needed_email(user).deliver_now
         head :ok
       else
-        render json: { errors: user.errors.full_messages }, status: :bad_request
+        render json: { message: '送信に失敗しました。もう一度お試しください。' }, status: :bad_request
       end
-
     else
       render json: { message: 'ユーザーが見つかりませんでした' }, status: :bad_request
     end
