@@ -9,11 +9,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
     end
 
     context 'パラメーターが妥当な場合' do
-      before do
-        post '/api/v1/login', headers: @header,
-                               params: { email: user.email, password: 'Foobar0123' }
-      end
-
+      before { post '/api/v1/login', headers: @header, params: { email: user.email, password: 'Foobar0123' } }
       it '成功して２００を返す' do
         expect(response.status).to eq(200)
       end
@@ -28,11 +24,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
     end
 
     context 'パラメータが不正な場合' do
-      before do
-        post '/api/v1/login', headers: @header,
-                               params: { email: 'rails@example.com', password: 'Foobar0123' }
-      end
-
+      before { post '/api/v1/login', headers: @header, params: { email: 'rails@example.com', password: 'Foobar0123' } }
       it '失敗して４０１を返す' do
         expect(response.status).to eq(401)
       end
