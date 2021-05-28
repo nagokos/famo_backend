@@ -44,15 +44,44 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'validate uniquness of email' do #emailはbefore_saveが読み込めないためshoulda-matchersを使用しない
+    context 'uniquness' do #emailはbefore_saveが読み込めないためshoulda-matchersを使用しない
       let!(:user) { create(:user) }
-      it 'is invalid with a duplicate email' do
-        dup_user = build(:user, email: user.email)
-        expect(dup_user).to_not be_valid
+      context 'email' do
+        it '重複したメールアドレスは無効であること' do
+          dup_user = build(:user, email: user.email)
+          expect(dup_user).to_not be_valid
+        end
+        it '大文字と小文字は区別されないこと' do
+          dup_user = build(:user, email: user.email.upcase)
+          expect(dup_user).to_not be_valid
+        end
       end
-      it 'is case insensitive in email' do
-        dup_user = build(:user, email: user.email.upcase)
-        expect(dup_user).to_not be_valid
+
+      context 'activation_token' do
+        it '重複したactivation_tokenは無効であること' do
+          dup_user = build(:user, activation_token: user.activation_token)
+          expect(dup_user).to_not be_valid
+        end
+      end
+    end
+  end
+
+  describe 'default' do
+    let(:user) { create(:user) }
+    it 'roleがreviewerであること' do
+      expect(user.role).to eq('reviewer')
+    end
+
+    it 'avatarのURLがデフォルトであること' do
+      expect(user.avatar).to eq('https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png')
+    end
+  end
+
+  describe 'methods' do
+    context '#activate_attributes' do
+      let!(:user) { create(:user) }
+      it 'ユーザーを有効にすること' do
+        expect(user.activate_attributes).to be_truthy
       end
     end
   end
