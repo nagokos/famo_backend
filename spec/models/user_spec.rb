@@ -44,11 +44,17 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'validate uniquness of email' do #emailはbefore_saveが読み込めないためshoulda-matchersを使用しない
+    context 'uniquness' do #emailはbefore_saveが読み込めないためshoulda-matchersを使用しない
       let!(:user) { create(:user) }
-      it 'is invalid with a duplicate email' do
-        dup_user = build(:user, email: user.email)
-        expect(dup_user).to_not be_valid
+      context 'email' do
+        it '重複したメールアドレスは無効であること' do
+          dup_user = build(:user, email: user.email)
+          expect(dup_user).to_not be_valid
+        end
+        it '大文字と小文字は区別されないこと' do
+          dup_user = build(:user, email: user.email.upcase)
+          expect(dup_user).to_not be_valid
+        end
       end
       it 'is case insensitive in email' do
         dup_user = build(:user, email: user.email.upcase)
