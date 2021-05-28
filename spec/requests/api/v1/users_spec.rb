@@ -20,6 +20,11 @@ RSpec.describe 'Api::V1::Users', type: :request do
         }.to change(User, :count).by(1)
         expect(response.status).to eq(201)
       end
+
+      it '認証メールが送信される' do
+        post '/api/v1/users', headers: @header, params: { user: @valid_data }
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+      end
     end
 
     context 'パラメータが不正な場合' do
