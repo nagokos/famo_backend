@@ -1,7 +1,7 @@
 import VueRouter from "vue-router"
 
 import Top from "../pages/Top"
-import Login from "../pages/Login"
+import SignupLogin from "../pages/SignupLogin"
 
 const routes = [
   {
@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: SignupLogin
   }
 ]
 
