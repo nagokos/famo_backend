@@ -28,7 +28,7 @@
                   v-model="item.active"
                   :prepend-icon="item.action"
                 >
-                  <template v-slot:activator>
+                  <template #activator>
                     <v-list-item-content>
                       {{ item.question }}
                     </v-list-item-content>

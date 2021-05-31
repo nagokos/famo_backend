@@ -34,7 +34,10 @@
         <p style="font-size: 8px;">
           ＊アカウント認証メールが届かない・再取得される方は
           <br>
-          <strong @click="openActivationEmail" style="cursor: pointer; color: red;">こちら</strong>
+          <strong
+            style="cursor: pointer; color: red;"
+            @click="openActivationEmail"
+          >こちら</strong>
           をクリック
         </p>
       </v-col>

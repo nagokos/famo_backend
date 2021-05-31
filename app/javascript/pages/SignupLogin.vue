@@ -33,8 +33,8 @@
                         align="center"
                       >
                         <ValidationProvider
-                          vid="email"
                           v-slot="{ errors }"
+                          vid="email"
                           rules="required"
                           name="メールアドレス"
                         >
@@ -53,8 +53,8 @@
                         class="pt-0"
                       >
                         <ValidationProvider
-                          vid="password"
                           v-slot="{ errors }"
+                          vid="password"
                           rules="required"
                           name="パスワード"
                         >
@@ -103,16 +103,20 @@
                           class="mb-0 mt-2"
                           style="font-size: 10px"
                         >
-                        ＊ ログインできない場合は
-                        <strong
-                          @click="openLoginHelp"
-                          style="cursor: pointer; color: red;">
-                          こちら
-                        </strong>
+                          ＊ ログインできない場合は
+                          <strong
+                            style="cursor: pointer; color: red;"
+                            @click="openLoginHelp"
+                          >
+                            こちら
+                          </strong>
                           をクリック
                         </p>
                       </v-col>
-                      <v-col align="center" cols="12 pb-0">
+                      <v-col
+                        align="center"
+                        cols="12 pb-0"
+                      >
                         <p class="caption">
                           - 他サイトのアカウントで登録済みの方はこちら -
                         </p>
