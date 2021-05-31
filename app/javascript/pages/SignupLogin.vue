@@ -14,7 +14,7 @@
         >
           <v-card
             class="mt-13"
-            height="530"
+            height="550"
           >
             <v-card-title style="justify-content: center;">
               <span class="font-weight-black">ログイン</span>
@@ -33,6 +33,7 @@
                         align="center"
                       >
                         <ValidationProvider
+                          vid="email"
                           v-slot="{ errors }"
                           rules="required"
                           name="メールアドレス"
@@ -52,6 +53,7 @@
                         class="pt-0"
                       >
                         <ValidationProvider
+                          vid="password"
                           v-slot="{ errors }"
                           rules="required"
                           name="パスワード"
@@ -75,6 +77,7 @@
                         class="pt-0"
                       >
                         <v-btn
+                          v-if="active"
                           dark
                           depressed
                           x-large
@@ -85,8 +88,20 @@
                         >
                           ログイン
                         </v-btn>
+                        <v-btn
+                          v-if="!active"
+                          depressed
+                          x-large
+                          block
+                          class="font-weight-black"
+                          disabled
+                          max-width="264"
+                        >
+                          アカウントを認証してください
+                        </v-btn>
+                        <p class="mb-0 mt-2" style="font-size: 10px">＊ ログインできない場合は <strong style="cursor: pointer; color: red;">こちら</strong> をクリック</p>
                       </v-col>
-                      <v-col cols="12 pb-0">
+                      <v-col align="center" cols="12 pb-0">
                         <p class="caption">
                           - 他サイトのアカウントで登録済みの方はこちら -
                         </p>
@@ -138,6 +153,7 @@ export default {
   },
   data() {
     return {
+      active: true,
       show: false,
       email: "",
       password: ""
@@ -147,6 +163,9 @@ export default {
     openRegister() {
       this.$refs.signupDialog.open()
     },
+    openActivationEmail() {
+      this.$refs.activationEmailDialog.open()
+    },
     async sendLoginData() {
       try {
         await this.$axios.post("/api/v1/login", {
@@ -155,13 +174,13 @@ export default {
         })
         await this.$store.dispatch("user/getCurrentUserFromAPI")
       } catch(err) {
-        console.log(err.response);
+        if (err.response.data.key === 'inactive') {
+          return this.active = false
+        }
+        this.$refs.observer.setErrors(err.response.data)
       }
-    },
-    openActivationEmail() {
-      this.$refs.activationEmailDialog.open()
     }
-  }
+  },
 }
 </script>
 
@@ -171,6 +190,6 @@ export default {
     margin: 0 auto;
   }
   .login {
-    max-width: 300px;
+    max-width: 310px;
   }
 </style>
