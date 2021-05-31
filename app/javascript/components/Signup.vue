@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mt-13"
-    height="530"
+    height="550"
   >
     <v-card-title style="justify-content: center;">
       <span class="font-weight-black">新規登録</span>
@@ -32,7 +32,8 @@
           ＊会員登録することでFamoの利用規約・プライバシーポリシーに同意するものとします。
         </p>
         <p style="font-size: 8px;">
-          ＊アカウント認証メールが届かない方は
+          ＊アカウント認証メールが届かない・再取得される方は
+          <br>
           <strong @click="openActivationEmail" style="cursor: pointer; color: red;">こちら</strong>
           をクリック
         </p>
@@ -70,6 +71,6 @@ export default {
 <style scoped>
   .signup {
     max-width: 300px;
-    margin-top: 110px;
+    margin-top: 125px;
   }
 </style>
