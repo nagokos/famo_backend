@@ -23,8 +23,23 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
         expect(response.status).to eq(400)
       end
 
-      it '認証メールが送信されない' do
-        expect(ActionMailer::Base.deliveries.size).to eq(1) #ユーザーが作成されるタイミングで一通送られるので1
+      it 'エラーメッセージを返す' do
+        expect(json['email']).to eq('ユーザーが見つかりませんでした')
+      end
+    end
+
+    context '既に認証済みの場合' do
+      before do
+        user.activate!
+        post '/api/v1/account_activations', headers: @header, params: { email: user.email }
+      end
+
+      it '失敗して４００を返す' do
+        expect(response.status).to eq(400)
+      end
+
+      it 'エラーメッセージを返す' do
+        expect(json['email']).to eq('このメールアドレスは認証済みです')
       end
     end
   end

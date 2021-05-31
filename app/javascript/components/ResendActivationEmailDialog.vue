@@ -96,9 +96,7 @@ export default {
         this.emailForm = false
         this.sendActivationEmail = true
       } catch(err) {
-        this.$refs.observer.setErrors({
-          email: ["ユーザーが見つかりませんでした"]
-        })
+        this.$refs.observer.setErrors(err.response.data)
       }
     }
   }
