@@ -152,15 +152,20 @@
         </v-col>
       </v-row>
     </v-container>
+    <the-login-help-dialog
+      ref="loginHelpDialog"
+    />
   </div>
 </template>
 
 <script>
 import Signup from "../components/Signup"
+import TheLoginHelpDialog from "../components/TheLoginHelpDialog"
 
 export default {
   components: {
     Signup,
+    TheLoginHelpDialog
   },
   data() {
     return {
@@ -176,6 +181,9 @@ export default {
     },
     openActivationEmail() {
       this.$refs.activationEmailDialog.open()
+    },
+    openLoginHelp() {
+      this.$refs.loginHelpDialog.open()
     },
     async sendLoginData() {
       try {
