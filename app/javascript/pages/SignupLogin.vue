@@ -99,7 +99,18 @@
                         >
                           アカウントを認証してください
                         </v-btn>
-                        <p class="mb-0 mt-2" style="font-size: 10px">＊ ログインできない場合は <strong style="cursor: pointer; color: red;">こちら</strong> をクリック</p>
+                        <p
+                          class="mb-0 mt-2"
+                          style="font-size: 10px"
+                        >
+                        ＊ ログインできない場合は
+                        <strong
+                          @click="openLoginHelp"
+                          style="cursor: pointer; color: red;">
+                          こちら
+                        </strong>
+                          をクリック
+                        </p>
                       </v-col>
                       <v-col align="center" cols="12 pb-0">
                         <p class="caption">
