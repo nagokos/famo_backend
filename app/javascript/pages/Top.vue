@@ -4,8 +4,8 @@
     <div class="site-concept">
       <v-container>
         <v-row class="mt-10">
-          <v-col :class="bkPoint === 'lg' ? 'mt-10' : 'text-center'">
-            <p :class="bkStyle">
+          <v-col :class="$vuetify.breakpoint.mobile ? 'text-center' : 'mt-10'">
+            <p :class="mobileStyle">
               Everyone please rate
             </p>
             <p style="color: #616161;">
@@ -122,13 +122,9 @@ export default {
     SignupDialog
   },
   computed: {
-    bkPoint() {
-      return this.$vuetify.breakpoint.name
-    },
-    bkStyle() {
-      const bk = this.bkPoint
-      if (bk === 'lg') return 'text-h3 font-weight-black mt-4'
-      else return 'text-h4 font-weight-black'
+    mobileStyle() {
+      if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-black'
+      else return 'text-h3 font-weight-black mt-4'
     },
   },
   methods: {
