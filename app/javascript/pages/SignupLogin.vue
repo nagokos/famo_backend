@@ -99,7 +99,18 @@
                         >
                           アカウントを認証してください
                         </v-btn>
-                        <p class="mb-0 mt-2" style="font-size: 10px">＊ ログインできない場合は <strong style="cursor: pointer; color: red;">こちら</strong> をクリック</p>
+                        <p
+                          class="mb-0 mt-2"
+                          style="font-size: 10px"
+                        >
+                        ＊ ログインできない場合は
+                        <strong
+                          @click="openLoginHelp"
+                          style="cursor: pointer; color: red;">
+                          こちら
+                        </strong>
+                          をクリック
+                        </p>
                       </v-col>
                       <v-col align="center" cols="12 pb-0">
                         <p class="caption">
@@ -141,15 +152,20 @@
         </v-col>
       </v-row>
     </v-container>
+    <the-login-help-dialog
+      ref="loginHelpDialog"
+    />
   </div>
 </template>
 
 <script>
 import Signup from "../components/Signup"
+import TheLoginHelpDialog from "../components/TheLoginHelpDialog"
 
 export default {
   components: {
     Signup,
+    TheLoginHelpDialog
   },
   data() {
     return {
@@ -165,6 +181,9 @@ export default {
     },
     openActivationEmail() {
       this.$refs.activationEmailDialog.open()
+    },
+    openLoginHelp() {
+      this.$refs.loginHelpDialog.open()
     },
     async sendLoginData() {
       try {
