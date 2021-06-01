@@ -45,7 +45,7 @@
     <signup-dialog
       ref="signupDialog"
     />
-    <resend-activation-email-dialog
+    <the-resend-activation-email-dialog
       ref="activationEmailDialog"
     />
   </v-card>
@@ -53,12 +53,12 @@
 
 <script>
 import SignupDialog from "./SignupDialog"
-import ResendActivationEmailDialog from "./ResendActivationEmailDialog"
+import TheResendActivationEmailDialog from "./TheResendActivationEmailDialog"
 
 export default {
   components: {
     SignupDialog,
-    ResendActivationEmailDialog
+    TheResendActivationEmailDialog
   },
   methods: {
     openSignupDialog() {

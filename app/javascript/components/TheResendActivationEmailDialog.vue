@@ -70,7 +70,7 @@
           </v-form>
         </ValidationObserver>
       </v-card-text>
-      <the-send-activation-email
+      <send-activation-email
         v-if="sendActivationEmail"
         :email="email"
       />
@@ -79,11 +79,11 @@
 </template>
 
 <script>
-import TheSendActivationEmail from "./TheSendActivationEmail"
+import SendActivationEmail from "./SendActivationEmail"
 
 export default {
   components: {
-    TheSendActivationEmail
+    SendActivationEmail
   },
   data() {
     return {

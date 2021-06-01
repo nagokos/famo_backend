@@ -38,7 +38,7 @@
           @create-user="showSendEmail"
         />
 
-        <the-send-activation-email
+        <send-activation-email
           v-if="sendActivationEmail"
           :email="email"
         >
@@ -73,20 +73,20 @@
               </v-row>
             </v-container>
           </template>
-        </the-send-activation-email>
+        </send-activation-email>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
-import TheSendActivationEmail from "./TheSendActivationEmail"
+import SendActivationEmail from "./SendActivationEmail"
 import SignupDialogSelect from "./SignupDialogSelect"
 import SignupDialogForm from "./SignupDialogForm"
 
 export default {
   components: {
-    TheSendActivationEmail,
+    SendActivationEmail,
     SignupDialogSelect,
     SignupDialogForm
   },
