@@ -17,20 +17,29 @@
         <span class="mx-auto">認証メール再送信</span>
       </v-card-title>
       <v-divider />
-      <v-card-text v-if="emailForm" class="pt-6 pb-0">
-        <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+      <v-card-text
+        v-if="emailForm"
+        class="pt-6 pb-0"
+      >
+        <ValidationObserver
+          ref="observer"
+          v-slot="{ handleSubmit }"
+        >
           <v-form>
             <v-container>
               <v-row>
-                <v-col cols="12" class="pb-0">
+                <v-col
+                  cols="12"
+                  class="pb-0"
+                >
                   <ValidationProvider
+                    v-slot="{ errors }"
                     vid="email"
                     :rules="{
                       required: true,
                       formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i
-                     }"
+                    }"
                     name="メールアドレス"
-                    v-slot="{ errors }"
                   >
                     <v-text-field
                       v-model="email"
@@ -43,7 +52,11 @@
                     />
                   </ValidationProvider>
                 </v-col>
-                <v-col align="right" cols="12" class="pt-0">
+                <v-col
+                  align="right"
+                  cols="12"
+                  class="pt-0"
+                >
                   <v-btn
                     color="blue darken-1"
                     text
