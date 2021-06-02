@@ -10,6 +10,9 @@
             </p>
             <p style="color: #616161;">
               Famoは「みんなの評価が選手の評価に」をコンセプトとした、
+              <br
+                v-if="!$vuetify.breakpoint.mobile"
+              >
               高校生のプレーヤーを評価するサイトです。
             </p>
             <v-btn
