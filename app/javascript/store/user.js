@@ -1,13 +1,11 @@
-import axios from "axios"
+import axios from "../plugins/axios"
 
 const state = () => ({
   currentUser: ""
 })
 
 const getters = {
-  currentUser(state) {
-    state.currentUser
-  }
+  currentUser: state => state.currentUser
 }
 
 const mutations = {
