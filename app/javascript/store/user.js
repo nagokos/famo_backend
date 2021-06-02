@@ -30,6 +30,10 @@ const actions = {
     } catch(err) {
       return null
     }
+  },
+  async logout({ commit }) {
+    await axios.delete("/api/v1/logout")
+    commit("setCurrentUser", null)
   }
 }
 
