@@ -20,6 +20,6 @@ class Api::V1::UserSessionsController < Api::V1::BaseController
 
   def destroy
     cookies.delete(:token)
-    current_user = nil
+    @current_user = nil
   end
 end
