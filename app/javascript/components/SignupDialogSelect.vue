@@ -10,6 +10,7 @@
           width="250"
           x-large
           class="font-weight-bold"
+          style="justify-content: left;"
           @click="$emit('email-register')"
         >
           <v-icon
@@ -18,7 +19,7 @@
           >
             mdi-email
           </v-icon>
-          メールアドレスで登録
+          <span class="mx-auto">メールアドレスで登録</span>
         </v-btn>
       </v-col>
       <v-col
@@ -29,6 +30,7 @@
           width="250"
           x-large
           class="font-weight-bold"
+          style="justify-content: left;"
         >
           <v-img
             src="/img/line.png"
@@ -36,7 +38,7 @@
             max-width="25"
             max-height="25"
           />
-          LINEで登録
+          <span class=mx-auto>LINEで登録</span>
         </v-btn>
       </v-col>
       <v-col
@@ -48,7 +50,7 @@
           width="250"
           x-large
           class="font-weight-bold"
-          style="text-transform: none;"
+          style="text-transform: none; justify-content: left;"
         >
           <v-img
             src="/img/facebook.png"
@@ -56,7 +58,7 @@
             max-width="25"
             max-height="25"
           />
-          FaceBookで登録
+          <span class="mx-auto">FaceBookで登録</span>
         </v-btn>
       </v-col>
     </v-row>
