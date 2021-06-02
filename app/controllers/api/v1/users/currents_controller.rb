@@ -1,5 +1,5 @@
 class Api::V1::Users::CurrentsController < Api::V1::BaseController
-  before_action :require_login
+  before_action :require_login, only: %i[update]
 
   def show
     render json: current_user

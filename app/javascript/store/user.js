@@ -1,13 +1,11 @@
-import axios from "axios"
+import axios from "../plugins/axios"
 
 const state = () => ({
   currentUser: ""
 })
 
 const getters = {
-  currentUser(state) {
-    state.currentUser
-  }
+  currentUser: state => state.currentUser
 }
 
 const mutations = {
@@ -22,15 +20,20 @@ const actions = {
     if (currentUser) {
       return currentUser
     }
-    dispatch("getCurrentUserFromAPI")
+    return dispatch("getCurrentUserFromAPI")
   },
   async getCurrentUserFromAPI({ commit }) {
     try {
       const response = await axios.get("/api/v1/users/current")
       commit("setCurrentUser", response.data)
+      return response.data
     } catch(err) {
       return null
     }
+  },
+  async logout({ commit }) {
+    await axios.delete("/api/v1/logout")
+    commit("setCurrentUser", null)
   }
 }
 

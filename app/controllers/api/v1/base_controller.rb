@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  before_action :check_xhr_header, only: %i[create update]
+  before_action :check_xhr_header, only: %i[create update destroy]
 
   private
 
