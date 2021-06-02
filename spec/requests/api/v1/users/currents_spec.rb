@@ -17,13 +17,6 @@ RSpec.describe "Api::V1::Users::Currents", type: :request do
         expect(json['id']).to eq(current_user.id)
       end
     end
-
-    context 'ログインしていない場合' do
-      it '４０１を返す' do
-        get '/api/v1/users/current'
-        expect(response.status).to eq(401)
-      end
-    end
   end
 
   # describe "GET /update" do
