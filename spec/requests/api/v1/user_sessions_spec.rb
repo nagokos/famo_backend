@@ -14,7 +14,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
       end
 
       it 'Cookieにセットする' do
-        expect(response.headers['Set-Cookie'].split(';').first.split('token=').second).to_not be_empty
+        expect(response.headers['Set-Cookie'].split(';').first).to_not be_empty
       end
 
       it 'ログインする' do
@@ -64,11 +64,15 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
     end
   end
 
-  # describe "GET /destroy" do
-  #   it "returns http success" do
-  #     get "/api/v1/user_sessions/destroy"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe 'DELETE /api/v1/logout' do
+    before { delete '/api/v1/logout', headers: @header }
 
+    it 'cookiesのtokenが削除されること' do
+      expect(response.headers['Set-Cookie']).to be_falsey
+    end
+
+    it 'current_userがnilになること' do
+      expect(current_user).to eq(nil)
+    end
+  end
 end
