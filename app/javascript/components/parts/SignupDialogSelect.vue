@@ -1,0 +1,71 @@
+<template>
+  <v-container>
+    <v-row>
+      <v-col
+        cols="12"
+        align="center"
+        class="mt-10"
+      >
+        <v-btn
+          width="250"
+          x-large
+          class="font-weight-bold"
+          style="justify-content: left;"
+          @click="$emit('email-register')"
+        >
+          <v-icon
+            color="#EF5350"
+            class="mr-2"
+          >
+            mdi-email
+          </v-icon>
+          <span class="mx-auto">メールアドレスで登録</span>
+        </v-btn>
+      </v-col>
+      <v-col
+        cols="12"
+        align="center"
+      >
+        <v-btn
+          width="250"
+          x-large
+          class="font-weight-bold"
+          style="justify-content: left;"
+        >
+          <v-img
+            src="/img/line.png"
+            class="mr-2"
+            max-width="25"
+            max-height="25"
+          />
+          <span class="mx-auto">LINEで登録</span>
+        </v-btn>
+      </v-col>
+      <v-col
+        cols="12"
+        align="center"
+        class="mb-14"
+      >
+        <v-btn
+          width="250"
+          x-large
+          class="font-weight-bold"
+          style="text-transform: none; justify-content: left;"
+        >
+          <v-img
+            src="/img/facebook.png"
+            class="mr-2"
+            max-width="25"
+            max-height="25"
+          />
+          <span class="mx-auto">FaceBookで登録</span>
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+export default {
+}
+</script>
