@@ -1,9 +1,9 @@
 import VueRouter from "vue-router"
 import store from "../store"
 
-import Top from "../pages/Top"
-import SignupLogin from "../pages/SignupLogin"
-import Mypage from "../pages/Mypage"
+import Top from "../components/pages/Top"
+import SignupLogin from "../components/pages/SignupLogin"
+import Mypage from "../components/pages/Mypage"
 
 const routes = [
   {
