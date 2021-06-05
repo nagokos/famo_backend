@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import App from '../app.vue'
+import App from '../App.vue'
 
 // Vue-router
 import VueRouter from "vue-router"
-import router from "./router"
+import router from "../router/index"
 Vue.use(VueRouter)
 
 // Axios
