@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import TheHeader from "./components/shared/TheHeader"
-import TheFooter from "./components/shared/TheFooter"
+import TheHeader from "./components/globals/TheHeader"
+import TheFooter from "./components/globals/TheFooter"
 
 export default {
   components: {
