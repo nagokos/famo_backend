@@ -21,39 +21,14 @@
 </template>
 
 <script>
-import LoginHelpDialog from './LoginHelpDialog'
+import LoginForm from "./LoginForm"
+import LoginHelpDialog from "./LoginHelpDialog"
 
 export default {
   components: {
-    LoginHelpDialog
-  },
-  data() {
-    return {
-      active: true,
-      show: false,
-      email: "",
-      password: ""
-    }
-  },
-  methods: {
-    openLoginHelp() {
-      this.$refs.loginHelpDialog.open()
-    },
-    async sendLoginData() {
-      try {
-        await this.$axios.post("/api/v1/login", {
-          email: this.email,
-          password: this.password,
-        })
-        await this.$store.dispatch("user/getCurrentUserFromAPI")
-      } catch(err) {
-        if (err.response.data.key === 'inactive') {
-          return this.active = false
-        }
-        this.$refs.observer.setErrors(err.response.data)
-      }
-    }
-  },
+    LoginHelpDialog,
+    LoginForm
+  }
 }
 </script>
 
