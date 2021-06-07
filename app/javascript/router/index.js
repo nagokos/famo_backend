@@ -3,6 +3,7 @@ import store from "../store"
 
 import Top from "../components/pages/Top"
 import SignupLogin from "../components/pages/SignupLogin"
+import Mypage from "../components/pages/Mypage"
 
 const routes = [
   {
@@ -15,6 +16,12 @@ const routes = [
     name: "login",
     component: SignupLogin
   },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Mypage,
+    meta: { requiredLogin: true }
+  }
 ]
 
 const router = new VueRouter({ mode: "history", routes })
