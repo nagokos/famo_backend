@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <the-header />
-    <v-main>
+    <v-main style="background: #FAFAFA;">
       <router-view />
     </v-main>
     <the-footer />
