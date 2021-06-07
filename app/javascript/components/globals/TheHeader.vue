@@ -153,9 +153,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch("user/logout")
-      if (this.$route.path !== "/") {
-        this.$router.push({ name: "top" })
-      }
+      location.reload()
     }
   }
 }
