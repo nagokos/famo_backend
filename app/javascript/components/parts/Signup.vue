@@ -2,7 +2,8 @@
   <v-card
     class="mt-13"
     height="550"
-    elevation="1" outlined
+    elevation="1"
+    outlined
   >
     <v-card-title style="justify-content: center;">
       <span class="font-weight-black">新規登録</span>
