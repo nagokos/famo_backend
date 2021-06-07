@@ -11,12 +11,12 @@ gem 'webpacker', '~> 5.0'
 
 # 日本語化
 gem 'rails-i18n'
-
 # 認証
 gem 'sorcery'
-
 # 定数管理
 gem 'config'
+# 初期データ
+gem 'seed-fu'
 
 group :development, :test do
   gem 'awesome_print'
