@@ -4,7 +4,11 @@
     <div class="site-concept">
       <v-container>
         <v-row class="mt-10">
-          <v-col cols="12" md="6" :class="$vuetify.breakpoint.mobile ? 'text-center' : 'mt-10'">
+          <v-col
+            cols="12"
+            md="6"
+            :class="$vuetify.breakpoint.mobile ? 'text-center' : 'mt-10'"
+          >
             <p :class="mobileStyle">
               Everyone please rate
             </p>
@@ -26,7 +30,11 @@
               今すぐはじめる
             </v-btn>
           </v-col>
-          <v-col align="center" cols="12" md="6">
+          <v-col
+            align="center"
+            cols="12"
+            md="6"
+          >
             <v-img
               max-width="450"
               src="/img/football.svg"

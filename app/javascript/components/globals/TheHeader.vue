@@ -13,7 +13,7 @@
       <v-toolbar-title
         class="font-weight-bold text-h5"
         style="color: white; cursor: pointer;"
-        @click="toTopPage"
+        @click="pushPage('/', 'top')"
       >
         Famo
       </v-toolbar-title>
@@ -22,7 +22,7 @@
         <v-btn
           v-if="!currentUser"
           text
-          @click="toLoginPage"
+          @click="pushPage('/login', 'login')"
         >
           <span
             class="caption"
@@ -100,7 +100,7 @@
               <v-btn
                 text
                 block
-                @click="toProfile"
+                @click="pushPage('/profile', 'profile')"
               >
                 <v-icon
                   class="mr-2"
@@ -146,24 +146,14 @@ export default {
     }
   },
   methods: {
-    toTopPage() {
-      if (this.$route.path !== "/") {
-        this.$router.push({ name: "top" })
+    pushPage(path, route) {
+      if (this.$route.path !== path) {
+        this.$router.push({ name: route })
       }
-    },
-    toLoginPage() {
-      if (this.$route.path !== "/login") {
-        this.$router.push({ name: "login" })
-      }
-    },
-    toProfile() {
-      this.$router.push({ name: "profile" })
     },
     async logout() {
       await this.$store.dispatch("user/logout")
-      if (this.$route.path !== "/") {
-        this.$router.push({ name: "top" })
-      }
+      location.reload()
     }
   }
 }
