@@ -1,6 +1,5 @@
 <template>
   <v-card
-    class="mt-13"
     height="550"
     elevation="1"
     outlined
