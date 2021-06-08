@@ -94,7 +94,7 @@ export default {
       default: () => {},
       required: true
     }
-  },
+  }
 }
 </script>
 
