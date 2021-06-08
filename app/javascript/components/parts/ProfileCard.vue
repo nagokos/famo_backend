@@ -7,13 +7,22 @@
             v-for="item in desserts"
             :key="item.name"
           >
-            <td>
-              <span class="font-weight-bold" style="font-size: 10px">{{ item.name }}</span>
+            <td
+              class="pr-0"
+            >
+              <span
+                class="font-weight-bold"
+                style="font-size: 10px"
+              >{{ item.name }}</span>
             </td>
             <td
               align="end"
+              class="pl-0"
             >
-              <span class="font-weight-bold" style="font-size: 10px">{{ item.calories }}</span>
+              <span
+                class="font-weight-bold"
+                style="font-size: 10px"
+              >{{ item.calories }}</span>
             </td>
           </tr>
         </tbody>
@@ -29,7 +38,7 @@ export default {
       rating: 3.1,
       desserts: [
           {
-            name: "所属チーム",
+            name: "所属",
             calories: "川崎フロンターレU18",
           },
           {
