@@ -8,14 +8,14 @@
       <v-breadcrumbs-item
         :to="props.item.to"
         :disabled="props.item.disabled"
+        class="text-caption"
       >
         <span
           v-if="props.item.to !== '/'"
-          :class="$route.path === props.item.to ? 'text-caption black--text font-weight-bold' : 'text-caption'"
+          :class="$route.path === props.item.to ? 'black--text font-weight-bold' : ''"
         >{{ props.item.text }}</span>
         <span
           v-else
-          class="text-caption"
         ><v-icon
           size="18"
           class="mr-1"
