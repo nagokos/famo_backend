@@ -148,9 +148,10 @@ export default {
           email: this.email,
           password: this.password,
         })
-        await this.$store.dispatch("user/getCurrentUserFromAPI")
+        await this.$store.dispatch("user/getCurrentUser")
+        this.$router.push({ name: "profile" })
       } catch(err) {
-        if (err.response.data.key === 'inactive') {
+        if (err.response.data.key === "inactive") {
           return this.active = false
         }
         this.$refs.observer.setErrors(err.response.data)
