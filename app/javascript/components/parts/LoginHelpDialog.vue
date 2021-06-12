@@ -13,8 +13,10 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title class="pt-0">
-        <span class="font-weigth-black mx-auto">ログインでお困りの方</span>
+      <v-card-title
+        class="pt-0 font-weight-black justify-center"
+      >
+        ログインでお困りの方
       </v-card-title>
       <v-divider />
       <v-card-text :class="$vuetify.breakpoint.mobile? 'px-0':''">
