@@ -87,23 +87,43 @@
                 </v-avatar>
                 <span
                   style="color: black;"
-                  class="mx-auto text-button font-weight-bold"
+                  class="text-button font-weight-bold"
                 >{{ fullName }}</span>
               </v-btn>
             </v-col>
             <v-divider />
             <v-col
               cols="12"
-              align="center"
-              class="px-0"
             >
               <v-btn
                 text
                 block
+                large
+                class="justify-start"
                 @click="pushPage('/profile', 'profile')"
               >
                 <v-icon
                   class="mr-2"
+                  color="#5b7083"
+                >
+                  mdi-home-account
+                </v-icon>
+                <span class="text-caption font-weight-bold">マイページ</span>
+              </v-btn>
+            </v-col>
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
+              <v-btn
+                text
+                block
+                large
+                class="justify-start"
+              >
+                <v-icon
+                  class="mr-2"
+                  color="#5b7083"
                 >
                   mdi-face
                 </v-icon>
@@ -112,20 +132,24 @@
             </v-col>
             <v-col
               cols="12"
-              align="center"
-              class="px-0 pt-0"
+              class="pt-0"
             >
               <v-btn
                 text
                 block
+                large
+                class="justify-start"
                 @click="logout"
               >
                 <v-icon
                   class="mr-2"
+                  color="#5b7083"
                 >
                   mdi-logout
                 </v-icon>
-                <span class="mx-auto text-caption font-weight-bold">ログアウト</span>
+                <span
+                  class="text-caption font-weight-bold"
+                >ログアウト</span>
               </v-btn>
             </v-col>
           </v-list>
