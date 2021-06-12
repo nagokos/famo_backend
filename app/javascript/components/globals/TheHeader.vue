@@ -18,14 +18,14 @@
         Famo
       </v-toolbar-title>
       <v-spacer />
-      <v-toolbar-items style="align-items: center;">
+      <v-toolbar-items class="align-center">
         <v-btn
           v-if="!currentUser"
           text
           @click="pushPage('/login', 'login')"
         >
           <span
-            class="caption"
+            class="text-caption"
             style="color: white;"
           >登録 ｜ ログイン</span>
         </v-btn>
