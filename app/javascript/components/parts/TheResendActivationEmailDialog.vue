@@ -13,8 +13,10 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title class="pt-0">
-        <span class="mx-auto">認証メール再送信</span>
+      <v-card-title
+        class="pt-0 font-weight-bold justify-center"
+      >
+        認証メール再送信
       </v-card-title>
       <v-divider />
       <v-card-text

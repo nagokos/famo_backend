@@ -22,9 +22,9 @@
           </v-icon>
         </v-btn>
         <v-card-title
-          class="font-weight-black pt-0"
+          class="pt-0 font-weight-black justify-center"
         >
-          <span class="mx-auto">新規登録</span>
+          新規登録
         </v-card-title>
         <v-divider />
 

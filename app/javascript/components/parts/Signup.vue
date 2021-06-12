@@ -4,8 +4,10 @@
     elevation="1"
     outlined
   >
-    <v-card-title style="justify-content: center;">
-      <span class="font-weight-black">新規登録</span>
+    <v-card-title
+      class="font-weight-black justify-center"
+    >
+      新規登録
     </v-card-title>
     <v-divider />
     <div class="signup mx-auto">
