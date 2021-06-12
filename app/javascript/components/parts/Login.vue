@@ -4,8 +4,10 @@
     elevation="1"
     outlined
   >
-    <v-card-title style="justify-content: center;">
-      <span class="font-weight-black">ログイン</span>
+    <v-card-title
+      class="font-weight-bold justify-center"
+    >
+      ログイン
     </v-card-title>
     <v-divider />
     <div class="login mx-auto mt-12">
