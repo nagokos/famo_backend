@@ -125,9 +125,9 @@
                   class="mr-2"
                   color="#5b7083"
                 >
-                  mdi-face
+                  mdi-comment-question
                 </v-icon>
-                <span class="mx-auto text-caption font-weight-bold">プロフィール</span>
+                <span class="text-caption font-weight-bold">お問い合わせ</span>
               </v-btn>
             </v-col>
             <v-col
