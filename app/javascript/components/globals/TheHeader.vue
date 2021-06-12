@@ -63,18 +63,18 @@
             </v-avatar>
           </template>
           <v-list
-            min-width="170"
+            min-width="240"
             class="py-0"
           >
             <v-col
               cols="12"
-              align="center"
               class="px-0"
             >
               <v-btn
                 text
                 disabled
-                class="font-weight-bold px-0 ml-n3"
+                large
+                class="font-weight-bold px-0 ml-6 justify-start"
               >
                 <v-avatar
                   class="mr-2"
