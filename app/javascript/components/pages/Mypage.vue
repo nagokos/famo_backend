@@ -3,9 +3,6 @@
     <the-bread-crumb
       :bread-crumbs="breadCrumbs"
     />
-    <speed-dial
-      v-if="$vuetify.breakpoint.mobile"
-    />
     <profile
       :user="currentUser"
     />
@@ -49,14 +46,12 @@
 <script>
 import { mapGetters } from "vuex"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
-import SpeedDial from "../parts/mobile/SpeedDial"
 import Profile from "../parts/Profile"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
 
 export default {
   components: {
-    SpeedDial,
     TheBreadCrumb,
     Profile,
     ReviewList,
