@@ -4,42 +4,19 @@
       color="#FAFAFA"
     >
       <v-list-item>
-        <!-- モバイル用アバター -->
-        <v-badge
-          v-if="$vuetify.breakpoint.mobile"
-          bottom
-          icon="mdi-pencil-outline"
-          dark
-          overlap
-          color="success"
-          offset-x="38"
-          offset-y="35"
-        >
-          <v-list-item-avatar
-            size="110"
-            class="ml-n1"
-          >
-            <v-img
-              :src="user.avatar"
-            />
-          </v-list-item-avatar>
-        </v-badge>
-        <!-- PC用アバター -->
+        <!-- アバター -->
         <v-list-item-avatar
-          v-if="!$vuetify.breakpoint.mobile"
-          size="100"
+          :size="$vuetify.breakpoint.mobile ? '110' : '100'"
         >
           <v-img
             :src="user.avatar"
           />
         </v-list-item-avatar>
-        <v-list-item-content class="mt-2">
+        <v-list-item-content>
           <profile-title
             v-if="!$vuetify.breakpoint.mobile"
+            class="ml-3"
             :user="user"
-          />
-          <profile-card
-            v-if="$vuetify.breakpoint.mobile"
           />
         </v-list-item-content>
         <!-- プロフィールアクション -->
@@ -48,6 +25,7 @@
         />
       </v-list-item>
       <profile-title
+        class="ml-3"
         v-if="$vuetify.breakpoint.mobile"
         :user="user"
       />
@@ -57,7 +35,7 @@
       <v-row>
         <v-col
           cols="12"
-          lg="9"
+          lg="8"
         >
           <p
             class="text-caption"
@@ -67,8 +45,9 @@
           </p>
         </v-col>
         <v-col
+        class="pl-10"
           v-if="!$vuetify.breakpoint.mobile"
-          cols="3"
+          cols="4"
         >
           <profile-card />
         </v-col>
