@@ -25,7 +25,7 @@
               class="mt-4"
               x-large
               style="font-weight: bold"
-              @click="openRegister"
+              :to="{ name: 'login' }"
             >
               今すぐはじめる
             </v-btn>
@@ -136,11 +136,6 @@ export default {
     mobileStyle() {
       if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-black'
       else return 'text-h3 font-weight-black mt-4'
-    },
-  },
-  methods: {
-    openRegister() {
-      this.$refs.signupDialog.open()
     }
   }
 }

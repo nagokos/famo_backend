@@ -1,5 +1,5 @@
 <template>
-  <div :class="$vuetify.breakpoint.mobile ? 'ml-3' : ''">
+  <div>
     <v-list-item-title
       class="font-weight-black text-h5"
       style="margin-left: 2px;"
@@ -22,8 +22,8 @@
     >
       <v-rating
         v-model="rating"
-        background-color="#ef5350"
-        color="#ef5350"
+        background-color="#EF5350"
+        color="#EF5350"
         class="mr-1 float-left"
         readonly
         dense
