@@ -9,6 +9,7 @@
     <div
       class="profile-tabs"
     >
+      <v-divider />
       <v-tabs
         color="black"
         :fixed-tabs="$vuetify.breakpoint.mobile"
