@@ -25,7 +25,7 @@
           block
           color="#EF5350"
           class="font-weight-black"
-          @click="openSignupDialog"
+          @click="$refs.signupDialog.open()"
         >
           新規会員登録
         </v-btn>
@@ -39,7 +39,7 @@
           <br>
           <strong
             style="cursor: pointer; color: red;"
-            @click="openActivationEmail"
+            @click="$refs.activationEmailDialog.open()"
           >こちら</strong>
           をクリック
         </p>
@@ -62,14 +62,6 @@ export default {
   components: {
     SignupDialog,
     TheResendActivationEmailDialog
-  },
-  methods: {
-    openSignupDialog() {
-      this.$refs.signupDialog.open()
-    },
-    openActivationEmail() {
-      this.$refs.activationEmailDialog.open()
-    }
   }
 }
 </script>
