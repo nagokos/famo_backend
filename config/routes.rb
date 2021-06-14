@@ -10,6 +10,9 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :leagues, only: %i[index]
+      resources :categories, only: %i[index]
+      resources :groups, only: %i[index]
       resources :account_activations, only: %i[create edit]
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
