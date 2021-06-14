@@ -15,7 +15,7 @@
         </template>
         プレイヤー
       </v-tooltip>
-      <span style="position: relative; top: 2px;">{{ fullName }}</span>
+      {{ fullName }}
     </v-list-item-title>
     <v-list-item-title
       class="mt-1"

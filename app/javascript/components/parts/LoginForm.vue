@@ -55,7 +55,7 @@
             class="pt-0"
           >
             <v-btn
-              v-if="active"
+              v-if="!inActive"
               dark
               depressed
               x-large
@@ -67,7 +67,7 @@
               ログイン
             </v-btn>
             <v-btn
-              v-if="!active"
+              v-if="inActive"
               depressed
               x-large
               block
@@ -135,7 +135,7 @@
 export default {
   data() {
     return {
-      active: true,
+      inActive: false,
       show: false,
       email: "",
       password: ""
@@ -148,11 +148,11 @@ export default {
           email: this.email,
           password: this.password,
         })
-        await this.$store.dispatch("user/getCurrentUser")
+        await this.$store.dispatch("user/getCurrentUserFromAPI")
         this.$router.push({ name: "profile" })
       } catch(err) {
         if (err.response.data.key === "inactive") {
-          return this.active = false
+          return this.inActive = true
         }
         this.$refs.observer.setErrors(err.response.data)
       }
