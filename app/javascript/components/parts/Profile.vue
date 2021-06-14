@@ -42,7 +42,7 @@
             class="text-caption"
             style="color: #616161;"
           >
-            〇〇高校の中山太郎です。MFでプレイしています。。よろしくお願いします。
+            {{ user.introduction }}
           </p>
         </v-col>
         <v-col
