@@ -46,9 +46,9 @@
           </p>
         </v-col>
         <v-col
-        class="pl-10"
+          class="pl-10"
           v-if="!$vuetify.breakpoint.mobile"
-          cols="4"
+          lg="4"
         >
           <profile-card />
         </v-col>
@@ -66,7 +66,7 @@ export default {
   components: {
     ProfileAction,
     ProfileTitle,
-    ProfileCard
+    ProfileCard,
   },
   props: {
     user: {
