@@ -21,6 +21,7 @@
         </v-list-item-content>
         <!-- プロフィールアクション -->
         <profile-action
+          @click-edit="$emit('click-edit')"
           :user="user"
         />
       </v-list-item>
