@@ -166,7 +166,7 @@ export default {
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
     fullName() {
-      return `${this.currentUser.last_name} ${this.currentUser.first_name}`
+      return `${this.currentUser.lastName} ${this.currentUser.firstName}`
     }
   },
   methods: {
