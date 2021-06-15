@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     fullName() {
-      return `${this.user.last_name} ${this.user.first_name}`
+      return `${this.user.lastName} ${this.user.firstName}`
     }
   }
 }
