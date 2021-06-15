@@ -8,7 +8,7 @@
       <v-card>
         <v-btn
           icon
-          @click="closeDialog"
+          @click="close"
         >
           <v-icon
             v-if="registerSelect || sendActivationEmail"
@@ -104,7 +104,7 @@ export default {
       this.dialog = true
       this.registerSelect = true
     },
-    closeDialog() {
+    close() {
       if (this.signupForm === true) {
         this.signupForm = false
         return this.registerSelect = true
