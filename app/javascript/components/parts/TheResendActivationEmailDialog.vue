@@ -20,7 +20,7 @@
       </v-card-title>
       <v-divider />
       <v-card-text
-        v-if="emailForm"
+        v-if="form"
         class="pt-6 pb-0"
       >
         <ValidationObserver
@@ -73,7 +73,7 @@
         </ValidationObserver>
       </v-card-text>
       <send-activation-email
-        v-if="sendActivationEmail"
+        v-if="sendEmail"
         :email="email"
       />
     </v-card>
@@ -91,14 +91,14 @@ export default {
     return {
       dialog: false,
       email: "",
-      emailForm: false,
-      sendActivationEmail: false
+      form: false,
+      sendEmail: false
     }
   },
   methods: {
     open() {
       this.dialog = true
-      this.emailForm = true
+      this.form = true
     },
     closeDialog() {
       Object.assign(this.$data, this.$options.data())
@@ -108,8 +108,8 @@ export default {
         await this.$axios.post("/api/v1/account_activations", {
           email: this.email
         })
-        this.emailForm = false
-        this.sendActivationEmail = true
+        this.form = false
+        this.sendEmail = true
       } catch(err) {
         this.$refs.observer.setErrors(err.response.data)
       }
