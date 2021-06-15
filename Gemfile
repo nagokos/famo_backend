@@ -17,6 +17,8 @@ gem 'sorcery'
 gem 'config'
 # 初期データ
 gem 'seed-fu'
+# json
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'awesome_print'
