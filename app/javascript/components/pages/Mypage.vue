@@ -56,7 +56,6 @@
 
 <script>
 import { mapGetters } from "vuex"
-import TheBreadCrumb from "../globals/TheBreadCrumb"
 import Profile from "../parts/Profile"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
