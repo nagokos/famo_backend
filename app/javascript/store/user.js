@@ -31,6 +31,17 @@ const actions = {
       return null
     }
   },
+  async updateCurrentUser({ commit }, user) {
+    try {
+      const response = await axios.patch("/api/v1/users/current", {
+        user: user
+      })
+      commit("setCurrentUser", response.data)
+      return response.data
+    } catch(err) {
+      return null
+    }
+  },
   async logout({ commit }) {
     await axios.delete("/api/v1/logout")
     commit("setCurrentUser", null)
