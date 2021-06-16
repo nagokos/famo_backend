@@ -74,6 +74,7 @@ export default {
     return {
       userInformation: true,
       reviewList: false,
+      userEdit: {},
       breadCrumbs: [
         {
           text: "TOP",
