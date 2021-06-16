@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="$vuetify.breakpoint.mobile ? 'position: relative; top: 27px;' : ''">
     <!-- ログインユーザーの場合 -->
     <v-btn
       v-if="!$vuetify.breakpoint.mobile"
@@ -16,10 +16,9 @@
     </v-btn>
     <!-- 他のユーザーの場合 -->
     <!-- <template
-      v-if="!$vuetify.breakpoint.mobile"
     >
       <v-btn
-        class="mr-4"
+        class="mr-1"
         outlined
         color="primary"
         fab
