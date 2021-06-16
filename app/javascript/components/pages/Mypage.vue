@@ -4,7 +4,12 @@
       :bread-crumbs="breadCrumbs"
     />
     <profile
+      ref="profile"
       :user="currentUser"
+      :user-edit="userEdit"
+      @click-edit="openEditDialog"
+      @click-introduction="userEdit = { ...currentUser }"
+      @click-update="updateIntroduction"
     />
     <div
       class="profile-tabs"
@@ -78,16 +83,9 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.currentUser.last_name} ${this.currentUser.first_name}`
-    },
-    player() {
-      if (this.currentUser.role === "player") {
-        return true
-      } else {
-        return false
-      }
-    }
+  },
+  created() {
+    this.userEdit = { ...this.currentUser }
   },
   methods: {
     changeUserInformation() {
@@ -97,6 +95,23 @@ export default {
     changeReviewList() {
       this.reviewList = true
       this.userInformation = false
+    },
+    openEditDialog() {
+      this.userEdit = { ...this.currentUser }
+      this.$refs.profileEditDialog.open()
+    },
+    async updateIntroduction() {
+      await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      this.$refs.profile.close()
+    },
+    async updateProfile() {
+      const user = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (!user) return this.$refs.profileEditDialog.dupEmail()
+      if (user.activation) {
+        this.$refs.profileEditDialog.close()
+      } else {
+        this.$refs.profileEditDialog.sendActivationEmail()
+      }
     }
   }
 }
