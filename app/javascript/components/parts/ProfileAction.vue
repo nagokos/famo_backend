@@ -40,3 +40,15 @@
     </template> -->
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    user: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  }
+}
+</script>
