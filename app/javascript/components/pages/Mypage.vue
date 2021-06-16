@@ -46,6 +46,11 @@
         :user="currentUser"
       />
     </div>
+    <the-profile-edit-dialog
+      ref="profileEditDialog"
+      v-bind.sync="userEdit"
+      @click-update="updateProfile"
+    />
   </div>
 </template>
 
@@ -55,13 +60,16 @@ import TheBreadCrumb from "../globals/TheBreadCrumb"
 import Profile from "../parts/Profile"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
+import TheBreadCrumb from "../globals/TheBreadCrumb"
+import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
   components: {
-    TheBreadCrumb,
     Profile,
     ReviewList,
-    Information
+    Information,
+    TheBreadCrumb,
+    TheProfileEditDialog,
   },
   data() {
     return {
