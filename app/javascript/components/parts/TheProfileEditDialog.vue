@@ -87,6 +87,7 @@
                       dense
                       label="性"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:lastName', $event)"
                     />
@@ -106,6 +107,7 @@
                       dense
                       label="名"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:firstName', $event)"
                     />
@@ -127,6 +129,7 @@
                       dense
                       label="メールアドレス"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:email', $event)"
                     />
