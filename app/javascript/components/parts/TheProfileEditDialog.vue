@@ -214,8 +214,8 @@ export default {
     },
     introduction: {
       type: String,
-      default: "",
-      required: true
+      default: null,
+      required: false
     }
   },
   data() {
