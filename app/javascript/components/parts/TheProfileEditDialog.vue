@@ -233,7 +233,6 @@ export default {
     close() {
       this.dialog = false
       this.sendEmail = false
-      this.$emit("click-close")
     },
     clickUpdate() {
       this.$emit("click-update")
