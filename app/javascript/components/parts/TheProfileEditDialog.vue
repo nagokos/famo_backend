@@ -87,6 +87,7 @@
                       dense
                       label="性"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:lastName', $event)"
                     />
@@ -106,6 +107,7 @@
                       dense
                       label="名"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:firstName', $event)"
                     />
@@ -127,6 +129,7 @@
                       dense
                       label="メールアドレス"
                       required
+                      background-color="#ECEFF1"
                       :error-messages="errors"
                       @input="$emit('update:email', $event)"
                     />
@@ -211,8 +214,8 @@ export default {
     },
     introduction: {
       type: String,
-      default: "",
-      required: true
+      default: null,
+      required: false
     }
   },
   data() {
@@ -230,7 +233,6 @@ export default {
     close() {
       this.dialog = false
       this.sendEmail = false
-      this.$emit("click-close")
     },
     clickUpdate() {
       this.$emit("click-update")

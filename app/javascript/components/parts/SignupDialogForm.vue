@@ -195,7 +195,6 @@ export default {
         await this.$axios.post("/api/v1/users", {
           user: this.user
         })
-        this.$refs.observer.reset()
         this.signupForm = false
         this.$emit("create-user", this.user.email)
       } catch(err) {

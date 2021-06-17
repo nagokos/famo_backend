@@ -105,7 +105,7 @@ export default {
       this.registerSelect = true
     },
     close() {
-      if (this.signupForm === true) {
+      if (this.signupForm) {
         this.signupForm = false
         return this.registerSelect = true
       }
