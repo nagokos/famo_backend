@@ -34,24 +34,14 @@
     <!-- 自己紹介文 -->
     <v-container class="px-4 pt-0">
       <v-row>
-        <v-col
-          cols="12"
-          lg="8"
-        >
-          <p
-            class="text-caption"
-            style="color: #616161;"
-          >
-            {{ user.introduction }}
-          </p>
-        </v-col>
-        <v-col
-          class="pl-10"
-          v-if="!$vuetify.breakpoint.mobile"
-          lg="4"
-        >
-          <profile-card />
-        </v-col>
+        <profile-introduction
+          ref="profileIntroduction"
+          :user="user"
+          v-bind.sync="userEdit"
+          @click-introduction="$emit('click-introduction')"
+          @click-update="$emit('click-update')"
+        />
+        <profile-card v-if="!$vuetify.breakpoint.mobile" />
       </v-row>
     </v-container>
   </div>
@@ -61,18 +51,30 @@
 import ProfileAction from "./ProfileAction"
 import ProfileTitle from "./ProfileTitle"
 import ProfileCard from "./ProfileCard"
+import ProfileIntroduction from './ProfileIntroduction.vue'
 
 export default {
   components: {
     ProfileAction,
     ProfileTitle,
     ProfileCard,
+    ProfileIntroduction
   },
   props: {
     user: {
       type: Object,
       default: () => {},
       required: true
+    },
+    userEdit: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  },
+  methods: {
+    close() {
+      this.$refs.profileIntroduction.close()
     }
   }
 }

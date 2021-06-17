@@ -8,10 +8,10 @@
       <v-card>
         <v-btn
           icon
-          @click="closeDialog"
+          @click="close"
         >
           <v-icon
-            v-if="registerSelect || sendActivationEmail"
+            v-if="registerSelect || sendEmail"
           >
             mdi-close
           </v-icon>
@@ -39,7 +39,7 @@
         />
 
         <send-activation-email
-          v-if="sendActivationEmail"
+          v-if="sendEmail"
           :email="email"
         >
           <template #resend>
@@ -95,7 +95,7 @@ export default {
       dialog: false,
       registerSelect: false,
       signupForm: false,
-      sendActivationEmail: false,
+      sendEmail: false,
       email: ""
     }
   },
@@ -104,7 +104,7 @@ export default {
       this.dialog = true
       this.registerSelect = true
     },
-    closeDialog() {
+    close() {
       if (this.signupForm === true) {
         this.signupForm = false
         return this.registerSelect = true
@@ -117,7 +117,7 @@ export default {
     },
     showSendEmail(email) {
       this.signupForm = false
-      this.sendActivationEmail = true
+      this.sendEmail = true
       this.email = email
     },
     async resendEmail() {

@@ -4,7 +4,12 @@
       :bread-crumbs="breadCrumbs"
     />
     <profile
+      ref="profile"
       :user="currentUser"
+      :user-edit="userEdit"
+      @click-edit="openEditDialog"
+      @click-introduction="userEdit = { ...currentUser }"
+      @click-update="updateIntroduction"
     />
     <div
       class="profile-tabs"
@@ -41,27 +46,35 @@
         :user="currentUser"
       />
     </div>
+    <the-profile-edit-dialog
+      ref="profileEditDialog"
+      v-bind.sync="userEdit"
+      @click-update="updateProfile"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import TheBreadCrumb from "../globals/TheBreadCrumb"
 import Profile from "../parts/Profile"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
+import TheBreadCrumb from "../globals/TheBreadCrumb"
+import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
   components: {
-    TheBreadCrumb,
     Profile,
     ReviewList,
-    Information
+    Information,
+    TheBreadCrumb,
+    TheProfileEditDialog,
   },
   data() {
     return {
       userInformation: true,
       reviewList: false,
+      userEdit: {},
       breadCrumbs: [
         {
           text: "TOP",
@@ -78,16 +91,9 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.currentUser.last_name} ${this.currentUser.first_name}`
-    },
-    player() {
-      if (this.currentUser.role === "player") {
-        return true
-      } else {
-        return false
-      }
-    }
+  },
+  created() {
+    this.userEdit = { ...this.currentUser }
   },
   methods: {
     changeUserInformation() {
@@ -97,6 +103,23 @@ export default {
     changeReviewList() {
       this.reviewList = true
       this.userInformation = false
+    },
+    openEditDialog() {
+      this.userEdit = { ...this.currentUser }
+      this.$refs.profileEditDialog.open()
+    },
+    async updateIntroduction() {
+      await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      this.$refs.profile.close()
+    },
+    async updateProfile() {
+      const user = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (!user) return this.$refs.profileEditDialog.dupEmail()
+      if (user.activation) {
+        this.$refs.profileEditDialog.close()
+      } else {
+        this.$refs.profileEditDialog.sendActivationEmail()
+      }
     }
   }
 }

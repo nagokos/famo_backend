@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div :style="$vuetify.breakpoint.mobile ? 'position: relative; top: 27px;' : ''">
     <!-- ログインユーザーの場合 -->
     <v-btn
-      v-if="!$vuetify.breakpoint.mobile"
       rounded
       class="font-weight-bold px-2 py-5 text-caption"
       outlined
       x-large
       color="primary"
+      @click="$emit('click-edit')"
     >
       <v-icon>
         mdi-pencil-outline
@@ -16,10 +16,9 @@
     </v-btn>
     <!-- 他のユーザーの場合 -->
     <!-- <template
-      v-if="!$vuetify.breakpoint.mobile"
     >
       <v-btn
-        class="mr-4"
+        class="mr-1"
         outlined
         color="primary"
         fab
@@ -41,3 +40,15 @@
     </template> -->
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    user: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  }
+}
+</script>
