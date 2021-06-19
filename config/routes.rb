@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :leagues, only: %i[index]
       resources :categories, only: %i[index]
       resources :groups, only: %i[index]
+      resources :prefectures, only: %i[index]
+      resources :teams, only: %i[index create]
       resources :account_activations, only: %i[create edit]
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
