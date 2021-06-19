@@ -13,7 +13,7 @@ services:
     build: .
     command: bundle exec foreman start -f Procfile
     volumes:
-      - .:/myapp
+      - .:/myapp:delegated
       - bundle_path:/bundle
     environment:
       - BUNDLE_PATH=/bundle
