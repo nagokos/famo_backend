@@ -44,12 +44,14 @@ ActiveRecord::Schema.define(version: 2021_06_19_200252) do
     t.string "position", null: false
     t.integer "uniform_number", null: false
     t.string "career", null: false
+    t.bigint "user_id", null: false
     t.bigint "group_id", null: false
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_profiles_on_group_id"
     t.index ["team_id"], name: "index_profiles_on_team_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
