@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_145828) do
+ActiveRecord::Schema.define(version: 2021_06_17_180257) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 2021_06_17_145828) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "kind", default: 0, null: false
+    t.bigint "prefecture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name", "prefecture_id"], name: "index_teams_on_name_and_prefecture_id", unique: true
+    t.index ["prefecture_id"], name: "index_teams_on_prefecture_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -61,4 +71,5 @@ ActiveRecord::Schema.define(version: 2021_06_17_145828) do
 
   add_foreign_key "categories", "leagues"
   add_foreign_key "groups", "categories"
+  add_foreign_key "teams", "prefectures"
 end
