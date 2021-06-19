@@ -20,7 +20,7 @@
                 v-model="email"
                 label="メールアドレス"
                 outlined
-                background-color="#ECEFF1"
+                background-color="#F2F4F8"
                 required
                 :error-messages="errors"
               />
@@ -43,7 +43,7 @@
                 label="パスワード"
                 outlined
                 counter
-                background-color="#ECEFF1"
+                background-color="#F2F4F8"
                 required
                 :error-messages="errors"
                 @click:append="show = !show"

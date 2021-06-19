@@ -24,7 +24,7 @@
                   dense
                   label="性"
                   placeholder="例）中山"
-                  background-color="#ECEFF1"
+                  background-color="#F2F4F8"
                   required
                   :error-messages="errors"
                 />
@@ -45,7 +45,7 @@
                   dense
                   placeholder="例）太郎"
                   label="名"
-                  background-color="#ECEFF1"
+                  background-color="#F2F4F8"
                   required
                   :error-messages="errors"
                 />
@@ -75,7 +75,7 @@
                       dense
                       readonly
                       v-bind="attrs"
-                      background-color="#ECEFF1"
+                      background-color="#F2F4F8"
                       required
                       :error-messages="errors"
                       v-on="on"
@@ -112,7 +112,7 @@
                   dense
                   label="メールアドレス"
                   placeholder="例）famo0123@example.com"
-                  background-color="#ECEFF1"
+                  background-color="#F2F4F8"
                   required
                   :error-messages="errors"
                 />
@@ -138,7 +138,7 @@
                   outlined
                   dense
                   counter
-                  background-color="#ECEFF1"
+                  background-color="#F2F4F8"
                   required
                   :error-messages="errors"
                   @click:append="show = !show"
