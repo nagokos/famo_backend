@@ -4,6 +4,7 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       t.string :position, null: false
       t.integer :uniform_number, null: false
       t.string :career, null: false
+      t.references :user, null: false, fereign_key: true
       t.references :group, null: false, foreign_key: true
       t.references :team, null: false, foreign_key: true
 
