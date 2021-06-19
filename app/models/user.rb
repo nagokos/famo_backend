@@ -5,6 +5,8 @@ class User < ApplicationRecord
   before_update :setup_activation_attributes, if: -> { email_changed? }
   after_update :send_activation_needed_email!, if: -> { previous_changes['email'].present? }
 
+  has_one :profile
+
   authenticates_with_sorcery!
 
   EMAIL_FORMAT = /\A[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}\z/i
