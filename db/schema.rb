@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_180257) do
+ActiveRecord::Schema.define(version: 2021_06_19_200252) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(version: 2021_06_17_180257) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "position", null: false
+    t.integer "uniform_number", null: false
+    t.string "career", null: false
+    t.bigint "group_id", null: false
+    t.bigint "team_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_profiles_on_group_id"
+    t.index ["team_id"], name: "index_profiles_on_team_id"
   end
 
   create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -71,5 +83,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_180257) do
 
   add_foreign_key "categories", "leagues"
   add_foreign_key "groups", "categories"
+  add_foreign_key "profiles", "groups"
+  add_foreign_key "profiles", "teams"
   add_foreign_key "teams", "prefectures"
 end
