@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe League, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'association' do
+    it 'has_many :categories :restrict_with_exception' do
+      is_expected.to have_many(:categories).dependent(:restrict_with_exception)
+    end
+  end
 end
