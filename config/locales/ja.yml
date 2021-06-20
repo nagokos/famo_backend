@@ -1,14 +1,53 @@
 ja:
   activerecord:
     models:
-      user: 'ユーザー'
+      user: ユーザー
+      profile: プロフィール
+      prefecture: 都道府県
+      team: チーム
+      league: リーグ
+      category: カテゴリ
+      group: グループ
     attributes:
       user:
-        first_name: '名'
-        last_name: '性'
-        birth_date: '生年月日'
-        avatar: 'アバター'
-        role: '権限'
-        introduction: '自己紹介'
-        email: 'メールアドレス'
-        password: 'パスワード'
+        first_name: 名
+        last_name: 性
+        birth_date: 生年月日
+        avatar: アバター
+        role: 権限
+        introduction: 自己紹介
+        email: メールアドレス
+        password: パスワード
+      profile:
+        position: ポジション
+        uniform_number: 背番号
+        career: 経歴
+        user_id: ユーザー
+        team_id: チーム
+        group_id: グループ
+      prefecture:
+        name: 名前
+      team:
+        name: 名前
+        kind: 種類
+        prefecture_id: 都道府県
+      league:
+        name: 名前
+      category:
+        name: 名前
+        league_id: リーグ
+      group:
+        name: 名前
+        category_id: カテゴリ
+  enums:
+    user:
+      role:
+        reviewer: レビュアー
+        player: 選手
+        admin: 管理者
+    team:
+      kind:
+        high_school: 高校
+        youth: ユース
+
+

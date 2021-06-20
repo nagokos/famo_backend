@@ -11,6 +11,7 @@ gem 'webpacker', '~> 5.0'
 
 # 日本語化
 gem 'rails-i18n'
+gem 'enum_help'
 # 認証
 gem 'sorcery'
 # 定数管理
