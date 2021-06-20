@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :prefecture
+  has_many :profiles
 
   validates :name, presence: true, uniqueness: { scope: :prefecture }
   validates :kind, presence: true
