@@ -8,7 +8,7 @@ module UserAuthenticator
     @current_user ||= User.find_by(id: payload['user_id'])
   end
 
-  def require_login
+  def required_login
     return if current_user
 
     render json: { message: 'ログインしてください' }, status: :unauthorized
