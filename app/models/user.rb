@@ -5,7 +5,7 @@ class User < ApplicationRecord
   before_update :setup_activation_attributes, if: -> { email_changed? }
   after_update :send_activation_needed_email!, if: -> { previous_changes['email'].present? }
 
-  has_one :profile
+  has_one :profile, dependent: :destroy
 
   authenticates_with_sorcery!
 
