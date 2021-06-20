@@ -10,8 +10,8 @@ gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'webpacker', '~> 5.0'
 
 # 日本語化
-gem 'rails-i18n'
 gem 'enum_help'
+gem 'rails-i18n'
 # 認証
 gem 'sorcery'
 # 定数管理
@@ -22,8 +22,8 @@ gem 'seed-fu'
 gem 'active_model_serializers'
 
 group :development, :test do
-  gem 'bullet'
   gem 'awesome_print'
+  gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
