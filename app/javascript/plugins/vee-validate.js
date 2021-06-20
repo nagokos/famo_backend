@@ -5,7 +5,7 @@ setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_}を入力してください"
+  message: "{_field_}は必須項目です"
 })
 
 extend("max", {
