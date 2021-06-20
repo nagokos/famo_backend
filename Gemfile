@@ -22,6 +22,7 @@ gem 'seed-fu'
 gem 'active_model_serializers'
 
 group :development, :test do
+  gem 'bullet'
   gem 'awesome_print'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
