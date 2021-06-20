@@ -26,19 +26,29 @@ ja:
         team_id: チーム
         group_id: グループ
       prefecture:
-        name: 名前
+        name: 都道府県名
       team:
-        name: 名前
+        name: チーム名
         kind: 種類
         prefecture_id: 都道府県
       league:
-        name: 名前
+        name: リーグ名
       category:
-        name: 名前
+        name: カテゴリ名
         league_id: リーグ
       group:
-        name: 名前
+        name: グループ名
         category_id: カテゴリ
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: この%{attribute}はすでに存在します
+        team:
+          attributes:
+            name:
+              taken: この%{attribute}はすでに存在します
   enums:
     user:
       role:
