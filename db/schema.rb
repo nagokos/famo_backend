@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_06_19_200252) do
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "position", null: false
     t.integer "uniform_number", null: false
-    t.string "career", null: false
+    t.string "career"
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
     t.bigint "team_id", null: false
