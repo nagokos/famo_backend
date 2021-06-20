@@ -51,7 +51,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       it 'エラーメッセージを返す' do
         post '/api/v1/users', headers: @header, params: { user: { email: user.email } }
         expect(response.status).to eq(422)
-        expect(json['errors']).to include('メールアドレスはすでに存在します')
+        expect(json['errors']['email']).to include('このメールアドレスはすでに存在します')
       end
     end
   end
