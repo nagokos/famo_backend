@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_19_200252) do
+ActiveRecord::Schema.define(version: 2021_06_21_185549) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_06_19_200252) do
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "position", null: false
-    t.integer "uniform_number", null: false
-    t.string "career"
+    t.integer "official_number", null: false
+    t.integer "practice_number"
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
     t.bigint "team_id", null: false
