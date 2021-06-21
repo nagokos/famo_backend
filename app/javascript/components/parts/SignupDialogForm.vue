@@ -198,9 +198,7 @@ export default {
         this.signupForm = false
         this.$emit("create-user", this.user.email)
       } catch(err) {
-        this.$refs.observer.setErrors({
-          email: ["このメールアドレスは既に使用されています"]
-        })
+        this.$refs.observer.setErrors(err.response.data.errors)
       }
     }
   }

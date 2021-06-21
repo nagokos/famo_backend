@@ -7,6 +7,7 @@
       ref="profile"
       :user="currentUser"
       :user-edit="userEdit"
+      @click-player="$refs.playerDialog.open()"
       @click-edit="openEditDialog"
       @click-introduction="userEdit = { ...currentUser }"
       @click-update="updateIntroduction"
@@ -51,6 +52,9 @@
       v-bind.sync="userEdit"
       @click-update="updateProfile"
     />
+    <the-player-dialog
+      ref="playerDialog"
+    />
   </div>
 </template>
 
@@ -60,6 +64,7 @@ import Profile from "../parts/Profile"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
+import ThePlayerDialog from "../parts/ThePlayerDialog"
 import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
@@ -68,6 +73,7 @@ export default {
     ReviewList,
     Information,
     TheBreadCrumb,
+    ThePlayerDialog,
     TheProfileEditDialog,
   },
   data() {
