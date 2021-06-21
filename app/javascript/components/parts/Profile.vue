@@ -41,7 +41,10 @@
           @click-introduction="$emit('click-introduction')"
           @click-update="$emit('click-update')"
         />
-        <profile-card v-if="!$vuetify.breakpoint.mobile" />
+        <profile-card
+          v-if="!$vuetify.breakpoint.mobile"
+          @click-player="$emit('click-player')"
+        />
       </v-row>
     </v-container>
   </div>
