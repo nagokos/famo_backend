@@ -41,14 +41,27 @@ ja:
         category: カテゴリ
     errors:
       models:
-        user:
+        profile:
           attributes:
-            email:
-              taken: この%{attribute}はすでに存在します
+            group:
+              required: 選択して下さい
+            team:
+              required: "%{attribute}を選択して下さい"
+            position:
+              blank: "%{attribute}を選択して下さい"
         team:
           attributes:
-            name:
-              taken: この%{attribute}はすでに存在します
+            prefecture:
+              required: "%{attribute}を選択して下さい"
+            kind:
+              blank: "選択して下さい"
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "%{attribute}は必須項目です"
+      taken: この%{attribute}は既に存在します
+      too_long: "%{attribute}は%{count}文字以内で入力してください"
+      too_short: "%{attribute}は%{count}文字以上で入力してください"
   enums:
     user:
       role:
