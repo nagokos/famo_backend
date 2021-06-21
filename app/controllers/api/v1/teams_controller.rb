@@ -1,13 +1,10 @@
 class Api::V1::TeamsController < ApplicationController
-  def index
-    teams = Team.all
-    render json: teams, each_serializer: TeamSerializer
-  end
+  before_action :required_login, only: %i[create]
 
   def create
     team = Team.new(team_params)
     if team.save
-      head :created
+      render json: team, status: :created
     else
       render json: { errors: team.errors }, status: :unprocessable_entity
     end
