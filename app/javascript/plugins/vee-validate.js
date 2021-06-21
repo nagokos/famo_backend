@@ -1,5 +1,5 @@
 import { ValidationObserver, ValidationProvider, extend, setInteractionMode } from 'vee-validate'
-import { required, max, min } from 'vee-validate/dist/rules';
+import { required, max, min, numeric } from 'vee-validate/dist/rules';
 
 setInteractionMode("eager");
 
@@ -16,6 +16,11 @@ extend("max", {
 extend("min", {
   ...min,
   message: "{_field_}は{length}文字以上で入力してください"
+})
+
+extend("numeric", {
+  ...numeric,
+  message: "{_field_}は数字のみ入力可能です"
 })
 
 extend("formFormat", {
