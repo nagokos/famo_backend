@@ -4,5 +4,6 @@ class Profile < ApplicationRecord
   belongs_to :user
 
   validates :position, presence: true
-  validates :uniform_number, presence: true
+  validates :official_number, presence: true, numericality: true
+  validates :practice_number, numericality: true, allow_nil: true
 end
