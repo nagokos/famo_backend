@@ -22,23 +22,23 @@ ja:
         position: ポジション
         uniform_number: 背番号
         career: 経歴
-        user_id: ユーザー
-        team_id: チーム
-        group_id: グループ
+        user: ユーザー
+        team: チーム
+        group: グループ
       prefecture:
         name: 都道府県名
       team:
         name: チーム名
         kind: 種類
-        prefecture_id: 都道府県
+        prefecture: 都道府県
       league:
         name: リーグ名
       category:
         name: カテゴリ名
-        league_id: リーグ
+        league: リーグ
       group:
         name: グループ名
-        category_id: カテゴリ
+        category: カテゴリ
     errors:
       models:
         user:
