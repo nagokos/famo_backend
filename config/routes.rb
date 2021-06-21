@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resource :profiles, only: %i[create update]
       resources :leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
