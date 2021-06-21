@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :prefecture
-  has_many :profiles
+  has_many :profiles, dependent: :restrict_with_exception
 
   validates :name, presence: true, uniqueness: { scope: :prefecture }
   validates :kind, presence: true
