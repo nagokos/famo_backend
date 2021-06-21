@@ -1,34 +1,31 @@
 <template>
-  <v-card outlined>
-    <v-simple-table dense>
-      <template #default>
-        <tbody>
-          <tr
-            v-for="item in desserts"
-            :key="item.name"
-          >
-            <td
-              class="pr-0"
-            >
-              <span
-                class="font-weight-bold"
-                style="font-size: 10px"
-              >{{ item.name }}</span>
-            </td>
-            <td
-              align="end"
-              class="pl-0"
-            >
-              <span
-                class="font-weight-bold"
-                style="font-size: 10px"
-              >{{ item.calories }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  </v-card>
+  <v-col
+    class="pl-10"
+    lg="4"
+  >
+    <v-card
+      outlined
+    >
+      <v-simple-table dense>
+        <template #default>
+          <tbody>
+            <template>
+              <v-col align="center">
+                <v-btn
+                  right
+                  text
+                  color="primary"
+                  @click="$emit('click-player')"
+                >
+                  選手情報追加
+                </v-btn>
+              </v-col>
+            </template>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
