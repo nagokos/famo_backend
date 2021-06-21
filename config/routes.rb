@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         end
       end
       resources :leagues, only: %i[index]
-      resources :prefectures, only: %i[index]
+      resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
       post '/login', to: 'user_sessions#create'
