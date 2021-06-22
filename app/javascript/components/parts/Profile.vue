@@ -21,13 +21,13 @@
         </v-list-item-content>
         <!-- プロフィールアクション -->
         <profile-action
-          @click-edit="$emit('click-edit')"
           :user="user"
+          @click-edit="$emit('click-edit')"
         />
       </v-list-item>
       <profile-title
-        class="ml-3"
         v-if="$vuetify.breakpoint.mobile"
+        class="ml-3"
         :user="user"
       />
     </v-list>
@@ -43,6 +43,7 @@
         />
         <profile-card
           v-if="!$vuetify.breakpoint.mobile"
+          :profile="profile"
           @click-player="$emit('click-player')"
         />
       </v-row>
@@ -73,6 +74,11 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    profile: {
+      type: Object,
+      default: () => {},
+      required: false
     }
   },
   methods: {

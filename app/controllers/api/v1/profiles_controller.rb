@@ -4,10 +4,15 @@ class Api::V1::ProfilesController < ApplicationController
   def create
     profile = current_user.build_profile(profile_params)
     if profile.save
-      render json: profile, status: :created
+      render json: profile, include: '**', status: :created
     else
       render json: { errors: profile.errors }, status: :unprocessable_entity
     end
+  end
+
+  def show
+    profile = current_user.profile
+    render json: profile, include: '**'
   end
 
   def update; end
