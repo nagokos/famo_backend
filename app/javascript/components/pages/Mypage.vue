@@ -8,6 +8,7 @@
       v-if="loading"
       :user="currentUser"
       :user-edit="userEdit"
+      :profile="profile"
       @click-player="$refs.playerDialog.open()"
       @click-edit="openEditDialog"
       @click-introduction="userEdit = { ...currentUser }"
@@ -55,6 +56,7 @@
     />
     <the-player-dialog
       ref="playerDialog"
+      @create-profile="setProfile"
     />
   </div>
 </template>
@@ -102,9 +104,16 @@ export default {
     ...mapGetters({ currentUser: "user/currentUser" }),
   },
   created() {
-    this.userEdit = { ...this.currentUser }
+    this.setUserEdit()
+    this.getProfileData()
   },
   methods: {
+    setUserEdit() {
+      this.userEdit = { ...this.currentUser }
+    },
+    setProfile(object) {
+      this.profile = object
+    },
     changeUserInformation() {
       this.userInformation = true
       this.reviewList = false
@@ -114,8 +123,13 @@ export default {
       this.userInformation = false
     },
     openEditDialog() {
-      this.userEdit = { ...this.currentUser }
+      this.setUserEdit()
       this.$refs.profileEditDialog.open()
+    },
+    async getProfileData() {
+      const response = await this.$axios.get("/api/v1/profile")
+      this.profile = response.data
+      this.loading = true
     },
     async updateIntroduction() {
       await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
