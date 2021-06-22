@@ -43,6 +43,7 @@
         />
         <profile-card
           v-if="!$vuetify.breakpoint.mobile"
+          :profile="profile"
           @click-player="$emit('click-player')"
         />
       </v-row>
