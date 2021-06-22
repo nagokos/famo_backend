@@ -351,6 +351,7 @@ export default {
         const response = await this.$axios.post("/api/v1/profile", {
           profile: this.profile
         })
+        this.$emit("create-profile", response.data)
         this.close()
       } catch(err) {
         this.$refs.observer.setErrors(err.response.data.errors)
