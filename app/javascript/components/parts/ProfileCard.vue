@@ -1,6 +1,5 @@
 <template>
   <v-col
-    class="pl-10"
     lg="4"
   >
     <v-card
