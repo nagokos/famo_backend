@@ -5,6 +5,7 @@
     />
     <profile
       ref="profile"
+      v-if="loading"
       :user="currentUser"
       :user-edit="userEdit"
       @click-player="$refs.playerDialog.open()"
@@ -81,6 +82,8 @@ export default {
       userInformation: true,
       reviewList: false,
       userEdit: {},
+      profile: {},
+      loading: false,
       breadCrumbs: [
         {
           text: "TOP",
