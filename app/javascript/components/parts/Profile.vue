@@ -74,6 +74,11 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    profile: {
+      type: Object,
+      default: () => {},
+      required: false
     }
   },
   methods: {
