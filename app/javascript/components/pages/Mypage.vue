@@ -4,8 +4,8 @@
       :bread-crumbs="breadCrumbs"
     />
     <profile
-      ref="profile"
       v-if="loading"
+      ref="profile"
       :user="currentUser"
       :user-edit="userEdit"
       :profile="profile"
