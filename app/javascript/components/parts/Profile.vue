@@ -26,8 +26,8 @@
         />
       </v-list-item>
       <profile-title
-        class="ml-3"
         v-if="$vuetify.breakpoint.mobile"
+        class="ml-3"
         :user="user"
       />
     </v-list>
