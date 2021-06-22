@@ -2,15 +2,11 @@
   <v-container>
     <v-row>
       <!-- 経歴 -->
-      <v-col cols="12">
-        <information-career />
-      </v-col>
+      <information-career />
       <!-- つながり -->
-      <v-col cols="12">
-        <information-relation
-          :user="user"
-        />
-      </v-col>
+      <information-relation
+        :user="user"
+      />
     </v-row>
   </v-container>
 </template>
