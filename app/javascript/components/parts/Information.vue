@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import InformationPlayer from "./informationPlayer"
+import InformationPlayer from "./InformationPlayer"
 import InformationCareer from "./InformationCareer"
 import InformationRelation from "./InformationRelation"
 
