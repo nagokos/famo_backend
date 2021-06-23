@@ -9,7 +9,7 @@
       :user="currentUser"
       :user-edit="userEdit"
       :profile="profile"
-      @click-player="$refs.playerDialog.open()"
+      @click-player="openPlayerDialog"
       @click-edit="openEditDialog"
       @click-introduction="userEdit = { ...currentUser }"
       @click-update="updateIntroduction"
@@ -41,8 +41,10 @@
     <v-divider />
     <div class="profile-contents mt-4">
       <information
-        v-if="userInformation"
+        v-if="userInformation && loading"
         :user="currentUser"
+        :profile="profile"
+        @click-player="openPlayerDialog"
       />
       <review-list
         v-if="reviewList"
@@ -125,6 +127,9 @@ export default {
     openEditDialog() {
       this.setUserEdit()
       this.$refs.profileEditDialog.open()
+    },
+    openPlayerDialog() {
+      this.$refs.playerDialog.open()
     },
     async getProfileData() {
       const response = await this.$axios.get("/api/v1/profile")
