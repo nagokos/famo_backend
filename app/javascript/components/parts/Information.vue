@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <v-row>
+      <information-player
+        v-if="$vuetify.breakpoint.mobile"
+        :profile="profile"
+        @click-player="$emit('click-player')"
+      />
       <!-- 経歴 -->
       <information-career />
       <!-- つながり -->
@@ -12,19 +17,26 @@
 </template>
 
 <script>
+import InformationPlayer from "./informationPlayer"
 import InformationCareer from "./InformationCareer"
 import InformationRelation from "./InformationRelation"
 
 export default {
   components: {
-     InformationCareer,
-     InformationRelation
+    InformationPlayer,
+    InformationCareer,
+    InformationRelation
   },
   props: {
     user: {
       type: Object,
       default: () => {},
       required: true
+    },
+    profile: {
+      type: Object,
+      default: () => {},
+      required: false
     }
   }
 }

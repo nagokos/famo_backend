@@ -41,8 +41,10 @@
     <v-divider />
     <div class="profile-contents mt-4">
       <information
-        v-if="userInformation"
+        v-if="userInformation && loading"
         :user="currentUser"
+        :profile="profile"
+        @click-player="openPlayerDialog"
       />
       <review-list
         v-if="reviewList"
