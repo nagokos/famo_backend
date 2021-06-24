@@ -59,25 +59,11 @@
       class="profile-tabs"
     >
       <v-divider />
-      <v-tabs
-        color="black"
-        :fixed-tabs="$vuetify.breakpoint.mobile"
-        :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
-        background-color="#FAFAFA"
-      >
-        <v-tab
-          class="mr-5 font-weight-bold"
-          @click="changeUserInformation"
-        >
-          ユーザー情報
-        </v-tab>
-        <v-tab
-          class="font-weight-bold"
-          @click="changeReviewList"
-        >
-          レビュー一覧
-        </v-tab>
-      </v-tabs>
+      <!-- タブ -->
+      <profile-tab
+        @click-user="changeUserInformation"
+        @click-review="changeReviewList"
+      />
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
