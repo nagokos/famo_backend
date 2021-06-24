@@ -8,7 +8,7 @@
       <signup-dialog-select
         v-if="registerSelect"
         @email-register="showForm"
-        @click-close="Object.assign($data, $options.data())"
+        @click-close="dialog = false"
       />
       <signup-dialog-form
         v-if="emailRegister"
