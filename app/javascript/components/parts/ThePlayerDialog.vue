@@ -277,7 +277,7 @@
                     dark
                     block
                     depressed
-                    @click="handleSubmit(sendPlayerData)"
+                    @click="handleSubmit(clickRegister)"
                   >
                     登録する
                   </v-btn>
@@ -363,25 +363,6 @@ export default {
       this.registerPlayer = !this.registerPlayer
       this.registerTeam = !this.registerTeam
     },
-    async getLeagueData() {
-      const response = await this.$axios.get("/api/v1/leagues")
-      this.leagues = response.data
-    },
-    async getPrefectureTeamData() {
-      const response = await this.$axios.get("/api/v1/prefecture_teams")
-      this.prefectures = response.data
-    },
-    async sendPlayerData() {
-      try {
-        const response = await this.$axios.post("/api/v1/profile", {
-          profile: this.profile
-        })
-        this.$emit("create-profile", response.data)
-        this.close()
-      } catch(err) {
-        this.$refs.observer.setErrors(err.response.data.errors)
-      }
-    },
     pushTeam(team) {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
@@ -392,7 +373,19 @@ export default {
       if (this.filterGroups.length === 1) {
         this.profile.groupId = this.filterGroups[0].id
       }
-    }
+    },
+    clickRegister() {
+      this.$emit("click-register", this.profile)
+      this.close()
+    },
+    async getLeagueData() {
+      const response = await this.$axios.get("/api/v1/leagues")
+      this.leagues = response.data
+    },
+    async getPrefectureTeamData() {
+      const response = await this.$axios.get("/api/v1/prefecture_teams")
+      this.prefectures = response.data
+    },
   }
 }
 </script>
