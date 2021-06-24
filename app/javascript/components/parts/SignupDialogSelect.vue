@@ -1,68 +1,80 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col
-        cols="12"
-        align="center"
-        class="mt-10"
+  <v-card>
+    <v-btn
+      icon
+      @click="$emit('click-close')"
+    >
+      <v-icon
       >
-        <v-btn
-          width="250"
-          x-large
-          class="font-weight-bold"
-          @click="$emit('email-register')"
+        mdi-close
+      </v-icon>
+    </v-btn>
+    <v-card-title
+      class="pt-0 pb-5 font-weight-bold justify-center text-h5"
+    >
+      新規登録
+    </v-card-title>
+    <v-divider />
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          align="center"
+          class="mt-10"
         >
-          <v-icon
-            color="#EF5350"
-            class="mr-2"
+          <v-btn
+            width="250"
+            x-large
+            class="font-weight-bold"
+            @click="$emit('email-register')"
           >
-            mdi-email
-          </v-icon>
-          <span class="mx-auto">メールアドレスで登録</span>
-        </v-btn>
-      </v-col>
-      <v-col
-        cols="12"
-        align="center"
-      >
-        <v-btn
-          width="250"
-          x-large
-          class="font-weight-bold"
+            <v-icon
+              color="#EF5350"
+              class="mr-2"
+            >
+              mdi-email
+            </v-icon>
+            <span class="mx-auto">メールアドレスで登録</span>
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          align="center"
         >
-          <v-img
-            src="/img/line.png"
-            class="mr-2"
-            max-width="25"
-            max-height="25"
-          />
-          <span class="mx-auto">LINEで登録</span>
-        </v-btn>
-      </v-col>
-      <v-col
-        cols="12"
-        align="center"
-        class="mb-14"
-      >
-        <v-btn
-          width="250"
-          x-large
-          class="font-weight-bold text-capitalize"
+          <v-btn
+            width="250"
+            x-large
+            class="font-weight-bold"
+          >
+            <v-img
+              src="/img/line.png"
+              class="mr-2"
+              max-width="25"
+              max-height="25"
+            />
+            <span class="mx-auto">LINEで登録</span>
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          align="center"
+          class="mb-14"
         >
-          <v-img
-            src="/img/facebook.png"
-            class="mr-2"
-            max-width="25"
-            max-height="25"
-          />
-          <span class="mx-auto">FaceBookで登録</span>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+          <v-btn
+            width="250"
+            x-large
+            class="font-weight-bold text-capitalize"
+          >
+            <v-img
+              src="/img/facebook.png"
+              class="mr-2"
+              max-width="25"
+              max-height="25"
+            />
+            <span class="mx-auto">FaceBookで登録</span>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
-
-<script>
-export default {
-}
-</script>
