@@ -173,7 +173,7 @@ export default {
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
       if (response.errors) return this.$refs.profileEditDialog.setErrors(response.errors)
-      if (response.activation) {
+      if (response.activationState === "active") {
         this.$refs.profileEditDialog.close()
       } else {
         this.$refs.profileEditDialog.sendActivationEmail()
