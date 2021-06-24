@@ -25,8 +25,8 @@
             />
           </v-list-item-content>
           <profile-action
-            @click-edit="openEditDialog"
             :class="{ 'mt-10': !$vuetify.breakpoint.mobile }"
+            @click-edit="openEditDialog"
           />
         </v-list-item>
         <profile-title
