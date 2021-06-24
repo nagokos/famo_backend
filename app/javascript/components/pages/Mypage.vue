@@ -20,7 +20,7 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="ml-3 mt-10 py-0"
+              class="mt-10 py-0"
               :user="currentUser"
             />
           </v-list-item-content>
