@@ -58,7 +58,7 @@
     />
     <the-player-dialog
       ref="playerDialog"
-      @create-profile="setProfile"
+      @click-register="sendPlayerData"
     />
   </div>
 </template>
@@ -113,9 +113,6 @@ export default {
     setUserEdit() {
       this.userEdit = { ...this.currentUser }
     },
-    setProfile(object) {
-      this.profile = object
-    },
     changeUserInformation() {
       this.userInformation = true
       this.reviewList = false
@@ -148,7 +145,17 @@ export default {
       } else {
         this.$refs.profileEditDialog.sendActivationEmail()
       }
-    }
+    },
+    async sendPlayerData(profile) {
+      try {
+        const response = await this.$axios.post("/api/v1/profile", {
+          profile: profile
+        })
+        this.profile = response.data
+      } catch(err) {
+        this.$refs.observer.setErrors(err.response.data.errors)
+      }
+    },
   }
 }
 </script>

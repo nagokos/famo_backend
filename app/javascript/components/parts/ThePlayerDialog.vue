@@ -45,7 +45,7 @@
                     class="font-weight-bold"
                     :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
                   >
-                    *所属チームが見つからない場合は
+                    ＊所属チームが見つからない場合は
                     <span
                       class="red--text"
                       style="cursor: pointer;"
@@ -217,7 +217,10 @@
                     class="font-weight-bold text-h6 black--text"
                   >
                     背番号
+
                   </span>
+                  <br>
+                  <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
                 </v-col>
                 <v-col
                   cols="12"
@@ -247,6 +250,26 @@
                   cols="12"
                   class="pt-0"
                 >
+                  <ValidationProvider
+                    rules="numeric"
+                    name="練習試合"
+                    vid="practice_number"
+                  >
+                    <v-text-field
+                      v-model="profile.practiceNumber"
+                      label="練習試合"
+                      outlined
+                      dense
+                      hint="練習試合での背番号を入力して下さい"
+                      persistent-hint
+                      type="number"
+                    />
+                  </ValidationProvider>
+                </v-col>
+                <v-col
+                  cols="12"
+                  class="pt-0"
+                >
                   <v-btn
                     color="#3949AB"
                     class="font-weight-bold"
@@ -254,7 +277,7 @@
                     dark
                     block
                     depressed
-                    @click="handleSubmit(sendPlayerData)"
+                    @click="handleSubmit(clickRegister)"
                   >
                     登録する
                   </v-btn>
@@ -291,6 +314,7 @@ export default {
       profile: {
         position: "",
         officialNumber: "",
+        practiceNunmber: "",
         groupId: "",
         teamId: "",
       },
@@ -339,25 +363,6 @@ export default {
       this.registerPlayer = !this.registerPlayer
       this.registerTeam = !this.registerTeam
     },
-    async getLeagueData() {
-      const response = await this.$axios.get("/api/v1/leagues")
-      this.leagues = response.data
-    },
-    async getPrefectureTeamData() {
-      const response = await this.$axios.get("/api/v1/prefecture_teams")
-      this.prefectures = response.data
-    },
-    async sendPlayerData() {
-      try {
-        const response = await this.$axios.post("/api/v1/profile", {
-          profile: this.profile
-        })
-        this.$emit("create-profile", response.data)
-        this.close()
-      } catch(err) {
-        this.$refs.observer.setErrors(err.response.data.errors)
-      }
-    },
     pushTeam(team) {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
@@ -368,7 +373,19 @@ export default {
       if (this.filterGroups.length === 1) {
         this.profile.groupId = this.filterGroups[0].id
       }
-    }
+    },
+    clickRegister() {
+      this.$emit("click-register", this.profile)
+      this.close()
+    },
+    async getLeagueData() {
+      const response = await this.$axios.get("/api/v1/leagues")
+      this.leagues = response.data
+    },
+    async getPrefectureTeamData() {
+      const response = await this.$axios.get("/api/v1/prefecture_teams")
+      this.prefectures = response.data
+    },
   }
 }
 </script>
