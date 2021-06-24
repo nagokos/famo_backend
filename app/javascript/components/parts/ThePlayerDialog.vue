@@ -217,7 +217,10 @@
                     class="font-weight-bold text-h6 black--text"
                   >
                     背番号
+
                   </span>
+                  <br>
+                  <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
                 </v-col>
                 <v-col
                   cols="12"
@@ -240,6 +243,26 @@
                       persistent-hint
                       type="number"
                       :error-messages="errors"
+                    />
+                  </ValidationProvider>
+                </v-col>
+                <v-col
+                  cols="12"
+                  class="pt-0"
+                >
+                  <ValidationProvider
+                    rules="numeric"
+                    name="練習試合"
+                    vid="practice_number"
+                  >
+                    <v-text-field
+                      v-model="profile.practiceNumber"
+                      label="練習試合"
+                      outlined
+                      dense
+                      hint="練習試合での背番号を入力して下さい"
+                      persistent-hint
+                      type="number"
                     />
                   </ValidationProvider>
                 </v-col>
@@ -291,6 +314,7 @@ export default {
       profile: {
         position: "",
         officialNumber: "",
+        practiceNunmber: "",
         groupId: "",
         teamId: "",
       },
