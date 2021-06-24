@@ -4,8 +4,7 @@
       icon
       @click="$emit('click-close')"
     >
-      <v-icon
-      >
+      <v-icon>
         mdi-close
       </v-icon>
     </v-btn>
