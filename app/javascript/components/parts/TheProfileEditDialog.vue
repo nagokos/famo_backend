@@ -22,8 +22,8 @@
       <v-divider />
       <v-card-text
         v-if="form"
-        :style="$vuetify.breakpoint.mobile ? 'height: 450px' : ''"
-        :class="$vuetify.breakpoint.mobile ? 'px-2' : ''"
+        :style="{ 'height: 450px': $vuetify.breakpoint.mobile }"
+        :class="{ 'px-2': $vuetify.breakpoint.mobile }"
       >
         <ValidationObserver
           ref="observer"
