@@ -215,7 +215,7 @@ export default {
     },
     introduction: {
       type: String,
-      default: null,
+      default: "",
       required: false
     }
   },
