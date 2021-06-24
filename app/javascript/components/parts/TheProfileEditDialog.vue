@@ -15,15 +15,15 @@
         </v-icon>
       </v-btn>
       <v-card-title
-        class="pt-0 font-weight-bold justify-center"
+        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
       >
         プロフィール編集
       </v-card-title>
       <v-divider />
       <v-card-text
         v-if="form"
-        :style="$vuetify.breakpoint.mobile ? 'height: 450px' : ''"
-        :class="$vuetify.breakpoint.mobile ? 'px-2' : ''"
+        :style="{ 'height: 450px': $vuetify.breakpoint.mobile }"
+        :class="{ 'px-2': $vuetify.breakpoint.mobile }"
       >
         <ValidationObserver
           ref="observer"
@@ -37,8 +37,7 @@
                   class="pb-0"
                 >
                   <span
-                    class="font-weight-bold text-h6"
-                    style="color: black;"
+                    class="font-weight-bold text-h6 black--text"
                   >
                     プロフィール写真
                   </span>
@@ -65,8 +64,7 @@
                 </v-col>
                 <v-col cols="12">
                   <span
-                    class="font-weight-bold text-h6"
-                    style="color: black;"
+                    class="font-weight-bold text-h6 black--text"
                   >
                     基本情報
                   </span>
@@ -121,7 +119,10 @@
                     v-slot="{ errors }"
                     name="メールアドレス"
                     vid="email"
-                    :rules="{ required: true, formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i }"
+                    :rules="{
+                      required: true,
+                      formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i
+                    }"
                   >
                     <v-text-field
                       :value="email"
@@ -214,7 +215,7 @@ export default {
     },
     introduction: {
       type: String,
-      default: null,
+      default: "",
       required: false
     }
   },
@@ -241,10 +242,8 @@ export default {
       this.form = false
       this.sendEmail = true
     },
-    dupEmail() {
-      this.$refs.observer.setErrors({
-        email: ["このメールアドレスは既に使用されています"]
-      })
+    setErrors(errors) {
+      this.$refs.observer.setErrors(errors)
     }
   }
 }
