@@ -5,76 +5,51 @@
       width="500"
       :persistent="true"
     >
-      <v-card>
-        <v-btn
-          icon
-          @click="close"
-        >
-          <v-icon
-            v-if="registerSelect || sendEmail"
-          >
-            mdi-close
-          </v-icon>
-          <v-icon
-            v-if="signupForm"
-          >
-            mdi-arrow-left
-          </v-icon>
-        </v-btn>
-        <v-card-title
-          class="pt-0 font-weight-black justify-center"
-        >
-          新規登録
-        </v-card-title>
-        <v-divider />
-
-        <signup-dialog-select
-          v-if="registerSelect"
-          @email-register="showForm"
-        />
-
-        <signup-dialog-form
-          v-if="signupForm"
-          @create-user="showSendEmail"
-        />
-
-        <send-activation-email
-          v-if="sendEmail"
-          :email="email"
-        >
-          <template #resend>
-            <v-container>
-              <v-divider
-                class="mt-n3"
-              />
-              <v-row>
-                <v-col
-                  cols="12"
-                  class="mt-6 pb-0"
-                  align="center"
+      <signup-dialog-select
+        v-if="registerSelect"
+        @email-register="showForm"
+        @click-close="Object.assign($data, $options.data())"
+      />
+      <signup-dialog-form
+        v-if="emailRegister"
+        @create-user="showSendEmail"
+        @click-back="closeForm"
+      />
+      <send-activation-email
+        v-if="sendEmail"
+        :email="email"
+      >
+        <template #resend>
+          <v-container>
+            <v-divider
+              class="mt-n3"
+            />
+            <v-row>
+              <v-col
+                cols="12"
+                class="mt-6 pb-0"
+                align="center"
+              >
+                <p
+                  class="font-weight-bold black--text"
                 >
-                  <p
-                    class="font-weight-bold"
-                    style="color: black"
-                  >
-                    メールが届かない方はこちら
-                  </p>
-                </v-col>
-                <v-col class="pt-0">
-                  <v-btn
-                    block
-                    depressed
-                    outlined
-                    @click="resendEmail"
-                  >
-                    再度送信
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </template>
-        </send-activation-email>
-      </v-card>
+                  メールが届かない方はこちら
+                </p>
+              </v-col>
+              <v-col class="pt-0">
+                <v-btn
+                  block
+                  depressed
+                  outlined
+                  @click="resendEmail"
+                >
+                  再度送信
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </template>
+      </send-activation-email>
     </v-dialog>
   </div>
 </template>
