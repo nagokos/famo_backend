@@ -45,7 +45,7 @@
             class="red--text"
             @click="$refs.activationEmailDialog.open()"
           >
-          こちら
+            こちら
           </strong>
           をクリック
         </p>

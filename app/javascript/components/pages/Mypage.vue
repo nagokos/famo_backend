@@ -20,13 +20,13 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="ml-3 mt-10 py-0"
+              class="mt-10 py-0"
               :user="currentUser"
             />
           </v-list-item-content>
           <profile-action
-            @click-edit="openEditDialog"
             :class="{ 'mt-10': !$vuetify.breakpoint.mobile }"
+            @click-edit="openEditDialog"
           />
         </v-list-item>
         <profile-title
@@ -166,13 +166,14 @@ export default {
       this.loading = true
     },
     async updateIntroduction() {
-      await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      this.$refs.profile.close()
+      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
+      this.$refs.profileIntroduction.close()
     },
     async updateProfile() {
-      const user = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (!user) return this.$refs.profileEditDialog.dupEmail()
-      if (user.activation) {
+      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (response.errors) return this.$refs.profileEditDialog.setErrors(response.errors)
+      if (response.activation) {
         this.$refs.profileEditDialog.close()
       } else {
         this.$refs.profileEditDialog.sendActivationEmail()
