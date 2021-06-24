@@ -171,9 +171,9 @@ export default {
       this.$refs.profileIntroduction.close()
     },
     async updateProfile() {
-      const user = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (!user) return this.$refs.profileEditDialog.dupEmail()
-      if (user.activation) {
+      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (response.errors) return this.$refs.profileEditDialog.setErrors(response.errors)
+      if (response.activation) {
         this.$refs.profileEditDialog.close()
       } else {
         this.$refs.profileEditDialog.sendActivationEmail()
