@@ -4,7 +4,9 @@
     width="500"
     :persistent="true"
   >
-    <v-card>
+    <v-card
+      v-if="form"
+    >
       <v-btn
         icon
         @click="closeDialog"
@@ -20,7 +22,6 @@
       </v-card-title>
       <v-divider />
       <v-card-text
-        v-if="form"
         class="pt-6 pb-0"
       >
         <ValidationObserver
@@ -72,11 +73,12 @@
           </v-form>
         </ValidationObserver>
       </v-card-text>
-      <send-activation-email
-        v-if="sendEmail"
-        :email="email"
-      />
     </v-card>
+    <send-activation-email
+      v-if="sendEmail"
+      :email="email"
+      @click-close="closeDialog"
+    />
   </v-dialog>
 </template>
 
