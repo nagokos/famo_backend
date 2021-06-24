@@ -1,31 +1,25 @@
 <template>
-  <div class="text-center">
-    <v-dialog
-      v-model="dialog"
-      width="500"
-      :persistent="true"
-    >
-      <signup-dialog-select
-        v-if="registerSelect"
-        @email-register="showForm"
-        @click-close="dialog = false"
-      />
-      <signup-dialog-form
-        v-if="emailRegister"
-        @create-user="showSendEmail"
-        @click-back="closeForm"
-      />
-      <send-activation-email
-        v-if="sendEmail"
-        :email="email"
-        @click-close="Object.assign($data, $options.data())"
-      >
-        <template #resend>
-
-        </template>
-      </send-activation-email>
-    </v-dialog>
-  </div>
+  <v-dialog
+    v-model="dialog"
+    width="500"
+    :persistent="true"
+  >
+    <signup-dialog-select
+      v-if="registerSelect"
+      @email-register="showForm"
+      @click-close="dialog = false"
+    />
+    <signup-dialog-form
+      v-if="emailRegister"
+      @create-user="showSendEmail"
+      @click-back="closeForm"
+    />
+    <send-activation-email
+      v-if="sendEmail"
+      :email="email"
+      @click-close="Object.assign($data, $options.data())"
+    />
+  </v-dialog>
 </template>
 
 <script>
