@@ -42,6 +42,7 @@
                 v-slot="{ errors }"
                 rules="max:400"
                 name="自己紹介"
+                vid="introduction"
               >
                 <v-textarea
                   :value="introduction"
