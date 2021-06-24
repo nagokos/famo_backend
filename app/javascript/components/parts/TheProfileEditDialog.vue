@@ -15,7 +15,7 @@
         </v-icon>
       </v-btn>
       <v-card-title
-        class="pt-0 font-weight-bold justify-center"
+        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
       >
         プロフィール編集
       </v-card-title>
