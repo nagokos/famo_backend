@@ -21,34 +21,7 @@
         @click-close="Object.assign($data, $options.data())"
       >
         <template #resend>
-          <v-container>
-            <v-divider
-              class="mt-n3"
-            />
-            <v-row>
-              <v-col
-                cols="12"
-                class="mt-6 pb-0"
-                align="center"
-              >
-                <p
-                  class="font-weight-bold black--text"
-                >
-                  メールが届かない方はこちら
-                </p>
-              </v-col>
-              <v-col class="pt-0">
-                <v-btn
-                  block
-                  depressed
-                  outlined
-                  @click="resendEmail"
-                >
-                  再度送信
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
+
         </template>
       </send-activation-email>
     </v-dialog>
@@ -93,11 +66,6 @@ export default {
       this.sendEmail = true
       this.email = email
     },
-    async resendEmail() {
-      await this.$axios.post("/api/v1/account_activations", {
-        email: this.email
-      })
-    }
   }
 }
 </script>
