@@ -5,7 +5,9 @@
     :persistent="true"
     scrollable
   >
-    <v-card>
+    <v-card
+       v-if="form"
+    >
       <v-btn
         icon
         @click="close"
@@ -21,7 +23,6 @@
       </v-card-title>
       <v-divider />
       <v-card-text
-        v-if="form"
         :style="{ 'height: 450px': $vuetify.breakpoint.mobile }"
         :class="{ 'px-2': $vuetify.breakpoint.mobile }"
       >
@@ -184,6 +185,7 @@
     <send-activation-email
       v-if="sendEmail"
       :email="email"
+      @click-close="close"
     />
   </v-dialog>
 </template>
