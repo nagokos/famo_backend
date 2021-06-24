@@ -166,8 +166,9 @@ export default {
       this.loading = true
     },
     async updateIntroduction() {
-      await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      this.$refs.profile.close()
+      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+      if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
+      this.$refs.profileIntroduction.close()
     },
     async updateProfile() {
       const user = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
