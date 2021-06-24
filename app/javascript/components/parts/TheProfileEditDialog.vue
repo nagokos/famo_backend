@@ -120,7 +120,10 @@
                     v-slot="{ errors }"
                     name="メールアドレス"
                     vid="email"
-                    :rules="{ required: true, formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i }"
+                    :rules="{
+                      required: true,
+                      formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i
+                    }"
                   >
                     <v-text-field
                       :value="email"
