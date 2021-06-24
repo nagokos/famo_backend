@@ -376,7 +376,9 @@ export default {
     },
     clickRegister() {
       this.$emit("click-register", this.profile)
-      this.close()
+    },
+    setErrors(errors) {
+      this.$refs.observer.setErrors(errors)
     },
     async getLeagueData() {
       const response = await this.$axios.get("/api/v1/leagues")

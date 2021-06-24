@@ -85,7 +85,7 @@
     />
     <the-player-dialog
       ref="playerDialog"
-      @click-register="sendPlayerData"
+      @click-register="createPlayerData"
     />
   </div>
 </template>
@@ -173,20 +173,21 @@ export default {
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
       if (response.errors) return this.$refs.profileEditDialog.setErrors(response.errors)
-      if (response.activation) {
+      if (response.activationState === "active") {
         this.$refs.profileEditDialog.close()
       } else {
         this.$refs.profileEditDialog.sendActivationEmail()
       }
     },
-    async sendPlayerData(profile) {
+    async createPlayerData(profile) {
       try {
         const response = await this.$axios.post("/api/v1/profile", {
           profile: profile
         })
         this.profile = response.data
+        this.$refs.playerDialog.close()
       } catch(err) {
-        this.$refs.observer.setErrors(err.response.data.errors)
+        this.$refs.playerDialog.setErrors(err.response.data.errors)
       }
     },
   }

@@ -25,7 +25,7 @@
             <p
               class="font-weight-bold black--text"
             >
-              ご登録のアドレスにアカウント認証メールを送信しました
+              ご登録のアドレスにアカウント<br v-if="$vuetify.breakpoint.mobile">認証メールを送信しました
             </p>
           </v-col>
           <v-col
@@ -58,7 +58,34 @@
           </v-col>
         </v-row>
       </v-container>
-      <slot name="resend" />
+      <v-container>
+        <v-divider
+          class="mt-n3"
+        />
+        <v-row>
+          <v-col
+            cols="12"
+            class="mt-6 pb-0"
+            align="center"
+          >
+            <p
+              class="font-weight-bold black--text"
+            >
+              メールが届かない方はこちら
+            </p>
+          </v-col>
+          <v-col class="pt-0">
+            <v-btn
+              block
+              depressed
+              outlined
+              @click="resendEmail"
+            >
+              再度送信
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card-text>
   </v-card>
 </template>
@@ -69,6 +96,13 @@ export default {
     email: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    async resendEmail() {
+      await this.$axios.post("/api/v1/account_activations", {
+        email: this.email
+      })
     }
   }
 }
