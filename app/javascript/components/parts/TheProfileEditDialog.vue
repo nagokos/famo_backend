@@ -180,11 +180,11 @@
           </v-form>
         </ValidationObserver>
       </v-card-text>
-      <send-activation-email
-        v-if="sendEmail"
-        :email="email"
-      />
     </v-card>
+    <send-activation-email
+      v-if="sendEmail"
+      :email="email"
+    />
   </v-dialog>
 </template>
 
