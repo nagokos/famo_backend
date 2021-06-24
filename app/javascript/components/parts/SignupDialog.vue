@@ -69,7 +69,7 @@ export default {
     return {
       dialog: false,
       registerSelect: false,
-      signupForm: false,
+      emailRegister: false,
       sendEmail: false,
       email: ""
     }
@@ -79,19 +79,16 @@ export default {
       this.dialog = true
       this.registerSelect = true
     },
-    close() {
-      if (this.signupForm) {
-        this.signupForm = false
-        return this.registerSelect = true
-      }
-      Object.assign(this.$data, this.$options.data())
-    },
     showForm() {
-      this.signupForm = true
+      this.emailRegister = true
       this.registerSelect = false
     },
+    closeForm() {
+      this.emailRegister = false
+      this.registerSelect = true
+    },
     showSendEmail(email) {
-      this.signupForm = false
+      this.emailRegister = false
       this.sendEmail = true
       this.email = email
     },
