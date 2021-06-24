@@ -14,41 +14,5 @@
       </v-icon>
       プロフィール編集
     </v-btn>
-    <!-- 他のユーザーの場合 -->
-    <!-- <template
-    >
-      <v-btn
-        class="mr-1"
-        outlined
-        color="primary"
-        fab
-      >
-        <v-icon>
-          mdi-account-plus
-        </v-icon>
-      </v-btn>
-      <v-btn
-        rounded
-        x-large
-        depressed
-        color="primary"
-        dark
-        class="font-weight-bold text-capitalize"
-      >
-        Review
-      </v-btn>
-    </template> -->
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    user: {
-      type: Object,
-      default: () => {},
-      required: true
-    }
-  }
-}
-</script>
