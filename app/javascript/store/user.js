@@ -39,7 +39,7 @@ const actions = {
       commit("setCurrentUser", response.data)
       return response.data
     } catch(err) {
-      return null
+      return err.response.data
     }
   },
   async logout({ commit }) {
