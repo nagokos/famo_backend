@@ -77,6 +77,7 @@
                   <ValidationProvider
                     v-slot="{ errors }"
                     name="性"
+                    vid="last_name"
                     rules="required|max:30"
                   >
                     <v-text-field
@@ -97,6 +98,7 @@
                   <ValidationProvider
                     v-slot="{ errors }"
                     name="名"
+                    vid="first_name"
                     rules="required|max:30"
                   >
                     <v-text-field
@@ -143,6 +145,7 @@
                   <ValidationProvider
                     v-slot="{ errors }"
                     rules="max:400"
+                    vid="introduction"
                     name="自己紹介"
                   >
                     <v-textarea
