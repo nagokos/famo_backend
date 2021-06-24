@@ -242,10 +242,8 @@ export default {
       this.form = false
       this.sendEmail = true
     },
-    dupEmail() {
-      this.$refs.observer.setErrors({
-        email: ["このメールアドレスは既に使用されています"]
-      })
+    setErrors(errors) {
+      this.$refs.observer.setErrors(errors)
     }
   }
 }
