@@ -5,7 +5,7 @@
     outlined
   >
     <v-card-title
-      class="font-weight-black justify-center"
+      class="font-weight-bold justify-center"
     >
       新規登録
     </v-card-title>
@@ -15,32 +15,38 @@
         align="center"
       >
         <p
-          style="color: #616161; font-size: 15px;"
+          style="color: #616161;"
+          class="text-body-1 font-weight-medium"
         >
-          アカウントをお持ちでない方は<br>新規登録をしてください
+          アカウントをお持ちでない方は
+          <br>
+          新規登録をしてください
         </p>
         <v-btn
           dark
           x-large
           block
           color="#EF5350"
-          class="font-weight-black"
+          class="font-weight-bold"
           @click="$refs.signupDialog.open()"
         >
           新規会員登録
         </v-btn>
       </v-col>
       <v-col>
-        <p style="font-size: 8px;">
+        <p style="font-size: 10px;">
           ＊会員登録することでFamoの利用規約・プライバシーポリシーに同意するものとします。
         </p>
-        <p style="font-size: 8px;">
+        <p style="font-size: 10px;">
           ＊アカウント認証メールが届かない・再取得される方は
           <br>
           <strong
-            style="cursor: pointer; color: red;"
+            style="cursor: pointer;"
+            class="red--text"
             @click="$refs.activationEmailDialog.open()"
-          >こちら</strong>
+          >
+          こちら
+          </strong>
           をクリック
         </p>
       </v-col>
