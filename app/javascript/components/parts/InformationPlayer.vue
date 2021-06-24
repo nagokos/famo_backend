@@ -5,14 +5,25 @@
       outlined
       justify-space-between
     >
-      <v-card-title v-if="!profile" class="font-weight-bold">
+      <v-card-title
+        v-if="!profile"
+        class="font-weight-bold"
+      >
         選手
         <v-spacer />
-        <v-btn color="primary" text @click="$emit('click-player')">
+        <v-btn
+          color="primary"
+          text
+          @click="$emit('click-player')"
+        >
           選手情報を追加
         </v-btn>
       </v-card-title>
-      <div v-else v-for="data in profileData" :key="data.id">
+      <div
+        v-for="data in profileData"
+        v-else
+        :key="data.id"
+      >
         <v-card-title class="font-weight-bold">
           {{ data.name }}
           <v-spacer />
@@ -22,7 +33,11 @@
             </v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text align="center" class="font-weight-bold" style="color: rgba(0,0,0,.6);" >
+        <v-card-text
+          align="center"
+          class="font-weight-bold"
+          style="color: rgba(0,0,0,.6);"
+        >
           {{ data.information }}
         </v-card-text>
       </div>
