@@ -71,7 +71,7 @@
         v-if="userInformation && loading"
         :user="currentUser"
         :profile="profile"
-        @click-player="openPlayerDialog"
+        @click-player="$refs.playerDialog.open()"
       />
       <review-list
         v-if="reviewList"
@@ -159,9 +159,6 @@ export default {
     openEditDialog() {
       this.setUserEdit()
       this.$refs.profileEditDialog.open()
-    },
-    openPlayerDialog() {
-      this.$refs.playerDialog.open()
     },
     async getProfileData() {
       const response = await this.$axios.get("/api/v1/profile")
