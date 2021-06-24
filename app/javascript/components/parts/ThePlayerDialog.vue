@@ -45,7 +45,7 @@
                     class="font-weight-bold"
                     :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
                   >
-                    *所属チームが見つからない場合は
+                    ＊所属チームが見つからない場合は
                     <span
                       class="red--text"
                       style="cursor: pointer;"
