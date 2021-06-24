@@ -3,40 +3,67 @@
     <the-bread-crumb
       :bread-crumbs="breadCrumbs"
     />
-    <profile
-      v-if="loading"
-      ref="profile"
-      :user="currentUser"
-      :user-edit="userEdit"
-      :profile="profile"
-      @click-player="openPlayerDialog"
-      @click-edit="openEditDialog"
-      @click-introduction="userEdit = { ...currentUser }"
-      @click-update="updateIntroduction"
-    />
+    <div class="profile-top">
+      <v-list
+        color="#FAFAFA"
+      >
+        <v-list-item>
+          <!-- アバター -->
+          <v-list-item-avatar
+            size="110"
+          >
+            <v-img
+              :src="currentUser.avatar"
+            />
+          </v-list-item-avatar>
+          <!-- タイトル -->
+          <v-list-item-content>
+            <profile-title
+              v-if="!$vuetify.breakpoint.mobile"
+              class="ml-3 mt-10 py-0"
+              :user="currentUser"
+            />
+          </v-list-item-content>
+          <profile-action
+            @click-edit="openEditDialog"
+            :class="{ 'mt-10': !$vuetify.breakpoint.mobile }"
+          />
+        </v-list-item>
+        <profile-title
+          v-if="$vuetify.breakpoint.mobile"
+          class="ml-3"
+          :user="currentUser"
+        />
+      </v-list>
+      <v-container class="px-4 pt-0">
+        <v-row>
+          <!-- 自己紹介文 -->
+          <profile-introduction
+            ref="profileIntroduction"
+            :user="currentUser"
+            v-bind.sync="userEdit"
+            @click-introduction="userEdit = { ...currentUser }"
+            @click-update="updateIntroduction"
+          />
+          <!-- カード -->
+          <profile-card
+            v-if="!$vuetify.breakpoint.mobile && loading"
+            :profile="profile"
+            @click-player="$refs.playerDialog.open()"
+            @click-edit="openEditDialog"
+          />
+        </v-row>
+      </v-container>
+    </div>
     <div
       class="profile-tabs"
     >
       <v-divider />
-      <v-tabs
-        color="black"
-        :fixed-tabs="$vuetify.breakpoint.mobile"
-        :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
-        background-color="#FAFAFA"
-      >
-        <v-tab
-          class="mr-5 font-weight-bold"
-          @click="changeUserInformation"
-        >
-          ユーザー情報
-        </v-tab>
-        <v-tab
-          class="font-weight-bold"
-          @click="changeReviewList"
-        >
-          レビュー一覧
-        </v-tab>
-      </v-tabs>
+      <!-- タブ -->
+      <profile-tab
+        @click-user="changeUserInformation"
+        @click-review="changeReviewList"
+      />
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
@@ -44,7 +71,7 @@
         v-if="userInformation && loading"
         :user="currentUser"
         :profile="profile"
-        @click-player="openPlayerDialog"
+        @click-player="$refs.playerDialog.open()"
       />
       <review-list
         v-if="reviewList"
@@ -65,7 +92,11 @@
 
 <script>
 import { mapGetters } from "vuex"
-import Profile from "../parts/Profile"
+import ProfileAction from "../parts/ProfileAction"
+import ProfileTitle from "../parts/ProfileTitle"
+import ProfileCard from "../parts/ProfileCard"
+import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
+import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
 import Information from "../parts/Information"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
@@ -74,7 +105,11 @@ import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
   components: {
-    Profile,
+    ProfileAction,
+    ProfileTitle,
+    ProfileCard,
+    ProfileIntroduction,
+    ProfileTab,
     ReviewList,
     Information,
     TheBreadCrumb,
@@ -125,9 +160,6 @@ export default {
       this.setUserEdit()
       this.$refs.profileEditDialog.open()
     },
-    openPlayerDialog() {
-      this.$refs.playerDialog.open()
-    },
     async getProfileData() {
       const response = await this.$axios.get("/api/v1/profile")
       this.profile = response.data
@@ -161,6 +193,10 @@ export default {
 </script>
 
 <style scoped>
+  .profile-top {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
   .profile-tabs {
     max-width: 1018px;
     margin: 0 auto;
