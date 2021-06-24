@@ -18,6 +18,7 @@
       <send-activation-email
         v-if="sendEmail"
         :email="email"
+        @click-close="Object.assign($data, $options.data())"
       >
         <template #resend>
           <v-container>
