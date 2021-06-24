@@ -105,6 +105,9 @@ export default {
     },
     clickUpdate() {
       this.$emit("click-update")
+    },
+    setErrors(errors) {
+      this.$refs.observer.setErrors(errors)
     }
   }
 }
