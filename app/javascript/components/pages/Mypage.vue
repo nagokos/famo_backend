@@ -85,7 +85,7 @@
     />
     <the-player-dialog
       ref="playerDialog"
-      @click-register="sendPlayerData"
+      @click-register="createPlayerData"
     />
   </div>
 </template>
@@ -179,14 +179,15 @@ export default {
         this.$refs.profileEditDialog.sendActivationEmail()
       }
     },
-    async sendPlayerData(profile) {
+    async createPlayerData(profile) {
       try {
         const response = await this.$axios.post("/api/v1/profile", {
           profile: profile
         })
         this.profile = response.data
+        this.$refs.playerDialog.close()
       } catch(err) {
-        this.$refs.observer.setErrors(err.response.data.errors)
+        this.$refs.playerDialog.setErrors(err.response.data.errors)
       }
     },
   }
