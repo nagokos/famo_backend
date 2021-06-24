@@ -37,8 +37,7 @@
                   class="pb-0"
                 >
                   <span
-                    class="font-weight-bold text-h6"
-                    style="color: black;"
+                    class="font-weight-bold text-h6 black--text"
                   >
                     プロフィール写真
                   </span>
