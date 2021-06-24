@@ -25,7 +25,7 @@
             <p
               class="font-weight-bold black--text"
             >
-              ご登録のアドレスにアカウント認証メールを送信しました
+              ご登録のアドレスにアカウント<br v-if="$vuetify.breakpoint.mobile">認証メールを送信しました
             </p>
           </v-col>
           <v-col
