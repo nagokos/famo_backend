@@ -65,8 +65,7 @@
                 </v-col>
                 <v-col cols="12">
                   <span
-                    class="font-weight-bold text-h6"
-                    style="color: black;"
+                    class="font-weight-bold text-h6 black--text"
                   >
                     基本情報
                   </span>
