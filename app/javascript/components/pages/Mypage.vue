@@ -20,12 +20,12 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="mt-10 py-0"
+              class="mt-6 py-0"
               :user="currentUser"
             />
           </v-list-item-content>
           <profile-action
-            :class="{ 'mt-10': !$vuetify.breakpoint.mobile }"
+            :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
             @click-edit="openEditDialog"
           />
         </v-list-item>

@@ -321,7 +321,7 @@ export default {
       league: "",
       category: "",
       prefecture: "",
-      positions: [ "GK", "DF", "MF", "FW" ]
+      positions: ["GK", "DF", "MF", "FW"]
     }
   },
   computed: {
