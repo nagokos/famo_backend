@@ -72,5 +72,9 @@ ja:
       kind:
         high_school: 高校
         youth: ユース
-
-
+    profile:
+      position:
+        GK: ゴールキーパー
+        DF: ディフェンダー
+        MF: ミッドフィルダー
+        FW: フォワード
