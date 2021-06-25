@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_185549) do
+ActiveRecord::Schema.define(version: 2021_06_24_231408) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_185549) do
   end
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "position", null: false
+    t.integer "position", default: 0, null: false
     t.integer "official_number", null: false
     t.integer "practice_number"
     t.bigint "user_id", null: false
