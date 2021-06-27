@@ -62,16 +62,23 @@
                   cols="12"
                   class="pt-0"
                 >
-                  <v-select
-                    v-model="prefecture"
-                    outlined
-                    dense
-                    label="都道府県"
-                    :items="prefectures"
-                    item-value="id"
-                    item-text="name"
-                    background-color="#F2F4F8"
-                  />
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="都道府県"
+                  >
+                    <v-select
+                      v-model="prefectureId"
+                      outlined
+                      dense
+                      label="都道府県"
+                      :items="prefectures"
+                      item-value="id"
+                      item-text="name"
+                      background-color="#F2F4F8"
+                      :error-messages="errors"
+                    />
+                  </ValidationProvider>
                 </v-col>
                 <v-col
                   v-if="prefecture"
@@ -114,17 +121,24 @@
                   cols="12"
                   class="pt-0"
                 >
-                  <v-select
-                    v-model="league"
-                    outlined
-                    dense
-                    label="リーグ"
-                    :items="leagues"
-                    item-value="id"
-                    item-text="name"
-                    background-color="#F2F4F8"
-                    @click="category = ''"
-                  />
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="リーグ"
+                  >
+                    <v-select
+                      v-model="leagueId"
+                      outlined
+                      dense
+                      label="リーグ"
+                      :items="leagues"
+                      item-value="id"
+                      item-text="name"
+                      background-color="#F2F4F8"
+                      :error-messages="errors"
+                      @click="categoryId = 0"
+                    />
+                  </ValidationProvider>
                 </v-col>
                 <v-col
                   v-if="league"
