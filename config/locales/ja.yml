@@ -20,7 +20,8 @@ ja:
         password: パスワード
       profile:
         position: ポジション
-        uniform_number: 背番号
+        official_number: 公式戦番号
+        practice_number: 練習番号
         career: 経歴
         user: ユーザー
         team: チーム
