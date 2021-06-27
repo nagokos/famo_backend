@@ -303,7 +303,7 @@
         </ValidationObserver>
       </v-card-text>
     </v-card>
-    <the-player-dialog-team
+    <register-team
       v-if="registerTeam"
       :prefectures="prefectures"
       @click-back="changeForm"
@@ -313,11 +313,11 @@
 </template>
 
 <script>
-import ThePlayerDialogTeam from "./ThePlayerDialogTeam"
+import RegisterTeam from "./RegisterTeam"
 
 export default {
   components : {
-    ThePlayerDialogTeam
+    RegisterTeam
   },
   data() {
     return {
