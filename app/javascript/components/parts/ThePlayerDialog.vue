@@ -323,7 +323,7 @@ export default {
     return {
       dialog: false,
       registerTeam: false,
-      registerPlayer: false,
+      registerPlayer: true,
       leagues: [],
       prefectures: [],
       positions: ["GK", "DF", "MF", "FW"],
@@ -366,7 +366,6 @@ export default {
   },
   methods: {
     open() {
-      this.registerPlayer = true
       this.dialog = true
     },
     close() {
