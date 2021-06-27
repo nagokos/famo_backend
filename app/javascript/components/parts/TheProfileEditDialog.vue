@@ -6,7 +6,7 @@
     scrollable
   >
     <v-card
-       v-if="form"
+      v-if="form"
     >
       <v-btn
         icon

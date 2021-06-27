@@ -15,7 +15,7 @@
         </v-icon>
       </v-btn>
       <v-card-title
-        class="pt-0 font-weight-bold justify-center text-h5"
+        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
       >
         選手情報登録
       </v-card-title>
@@ -27,7 +27,9 @@
           ref="observer"
           v-slot="{ handleSubmit }"
         >
-          <v-form ref="form">
+          <v-form
+            ref="form"
+          >
             <v-container>
               <v-row>
                 <!-- チーム選択 -->
@@ -60,19 +62,26 @@
                   cols="12"
                   class="pt-0"
                 >
-                  <v-select
-                    v-model="prefecture"
-                    outlined
-                    dense
-                    label="都道府県"
-                    :items="prefectures"
-                    item-value="id"
-                    item-text="name"
-                    background-color="#F2F4F8"
-                  />
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="都道府県"
+                  >
+                    <v-select
+                      v-model="prefectureId"
+                      outlined
+                      dense
+                      label="都道府県"
+                      :items="prefectures"
+                      item-value="id"
+                      item-text="name"
+                      background-color="#F2F4F8"
+                      :error-messages="errors"
+                    />
+                  </ValidationProvider>
                 </v-col>
                 <v-col
-                  v-if="prefecture"
+                  v-if="prefectureId"
                   cols="12"
                   class="pt-0"
                 >
@@ -112,20 +121,27 @@
                   cols="12"
                   class="pt-0"
                 >
-                  <v-select
-                    v-model="league"
-                    outlined
-                    dense
-                    label="リーグ"
-                    :items="leagues"
-                    item-value="id"
-                    item-text="name"
-                    background-color="#F2F4F8"
-                    @click="category = ''"
-                  />
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="リーグ"
+                  >
+                    <v-select
+                      v-model="leagueId"
+                      outlined
+                      dense
+                      label="リーグ"
+                      :items="leagues"
+                      item-value="id"
+                      item-text="name"
+                      background-color="#F2F4F8"
+                      :error-messages="errors"
+                      @click="categoryId = 0"
+                    />
+                  </ValidationProvider>
                 </v-col>
                 <v-col
-                  v-if="league"
+                  v-if="leagueId"
                   cols="12"
                   class="pt-0"
                 >
@@ -136,7 +152,7 @@
                     vid="group"
                   >
                     <v-select
-                      v-model="category"
+                      v-model="categoryId"
                       outlined
                       dense
                       required
@@ -151,7 +167,7 @@
                   </ValidationProvider>
                 </v-col>
                 <v-col
-                  v-if="category && filterGroups.length !== 1"
+                  v-if="categoryId && filterGroups.length !== 1"
                   cols="12"
                   class="pt-0"
                 >
@@ -217,7 +233,6 @@
                     class="font-weight-bold text-h6 black--text"
                   >
                     背番号
-
                   </span>
                   <br>
                   <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
@@ -288,7 +303,7 @@
         </ValidationObserver>
       </v-card-text>
     </v-card>
-    <the-player-dialog-team
+    <register-team
       v-if="registerTeam"
       :prefectures="prefectures"
       @click-back="changeForm"
@@ -298,47 +313,47 @@
 </template>
 
 <script>
-import ThePlayerDialogTeam from "./ThePlayerDialogTeam"
+import RegisterTeam from "./RegisterTeam"
 
 export default {
   components : {
-    ThePlayerDialogTeam
+    RegisterTeam
   },
   data() {
     return {
       dialog: false,
       registerTeam: false,
-      registerPlayer: false,
+      registerPlayer: true,
       leagues: [],
       prefectures: [],
+      positions: ["GK", "DF", "MF", "FW"],
+      leagueId: "",
+      categoryId: "",
+      prefectureId: "",
       profile: {
         position: "",
         officialNumber: "",
         practiceNunmber: "",
         groupId: "",
         teamId: "",
-      },
-      league: "",
-      category: "",
-      prefecture: "",
-      positions: ["GK", "DF", "MF", "FW"]
+      }
     }
   },
   computed: {
+     filterTeams() {
+      return this.prefectures.find(prefecture => {
+        return prefecture.id === this.prefectureId
+      }).teams
+    },
     filterCategories() {
       return this.leagues.find(league => {
-        return league.id === this.league
+        return league.id === this.leagueId
       }).categories
     },
     filterGroups() {
       return this.filterCategories.find(category => {
-        return category.id === this.category
+        return category.id === this.categoryId
       }).groups
-    },
-    filterTeams() {
-      return this.prefectures.find(prefecture => {
-        return prefecture.id === this.prefecture
-      }).teams
     }
   },
   watch: {
@@ -351,7 +366,6 @@ export default {
   },
   methods: {
     open() {
-      this.registerPlayer = true
       this.dialog = true
     },
     close() {
