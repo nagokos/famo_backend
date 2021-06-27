@@ -15,7 +15,7 @@
         </v-icon>
       </v-btn>
       <v-card-title
-        class="pt-0 font-weight-bold justify-center text-h5"
+        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
       >
         選手情報登録
       </v-card-title>
