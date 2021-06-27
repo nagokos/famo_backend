@@ -233,7 +233,6 @@
                     class="font-weight-bold text-h6 black--text"
                   >
                     背番号
-
                   </span>
                   <br>
                   <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
