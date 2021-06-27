@@ -27,7 +27,9 @@
           ref="observer"
           v-slot="{ handleSubmit }"
         >
-          <v-form ref="form">
+          <v-form
+            ref="form"
+          >
             <v-container>
               <v-row>
                 <!-- チーム選択 -->
