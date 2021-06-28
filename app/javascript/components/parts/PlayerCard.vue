@@ -14,7 +14,7 @@
       <player-card-edit
         v-if="isEdit"
         ref="playerCardEdit"
-        :profileEdit="profileEdit"
+        :profile-edit="profileEdit"
         @click-update="$emit('click-update')"
         @click-cancel="close"
       />
