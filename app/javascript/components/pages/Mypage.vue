@@ -72,8 +72,8 @@
     <div class="profile-contents mt-4">
       <!-- 選手カード -->
       <player-card
-        ref="playerCard"
         v-if="loading && userInformation && $vuetify.breakpoint.mobile"
+        ref="playerCard"
         :profile="profile"
         :profile-edit="profileEdit"
         @click-player="$refs.playerDialog.open()"
