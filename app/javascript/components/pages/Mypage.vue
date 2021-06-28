@@ -140,6 +140,7 @@ export default {
       reviewList: false,
       userEdit: {},
       profile: {},
+      profileEdit: {},
       loading: false,
       breadCrumbs: [
         {
@@ -208,6 +209,19 @@ export default {
         this.$refs.playerDialog.setErrors(err.response.data.errors)
       }
     },
+    async updatePlayerData() {
+      try {
+        const response = await this.$axios.patch("/api/v1/profile", {
+          profile: this.profileEdit
+        })
+        this.profile = response.data
+        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.close()
+        else return this.$refs.playerTable.close()
+      } catch(err) {
+        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.setErrors(err.response.data.errors)
+        else return this.$refs.playerTable.setErrors(err.response.data.errors)
+      }
+    }
   }
 }
 </script>
