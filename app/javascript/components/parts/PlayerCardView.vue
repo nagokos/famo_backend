@@ -1,48 +1,45 @@
 <template>
-  <v-col cols="12">
-    <v-card
-      elevation="1"
-      outlined
-      justify-space-between
+  <div>
+    <v-card-title
+      v-if="!profile"
+      class="font-weight-bold"
     >
-      <v-card-title
-        v-if="!profile"
-        class="font-weight-bold"
+      選手
+      <v-spacer />
+      <v-btn
+        color="primary"
+        text
+        @click="$emit('click-player')"
       >
-        選手
+        選手情報を追加
+      </v-btn>
+    </v-card-title>
+    <div
+      v-for="data in profileData"
+      v-else
+      :key="data.id"
+    >
+      <v-card-title class="font-weight-bold">
+        {{ data.name }}
         <v-spacer />
         <v-btn
-          color="primary"
-          text
-          @click="$emit('click-player')"
+          icon
+          @click="$emit('click-edit', data.name)"
         >
-          選手情報を追加
+          <v-icon>
+            mdi-pencil
+          </v-icon>
         </v-btn>
       </v-card-title>
-      <div
-        v-for="data in profileData"
-        v-else
-        :key="data.id"
+      <v-card-text
+        align="center"
+        class="font-weight-bold"
+        style="color: rgba(0,0,0,.6);"
       >
-        <v-card-title class="font-weight-bold">
-          {{ data.name }}
-          <v-spacer />
-          <v-btn icon>
-            <v-icon>
-              mdi-pencil
-            </v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-card-text
-          align="center"
-          class="font-weight-bold"
-          style="color: rgba(0,0,0,.6);"
-        >
-          {{ data.information }}
-        </v-card-text>
-      </div>
-    </v-card>
-  </v-col>
+        {{ data.information }}
+      </v-card-text>
+    </div>
+  </div>
 </template>
 
 <script>

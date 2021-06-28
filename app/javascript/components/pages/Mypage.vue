@@ -45,12 +45,15 @@
             @click-introduction="userEdit = { ...currentUser }"
             @click-update="updateIntroduction"
           />
-          <!-- カード -->
-          <profile-card
-            v-if="!$vuetify.breakpoint.mobile && loading"
+          <!-- 選手テーブル -->
+          <player-table
+            v-if="loading && !$vuetify.breakpoint.mobile"
+            ref="playerTable"
             :profile="profile"
+            :profile-edit="profileEdit"
             @click-player="$refs.playerDialog.open()"
-            @click-edit="openEditDialog"
+            @click-update="updatePlayerData"
+            @click-edit="profileEdit = { ...profile }"
           />
         </v-row>
       </v-container>
@@ -67,6 +70,16 @@
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
+      <!-- 選手カード -->
+      <player-card
+        v-if="loading && userInformation && $vuetify.breakpoint.mobile"
+        ref="playerCard"
+        :profile="profile"
+        :profile-edit="profileEdit"
+        @click-player="$refs.playerDialog.open()"
+        @click-edit="profileEdit = { ...profile }"
+        @click-update="updatePlayerData"
+      />
       <career-card
         v-if="userInformation"
       />
@@ -94,9 +107,10 @@
 <script>
 import { mapGetters } from "vuex"
 import CareerCard from "../parts/CareerCard"
+import PlayerCard from "../parts/PlayerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import ProfileCard from "../parts/ProfileCard"
+import PlayerTable from "../parts/PlayerTable"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
@@ -108,9 +122,10 @@ import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 export default {
   components: {
     CareerCard,
+    PlayerCard,
     ProfileAction,
     ProfileTitle,
-    ProfileCard,
+    PlayerTable,
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
@@ -125,6 +140,7 @@ export default {
       reviewList: false,
       userEdit: {},
       profile: {},
+      profileEdit: {},
       loading: false,
       breadCrumbs: [
         {
@@ -193,6 +209,19 @@ export default {
         this.$refs.playerDialog.setErrors(err.response.data.errors)
       }
     },
+    async updatePlayerData() {
+      try {
+        const response = await this.$axios.patch("/api/v1/profile", {
+          profile: this.profileEdit
+        })
+        this.profile = response.data
+        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.close()
+        else return this.$refs.playerTable.close()
+      } catch(err) {
+        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.setErrors(err.response.data.errors)
+        else return this.$refs.playerTable.setErrors(err.response.data.errors)
+      }
+    }
   }
 }
 </script>
