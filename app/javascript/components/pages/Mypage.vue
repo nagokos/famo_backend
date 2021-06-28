@@ -67,6 +67,16 @@
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
+      <!-- 選手カード -->
+      <player-card
+        ref="playerCard"
+        v-if="loading && userInformation && $vuetify.breakpoint.mobile"
+        :profile="profile"
+        :profile-edit="profileEdit"
+        @click-player="$refs.playerDialog.open()"
+        @click-edit="profileEdit = { ...profile }"
+        @click-update="updatePlayerData"
+      />
       <career-card
         v-if="userInformation"
       />
@@ -94,6 +104,7 @@
 <script>
 import { mapGetters } from "vuex"
 import CareerCard from "../parts/CareerCard"
+import PlayerCard from "../parts/PlayerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import ProfileCard from "../parts/ProfileCard"
@@ -108,6 +119,7 @@ import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 export default {
   components: {
     CareerCard,
+    PlayerCard,
     ProfileAction,
     ProfileTitle,
     ProfileCard,
