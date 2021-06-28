@@ -8,7 +8,7 @@ class ProfileSerializer < ActiveModel::Serializer
     belongs_to :prefecture
 
     class PrefectureSerializer < ActiveModel::Serializer
-      attributes :name
+      attributes :id, :name
     end
   end
 
@@ -17,11 +17,11 @@ class ProfileSerializer < ActiveModel::Serializer
     belongs_to :category
 
     class CategorySerializer < ActiveModel::Serializer
-      attributes :name
+      attributes :id, :name
       belongs_to :league
 
       class LeagueSerializer < ActiveModel::Serializer
-        attributes :name
+        attributes :id, :name
       end
     end
   end

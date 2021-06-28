@@ -70,7 +70,10 @@
       <career-card
         v-if="userInformation"
       />
-
+      <relation-card
+        v-if="userInformation"
+        :user="currentUser"
+      />
       <review-list
         v-if="reviewList"
         :user="currentUser"
@@ -97,6 +100,7 @@ import ProfileCard from "../parts/ProfileCard"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
+import RelationCard from "../parts/RelationCard"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import ThePlayerDialog from "../parts/ThePlayerDialog"
 import TheProfileEditDialog from "../parts/TheProfileEditDialog"
@@ -110,6 +114,7 @@ export default {
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
+    RelationCard,
     TheBreadCrumb,
     ThePlayerDialog,
     TheProfileEditDialog,
