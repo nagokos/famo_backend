@@ -45,12 +45,15 @@
             @click-introduction="userEdit = { ...currentUser }"
             @click-update="updateIntroduction"
           />
-          <!-- カード -->
-          <profile-card
-            v-if="!$vuetify.breakpoint.mobile && loading"
+          <!-- 選手テーブル -->
+          <player-table
+            v-if="loading && !$vuetify.breakpoint.mobile"
+            ref="playerTable"
             :profile="profile"
+            :profile-edit="profileEdit"
             @click-player="$refs.playerDialog.open()"
-            @click-edit="openEditDialog"
+            @click-update="updatePlayerData"
+            @click-edit="profileEdit = { ...profile }"
           />
         </v-row>
       </v-container>
@@ -107,7 +110,7 @@ import CareerCard from "../parts/CareerCard"
 import PlayerCard from "../parts/PlayerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import ProfileCard from "../parts/ProfileCard"
+import PlayerTable from "../parts/PlayerTable"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
@@ -122,7 +125,7 @@ export default {
     PlayerCard,
     ProfileAction,
     ProfileTitle,
-    ProfileCard,
+    PlayerTable,
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
