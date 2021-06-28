@@ -38,8 +38,8 @@
         item-value="id"
         item-text="name"
         background-color="#F2F4F8"
-        @change="$emit('update:teamId', $event)"
         :error-messages="errors"
+        @change="$emit('update:teamId', $event)"
       />
     </ValidationProvider>
   </v-col>
