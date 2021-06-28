@@ -62,17 +62,16 @@ export default {
   },
   data() {
     return {
+      loading: false,
       prefectures: [],
       prefectureId: this.prefecture
     }
   },
   computed: {
     filterTeams() {
-      if (this.prefectures.length !== 0) {
-        return this.prefectures.find(prefecture => {
-          return prefecture.id === this.prefectureId
-        }).teams
-      }
+      return this.prefectures.find(prefecture => {
+        return prefecture.id === this.prefectureId
+      }).teams
     }
   },
   created() {
