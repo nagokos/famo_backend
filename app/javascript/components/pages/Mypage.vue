@@ -97,7 +97,6 @@ import ProfileCard from "../parts/ProfileCard"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
-import Information from "../parts/Information"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import ThePlayerDialog from "../parts/ThePlayerDialog"
 import TheProfileEditDialog from "../parts/TheProfileEditDialog"
@@ -111,7 +110,6 @@ export default {
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
-    Information,
     TheBreadCrumb,
     ThePlayerDialog,
     TheProfileEditDialog,
