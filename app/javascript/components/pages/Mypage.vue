@@ -67,12 +67,10 @@
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
-      <information
-        v-if="userInformation && loading"
-        :user="currentUser"
-        :profile="profile"
-        @click-player="$refs.playerDialog.open()"
+      <career-card
+        v-if="userInformation"
       />
+
       <review-list
         v-if="reviewList"
         :user="currentUser"
@@ -92,26 +90,26 @@
 
 <script>
 import { mapGetters } from "vuex"
+import CareerCard from "../parts/CareerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import ProfileCard from "../parts/ProfileCard"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
-import Information from "../parts/Information"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import ThePlayerDialog from "../parts/ThePlayerDialog"
 import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
   components: {
+    CareerCard,
     ProfileAction,
     ProfileTitle,
     ProfileCard,
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
-    Information,
     TheBreadCrumb,
     ThePlayerDialog,
     TheProfileEditDialog,
