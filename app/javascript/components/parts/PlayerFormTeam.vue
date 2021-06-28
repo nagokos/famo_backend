@@ -8,6 +8,7 @@
     <br>
     <span class="text-caption">チームを登録される方は <strong class="red--text">こちら</strong> をクリック</span>
     <v-select
+      v-if="loading"
       v-model="prefectureId"
       class="mt-4"
       outlined
@@ -20,7 +21,7 @@
       @click="$emit('update:teamId', '')"
     />
     <ValidationProvider
-      v-if="prefectureId"
+      v-if="loading && prefectureId"
       v-slot="{ errors }"
       rules="required"
       name="チーム"
@@ -80,6 +81,7 @@ export default {
   methods: {
     async getPrefectureTeamData() {
       const response = await this.$axios.get("/api/v1/prefecture_teams")
+      this.loading = true
       this.prefectures = response.data
     }
   }
