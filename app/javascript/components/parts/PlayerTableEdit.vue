@@ -33,7 +33,7 @@
       <v-btn
         color="primary"
         text
-        @click="clickCancel"
+        @click="$emit('click-cancel')"
       >
         キャンセル
       </v-btn>
