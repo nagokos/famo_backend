@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver
     ref="observer"
-    v-slot="{ handleSubmit }"
+    v-slot="{ invalid }"
   >
     <v-card-text class="pb-0">
       <v-container>
@@ -9,7 +9,7 @@
           <player-form-team
             v-if="teamEdit"
             :prefecture="prefecture"
-            v-bind.sync="profileEdit"
+            :team-id.sync="profileEdit.teamId"
           />
           <player-form-league
             v-if="leagueEdit"
@@ -33,14 +33,15 @@
       <v-btn
         color="primary"
         text
-        @click="clickCancel"
+        @click="$emit('click-cancel')"
       >
         キャンセル
       </v-btn>
       <v-btn
         color="primary"
         text
-        @click="handleSubmit(clickUpdate)"
+        :disabled="invalid"
+        @click="$emit('click-update')"
       >
         更新
       </v-btn>
@@ -103,12 +104,6 @@ export default {
         this.numberEdit = true
         break
       }
-    },
-    clickCancel() {
-      this.$emit("click-cancel")
-    },
-    clickUpdate() {
-      this.$emit("click-update")
     },
     setErrors(errors) {
       this.$refs.observer.setErrors(errors)

@@ -6,7 +6,19 @@
       所属チーム編集
     </span>
     <br>
-    <span class="text-caption">チームを登録される方は <strong class="red--text">こちら</strong> をクリック</span>
+    <span
+      class="text-caption"
+    >
+      チームを登録される方は
+      <strong
+        class="red--text"
+        style="cursor: pointer;"
+        @click="$refs.teamRegisterDialog.open()"
+      >
+        こちら
+      </strong>
+      をクリック
+    </span>
     <v-select
       v-if="loading"
       v-model="prefectureId"
@@ -43,11 +55,21 @@
         @change="$emit('update:teamId', $event)"
       />
     </ValidationProvider>
+    <team-register-dialog
+      ref="teamRegisterDialog"
+      :prefectures="prefectures"
+      @create-team="pushTeam"
+    />
   </v-col>
 </template>
 
 <script>
+import TeamRegisterDialog from "./TeamRegisterDialog"
+
 export default {
+  components: {
+    TeamRegisterDialog
+  },
   props: {
     prefecture: {
       type: Number,
@@ -78,6 +100,11 @@ export default {
     this.getPrefectureTeamData()
   },
   methods: {
+    pushTeam(team) {
+      this.prefectures.find(prefecture => {
+        return prefecture.id === team.prefectureId
+      }).teams.push(team)
+    },
     async getPrefectureTeamData() {
       const response = await this.$axios.get("/api/v1/prefecture_teams")
       this.loading = true
