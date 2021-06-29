@@ -100,6 +100,11 @@ export default {
     this.getPrefectureTeamData()
   },
   methods: {
+    pushTeam(team) {
+      this.prefectures.find(prefecture => {
+        return prefecture.id === team.prefectureId
+      }).teams.push(team)
+    },
     async getPrefectureTeamData() {
       const response = await this.$axios.get("/api/v1/prefecture_teams")
       this.loading = true
