@@ -6,7 +6,19 @@
       所属チーム編集
     </span>
     <br>
-    <span class="text-caption">チームを登録される方は <strong class="red--text">こちら</strong> をクリック</span>
+    <span
+      class="text-caption"
+    >
+      チームを登録される方は
+      <strong
+        class="red--text"
+        style="cursor: pointer;"
+        @click="$refs.teamRegisterDialog.open()"
+      >
+        こちら
+      </strong>
+      をクリック
+    </span>
     <v-select
       v-if="loading"
       v-model="prefectureId"
