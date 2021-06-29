@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver
     ref="observer"
-    v-slot="{ handleSubmit }"
+    v-slot="{ invalid }"
   >
     <v-card-text class="pb-0">
       <v-container>
@@ -33,14 +33,15 @@
       <v-btn
         color="primary"
         text
-        @click="clickCancel"
+        @click="$emit('click-cancel')"
       >
         キャンセル
       </v-btn>
       <v-btn
         color="primary"
         text
-        @click="handleSubmit(clickUpdate)"
+        :disabled="invalid"
+        @click="$emit('click-update')"
       >
         更新
       </v-btn>
