@@ -308,7 +308,6 @@
     <team-register-dialog
       ref="registerTeam"
       :prefectures="prefectures"
-      @click-back="changeForm"
       @create-team="pushTeam"
     />
   </div>
@@ -324,8 +323,6 @@ export default {
   data() {
     return {
       dialog: false,
-      registerTeam: false,
-      registerPlayer: true,
       leagues: [],
       prefectures: [],
       positions: ["GK", "DF", "MF", "FW"],
@@ -375,15 +372,10 @@ export default {
       this.$refs.form.reset()
       this.dialog = false
     },
-    changeForm() {
-      this.registerPlayer = !this.registerPlayer
-      this.registerTeam = !this.registerTeam
-    },
     pushTeam(team) {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
       }).teams.push(team)
-      this.changeForm()
     },
     setGroupId() {
       if (this.filterGroups.length === 1) {
