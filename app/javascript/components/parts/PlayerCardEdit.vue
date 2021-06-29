@@ -105,12 +105,6 @@ export default {
         break
       }
     },
-    clickCancel() {
-      this.$emit("click-cancel")
-    },
-    clickUpdate() {
-      this.$emit("click-update")
-    },
     setErrors(errors) {
       this.$refs.observer.setErrors(errors)
     }
