@@ -314,11 +314,11 @@
 </template>
 
 <script>
-import RegisterTeam from "./RegisterTeam"
+import TeamRegisterDialog from "./TeamRegisterDialog"
 
 export default {
   components : {
-    RegisterTeam
+    TeamRegisterDialog
   },
   data() {
     return {
