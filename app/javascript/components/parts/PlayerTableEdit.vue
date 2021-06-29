@@ -9,7 +9,7 @@
           <player-form-team
             v-if="teamEdit"
             :prefecture="prefecture"
-            v-bind.sync="profileEdit"
+            :team-id.sync="profileEdit.teamId"
           />
           <player-form-league
             v-if="leagueEdit"
