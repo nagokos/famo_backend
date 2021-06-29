@@ -55,11 +55,21 @@
         @change="$emit('update:teamId', $event)"
       />
     </ValidationProvider>
+    <team-register-dialog
+      ref="teamRegisterDialog"
+      :prefectures="prefectures"
+      @create-team="pushTeam"
+    />
   </v-col>
 </template>
 
 <script>
+import TeamRegisterDialog from "./TeamRegisterDialog"
+
 export default {
+  components: {
+    TeamRegisterDialog
+  },
   props: {
     prefecture: {
       type: Number,
