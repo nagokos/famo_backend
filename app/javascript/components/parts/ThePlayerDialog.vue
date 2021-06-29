@@ -1,329 +1,328 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    width="550"
-    :persistent="true"
-    scrollable
-  >
-    <v-card v-if="registerPlayer">
-      <v-btn
-        icon
-        @click="close"
-      >
-        <v-icon>
-          mdi-close
-        </v-icon>
-      </v-btn>
-      <v-card-title
-        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-      >
-        選手情報登録
-      </v-card-title>
-      <v-divider />
-      <v-card-text
-        :style="$vuetify.breakpoint.mobile ? 'height: 450px' : ''"
-      >
-        <ValidationObserver
-          ref="observer"
-          v-slot="{ handleSubmit }"
+  <div>
+    <v-dialog
+      v-model="dialog"
+      width="550"
+      :persistent="true"
+      scrollable
+    >
+      <v-card>
+        <v-btn
+          icon
+          @click="close"
         >
-          <v-form
-            ref="form"
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+        <v-card-title
+          class="pt-0 pb-5 font-weight-bold justify-center text-h5"
+        >
+          選手情報登録
+        </v-card-title>
+        <v-divider />
+        <v-card-text
+          :style="$vuetify.breakpoint.mobile ? 'height: 450px' : ''"
+        >
+          <ValidationObserver
+            ref="observer"
+            v-slot="{ handleSubmit }"
           >
-            <v-container>
-              <v-row>
-                <!-- チーム選択 -->
-                <v-col
-                  class="mt-3"
-                  cols="12"
-                >
-                  <span
-                    class="font-weight-bold text-h6 black--text"
+            <v-form
+              ref="form"
+            >
+              <v-container>
+                <v-row>
+                  <!-- チーム選択 -->
+                  <v-col
+                    class="mt-3"
+                    cols="12"
                   >
-                    所属チーム
-                  </span>
-                  <br>
-                  <span
-                    class="font-weight-bold"
-                    :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
-                  >
-                    ＊所属チームが見つからない場合は
                     <span
-                      class="red--text"
-                      style="cursor: pointer;"
-                      @click="changeForm"
+                      class="font-weight-bold text-h6 black--text"
                     >
-                      こちら
+                      所属チーム
                     </span>
-                    からチームを登録してください。
-                  </span>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="都道府県"
+                    <br>
+                    <span
+                      class="font-weight-bold"
+                      :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
+                    >
+                      ＊所属チームが見つからない場合は
+                      <span
+                        class="red--text"
+                        style="cursor: pointer;"
+                        @click="$refs.registerTeam.open()"
+                      >
+                        こちら
+                      </span>
+                      からチームを登録してください。
+                    </span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-select
-                      v-model="prefectureId"
-                      outlined
-                      dense
-                      label="都道府県"
-                      :items="prefectures"
-                      item-value="id"
-                      item-text="name"
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  v-if="prefectureId"
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="チーム"
-                    vid="team"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="都道府県"
+                    >
+                      <v-select
+                        v-model="prefectureId"
+                        outlined
+                        dense
+                        label="都道府県"
+                        :items="prefectures"
+                        item-value="id"
+                        item-text="name"
+                        background-color="#F2F4F8"
+                        :error-messages="errors"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col
+                    v-if="prefectureId"
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-autocomplete
-                      v-model="profile.teamId"
-                      no-data-text="チームが見つかりません"
-                      outlined
-                      dense
-                      required
-                      label="チーム"
-                      :items="filterTeams"
-                      item-value="id"
-                      item-text="name"
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <!-- リーグ選択 -->
-                <v-col
-                  class="pt-0"
-                  cols="12"
-                >
-                  <span
-                    class="font-weight-bold text-h6 black--text"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="チーム"
+                      vid="team"
+                    >
+                      <v-autocomplete
+                        v-model="profile.teamId"
+                        no-data-text="チームが見つかりません"
+                        outlined
+                        dense
+                        required
+                        label="チーム"
+                        :items="filterTeams"
+                        item-value="id"
+                        item-text="name"
+                        background-color="#F2F4F8"
+                        :error-messages="errors"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <!-- リーグ選択 -->
+                  <v-col
+                    class="pt-0"
+                    cols="12"
                   >
-                    所属リーグ
-                  </span>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="リーグ"
+                    <span
+                      class="font-weight-bold text-h6 black--text"
+                    >
+                      所属リーグ
+                    </span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-select
-                      v-model="leagueId"
-                      outlined
-                      dense
-                      label="リーグ"
-                      :items="leagues"
-                      item-value="id"
-                      item-text="name"
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                      @click="categoryId = 0"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  v-if="leagueId"
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="カテゴリ"
-                    vid="group"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="リーグ"
+                    >
+                      <v-select
+                        v-model="leagueId"
+                        outlined
+                        dense
+                        label="リーグ"
+                        :items="leagues"
+                        item-value="id"
+                        item-text="name"
+                        background-color="#F2F4F8"
+                        :error-messages="errors"
+                        @click="categoryId = 0"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col
+                    v-if="leagueId"
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-select
-                      v-model="categoryId"
-                      outlined
-                      dense
-                      required
-                      label="カテゴリ"
-                      :items="filterCategories"
-                      item-value="id"
-                      item-text="name"
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                      @change="setGroupId"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  v-if="categoryId && filterGroups.length !== 1"
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="グループ"
-                    vid="group"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="カテゴリ"
+                      vid="group"
+                    >
+                      <v-select
+                        v-model="categoryId"
+                        outlined
+                        dense
+                        required
+                        label="カテゴリ"
+                        :items="filterCategories"
+                        item-value="id"
+                        item-text="name"
+                        background-color="#F2F4F8"
+                        :error-messages="errors"
+                        @change="setGroupId"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col
+                    v-if="categoryId && filterGroups.length !== 1"
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-select
-                      v-model="profile.groupId"
-                      outlined
-                      dense
-                      required
-                      label="グループ"
-                      :items="filterGroups"
-                      item-value="id"
-                      item-text="name"
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <!-- ポジション選択 -->
-                <v-col
-                  class="pt-0"
-                  cols="12"
-                >
-                  <span
-                    class="font-weight-bold text-h6 black--text"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="グループ"
+                      vid="group"
+                    >
+                      <v-select
+                        v-model="profile.groupId"
+                        outlined
+                        dense
+                        required
+                        label="グループ"
+                        :items="filterGroups"
+                        item-value="id"
+                        item-text="name"
+                        background-color="#F2F4F8"
+                        :error-messages="errors"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <!-- ポジション選択 -->
+                  <v-col
+                    class="pt-0"
+                    cols="12"
                   >
-                    ポジション
-                  </span>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="ポジション"
-                    vid="position"
+                    <span
+                      class="font-weight-bold text-h6 black--text"
+                    >
+                      ポジション
+                    </span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-select
-                      v-model="profile.position"
-                      background-color="#F2F4F8"
-                      outlined
-                      dense
-                      required
-                      label="ポジション"
-                      :items="positions"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <!-- 背番号 -->
-                <v-col
-                  class="pt-0"
-                  cols="12"
-                >
-                  <span
-                    class="font-weight-bold text-h6 black--text"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="ポジション"
+                      vid="position"
+                    >
+                      <v-select
+                        v-model="profile.position"
+                        background-color="#F2F4F8"
+                        outlined
+                        dense
+                        required
+                        label="ポジション"
+                        :items="positions"
+                        :error-messages="errors"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <!-- 背番号 -->
+                  <v-col
+                    class="pt-0"
+                    cols="12"
                   >
-                    背番号
-                  </span>
-                  <br>
-                  <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required|numeric"
-                    name="公式戦"
-                    vid="official_number"
+                    <span
+                      class="font-weight-bold text-h6 black--text"
+                    >
+                      背番号
+                    </span>
+                    <br>
+                    <span class="font-weight-bold text-caption">＊公式戦・練習試合で分れている場合は両方入力して下さい。</span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-text-field
-                      v-model="profile.officialNumber"
-                      label="公式戦"
-                      background-color="#F2F4F8"
-                      outlined
-                      dense
-                      required
-                      hint="公式戦での背番号を入力して下さい"
-                      persistent-hint
-                      type="number"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <ValidationProvider
-                    rules="numeric"
-                    name="練習試合"
-                    vid="practice_number"
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required|numeric"
+                      name="公式戦"
+                      vid="official_number"
+                    >
+                      <v-text-field
+                        v-model="profile.officialNumber"
+                        label="公式戦"
+                        background-color="#F2F4F8"
+                        outlined
+                        dense
+                        required
+                        hint="公式戦での背番号を入力して下さい"
+                        persistent-hint
+                        type="number"
+                        :error-messages="errors"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    <v-text-field
-                      v-model="profile.practiceNumber"
-                      label="練習試合"
-                      outlined
-                      dense
-                      hint="練習試合での背番号を入力して下さい"
-                      persistent-hint
-                      type="number"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
-                  <v-btn
-                    color="#3949AB"
-                    class="font-weight-bold"
-                    large
-                    dark
-                    block
-                    depressed
-                    @click="handleSubmit(clickRegister)"
+                    <ValidationProvider
+                      rules="numeric"
+                      name="練習試合"
+                      vid="practice_number"
+                    >
+                      <v-text-field
+                        v-model="profile.practiceNumber"
+                        label="練習試合"
+                        outlined
+                        dense
+                        hint="練習試合での背番号を入力して下さい"
+                        persistent-hint
+                        type="number"
+                      />
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    class="pt-0"
                   >
-                    登録する
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </ValidationObserver>
-      </v-card-text>
-    </v-card>
-    <register-team
-      v-if="registerTeam"
+                    <v-btn
+                      color="#3949AB"
+                      class="font-weight-bold"
+                      large
+                      dark
+                      block
+                      depressed
+                      @click="handleSubmit(clickRegister)"
+                    >
+                      登録する
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
+          </ValidationObserver>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <team-register-dialog
+      ref="registerTeam"
       :prefectures="prefectures"
-      @click-back="changeForm"
       @create-team="pushTeam"
     />
-  </v-dialog>
+  </div>
 </template>
 
 <script>
-import RegisterTeam from "./RegisterTeam"
+import TeamRegisterDialog from "./TeamRegisterDialog"
 
 export default {
   components : {
-    RegisterTeam
+    TeamRegisterDialog
   },
   data() {
     return {
       dialog: false,
-      registerTeam: false,
-      registerPlayer: true,
       leagues: [],
       prefectures: [],
       positions: ["GK", "DF", "MF", "FW"],
@@ -373,15 +372,10 @@ export default {
       this.$refs.form.reset()
       this.dialog = false
     },
-    changeForm() {
-      this.registerPlayer = !this.registerPlayer
-      this.registerTeam = !this.registerTeam
-    },
     pushTeam(team) {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
       }).teams.push(team)
-      this.changeForm()
     },
     setGroupId() {
       if (this.filterGroups.length === 1) {
