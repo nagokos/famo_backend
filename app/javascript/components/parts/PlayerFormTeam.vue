@@ -60,7 +60,7 @@ export default {
     },
     teamId: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     },
   },
