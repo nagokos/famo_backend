@@ -4,6 +4,7 @@
       v-slot="{ errors }"
       rules="required"
       name="リーグ"
+      vid="group"
     >
       <v-select
         v-model="leagueId"
