@@ -1,37 +1,73 @@
 <template>
-  <v-col
-    lg="4"
+  <v-card
+    outlined
   >
-    <v-card
-      outlined
-      :elevation="isEdit ? 1 : ''"
+    <v-simple-table
+      dense
     >
-      <player-table-view
-        v-if="!isEdit"
-        :profile="profile"
-        @click-player="$emit('click-player')"
-        @click-edit="changeEdit"
-      />
-      <player-table-edit
-        v-if="isEdit"
-        ref="playerTableEdit"
-        :profile-edit="profileEdit"
-        @click-update="$emit('click-update')"
-        @click-cancel="close"
-      />
-    </v-card>
-  </v-col>
+      <tbody>
+        <v-col
+          v-if="!profile"
+          align="center"
+        >
+          <v-btn
+            right
+            text
+            color="primary"
+            @click="$emit('click-player')"
+          >
+            選手情報追加
+          </v-btn>
+        </v-col>
+        <tr
+          v-for="data in profileData"
+          v-else
+          :key="data.id"
+        >
+          <td
+            class="pr-0"
+          >
+            <span
+              class="font-weight-bold"
+              style="font-size: 10px"
+            >
+              {{ data.name }}
+            </span>
+          </td>
+          <td
+            align="end"
+            class="pl-0"
+          >
+            <span
+              class="font-weight-bold"
+              style="font-size: 10px"
+            >
+              {{ data.information }}
+            </span>
+          </td>
+          <td
+            class="px-0"
+          >
+            <v-btn
+              x-small
+              icon
+            >
+              <v-icon
+                x-small
+                @click="$emit('click-edit', data.name)"
+              >
+                mdi-pencil
+              </v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+  </v-card>
 </template>
 
 <script>
-import PlayerTableView from './PlayerTableView'
-import PlayerTableEdit from './PlayerTableEdit'
-
 export default {
-  components: {
-    PlayerTableView,
-    PlayerTableEdit
-  },
   props: {
     profile: {
       type: Object,
