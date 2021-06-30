@@ -1,36 +1,52 @@
 <template>
-  <v-col cols="12">
-    <v-card
-      elevation="1"
-      outlined
-      justify-space-between
+  <v-card
+    outlined
+    elevation="1"
+  >
+    <v-card-title
+      v-if="!profile"
+      class="font-weight-bold"
     >
-      <player-card-view
-        v-if="!isEdit"
-        :profile="profile"
-        @click-player="$emit('click-player')"
-        @click-edit="changeEdit"
-      />
-      <player-card-edit
-        v-if="isEdit"
-        ref="playerCardEdit"
-        :profile-edit="profileEdit"
-        @click-update="$emit('click-update')"
-        @click-cancel="close"
-      />
-    </v-card>
-  </v-col>
+      選手
+      <v-spacer />
+      <v-btn
+        color="primary"
+        text
+        @click="$emit('click-player')"
+      >
+        選手情報を追加
+      </v-btn>
+    </v-card-title>
+    <div
+      v-for="data in profileData"
+      v-else
+      :key="data.id"
+    >
+      <v-card-title class="font-weight-bold">
+        {{ data.name }}
+        <v-spacer />
+        <v-btn
+          icon
+          @click="$emit('click-edit', data.name)"
+        >
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text
+        align="center"
+        class="font-weight-bold"
+        style="color: rgba(0,0,0,.6);"
+      >
+        {{ data.information }}
+      </v-card-text>
+    </div>
+  </v-card>
 </template>
 
 <script>
-import PlayerCardView from "./PlayerCardView"
-import PlayerCardEdit from "./PlayerCardEdit"
-
 export default {
-  components: {
-    PlayerCardView,
-    PlayerCardEdit
-  },
   props: {
     profile: {
       type: Object,
