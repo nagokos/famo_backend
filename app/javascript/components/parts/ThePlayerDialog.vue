@@ -47,15 +47,15 @@
                     <span
                       class="text-caption font-weight-bold"
                     >
-                      ＊所属チームが見つからない場合は
-                      <span
+                      ＊所属チームが見つからない方は
+                      <strong
                         class="red--text"
                         style="cursor: pointer;"
                         @click="$refs.registerTeam.open()"
                       >
                         こちら
-                      </span>
-                      からチームを登録してください。
+                      </strong>
+                      からチームを登録して下さい。
                     </span>
                   </v-col>
                   <v-col
