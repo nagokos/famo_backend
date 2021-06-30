@@ -1,39 +1,26 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
-    >
-      所属チーム編集
-    </span>
-    <br>
-    <span
-      class="text-caption"
-    >
-      チームを登録される方は
-      <strong
-        class="red--text"
-        style="cursor: pointer;"
-        @click="$refs.teamRegisterDialog.open()"
-      >
-        こちら
-      </strong>
-      をクリック
-    </span>
-    <v-select
-      v-if="loading"
-      v-model="prefectureId"
-      class="mt-4"
-      outlined
-      dense
-      label="都道府県"
-      :items="prefectures"
-      item-value="id"
-      item-text="name"
-      background-color="#F2F4F8"
-      @click="$emit('update:teamId', '')"
-    />
+  <div>
     <ValidationProvider
-      v-if="loading && prefectureId"
+      v-slot="{ errors }"
+      rules="required"
+      name="都道府県"
+      vid="team"
+    >
+      <v-select
+        v-model="prefectureId"
+        outlined
+        dense
+        label="都道府県"
+        :items="prefectures"
+        item-value="id"
+        item-text="name"
+        background-color="#F2F4F8"
+        :error-messages="errors"
+        @click="$emit('update:teamId', '')"
+      />
+    </ValidationProvider>
+    <ValidationProvider
+      v-if="prefectureId"
       v-slot="{ errors }"
       rules="required"
       name="チーム"
@@ -55,37 +42,30 @@
         @change="$emit('update:teamId', $event)"
       />
     </ValidationProvider>
-    <team-register-dialog
-      ref="teamRegisterDialog"
-      :prefectures="prefectures"
-      @create-team="pushTeam"
-    />
-  </v-col>
+  </div>
 </template>
 
 <script>
-import TeamRegisterDialog from "./TeamRegisterDialog"
-
 export default {
-  components: {
-    TeamRegisterDialog
-  },
   props: {
+    prefectures: {
+      type: Array,
+      default: () => {},
+      required: true
+    },
     prefecture: {
-      type: Number,
-      default: 0,
+      type: [Number, String],
+      default: "",
       required: true
     },
     teamId: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     },
   },
   data() {
     return {
-      loading: false,
-      prefectures: [],
       prefectureId: this.prefecture
     }
   },
@@ -94,21 +74,6 @@ export default {
       return this.prefectures.find(prefecture => {
         return prefecture.id === this.prefectureId
       }).teams
-    }
-  },
-  created() {
-    this.getPrefectureTeamData()
-  },
-  methods: {
-    pushTeam(team) {
-      this.prefectures.find(prefecture => {
-        return prefecture.id === team.prefectureId
-      }).teams.push(team)
-    },
-    async getPrefectureTeamData() {
-      const response = await this.$axios.get("/api/v1/prefecture_teams")
-      this.loading = true
-      this.prefectures = response.data
     }
   }
 }

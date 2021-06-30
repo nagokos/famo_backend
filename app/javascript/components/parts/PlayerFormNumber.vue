@@ -1,10 +1,5 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
-    >
-      背番号編集
-    </span>
+  <div>
     <ValidationProvider
       v-slot="{ errors }"
       rules="required|numeric"
@@ -13,7 +8,6 @@
     >
       <v-text-field
         :value="officialNumber"
-        class="mt-4"
         label="公式戦"
         background-color="#F2F4F8"
         outlined
@@ -43,7 +37,7 @@
         @input="$emit('update:practiceNumber', $event)"
       />
     </ValidationProvider>
-  </v-col>
+  </div>
 </template>
 
 <script>
