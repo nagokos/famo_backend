@@ -1,37 +1,24 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
+  <div>
+    <ValidationProvider
+      v-slot="{ errors }"
+      rules="required"
+      name="都道府県"
+      vid="team"
     >
-      所属チーム編集
-    </span>
-    <br>
-    <span
-      class="text-caption"
-    >
-      チームを登録される方は
-      <strong
-        class="red--text"
-        style="cursor: pointer;"
-        @click="$refs.teamRegisterDialog.open()"
-      >
-        こちら
-      </strong>
-      をクリック
-    </span>
-    <v-select
-      v-if="loading"
-      v-model="prefectureId"
-      class="mt-4"
-      outlined
-      dense
-      label="都道府県"
-      :items="prefectures"
-      item-value="id"
-      item-text="name"
-      background-color="#F2F4F8"
-      @click="$emit('update:teamId', '')"
-    />
+      <v-select
+        v-model="prefectureId"
+        outlined
+        dense
+        label="都道府県"
+        :items="prefectures"
+        item-value="id"
+        item-text="name"
+        background-color="#F2F4F8"
+        :error-messages="errors"
+        @click="$emit('update:teamId', '')"
+      />
+    </ValidationProvider>
     <ValidationProvider
       v-if="loading && prefectureId"
       v-slot="{ errors }"
