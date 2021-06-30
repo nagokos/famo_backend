@@ -48,6 +48,11 @@
 <script>
 export default {
   props: {
+    prefectures: {
+      type: Array,
+      default: () => {},
+      required: true
+    },
     prefecture: {
       type: Number,
       default: 0,
