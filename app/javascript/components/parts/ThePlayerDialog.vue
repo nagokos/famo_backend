@@ -162,7 +162,6 @@ export default {
       dialog: false,
       leagues: [],
       prefectures: [],
-      positions: ["GK", "DF", "MF", "FW"],
       leagueId: "",
       categoryId: "",
       prefectureId: "",
@@ -173,23 +172,6 @@ export default {
         groupId: "",
         teamId: "",
       }
-    }
-  },
-  computed: {
-     filterTeams() {
-      return this.prefectures.find(prefecture => {
-        return prefecture.id === this.prefectureId
-      }).teams
-    },
-    filterCategories() {
-      return this.leagues.find(league => {
-        return league.id === this.leagueId
-      }).categories
-    },
-    filterGroups() {
-      return this.filterCategories.find(category => {
-        return category.id === this.categoryId
-      }).groups
     }
   },
   watch: {
@@ -213,11 +195,6 @@ export default {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
       }).teams.push(team)
-    },
-    setGroupId() {
-      if (this.filterGroups.length === 1) {
-        this.profile.groupId = this.filterGroups[0].id
-      }
     },
     clickRegister() {
       this.$emit("click-register", this.profile)
