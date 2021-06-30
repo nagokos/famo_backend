@@ -1,33 +1,26 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
-    >
-      所属リーグ編集
-    </span>
+  <div>
     <ValidationProvider
       v-slot="{ errors }"
       rules="required"
       name="リーグ"
+      vid="group"
     >
       <v-select
         v-model="leagueId"
-        class="mt-4"
         outlined
         dense
-        :loading="!loading"
         label="リーグ"
-        :disabled="!loading"
         :items="leagues"
         item-value="id"
         item-text="name"
         background-color="#F2F4F8"
         :error-messages="errors"
-        @click="categoryId = ''"
+        @click="resetId"
       />
     </ValidationProvider>
     <ValidationProvider
-      v-if="loading && leagueId"
+      v-if="leagueId"
       v-slot="{ errors }"
       rules="required"
       name="カテゴリ"
@@ -35,7 +28,6 @@
     >
       <v-select
         v-model="categoryId"
-        :disabled="!loading"
         class="mt-1"
         outlined
         dense
@@ -51,14 +43,13 @@
       />
     </ValidationProvider>
     <ValidationProvider
-      v-if="loading && categoryId && filterGroups.length !== 1"
+      v-if="categoryId && filterGroups.length !== 1"
       v-slot="{ errors }"
       rules="required"
       name="グループ"
       vid="group"
     >
       <v-select
-        :disabled="!loading"
         :value="groupId"
         class="mt-1"
         outlined
@@ -73,34 +64,37 @@
         @change="$emit('update:groupId', $event)"
       />
     </ValidationProvider>
-  </v-col>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
+    leagues: {
+      type: Array,
+      default: () => {},
+      required: true
+    },
     league: {
-      type: Number,
-      default: 0,
+      type: [Number, String],
+      default: "",
       required: true
     },
     category: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     },
     groupId: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     }
   },
   data() {
     return {
-      loading: false,
       leagueId: this.league,
       categoryId: this.category,
-      leagues: []
     }
   },
   computed: {
@@ -115,19 +109,16 @@ export default {
       }).groups
     }
   },
-  created() {
-    this.getLeagueData()
-  },
   methods: {
     setGroupId() {
       if (this.filterGroups.length === 1) {
         this.$emit("update:groupId", this.filterGroups[0].id)
       }
     },
-    async getLeagueData() {
-      const response = await this.$axios.get("/api/v1/leagues")
-      this.leagues = response.data
-      this.loading = true
+    resetId() {
+      this.$emit("update:groupId", "")
+      this.categoryId = ""
+      this.leagueId = ""
     }
   }
 }
