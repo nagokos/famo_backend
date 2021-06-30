@@ -1,66 +1,96 @@
 <template>
-  <v-col cols="12">
-    <v-card
-      elevation="1"
-      outlined
-      justify-space-between
+  <v-card
+    outlined
+    elevation="1"
+  >
+    <v-card-title
+      v-if="!profile"
+      class="font-weight-bold"
     >
-      <player-card-view
-        v-if="!isEdit"
-        :profile="profile"
-        @click-player="$emit('click-player')"
-        @click-edit="changeEdit"
-      />
-      <player-card-edit
-        v-if="isEdit"
-        ref="playerCardEdit"
-        :profile-edit="profileEdit"
-        @click-update="$emit('click-update')"
-        @click-cancel="close"
-      />
-    </v-card>
-  </v-col>
+      選手
+      <v-spacer />
+      <v-btn
+        color="primary"
+        text
+        @click="$emit('click-player')"
+      >
+        選手情報を追加
+      </v-btn>
+    </v-card-title>
+    <div
+      v-for="data in profileData"
+      v-else
+      :key="data.id"
+    >
+      <v-card-title class="font-weight-bold">
+        {{ data.name }}
+        <v-spacer />
+        <v-btn
+          icon
+          @click="$emit('click-edit', data.name)"
+        >
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text
+        align="center"
+        class="font-weight-bold"
+        style="color: rgba(0,0,0,.6);"
+      >
+        {{ data.information }}
+      </v-card-text>
+    </div>
+  </v-card>
 </template>
 
 <script>
-import PlayerCardView from "./PlayerCardView"
-import PlayerCardEdit from "./PlayerCardEdit"
-
 export default {
-  components: {
-    PlayerCardView,
-    PlayerCardEdit
-  },
   props: {
     profile: {
       type: Object,
       default: () => {},
       required: false
-    },
-     profileEdit: {
-      type: Object,
-      default: () => {},
-      required: true
     }
   },
-  data() {
-    return {
-      isEdit: false
-    }
-  },
-  methods: {
-    changeEdit(name) {
-      this.isEdit = true
-      this.$nextTick(() => {
-        this.$refs.playerCardEdit.change(name)
-      })
-      this.$emit("click-edit")
+  computed: {
+    profileData() {
+      return [
+        {
+          name: "チーム",
+          information: this.teamName
+        },
+        {
+          name: "リーグ",
+          information: this.leagueName
+        },
+        {
+          name: "ポジション",
+          information: this.profile.position
+        },
+        {
+          name: "背番号",
+          information: this.uniformNumber
+        },
+      ]
     },
-    close() {
-      this.isEdit = false
+    teamName() {
+      return `${this.profile.team.name}(${this.profile.team.prefecture.name})`
     },
-    setErrors(errors) {
-      this.$refs.playerCardEdit.setErrors(errors)
+    leagueName() {
+      if (this.profile.group.name) {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}${this.profile.group.name}`
+      } else {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}`
+      }
+    },
+    uniformNumber() {
+      if (this.profile.practiceNumber) {
+        return `公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
+      } else {
+        return this.profile.officialNumber
+      }
     }
   }
 }

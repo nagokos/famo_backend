@@ -1,68 +1,126 @@
 <template>
-  <v-col
-    lg="4"
+  <v-card
+    outlined
   >
-    <v-card
-      outlined
-      :elevation="isEdit ? 1 : ''"
+    <v-simple-table
+      dense
     >
-      <player-table-view
-        v-if="!isEdit"
-        :profile="profile"
-        @click-player="$emit('click-player')"
-        @click-edit="changeEdit"
-      />
-      <player-table-edit
-        v-if="isEdit"
-        ref="playerTableEdit"
-        :profile-edit="profileEdit"
-        @click-update="$emit('click-update')"
-        @click-cancel="close"
-      />
-    </v-card>
-  </v-col>
+      <tbody>
+        <v-col
+          v-if="!profile"
+          align="center"
+        >
+          <v-btn
+            right
+            text
+            color="primary"
+            @click="$emit('click-player')"
+          >
+            選手情報追加
+          </v-btn>
+        </v-col>
+        <tr
+          v-for="data in profileData"
+          v-else
+          :key="data.id"
+        >
+          <td
+            class="pr-0"
+          >
+            <span
+              class="font-weight-bold"
+              style="font-size: 10px"
+            >
+              {{ data.name }}
+            </span>
+          </td>
+          <td
+            align="end"
+            class="pl-0"
+          >
+            <span
+              class="font-weight-bold"
+              style="font-size: 10px"
+            >
+              {{ data.information }}
+            </span>
+          </td>
+          <td
+            class="px-0"
+          >
+            <v-btn
+              x-small
+              icon
+            >
+              <v-icon
+                x-small
+                @click="$emit('click-edit', data.name)"
+              >
+                mdi-pencil
+              </v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+  </v-card>
 </template>
 
 <script>
-import PlayerTableView from './PlayerTableView'
-import PlayerTableEdit from './PlayerTableEdit'
-
 export default {
-  components: {
-    PlayerTableView,
-    PlayerTableEdit
-  },
   props: {
     profile: {
       type: Object,
       default: () => {},
       required: false
-    },
-    profileEdit: {
-      type: Object,
-      default: () => {},
-      required: true
     }
   },
-  data() {
-    return {
-      isEdit: false,
+  computed: {
+    profileData() {
+      return [
+        {
+          name: "チーム",
+          information: this.teamName
+        },
+        {
+          name: "リーグ",
+          information: this.leagueName
+        },
+        {
+          name: "ポジション",
+          information: this.profile.position
+        },
+        {
+          name: "背番号",
+          information: this.uniformNumber
+        },
+      ]
+    },
+    teamName() {
+      return `${this.profile.team.name}(${this.profile.team.prefecture.name})`
+    },
+    leagueName() {
+      if (this.profile.group.name) {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}${this.profile.group.name}`
+      } else {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}`
+      }
+    },
+    uniformNumber() {
+      if (this.profile.practiceNumber) {
+        return `公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
+      } else {
+        return this.profile.officialNumber
+      }
     }
   },
-  methods: {
-    changeEdit(name) {
-      this.isEdit = true
-      this.$nextTick(() => {
-        this.$refs.playerTableEdit.change(name)
-      })
-      this.$emit("click-edit")
-    },
-    close() {
-      this.isEdit = false
-    },
-    setErrors(errors) {
-      this.$refs.playerTableEdit.setErrors(errors)
-    }
-  }
 }
 </script>
+
+<style scoped>
+  .v-data-table
+    tbody
+    tr:hover:not(.v-data-table__expanded__content) {
+    background: #ffffff !important;
+  }
+</style>
