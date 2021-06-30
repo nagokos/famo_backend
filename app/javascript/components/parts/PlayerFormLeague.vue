@@ -1,10 +1,5 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
-    >
-      所属リーグ編集
-    </span>
+  <div>
     <ValidationProvider
       v-slot="{ errors }"
       rules="required"
@@ -73,7 +68,7 @@
         @change="$emit('update:groupId', $event)"
       />
     </ValidationProvider>
-  </v-col>
+  </div>
 </template>
 
 <script>
