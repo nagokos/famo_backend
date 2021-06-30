@@ -66,9 +66,11 @@ ja:
   enums:
     user:
       role:
+        temporary: 仮登録
         reviewer: レビュアー
         player: 選手
         admin: 管理者
+        withdrawal: 退会済
     team:
       kind:
         high_school: 高校
