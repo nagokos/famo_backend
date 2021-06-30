@@ -20,7 +20,7 @@
       />
     </ValidationProvider>
     <ValidationProvider
-      v-if="loading && leagueId"
+      v-if="leagueId"
       v-slot="{ errors }"
       rules="required"
       name="カテゴリ"
@@ -43,7 +43,7 @@
       />
     </ValidationProvider>
     <ValidationProvider
-      v-if="loading && categoryId && filterGroups.length !== 1"
+      v-if="categoryId && filterGroups.length !== 1"
       v-slot="{ errors }"
       rules="required"
       name="グループ"
