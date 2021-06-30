@@ -73,16 +73,6 @@ export default {
       type: Object,
       default: () => {},
       required: false
-    },
-    profileEdit: {
-      type: Object,
-      default: () => {},
-      required: true
-    }
-  },
-  data() {
-    return {
-      isEdit: false,
     }
   },
   methods: {
