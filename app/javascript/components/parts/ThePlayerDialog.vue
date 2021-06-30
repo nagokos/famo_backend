@@ -114,7 +114,6 @@
                   </v-col>
                   <v-col
                     cols="12"
-                    class="pt-0"
                   >
                     <v-btn
                       color="#3949AB"
