@@ -42,21 +42,11 @@
         @change="$emit('update:teamId', $event)"
       />
     </ValidationProvider>
-    <team-register-dialog
-      ref="teamRegisterDialog"
-      :prefectures="prefectures"
-      @create-team="pushTeam"
-    />
-  </v-col>
+  </div>
 </template>
 
 <script>
-import TeamRegisterDialog from "./TeamRegisterDialog"
-
 export default {
-  components: {
-    TeamRegisterDialog
-  },
   props: {
     prefecture: {
       type: Number,
@@ -71,8 +61,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
-      prefectures: [],
       prefectureId: this.prefecture
     }
   },
@@ -81,21 +69,6 @@ export default {
       return this.prefectures.find(prefecture => {
         return prefecture.id === this.prefectureId
       }).teams
-    }
-  },
-  created() {
-    this.getPrefectureTeamData()
-  },
-  methods: {
-    pushTeam(team) {
-      this.prefectures.find(prefecture => {
-        return prefecture.id === team.prefectureId
-      }).teams.push(team)
-    },
-    async getPrefectureTeamData() {
-      const response = await this.$axios.get("/api/v1/prefecture_teams")
-      this.loading = true
-      this.prefectures = response.data
     }
   }
 }
