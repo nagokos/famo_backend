@@ -70,6 +70,11 @@
 <script>
 export default {
   props: {
+    leagues: {
+      type: Array,
+      default: () => {},
+      required: true
+    },
     league: {
       type: Number,
       default: 0,
