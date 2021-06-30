@@ -143,11 +143,19 @@
 </template>
 
 <script>
-import TeamRegisterDialog from "./TeamRegisterDialog"
+import PlayerFormTeam from "./PlayerFormTeam"
+import PlayerFormLeague from "./PlayerFormLeague"
+import PlayerFormPosition from "./PlayerFormPosition"
+import PlayerFormNumber from "./PlayerFormNumber"
+import RegisterTeamDialog from "./RegisterTeamDialog"
 
 export default {
   components : {
-    TeamRegisterDialog
+    PlayerFormTeam,
+    PlayerFormLeague,
+    PlayerFormPosition,
+    PlayerFormNumber,
+    RegisterTeamDialog
   },
   data() {
     return {
