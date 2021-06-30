@@ -84,36 +84,18 @@
                   </v-col>
                   <!-- ポジション選択 -->
                   <v-col
-                    class="pt-0"
                     cols="12"
+                    class="pt-0"
                   >
                     <span
                       class="font-weight-bold text-h6 black--text"
                     >
                       ポジション
                     </span>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="ポジション"
-                      vid="position"
-                    >
-                      <v-select
-                        v-model="profile.position"
-                        background-color="#F2F4F8"
-                        outlined
-                        dense
-                        required
-                        label="ポジション"
-                        :items="positions"
-                        :error-messages="errors"
-                      />
-                    </ValidationProvider>
+                    <player-form-position
+                      class="mt-2"
+                      :position.sync="profile.position"
+                    />
                   </v-col>
                   <!-- 背番号 -->
                   <v-col
