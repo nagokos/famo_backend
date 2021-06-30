@@ -189,6 +189,7 @@ export default {
     close() {
       this.$refs.observer.reset()
       this.$refs.form.reset()
+      Object.assign(this.$data.profile, this.$options.data().profile)
       this.dialog = false
     },
     pushTeam(team) {
