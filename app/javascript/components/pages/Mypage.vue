@@ -46,7 +46,7 @@
             @click-update="updateIntroduction"
           />
           <!-- 選手テーブル -->
-          <player-table
+          <player
             v-if="loading && !$vuetify.breakpoint.mobile"
             ref="playerTable"
             :profile="profile"
@@ -71,7 +71,7 @@
     <v-divider />
     <div class="profile-contents mt-4">
       <!-- 選手カード -->
-      <player-card
+      <player
         v-if="loading && userInformation && $vuetify.breakpoint.mobile"
         ref="playerCard"
         :profile="profile"
@@ -107,10 +107,9 @@
 <script>
 import { mapGetters } from "vuex"
 import CareerCard from "../parts/CareerCard"
-import PlayerCard from "../parts/PlayerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import PlayerTable from "../parts/PlayerTable"
+import Player from "../parts/Player"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
@@ -122,10 +121,9 @@ import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 export default {
   components: {
     CareerCard,
-    PlayerCard,
+    Player,
     ProfileAction,
     ProfileTitle,
-    PlayerTable,
     ProfileIntroduction,
     ProfileTab,
     ReviewList,
