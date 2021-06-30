@@ -76,18 +76,18 @@ export default {
       required: true
     },
     league: {
-      type: Number,
-      default: 0,
+      type: [Number, String],
+      default: "",
       required: true
     },
     category: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     },
     groupId: {
       type: [Number, String],
-      default: 0,
+      default: "",
       required: true
     }
   },
