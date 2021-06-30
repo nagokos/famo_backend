@@ -51,7 +51,7 @@
                       <strong
                         class="red--text"
                         style="cursor: pointer;"
-                        @click="$refs.registerTeam.open()"
+                        @click="$refs.registerTeamDialog.open()"
                       >
                         こちら
                       </strong>
