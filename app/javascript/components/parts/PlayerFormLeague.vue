@@ -8,12 +8,9 @@
     >
       <v-select
         v-model="leagueId"
-        class="mt-4"
         outlined
         dense
-        :loading="!loading"
         label="リーグ"
-        :disabled="!loading"
         :items="leagues"
         item-value="id"
         item-text="name"
@@ -31,7 +28,6 @@
     >
       <v-select
         v-model="categoryId"
-        :disabled="!loading"
         class="mt-1"
         outlined
         dense
@@ -54,7 +50,6 @@
       vid="group"
     >
       <v-select
-        :disabled="!loading"
         :value="groupId"
         class="mt-1"
         outlined
@@ -93,10 +88,8 @@ export default {
   },
   data() {
     return {
-      loading: false,
       leagueId: this.league,
       categoryId: this.category,
-      leagues: []
     }
   },
   computed: {
