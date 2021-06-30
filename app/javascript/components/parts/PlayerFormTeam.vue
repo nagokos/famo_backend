@@ -54,8 +54,8 @@ export default {
       required: true
     },
     prefecture: {
-      type: Number,
-      default: 0,
+      type: [Number, String],
+      default: "",
       required: true
     },
     teamId: {
