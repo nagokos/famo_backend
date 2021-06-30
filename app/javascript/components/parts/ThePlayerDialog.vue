@@ -45,8 +45,7 @@
                     </span>
                     <br>
                     <span
-                      class="font-weight-bold"
-                      :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
+                      class="text-caption font-weight-bold"
                     >
                       ＊所属チームが見つからない場合は
                       <span
