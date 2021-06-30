@@ -22,7 +22,7 @@
         </v-card-title>
         <v-divider />
         <v-card-text
-          :style="$vuetify.breakpoint.mobile ? 'height: 450px' : ''"
+          :style="$vuetify.breakpoint.mobile ? 'height: 430px' : ''"
         >
           <ValidationObserver
             ref="observer"
@@ -35,8 +35,8 @@
                 <v-row>
                   <!-- チーム選択 -->
                   <v-col
-                    class="mt-3"
                     cols="12"
+                    class="mt-5"
                   >
                     <span
                       class="font-weight-bold text-h6 black--text"
