@@ -16,7 +16,7 @@
         item-text="name"
         background-color="#F2F4F8"
         :error-messages="errors"
-        @click="categoryId = ''"
+        @click="resetId"
       />
     </ValidationProvider>
     <ValidationProvider
@@ -113,10 +113,10 @@ export default {
         this.$emit("update:groupId", this.filterGroups[0].id)
       }
     },
-    async getLeagueData() {
-      const response = await this.$axios.get("/api/v1/leagues")
-      this.leagues = response.data
-      this.loading = true
+    resetId() {
+      this.$emit("update:groupId", "")
+      this.categoryId = ""
+      this.leagueId = ""
     }
   }
 }
