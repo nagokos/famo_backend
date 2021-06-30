@@ -66,88 +66,21 @@
                   </v-col>
                   <!-- リーグ選択 -->
                   <v-col
-                    class="pt-0"
                     cols="12"
+                    class="pt-0"
                   >
                     <span
                       class="font-weight-bold text-h6 black--text"
                     >
                       所属リーグ
                     </span>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="リーグ"
-                    >
-                      <v-select
-                        v-model="leagueId"
-                        outlined
-                        dense
-                        label="リーグ"
-                        :items="leagues"
-                        item-value="id"
-                        item-text="name"
-                        background-color="#F2F4F8"
-                        :error-messages="errors"
-                        @click="categoryId = 0"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    v-if="leagueId"
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="カテゴリ"
-                      vid="group"
-                    >
-                      <v-select
-                        v-model="categoryId"
-                        outlined
-                        dense
-                        required
-                        label="カテゴリ"
-                        :items="filterCategories"
-                        item-value="id"
-                        item-text="name"
-                        background-color="#F2F4F8"
-                        :error-messages="errors"
-                        @change="setGroupId"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    v-if="categoryId && filterGroups.length !== 1"
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="グループ"
-                      vid="group"
-                    >
-                      <v-select
-                        v-model="profile.groupId"
-                        outlined
-                        dense
-                        required
-                        label="グループ"
-                        :items="filterGroups"
-                        item-value="id"
-                        item-text="name"
-                        background-color="#F2F4F8"
-                        :error-messages="errors"
-                      />
-                    </ValidationProvider>
+                    <player-form-league
+                      class="mt-2"
+                      :leagues="leagues"
+                      :league="leagueId"
+                      :category="categoryId"
+                      :group-id.sync="profile.groupId"
+                    />
                   </v-col>
                   <!-- ポジション選択 -->
                   <v-col
