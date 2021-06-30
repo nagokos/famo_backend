@@ -47,7 +47,7 @@ ja:
             group:
               required: 選択して下さい
             team:
-              required: "%{attribute}を選択して下さい"
+              required: 選択して下さい
             position:
               blank: "%{attribute}を選択して下さい"
         team:
