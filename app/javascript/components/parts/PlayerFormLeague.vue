@@ -109,9 +109,6 @@ export default {
       }).groups
     }
   },
-  created() {
-    this.getLeagueData()
-  },
   methods: {
     setGroupId() {
       if (this.filterGroups.length === 1) {
