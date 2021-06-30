@@ -1,10 +1,5 @@
 <template>
-  <v-col cols="12">
-    <span
-      class="font-weight-bold text-h6 black--text"
-    >
-      ポジション編集
-    </span>
+  <div>
     <ValidationProvider
       v-slot="{ errors }"
       rules="required"
@@ -23,7 +18,7 @@
         @change="$emit('update:position', $event)"
       />
     </ValidationProvider>
-  </v-col>
+  </div>
 </template>
 
 <script>
