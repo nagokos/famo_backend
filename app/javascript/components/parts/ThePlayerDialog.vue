@@ -134,8 +134,8 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <team-register-dialog
-      ref="registerTeam"
+    <register-team-dialog
+      ref="registerTeamDialog"
       :prefectures="prefectures"
       @create-team="pushTeam"
     />
