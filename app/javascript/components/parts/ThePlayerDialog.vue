@@ -57,54 +57,12 @@
                       </strong>
                       からチームを登録して下さい。
                     </span>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="都道府県"
-                    >
-                      <v-select
-                        v-model="prefectureId"
-                        outlined
-                        dense
-                        label="都道府県"
-                        :items="prefectures"
-                        item-value="id"
-                        item-text="name"
-                        background-color="#F2F4F8"
-                        :error-messages="errors"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    v-if="prefectureId"
-                    cols="12"
-                    class="pt-0"
-                  >
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required"
-                      name="チーム"
-                      vid="team"
-                    >
-                      <v-autocomplete
-                        v-model="profile.teamId"
-                        no-data-text="チームが見つかりません"
-                        outlined
-                        dense
-                        required
-                        label="チーム"
-                        :items="filterTeams"
-                        item-value="id"
-                        item-text="name"
-                        background-color="#F2F4F8"
-                        :error-messages="errors"
-                      />
-                    </ValidationProvider>
+                    <player-form-team
+                      class="mt-3"
+                      :prefectures="prefectures"
+                      :prefecture="prefectureId"
+                      :team-id.sync="profile.teamId"
+                    />
                   </v-col>
                   <!-- リーグ選択 -->
                   <v-col
