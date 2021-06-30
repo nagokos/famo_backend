@@ -20,7 +20,7 @@
       />
     </ValidationProvider>
     <ValidationProvider
-      v-if="loading && prefectureId"
+      v-if="prefectureId"
       v-slot="{ errors }"
       rules="required"
       name="チーム"
