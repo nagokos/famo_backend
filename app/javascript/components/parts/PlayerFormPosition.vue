@@ -8,7 +8,6 @@
     >
       <v-select
         :value="position"
-        class="mt-4"
         outlined
         dense
         label="ポジション"
