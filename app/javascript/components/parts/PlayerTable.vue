@@ -75,20 +75,44 @@ export default {
       required: false
     }
   },
-  methods: {
-    changeEdit(name) {
-      this.isEdit = true
-      this.$nextTick(() => {
-        this.$refs.playerTableEdit.change(name)
-      })
-      this.$emit("click-edit")
+  computed: {
+    profileData() {
+      return [
+        {
+          name: "チーム",
+          information: this.teamName
+        },
+        {
+          name: "リーグ",
+          information: this.leagueName
+        },
+        {
+          name: "ポジション",
+          information: this.profile.position
+        },
+        {
+          name: "背番号",
+          information: this.uniformNumber
+        },
+      ]
     },
-    close() {
-      this.isEdit = false
+    teamName() {
+      return `${this.profile.team.name}(${this.profile.team.prefecture.name})`
     },
-    setErrors(errors) {
-      this.$refs.playerTableEdit.setErrors(errors)
+    leagueName() {
+      if (this.profile.group.name) {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}${this.profile.group.name}`
+      } else {
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}`
+      }
+    },
+    uniformNumber() {
+      if (this.profile.practiceNumber) {
+        return `公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
+      } else {
+        return this.profile.officialNumber
+      }
     }
-  }
+  },
 }
 </script>
