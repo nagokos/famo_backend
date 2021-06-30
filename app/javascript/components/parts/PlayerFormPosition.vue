@@ -4,6 +4,7 @@
       v-slot="{ errors }"
       rules="required"
       name="ポジション"
+      vid="position"
     >
       <v-select
         :value="position"
