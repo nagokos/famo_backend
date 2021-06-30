@@ -116,3 +116,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .v-data-table
+    tbody
+    tr:hover:not(.v-data-table__expanded__content) {
+    background: #ffffff !important;
+  }
+</style>
