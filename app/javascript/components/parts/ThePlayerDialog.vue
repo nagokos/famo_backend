@@ -1,145 +1,153 @@
 <template>
-  <div>
-    <v-dialog
-      v-model="dialog"
-      width="550"
-      :persistent="true"
-      scrollable
+  <v-dialog
+    v-model="dialog"
+    width="550"
+    :persistent="true"
+    scrollable
+  >
+    <v-card
+      v-if="playerForm"
     >
-      <v-card>
-        <v-btn
-          icon
-          @click="close"
+      <v-btn
+        icon
+        @click="close"
+      >
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
+      <v-card-title
+        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
+      >
+        選手情報登録
+      </v-card-title>
+      <v-divider />
+      <v-card-text
+        :style="$vuetify.breakpoint.mobile ? 'height: 430px;' : 'height: 570px;'"
+      >
+        <ValidationObserver
+          ref="observer"
+          v-slot="{ handleSubmit }"
         >
-          <v-icon>
-            mdi-close
-          </v-icon>
-        </v-btn>
-        <v-card-title
-          class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-        >
-          選手情報登録
-        </v-card-title>
-        <v-divider />
-        <v-card-text
-          :style="$vuetify.breakpoint.mobile ? 'height: 430px' : ''"
-        >
-          <ValidationObserver
-            ref="observer"
-            v-slot="{ handleSubmit }"
+          <v-form
+            ref="form"
           >
-            <v-form
-              ref="form"
-            >
-              <v-container>
-                <v-row>
-                  <!-- チーム選択 -->
-                  <v-col
-                    cols="12"
-                    class="mt-5"
+            <v-container>
+              <v-row>
+                <!-- チーム選択 -->
+                <v-col
+                  cols="12"
+                  class="mt-5"
+                >
+                  <span
+                    class="font-weight-bold text-h6 black--text"
                   >
-                    <span
-                      class="font-weight-bold text-h6 black--text"
-                    >
-                      所属チーム
-                    </span>
-                    <br>
-                    <span
-                      class="text-caption font-weight-bold"
-                    >
-                      ＊所属チームが見つからない方は
-                      <strong
-                        class="red--text"
-                        style="cursor: pointer;"
-                        @click="$refs.registerTeamDialog.open()"
-                      >
-                        こちら
-                      </strong>
-                      からチームを登録して下さい。
-                    </span>
-                    <player-form-team
-                      class="mt-3"
-                      :prefectures="prefectures"
-                      :prefecture="prefectureId"
-                      :team-id.sync="profile.teamId"
-                    />
-                  </v-col>
-                  <!-- リーグ選択 -->
-                  <v-col
-                    cols="12"
-                    class="pt-0"
+                    所属チーム
+                  </span>
+                  <br>
+                  <span
+                    class="text-caption font-weight-bold"
                   >
-                    <span
-                      class="font-weight-bold text-h6 black--text"
+                    ＊所属チームが見つからない方は
+                    <strong
+                      class="red--text"
+                      style="cursor: pointer;"
+                      @click="changeForm"
                     >
-                      所属リーグ
-                    </span>
-                    <player-form-league
-                      class="mt-2"
-                      :leagues="leagues"
-                      :league="leagueId"
-                      :category="categoryId"
-                      :group-id.sync="profile.groupId"
-                    />
-                  </v-col>
-                  <!-- ポジション選択 -->
-                  <v-col
-                    cols="12"
-                    class="pt-0"
+                      こちら
+                    </strong>
+                    からチームを登録して下さい。
+                  </span>
+                  <player-form-team
+                    class="mt-3"
+                    :prefectures="prefectures"
+                    :prefecture="prefectureId"
+                    :team-id.sync="profile.teamId"
+                  />
+                </v-col>
+                <!-- リーグ選択 -->
+                <v-col
+                  cols="12"
+                  class="pt-0"
+                >
+                  <span
+                    class="font-weight-bold text-h6 black--text"
                   >
-                    <span
-                      class="font-weight-bold text-h6 black--text"
-                    >
-                      ポジション
-                    </span>
-                    <player-form-position
-                      class="mt-2"
-                      :position.sync="profile.position"
-                    />
-                  </v-col>
-                  <!-- 背番号 -->
-                  <v-col
-                    class="pt-0"
-                    cols="12"
+                    所属リーグ
+                  </span>
+                  <player-form-league
+                    class="mt-2"
+                    :leagues="leagues"
+                    :league="leagueId"
+                    :category="categoryId"
+                    :group-id.sync="profile.groupId"
+                  />
+                </v-col>
+                <!-- ポジション選択 -->
+                <v-col
+                  cols="12"
+                  class="pt-0"
+                >
+                  <span
+                    class="font-weight-bold text-h6 black--text"
                   >
-                    <span
-                      class="font-weight-bold text-h6 black--text"
-                    >
-                      背番号
-                    </span>
-                    <player-form-number
-                      class="mt-2"
-                      v-bind.sync="profile"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
+                    ポジション
+                  </span>
+                  <player-form-position
+                    class="mt-2"
+                    :position.sync="profile.position"
+                  />
+                </v-col>
+                <!-- 背番号 -->
+                <v-col
+                  class="pt-0"
+                  cols="12"
+                >
+                  <span
+                    class="font-weight-bold text-h6 black--text"
                   >
-                    <v-btn
-                      color="#3949AB"
-                      class="font-weight-bold"
-                      large
-                      dark
-                      block
-                      depressed
-                      @click="handleSubmit(clickRegister)"
-                    >
-                      登録する
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </ValidationObserver>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <register-team-dialog
-      ref="registerTeamDialog"
+                    背番号
+                  </span>
+                  <player-form-number
+                    class="mt-2"
+                    v-bind.sync="profile"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-btn
+                    color="#3949AB"
+                    class="font-weight-bold"
+                    large
+                    dark
+                    block
+                    depressed
+                    @click="handleSubmit(clickRegister)"
+                  >
+                    登録する
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </ValidationObserver>
+      </v-card-text>
+    </v-card>
+    <register-team
+      v-if="teamForm"
+      ref="registerTeam"
       :prefectures="prefectures"
+      @click-icon="changeForm"
       @create-team="pushTeam"
-    />
-  </div>
+    >
+      <template #icon>
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
+      </template>
+    </register-team>
+  </v-dialog>
 </template>
 
 <script>
@@ -147,7 +155,7 @@ import PlayerFormTeam from "./PlayerFormTeam"
 import PlayerFormLeague from "./PlayerFormLeague"
 import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
-import RegisterTeamDialog from "./RegisterTeamDialog"
+import RegisterTeam from "./RegisterTeam"
 
 export default {
   components : {
