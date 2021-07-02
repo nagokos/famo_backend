@@ -68,27 +68,22 @@
           >
             <v-col
               cols="12"
-              class="px-0"
             >
               <v-btn
                 text
-                disabled
+                block
                 large
-                class="font-weight-bold px-0 ml-6 justify-start"
+                class="justify-start"
+                @click="pushPage('/profile', 'profile')"
+                style="position: relative; right: 5px;"
               >
-                <v-avatar
-                  class="mr-2"
-                >
+                <v-avatar size="36">
                   <v-img
+                    color="#5b7083"
                     :src="currentUser.avatar"
-                    max-height="35"
-                    max-width="35"
                   />
                 </v-avatar>
-                <span
-                  style="color: black;"
-                  class="text-button font-weight-bold"
-                >{{ fullName }}</span>
+                <span class="ml-2 mt-1 font-weight-bold">{{ fullName }}</span>
               </v-btn>
             </v-col>
             <v-divider />
@@ -100,15 +95,15 @@
                 block
                 large
                 class="justify-start"
-                @click="pushPage('/profile', 'profile')"
+                @click="pushPage('/settings/profile', 'mySetting', 'profile')"
               >
                 <v-icon
                   class="mr-2"
                   color="#5b7083"
                 >
-                  mdi-home-account
+                  mdi-cog
                 </v-icon>
-                <span class="text-caption font-weight-bold">マイページ</span>
+                <span class="text-caption font-weight-bold">アカウント設定</span>
               </v-btn>
             </v-col>
             <v-col
@@ -170,9 +165,9 @@ export default {
     }
   },
   methods: {
-    pushPage(path, route) {
+    pushPage(path, route, params) {
       if (this.$route.path !== path) {
-        this.$router.push({ name: route })
+        this.$router.push({ name: route, params: { type: params } })
       }
     },
     async logout() {
