@@ -7,7 +7,7 @@
       outlined
       x-large
       color="primary"
-      :to="{ name: 'profileSetting' }"
+      :to="{ name: 'mySetting', params: { type: 'profile' } }"
     >
       <v-icon>
         mdi-pencil-outline
