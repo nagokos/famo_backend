@@ -7,7 +7,7 @@
       outlined
       x-large
       color="primary"
-      @click="$emit('click-edit')"
+      :to="{ name: 'profileSetting' }"
     >
       <v-icon>
         mdi-pencil-outline
