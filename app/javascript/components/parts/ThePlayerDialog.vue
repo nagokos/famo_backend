@@ -163,11 +163,13 @@ export default {
     PlayerFormLeague,
     PlayerFormPosition,
     PlayerFormNumber,
-    RegisterTeamDialog
+    RegisterTeam
   },
   data() {
     return {
       dialog: false,
+      playerForm: false,
+      teamForm: false,
       leagues: [],
       prefectures: [],
       leagueId: "",
@@ -192,6 +194,7 @@ export default {
   },
   methods: {
     open() {
+      this.playerForm = true
       this.dialog = true
     },
     close() {
@@ -200,10 +203,15 @@ export default {
       Object.assign(this.$data.profile, this.$options.data().profile)
       this.dialog = false
     },
+    changeForm() {
+      this.playerForm = !this.playerForm
+      this.teamForm = !this.teamForm
+    },
     pushTeam(team) {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
       }).teams.push(team)
+      this.changeForm()
     },
     clickRegister() {
       this.$emit("click-register", this.profile)
