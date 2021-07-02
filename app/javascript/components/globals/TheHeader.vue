@@ -68,27 +68,22 @@
           >
             <v-col
               cols="12"
-              class="px-0"
             >
               <v-btn
                 text
-                disabled
+                block
                 large
-                class="font-weight-bold px-0 ml-6 justify-start"
+                class="justify-start"
+                @click="pushPage('/profile', 'profile')"
+                style="position: relative; right: 5px;"
               >
-                <v-avatar
-                  class="mr-2"
-                >
+                <v-avatar size="36">
                   <v-img
+                    color="#5b7083"
                     :src="currentUser.avatar"
-                    max-height="35"
-                    max-width="35"
                   />
                 </v-avatar>
-                <span
-                  style="color: black;"
-                  class="text-button font-weight-bold"
-                >{{ fullName }}</span>
+                <span class="ml-2 mt-1 font-weight-bold">{{ fullName }}</span>
               </v-btn>
             </v-col>
             <v-divider />
