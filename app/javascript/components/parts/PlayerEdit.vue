@@ -26,7 +26,7 @@
                 <strong
                   class="red--text"
                   style="cursor: pointer;"
-                  @click="$refs.registerTeamDialog.open()"
+                  @click="dialog = true"
                 >
                   こちら
                 </strong>
@@ -153,6 +153,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       loading: false,
       teamEdit: false,
       leagueEdit: false,
