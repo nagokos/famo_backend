@@ -95,15 +95,15 @@
                 block
                 large
                 class="justify-start"
-                @click="pushPage('/profile', 'profile')"
+                @click="pushPage('/settings/profile', 'profileSetting')"
               >
                 <v-icon
                   class="mr-2"
                   color="#5b7083"
                 >
-                  mdi-home-account
+                  mdi-cog
                 </v-icon>
-                <span class="text-caption font-weight-bold">マイページ</span>
+                <span class="text-caption font-weight-bold">アカウント設定</span>
               </v-btn>
             </v-col>
             <v-col
