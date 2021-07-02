@@ -121,11 +121,25 @@
         </v-btn>
       </v-card-actions>
     </ValidationObserver>
-    <register-team-dialog
-      ref="registerTeamDialog"
-      :prefectures="prefectures"
-      @create-team="pushTeam"
-    />
+    <v-dialog
+      v-model="dialog"
+      width="550"
+      :persistent="true"
+      scrollable
+    >
+      <register-team
+        ref="registerTeam"
+        :prefectures="prefectures"
+        @click-icon="dialog = false"
+        @create-team="pushTeam"
+      >
+        <template #icon>
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </template>
+      </register-team>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -134,7 +148,7 @@ import PlayerFormTeam from "./PlayerFormTeam"
 import PlayerFormLeague from "./PlayerFormLeague"
 import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
-import RegisterTeamDialog from "./RegisterTeamDialog"
+import RegisterTeam from "./RegisterTeam"
 
 export default {
   components: {
@@ -142,7 +156,7 @@ export default {
     PlayerFormLeague,
     PlayerFormPosition,
     PlayerFormNumber,
-    RegisterTeamDialog
+    RegisterTeam
   },
   props: {
     profileEdit: {
@@ -197,6 +211,7 @@ export default {
       this.prefectures.find(prefecture => {
         return prefecture.id === team.prefectureId
       }).teams.push(team)
+      this.dialog = false
     },
     setErrors(errors) {
       this.$refs.observer.setErrors(errors)
