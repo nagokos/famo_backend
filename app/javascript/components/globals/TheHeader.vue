@@ -95,7 +95,7 @@
                 block
                 large
                 class="justify-start"
-                @click="pushPage('/settings/profile', 'profileSetting')"
+                @click="pushPage('/settings/profile', 'mySetting', 'profile')"
               >
                 <v-icon
                   class="mr-2"
@@ -165,9 +165,9 @@ export default {
     }
   },
   methods: {
-    pushPage(path, route) {
+    pushPage(path, route, params) {
       if (this.$route.path !== path) {
-        this.$router.push({ name: route })
+        this.$router.push({ name: route, params: { type: params } })
       }
     },
     async logout() {
