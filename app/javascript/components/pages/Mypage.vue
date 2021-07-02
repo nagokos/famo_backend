@@ -26,7 +26,6 @@
           </v-list-item-content>
           <profile-action
             :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
-            @click-edit="openEditDialog"
           />
         </v-list-item>
         <profile-title
@@ -92,11 +91,6 @@
         :user="currentUser"
       />
     </div>
-    <the-profile-edit-dialog
-      ref="profileEditDialog"
-      v-bind.sync="userEdit"
-      @click-update="updateProfile"
-    />
     <the-player-dialog
       ref="playerDialog"
       @click-register="createPlayerData"
@@ -116,7 +110,6 @@ import ReviewList from "../parts/ReviewList"
 import RelationCard from "../parts/RelationCard"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import ThePlayerDialog from "../parts/ThePlayerDialog"
-import TheProfileEditDialog from "../parts/TheProfileEditDialog"
 
 export default {
   components: {
@@ -130,7 +123,6 @@ export default {
     RelationCard,
     TheBreadCrumb,
     ThePlayerDialog,
-    TheProfileEditDialog,
   },
   data() {
     return {
@@ -186,15 +178,6 @@ export default {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
       if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
       this.$refs.profileIntroduction.close()
-    },
-    async updateProfile() {
-      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) return this.$refs.profileEditDialog.setErrors(response.errors)
-      if (response.activationState === "active") {
-        this.$refs.profileEditDialog.close()
-      } else {
-        this.$refs.profileEditDialog.sendActivationEmail()
-      }
     },
     async createPlayerData(profile) {
       try {
