@@ -13,7 +13,7 @@
         outlined
         dense
         required
-        hint="公式戦での背番号を入力して下さい"
+        hint="公式戦での背番号"
         persistent-hint
         type="number"
         :error-messages="errors"
@@ -31,7 +31,8 @@
         label="練習試合"
         outlined
         dense
-        hint="練習試合での背番号を入力して下さい"
+        background-color="#F2F4F8"
+        hint="練習試合での背番号(必須ではありません)"
         persistent-hint
         type="number"
         @input="$emit('update:practiceNumber', $event)"

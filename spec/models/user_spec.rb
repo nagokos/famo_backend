@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
   describe 'default' do
     let(:user) { create(:user) }
     it 'roleがreviewerであること' do
-      expect(user.role).to eq('temporary')
+      expect(user.role).to eq('reviewer')
     end
 
     it 'avatarのURLがデフォルトであること' do

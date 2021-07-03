@@ -23,7 +23,7 @@
             <br>
             <v-file-input
               ref="fileInput"
-              style="display: none;"
+              class="d-none"
             />
           </v-col>
           <v-col
@@ -31,12 +31,11 @@
             md="9"
           >
             <span
-              class="font-weight-bold text-h6 black--text"
+              class="font-weight-bold grey--text text--darken-1"
+              :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
             >
-              基本情報
+              メールアドレス変更時には再度アカウント認証が必要になります
             </span>
-            <br>
-            <span class="font-weight-bold" :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'">＊メールアドレス変更時には、再度アカウント認証が必要になります。</span>
             <ValidationProvider
               v-slot="{ errors }"
               name="性"
@@ -111,13 +110,17 @@
                 @input="$emit('update:introduction', $event)"
               />
             </ValidationProvider>
+          </v-col>
+          <v-col
+            cols="12"
+            class="pt-0"
+          >
             <v-btn
               color="#3949AB"
               class="font-weight-bold mt-1"
               large
               dark
               block
-              depressed
               @click="handleSubmit(clickUpdate)"
             >
               更新する
@@ -130,7 +133,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     avatar: {
