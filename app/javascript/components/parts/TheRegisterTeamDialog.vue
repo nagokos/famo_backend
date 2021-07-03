@@ -36,7 +36,7 @@
                   cols="12"
                 >
                   <span
-                    class="font-weight-bold text-caption grey--text text--darken-1"
+                    class="font-weight-bold grey--text text--darken-1"
                     :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px'"
                   >
                     大会に記載しているチーム名で登録してください。
@@ -122,7 +122,6 @@
                     large
                     dark
                     block
-                    depressed
                     @click="handleSubmit(sendTeamData)"
                   >
                     登録する
