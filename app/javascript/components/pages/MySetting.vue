@@ -5,10 +5,21 @@
     />
     <div class="settings">
       <v-col cols="12">
-        <div class="font-weight-bold" style="font-size: 30px;">アカウント設定</div>
+        <div
+          class="font-weight-bold"
+          style="font-size: 30px;"
+        >
+          アカウント設定
+        </div>
       </v-col>
-      <v-col cols="12" >
-        <v-tabs background-color="#FAFAFA">
+      <v-col
+        cols="12"
+        class="pt-0"
+      >
+        <v-tabs
+          background-color="#FAFAFA"
+          @change="formReset"
+        >
           <v-tab
             v-for="setting in settings"
             :key="setting.params"
