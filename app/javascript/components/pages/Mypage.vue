@@ -91,10 +91,6 @@
         :user="currentUser"
       />
     </div>
-    <the-player-dialog
-      ref="playerDialog"
-      @click-register="createPlayerData"
-    />
   </div>
 </template>
 
@@ -109,7 +105,6 @@ import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
 import RelationCard from "../parts/RelationCard"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
-import ThePlayerDialog from "../parts/ThePlayerDialog"
 
 export default {
   components: {
@@ -122,7 +117,6 @@ export default {
     ReviewList,
     RelationCard,
     TheBreadCrumb,
-    ThePlayerDialog,
   },
   data() {
     return {
@@ -178,17 +172,6 @@ export default {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
       if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
       this.$refs.profileIntroduction.close()
-    },
-    async createPlayerData(profile) {
-      try {
-        const response = await this.$axios.post("/api/v1/profile", {
-          profile: profile
-        })
-        this.profile = response.data
-        this.$refs.playerDialog.close()
-      } catch(err) {
-        this.$refs.playerDialog.setErrors(err.response.data.errors)
-      }
     },
     async updatePlayerData() {
       try {
