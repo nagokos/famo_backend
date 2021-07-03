@@ -116,6 +116,9 @@ export default {
       ]
     }
   },
+  created() {
+    this.dupUser()
+  },
   methods: {
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
