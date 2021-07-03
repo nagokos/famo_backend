@@ -23,7 +23,7 @@
             <br>
             <v-file-input
               ref="fileInput"
-              style="display: none;"
+              class="d-none"
             />
           </v-col>
           <v-col
