@@ -2,6 +2,8 @@
   <v-dialog
     v-model="dialog"
     width="500"
+    :fullscreen="$vuetify.breakpoint.mobile"
+    :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
     <signup-dialog-select
