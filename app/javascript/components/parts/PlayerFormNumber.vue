@@ -13,7 +13,7 @@
         outlined
         dense
         required
-        hint="公式戦での背番号を入力して下さい"
+        hint="公式戦での背番号"
         persistent-hint
         type="number"
         :error-messages="errors"
