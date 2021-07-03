@@ -35,7 +35,6 @@
       <the-profile-edit
         v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
-        class="mt-3"
         v-bind.sync="userEdit"
         @click-update="updateProfile"
       />
