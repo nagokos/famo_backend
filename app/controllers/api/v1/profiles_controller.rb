@@ -4,6 +4,7 @@ class Api::V1::ProfilesController < ApplicationController
   def create
     profile = current_user.build_profile(profile_params)
     if profile.save
+      current_user.player!
       render json: profile, include: '**', status: :created
     else
       render json: { errors: profile.errors }, status: :unprocessable_entity
