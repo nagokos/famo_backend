@@ -6,22 +6,8 @@
       dense
     >
       <tbody>
-        <v-col
-          v-if="!profile"
-          align="center"
-        >
-          <v-btn
-            right
-            text
-            color="primary"
-            @click="$emit('click-player')"
-          >
-            選手情報追加
-          </v-btn>
-        </v-col>
         <tr
           v-for="data in profileData"
-          v-else
           :key="data.id"
         >
           <td
@@ -44,21 +30,6 @@
             >
               {{ data.information }}
             </span>
-          </td>
-          <td
-            class="px-0"
-          >
-            <v-btn
-              x-small
-              icon
-            >
-              <v-icon
-                x-small
-                @click="$emit('click-edit', data.name)"
-              >
-                mdi-pencil
-              </v-icon>
-            </v-btn>
           </td>
         </tr>
       </tbody>
