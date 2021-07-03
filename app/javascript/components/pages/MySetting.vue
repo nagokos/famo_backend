@@ -38,18 +38,26 @@
         v-bind.sync="userEdit"
         @click-update="updateProfile"
       />
-      <v-dialog
-        v-model="dialog"
-        width="500"
-        :persistent="true"
-        scrollable
-      >
-        <send-activation-email
-          :email="currentUser.email"
-          @click-close="dialog = false"
-        />
-      </v-dialog>
+      <!-- 選手情報 -->
+      <the-player-edit
+        v-if="$route.path === '/settings/player'"
+        ref="playerEdit"
+        :user="currentUser"
+        @fetch-user="fetchCurrentUser"
+      />
     </div>
+    <!-- メール送信モーダル -->
+    <v-dialog
+      v-model="dialog"
+      width="500"
+      :persistent="true"
+      scrollable
+    >
+      <send-activation-email
+        :email="currentUser.email"
+        @click-close="dialog = false"
+      />
+    </v-dialog>
   </div>
 </template>
 
@@ -58,11 +66,13 @@ import { mapGetters } from 'vuex'
 import SendActivationEmail from "../parts/SendActivationEmail"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import TheProfileEdit from "../parts/TheProfileEdit"
+import ThePlayerEdit from "../parts/ThePlayerEdit"
 
 export default {
   components: {
     TheBreadCrumb,
     TheProfileEdit,
+    ThePlayerEdit,
     SendActivationEmail
   },
   data() {
@@ -75,14 +85,11 @@ export default {
           params: "profile"
         },
         {
-          name: "選手情報",
+          name: "選手登録",
           params: "player"
         }
       ]
     }
-  },
-  created() {
-    this.userEdit = { ...this.currentUser }
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
