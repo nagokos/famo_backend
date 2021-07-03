@@ -44,16 +44,15 @@
             @click-introduction="userEdit = { ...currentUser }"
             @click-update="updateIntroduction"
           />
-          <!-- 選手テーブル -->
-          <player
-            v-if="loading && !$vuetify.breakpoint.mobile"
-            ref="playerTable"
-            :profile="profile"
-            :profile-edit="profileEdit"
-            @click-player="$refs.playerDialog.open()"
-            @click-update="updatePlayerData"
-            @click-edit="profileEdit = { ...profile }"
-          />
+          <v-col
+            v-if="loading && currentUser.role === 'player' && !$vuetify.breakpoint.mobile"
+            cols="4"
+          >
+            <!-- 選手テーブル -->
+            <player-table
+              :profile="profile"
+            />
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -70,15 +69,14 @@
     <v-divider />
     <div class="profile-contents mt-4">
       <!-- 選手カード -->
-      <player
-        v-if="loading && userInformation && $vuetify.breakpoint.mobile"
-        ref="playerCard"
-        :profile="profile"
-        :profile-edit="profileEdit"
-        @click-player="$refs.playerDialog.open()"
-        @click-edit="profileEdit = { ...profile }"
-        @click-update="updatePlayerData"
-      />
+      <v-col
+        v-if="loading && currentUser.role === 'player' && userInformation && $vuetify.breakpoint.mobile"
+        cols="12"
+      >
+        <player-card
+          :profile="profile"
+        />
+      </v-col>
       <career-card
         v-if="userInformation"
       />
@@ -99,7 +97,8 @@ import { mapGetters } from "vuex"
 import CareerCard from "../parts/CareerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import Player from "../parts/Player"
+import PlayerTable from "../parts/PlayerTable"
+import PlayerCard from "../parts/PlayerCard"
 import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
@@ -109,7 +108,8 @@ import TheBreadCrumb from "../globals/TheBreadCrumb"
 export default {
   components: {
     CareerCard,
-    Player,
+    PlayerTable,
+    PlayerCard,
     ProfileAction,
     ProfileTitle,
     ProfileIntroduction,
@@ -124,7 +124,6 @@ export default {
       reviewList: false,
       userEdit: {},
       profile: {},
-      profileEdit: {},
       loading: false,
       breadCrumbs: [
         {
