@@ -120,9 +120,21 @@ export default {
     this.dupUser()
   },
   methods: {
+    dupUser() {
+      this.userEdit = { ...this.currentUser }
+    },
+    formReset(event) {
+      switch (event) {
+      case "/settings/profile":
+        this.dupUser()
+        break
+      }
+    },
+    fetchCurrentUser() {
+      this.$store.dispatch("user/getCurrentUserFromAPI")
+    },
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      console.log(response);
       if (response.errors) return this.$refs.profileEdit.setErrors(response.errors)
       if (response.activationState === "pending") {
         this.dialog = true
