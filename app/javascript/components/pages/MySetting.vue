@@ -29,9 +29,11 @@
             {{ setting.name }}
           </v-tab>
         </v-tabs>
-        <v-divider></v-divider>
+        <v-divider />
       </v-col>
+      <!-- プロフィール -->
       <the-profile-edit
+        v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
         class="mt-3"
         v-bind.sync="userEdit"
