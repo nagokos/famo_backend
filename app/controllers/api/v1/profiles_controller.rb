@@ -1,5 +1,5 @@
 class Api::V1::ProfilesController < ApplicationController
-  before_action :required_login, only: %i[create show update]
+  before_action :required_login, only: %i[create show update destroy]
 
   def create
     profile = current_user.build_profile(profile_params)
@@ -25,6 +25,13 @@ class Api::V1::ProfilesController < ApplicationController
       render json: { errors: profile.errors }, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    current_user.profile.destroy!
+    current_user.reviewer!
+  end
+
+  private
 
   def profile_params
     params.require(:profile).permit(:position, :official_number, :practice_number, :group_id, :team_id)
