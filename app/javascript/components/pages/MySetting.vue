@@ -105,7 +105,7 @@ export default {
     dupUser() {
       this.userEdit = { ...this.currentUser }
     },
-    formReset(event) {
+    reset(event) {
       switch (event) {
       case "/settings/profile":
         this.dupUser()
