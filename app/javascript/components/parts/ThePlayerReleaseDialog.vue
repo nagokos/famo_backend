@@ -4,6 +4,7 @@
     width="550"
     :fullscreen="$vuetify.breakpoint.mobile"
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
+    @input="close(close)"
   >
     <v-card
       color="#FAFAFA"
