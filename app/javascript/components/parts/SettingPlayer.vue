@@ -17,7 +17,7 @@
                 class="font-weight-bold grey--text text--darken-1"
                 :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
               >
-                選手登録をすると評価を受けられるようになります(高校生のみ登録可能)
+                選手登録をすることで評価を受けられるようになります(高校生のみ登録可能)
                 <br>
                 所属チームが見つからない場合はチームを登録してください
               </span>
