@@ -32,14 +32,14 @@
         <v-divider />
       </v-col>
       <!-- プロフィール -->
-      <the-profile-edit
+      <setting-profile
         v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
         v-bind.sync="userEdit"
         @click-update="updateProfile"
       />
       <!-- 選手情報 -->
-      <the-player-edit
+      <setting-player
         v-if="$route.path === '/settings/player'"
         ref="playerEdit"
         :user="currentUser"
@@ -65,14 +65,14 @@
 import { mapGetters } from 'vuex'
 import SendActivationEmail from "../parts/SendActivationEmail"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
-import TheProfileEdit from "../parts/TheProfileEdit"
-import ThePlayerEdit from "../parts/ThePlayerEdit"
+import SettingProfile from "../parts/SettingProfile"
+import SettingPlayer from "../parts/SettingPlayer"
 
 export default {
   components: {
     TheBreadCrumb,
-    TheProfileEdit,
-    ThePlayerEdit,
+    SettingProfile,
+    SettingPlayer,
     SendActivationEmail
   },
   data() {
