@@ -5,10 +5,21 @@
     />
     <div class="settings">
       <v-col cols="12">
-        <div class="font-weight-bold" style="font-size: 30px;">アカウント設定</div>
+        <div
+          class="font-weight-bold"
+          style="font-size: 30px;"
+        >
+          アカウント設定
+        </div>
       </v-col>
-      <v-col cols="12" >
-        <v-tabs background-color="#FAFAFA">
+      <v-col
+        cols="12"
+        class="pt-0"
+      >
+        <v-tabs
+          background-color="#FAFAFA"
+          @change="formReset"
+        >
           <v-tab
             v-for="setting in settings"
             :key="setting.params"
@@ -18,26 +29,35 @@
             {{ setting.name }}
           </v-tab>
         </v-tabs>
-        <v-divider></v-divider>
+        <v-divider />
       </v-col>
+      <!-- プロフィール -->
       <the-profile-edit
+        v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
-        class="mt-3"
         v-bind.sync="userEdit"
         @click-update="updateProfile"
       />
-      <v-dialog
-        v-model="dialog"
-        width="500"
-        :persistent="true"
-        scrollable
-      >
-        <send-activation-email
-          :email="currentUser.email"
-          @click-close="dialog = false"
-        />
-      </v-dialog>
+      <!-- 選手情報 -->
+      <the-player-edit
+        v-if="$route.path === '/settings/player'"
+        ref="playerEdit"
+        :user="currentUser"
+        @fetch-user="fetchCurrentUser"
+      />
     </div>
+    <!-- メール送信モーダル -->
+    <v-dialog
+      v-model="dialog"
+      width="500"
+      :persistent="true"
+      scrollable
+    >
+      <send-activation-email
+        :email="currentUser.email"
+        @click-close="dialog = false"
+      />
+    </v-dialog>
   </div>
 </template>
 
@@ -46,11 +66,13 @@ import { mapGetters } from 'vuex'
 import SendActivationEmail from "../parts/SendActivationEmail"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import TheProfileEdit from "../parts/TheProfileEdit"
+import ThePlayerEdit from "../parts/ThePlayerEdit"
 
 export default {
   components: {
     TheBreadCrumb,
     TheProfileEdit,
+    ThePlayerEdit,
     SendActivationEmail
   },
   data() {
@@ -63,14 +85,11 @@ export default {
           params: "profile"
         },
         {
-          name: "選手情報",
+          name: "選手登録",
           params: "player"
         }
       ]
     }
-  },
-  created() {
-    this.userEdit = { ...this.currentUser }
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
@@ -97,10 +116,25 @@ export default {
       ]
     }
   },
+  created() {
+    this.dupUser()
+  },
   methods: {
+    dupUser() {
+      this.userEdit = { ...this.currentUser }
+    },
+    formReset(event) {
+      switch (event) {
+      case "/settings/profile":
+        this.dupUser()
+        break
+      }
+    },
+    fetchCurrentUser() {
+      this.$store.dispatch("user/getCurrentUserFromAPI")
+    },
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      console.log(response);
       if (response.errors) return this.$refs.profileEdit.setErrors(response.errors)
       if (response.activationState === "pending") {
         this.dialog = true

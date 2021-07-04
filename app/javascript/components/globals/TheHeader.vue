@@ -75,9 +75,11 @@
                 large
                 class="justify-start"
                 @click="pushPage('/profile', 'profile')"
-                style="position: relative; right: 5px;"
               >
-                <v-avatar size="36">
+                <v-avatar
+                  style="position: relative; right: 5px;"
+                  size="36"
+                >
                   <v-img
                     color="#5b7083"
                     :src="currentUser.avatar"
