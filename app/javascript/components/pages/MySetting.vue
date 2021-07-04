@@ -16,19 +16,9 @@
         cols="12"
         class="pt-0"
       >
-        <v-tabs
-          background-color="#FAFAFA"
-          @change="formReset"
-        >
-          <v-tab
-            v-for="setting in settings"
-            :key="setting.params"
-            :to="{ name: 'mySetting', params: { type: setting.params } }"
-            class="font-weight-bold"
-          >
-            {{ setting.name }}
-          </v-tab>
-        </v-tabs>
+        <settings-tab
+          @data-reset="reset"
+        />
         <v-divider />
       </v-col>
       <!-- プロフィール -->
@@ -63,32 +53,24 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SendActivationEmail from "../parts/SendActivationEmail"
-import TheBreadCrumb from "../globals/TheBreadCrumb"
+import SettingsTab from "../parts/SettingsTab"
 import SettingProfile from "../parts/SettingProfile"
 import SettingPlayer from "../parts/SettingPlayer"
+import TheBreadCrumb from "../globals/TheBreadCrumb"
+import SendActivationEmail from "../parts/SendActivationEmail"
 
 export default {
   components: {
-    TheBreadCrumb,
+    SettingsTab,
     SettingProfile,
     SettingPlayer,
+    TheBreadCrumb,
     SendActivationEmail
   },
   data() {
     return {
       dialog: false,
       userEdit: {},
-      settings: [
-        {
-          name: "プロフィール",
-          params: "profile"
-        },
-        {
-          name: "選手登録",
-          params: "player"
-        }
-      ]
     }
   },
   computed: {
