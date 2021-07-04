@@ -97,7 +97,7 @@
                 block
                 large
                 class="justify-start"
-                @click="pushPage('/settings/profile', 'mySetting', 'profile')"
+                @click="pushPage('/settings/account', 'mySetting', 'account')"
               >
                 <v-icon
                   class="mr-2"
