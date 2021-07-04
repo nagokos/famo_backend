@@ -20,6 +20,10 @@ export default {
     return {
       settings: [
         {
+          name: "アカウント",
+          params: "account"
+        },
+        {
           name: "プロフィール",
           params: "profile"
         },

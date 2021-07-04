@@ -22,6 +22,13 @@
         <v-divider />
       </v-col>
       <!-- プロフィール -->
+      <v-col class="pt-0">
+        <setting-account
+          v-if="$route.path === '/settings/account'"
+          :user="currentUser"
+          @update-user="fetchCurrentUser"
+        />
+      </v-col>
       <setting-profile
         v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
@@ -54,6 +61,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SettingsTab from "../parts/SettingsTab"
+import SettingAccount from "../parts/SettingAccount"
 import SettingProfile from "../parts/SettingProfile"
 import SettingPlayer from "../parts/SettingPlayer"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
@@ -62,10 +70,11 @@ import SendActivationEmail from "../parts/SendActivationEmail"
 export default {
   components: {
     SettingsTab,
+    SettingAccount,
     SettingProfile,
     SettingPlayer,
     TheBreadCrumb,
-    SendActivationEmail
+    SendActivationEmail,
   },
   data() {
     return {
