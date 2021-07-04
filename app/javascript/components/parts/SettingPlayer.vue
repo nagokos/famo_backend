@@ -1,0 +1,263 @@
+<template>
+  <div>
+    <ValidationObserver
+      v-if="loading"
+      ref="observer"
+      v-slot="{ handleSubmit }"
+    >
+      <v-form>
+        <v-container>
+          <v-row>
+            <!-- チーム選択 -->
+            <v-col
+              cols="12"
+              class="pt-2"
+            >
+              <span
+                class="font-weight-bold grey--text text--darken-1"
+                :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
+              >
+                選手登録をすると評価を受けられるようになります(高校生のみ登録可能)
+                <br>
+                所属チームが見つからない場合はチームを登録してください
+              </span>
+            </v-col>
+            <v-col
+              cols="12"
+              md="4"
+              class="pt-1 pb-0"
+            >
+              <span
+                class="font-weight-bold text-h6 black--text"
+              >
+                所属チーム
+              </span>
+              <div class="mt-1 mb-1">
+                <v-btn
+                  class="font-weight-bold"
+                  width="100"
+                  height="35"
+                  small
+                  @click="$refs.registerTeamDialog.open()"
+                >
+                  チーム登録
+                </v-btn>
+              </div>
+            </v-col>
+            <v-col
+              cols="12"
+              md="8"
+              class="py-0"
+            >
+              <player-form-team
+                class="mt-3"
+                :prefectures="prefectures"
+                :prefecture="profile.team.prefecture.id"
+                :team-id.sync="profile.teamId"
+              />
+            </v-col>
+            <!-- リーグ選択 -->
+            <v-col
+              cols="12"
+              md="4"
+              class="pt-1 pb-0"
+            >
+              <span
+                class="font-weight-bold text-h6 black--text"
+              >
+                所属リーグ
+              </span>
+            </v-col>
+            <v-col
+              cols="12"
+              md="8"
+              class="py-0"
+            >
+              <player-form-league
+                class="mt-2"
+                :leagues="leagues"
+                :league="profile.group.category.league.id"
+                :category="profile.group.category.id"
+                :group-id.sync="profile.groupId"
+              />
+            </v-col>
+            <!-- ポジション選択 -->
+            <v-col
+              cols="12"
+              md="4"
+              class="pt-1 pb-0"
+            >
+              <span
+                class="font-weight-bold text-h6 black--text"
+              >
+                ポジション
+              </span>
+            </v-col>
+            <v-col
+              cols="12"
+              md="8"
+              class="py-0"
+            >
+              <player-form-position
+                class="mt-2"
+                :position.sync="profile.position"
+              />
+            </v-col>
+            <!-- 背番号 -->
+            <v-col
+              class="pt-1 pb-0"
+              cols="12"
+              md="4"
+            >
+              <span
+                class="font-weight-bold text-h6 black--text"
+              >
+                背番号
+              </span>
+            </v-col>
+            <v-col
+              class="py-0"
+              cols="12"
+              md="8"
+            >
+              <player-form-number
+                class="mt-2"
+                v-bind.sync="profile"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <v-btn
+                color="#3949AB"
+                class="font-weight-bold"
+                large
+                dark
+                block
+                @click="handleSubmit(sendPlayerData)"
+              >
+                登録する
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </ValidationObserver>
+    <the-register-team-dialog
+      ref="registerTeamDialog"
+      :prefectures="prefectures"
+      @create-team="pushTeam"
+    />
+    <v-col
+      v-if="!loading"
+      cols="12"
+      align="center"
+    >
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      />
+    </v-col>
+  </div>
+</template>
+
+<script>
+import PlayerFormTeam from "./PlayerFormTeam"
+import PlayerFormLeague from "./PlayerFormLeague"
+import PlayerFormPosition from "./PlayerFormPosition"
+import PlayerFormNumber from "./PlayerFormNumber"
+import TheRegisterTeamDialog from "./TheRegisterTeamDialog"
+
+export default {
+  components : {
+    PlayerFormTeam,
+    PlayerFormLeague,
+    PlayerFormPosition,
+    PlayerFormNumber,
+    TheRegisterTeamDialog
+  },
+  props: {
+    user: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  },
+  data() {
+    return {
+      loading: false,
+      leagues: [],
+      prefectures: [],
+      profile: {
+        position: "",
+        officialNumber: "",
+        practiceNumber: "",
+        groupId: "",
+        teamId: "",
+        team: {
+          prefecture: {
+            id: ""
+          }
+        },
+        group: {
+          category: {
+            id: "",
+            league: {
+              id: ""
+            }
+          }
+        }
+      },
+    }
+  },
+  created() {
+    this.setData()
+  },
+  methods: {
+    pushTeam(team) {
+      this.prefectures.find(prefecture => {
+        return prefecture.id === team.prefectureId
+      }).teams.push(team)
+      this.$refs.registerTeamDialog.close()
+    },
+    async setData() {
+      await this.getLeagueData()
+      await this.getPrefectureTeamData()
+      this.getProfileData()
+    },
+    async getLeagueData() {
+      const response = await this.$axios.get("/api/v1/leagues")
+      this.leagues = response.data
+    },
+    async getPrefectureTeamData() {
+      const response = await this.$axios.get("/api/v1/prefecture_teams")
+      this.prefectures = response.data
+    },
+    async getProfileData() {
+      const response = await this.$axios.get("/api/v1/profile")
+      if (response.data) {
+        this.profile = response.data
+      }
+      this.loading = true
+    },
+    async sendPlayerData() {
+      try {
+        if (this.user.role !== "player") {
+          const response = await this.$axios.post("/api/v1/profile", {
+            profile: this.profile
+          })
+          this.profile = response.data
+          this.$emit('fetch-user')
+        } else {
+          const response = await this.$axios.patch("/api/v1/profile", {
+            profile: this.profile
+          })
+          this.profile = response.data
+        }
+      } catch(err) {
+        this.$refs.observer.setErrors(err.response.data.errors)
+      }
+    },
+  }
+}
+</script>
