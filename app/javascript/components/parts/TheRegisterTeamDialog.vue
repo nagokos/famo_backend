@@ -6,7 +6,9 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
-    <v-card>
+    <v-card
+      color="#FAFAFA"
+    >
       <v-btn
         icon
         @click="close"
