@@ -21,14 +21,16 @@
         />
         <v-divider />
       </v-col>
-      <!-- プロフィール -->
+      <!-- アカウント -->
       <v-col class="pt-0">
         <setting-account
           v-if="$route.path === '/settings/account'"
           :user="currentUser"
           @update-user="fetchCurrentUser"
+          @delete-user="deleteUser"
         />
       </v-col>
+      <!-- プロフィール -->
       <setting-profile
         v-if="$route.path === '/settings/profile'"
         ref="profileEdit"
@@ -131,6 +133,10 @@ export default {
         this.dialog = true
       }
     },
+    async deleteUser() {
+      await this.$store.dispatch("user/deleteCurrentUser")
+      location.href = "/"
+    }
   }
 }
 </script>
