@@ -1,5 +1,5 @@
 class Api::V1::Users::CurrentsController < Api::V1::BaseController
-  before_action :required_login, only: %i[update]
+  before_action :required_login, only: %i[update destroy]
 
   def show
     render json: current_user
@@ -12,6 +12,11 @@ class Api::V1::Users::CurrentsController < Api::V1::BaseController
     else
       render json: { errors: current_user.errors }, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    current_user.destroy!
+    cookies.delete(:token)
   end
 
   private
