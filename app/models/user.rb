@@ -23,7 +23,7 @@ class User < ApplicationRecord
                        if: -> { new_record? || changes[:crypted_password] }
   validates :activation_token, uniqueness: true, allow_nil: true
 
-  enum role: { reviewer: 0, player: 1, admin: 10, withdrawal: 20 }
+  enum role: { reviewer: 0, player: 1, admin: 2 }
 
   def setup_activation_attributes
     setup_activation

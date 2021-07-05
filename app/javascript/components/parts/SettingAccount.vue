@@ -60,15 +60,16 @@
       <v-list-item class="px-0 mt-3">
         <v-list-item-content>
           <v-list-item-title class="font-weight-bold">
-            退会
+            アカウント削除
           </v-list-item-title>
           <v-list-item-subtitle :class="$vuetify.breakpoint.mobile ? 'mt-1 text-wrap text-caption' : 'mt-1'">
-            Famoのサービスを利用できなくなります
+            Famoでのほとんどの情報が削除されます。
           </v-list-item-subtitle>
           <v-btn
             v-if="$vuetify.breakpoint.mobile"
             max-width="90"
             class="font-weight-bold text-caption mt-1"
+            @click="$refs.accountDeleteDialog.open()"
           >
             退会する
           </v-btn>
@@ -76,6 +77,7 @@
         <v-btn
           v-if="!$vuetify.breakpoint.mobile"
           class="font-weight-bold"
+          @click="$refs.accountDeleteDialog.open()"
         >
           退会する
         </v-btn>
@@ -88,15 +90,21 @@
       ref="playerReleaseDialog"
       @update-user="$emit('update-user')"
     />
+    <the-account-delete-dialog
+      ref="accountDeleteDialog"
+      @delete-user="$emit('delete-user')"
+    />
   </div>
 </template>
 
 <script>
 import ThePlayerReleaseDialog from "../parts/ThePlayerReleaseDialog"
+import TheAccountDeleteDialog from "../parts/TheAccountDeleteDialog"
 
 export default {
   components: {
-    ThePlayerReleaseDialog
+    ThePlayerReleaseDialog,
+    TheAccountDeleteDialog
   },
   props: {
     user: {

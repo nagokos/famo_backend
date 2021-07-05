@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[create] do
         collection do
           scope module: :users do
-            resource :current, only: %i[show update]
+            resource :current, only: %i[show update destroy]
           end
         end
       end
