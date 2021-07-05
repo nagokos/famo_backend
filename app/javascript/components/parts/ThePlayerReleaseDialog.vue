@@ -26,10 +26,10 @@
       <v-card-text
         :class="$vuetify.breakpoint.mobile ? 'px-1 pt-1' : 'pt-8'"
       >
-        <ValidationObserver>
-          <v-form
-            ref="form"
-          >
+        <ValidationObserver
+          v-slot="{ invalid }"
+        >
+          <v-form>
             <v-container>
               <v-row
                 justify="center"
@@ -64,19 +64,23 @@
                 >
                   <div>ただし、今までの評価は削除されないため、再登録後も引き継いだままとなります。</div>
                 </v-col>
-                <v-checkbox
-                  label="上記の注意事項等を確認しました"
-                  @click="checkbox = !checkbox"
-                />
+                <ValidationProvider rules="required">
+                  <v-checkbox
+                    v-model="checkbox"
+                    required
+                    value="1"
+                    label="上記の注意事項を確認しました"
+                  />
+                </ValidationProvider>
                 <v-col
                   align="center"
                   cols="12"
                 >
                   <v-btn
-                    :disabled="checkbox"
+                    :disabled="invalid"
                     large
                     color="red"
-                    :dark="!checkbox"
+                    :dark="!invalid"
                     width="300"
                     class="font-weight-bold"
                     @click="releasePlayer"
@@ -98,7 +102,7 @@ export default {
   data() {
     return {
       dialog: false,
-      checkbox: true,
+      checkbox: null,
       precautions: [
         "選手登録を解除すると評価を受けることができなくなります。",
         "もう一度評価を受けるためには選手登録が必要になります。",
@@ -112,13 +116,12 @@ export default {
     },
     close() {
       this.dialog = false
-      this.$refs.form.reset()
-      this.checkbox = true
+      this.checkbox = null
     },
     async releasePlayer() {
       await this.$axios.delete("/api/v1/profile")
       this.$emit('update-user')
-      this.dialog = false
+      this.close()
     }
   }
 }
