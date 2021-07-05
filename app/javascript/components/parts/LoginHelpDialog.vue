@@ -6,7 +6,9 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
-    <v-card>
+    <v-card
+      color="#FAFAFA"
+    >
       <v-btn
         icon
         @click="closeDialog"
@@ -25,7 +27,10 @@
         <v-container>
           <v-row>
             <v-col class="px-0 py-0 mt-3">
-              <v-list nav>
+              <v-list
+                nav
+                color="#FAFAFA"
+              >
                 <v-list-group
                   v-for="item in items"
                   :key="item.question"
