@@ -69,6 +69,7 @@
             v-if="$vuetify.breakpoint.mobile"
             max-width="90"
             class="font-weight-bold text-caption mt-1"
+            @click="$refs.accountDeleteDialog.open()"
           >
             退会する
           </v-btn>
@@ -76,6 +77,7 @@
         <v-btn
           v-if="!$vuetify.breakpoint.mobile"
           class="font-weight-bold"
+          @click="$refs.accountDeleteDialog.open()"
         >
           退会する
         </v-btn>
@@ -88,15 +90,21 @@
       ref="playerReleaseDialog"
       @update-user="$emit('update-user')"
     />
+    <the-account-delete-dialog
+      ref="accountDeleteDialog"
+      @delete-user="$emit('delete-user')"
+    />
   </div>
 </template>
 
 <script>
 import ThePlayerReleaseDialog from "../parts/ThePlayerReleaseDialog"
+import TheAccountDeleteDialog from "../parts/TheAccountDeleteDialog"
 
 export default {
   components: {
-    ThePlayerReleaseDialog
+    ThePlayerReleaseDialog,
+    TheAccountDeleteDialog
   },
   props: {
     user: {
