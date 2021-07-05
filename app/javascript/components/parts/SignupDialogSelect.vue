@@ -1,5 +1,7 @@
 <template>
-  <v-card>
+  <v-card
+    color="#FAFAFA"
+  >
     <v-btn
       icon
       @click="$emit('click-close')"
