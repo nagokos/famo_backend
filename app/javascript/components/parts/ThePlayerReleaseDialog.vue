@@ -31,7 +31,9 @@
             ref="form"
           >
             <v-container>
-              <v-row justify="center">
+              <v-row
+                justify="center"
+              >
                 <v-col>
                   <v-sheet
                     color="#f1f4f8"
@@ -39,9 +41,17 @@
                   >
                     <v-container>
                       <v-col>
-                        <div class="font-weight-bold text-subtitle-1">注意事項</div>
-                        <ul class="mt-3">
-                          <li class="mt-1" v-for="precaution in precautions" :key="precaution">
+                        <div class="font-weight-bold text-subtitle-1">
+                          注意事項
+                        </div>
+                        <ul
+                          class="mt-3"
+                        >
+                          <li
+                            v-for="precaution in precautions"
+                            :key="precaution"
+                            class="mt-1"
+                          >
                             {{ precaution }}
                           </li>
                         </ul>
@@ -49,13 +59,30 @@
                     </v-container>
                   </v-sheet>
                 </v-col>
-                <v-col cols="12">
-                  <div>ただし、今までの評価は、マイページや他ユーザーページから閲覧することができます。</div>
-                  <div class="mt-1">また、選手レートもリセットされません。</div>
+                <v-col
+                  cols="12"
+                >
+                  <div>ただし、今までの評価は削除されないため、再登録後も引き継いだままとなります。</div>
                 </v-col>
-                <v-checkbox @click="checkbox = !checkbox" label="上記の注意事項等を確認しました"></v-checkbox>
-                <v-col align="center" cols="12">
-                  <v-btn @click="releasePlayer" :disabled="checkbox" large color="red" :dark="!checkbox" width="300" class="font-weight-bold">選手登録を解除</v-btn>
+                <v-checkbox
+                  label="上記の注意事項等を確認しました"
+                  @click="checkbox = !checkbox"
+                />
+                <v-col
+                  align="center"
+                  cols="12"
+                >
+                  <v-btn
+                    :disabled="checkbox"
+                    large
+                    color="red"
+                    :dark="!checkbox"
+                    width="300"
+                    class="font-weight-bold"
+                    @click="releasePlayer"
+                  >
+                    選手登録を解除
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-container>
