@@ -140,3 +140,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .settings {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+</style>
