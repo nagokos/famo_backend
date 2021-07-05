@@ -158,10 +158,6 @@ export default {
       this.reviewList = true
       this.userInformation = false
     },
-    openEditDialog() {
-      this.setUserEdit()
-      this.$refs.profileEditDialog.open()
-    },
     async getProfileData() {
       const response = await this.$axios.get("/api/v1/profile")
       this.profile = response.data
@@ -172,19 +168,6 @@ export default {
       if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
       this.$refs.profileIntroduction.close()
     },
-    async updatePlayerData() {
-      try {
-        const response = await this.$axios.patch("/api/v1/profile", {
-          profile: this.profileEdit
-        })
-        this.profile = response.data
-        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.close()
-        else return this.$refs.playerTable.close()
-      } catch(err) {
-        if (this.$vuetify.breakpoint.mobile) return this.$refs.playerCard.setErrors(err.response.data.errors)
-        else return this.$refs.playerTable.setErrors(err.response.data.errors)
-      }
-    }
   }
 }
 </script>
