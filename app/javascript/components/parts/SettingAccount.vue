@@ -60,10 +60,10 @@
       <v-list-item class="px-0 mt-3">
         <v-list-item-content>
           <v-list-item-title class="font-weight-bold">
-            退会
+            アカウント削除
           </v-list-item-title>
           <v-list-item-subtitle :class="$vuetify.breakpoint.mobile ? 'mt-1 text-wrap text-caption' : 'mt-1'">
-            Famoのサービスを利用できなくなります
+            Famoでのほとんどの情報が削除されます。
           </v-list-item-subtitle>
           <v-btn
             v-if="$vuetify.breakpoint.mobile"
