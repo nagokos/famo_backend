@@ -16,17 +16,6 @@ export default {
   components: {
     TheHeader,
     TheFooter
-  },
-  data() {
-    return {
-    }
   }
 }
 </script>
-
-<style>
-  .settings {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-</style>
