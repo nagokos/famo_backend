@@ -42,6 +42,10 @@ const actions = {
       return err.response.data
     }
   },
+  async deleteCurrentUser({ commit }) {
+    await axios.delete("/api/v1/users/current")
+    commit("setCurrentUser", null)
+  },
   async logout({ commit }) {
     await axios.delete("/api/v1/logout")
     commit("setCurrentUser", null)
