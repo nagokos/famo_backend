@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <the-header />
-      <v-main style="background: #FAFAFA;">
-        <the-flash-message />
-        <router-view />
-      </v-main>
+    <v-main style="background: #FAFAFA;">
+      <the-flash-message />
+      <router-view />
+    </v-main>
     <the-footer />
   </v-app>
 </template>
