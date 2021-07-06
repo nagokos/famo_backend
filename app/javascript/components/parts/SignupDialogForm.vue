@@ -216,8 +216,16 @@ export default {
         await this.$axios.post("/api/v1/users", {
           user: this.user
         })
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "認証メールを送信しました"
+        })
         this.$emit("create-user", this.user.email)
       } catch(err) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
         this.$refs.observer.setErrors(err.response.data.errors)
       }
     }
