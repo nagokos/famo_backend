@@ -122,6 +122,10 @@ export default {
       await this.$axios.delete("/api/v1/profile")
       this.$emit('update-user')
       this.close()
+      this.$store.dispatch("flash/setFlash", {
+        type: "success",
+        message: "選手登録を解除しました"
+      })
     }
   }
 }
