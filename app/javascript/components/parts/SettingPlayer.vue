@@ -136,7 +136,7 @@
                 block
                 @click="handleSubmit(sendPlayerData)"
               >
-                登録する
+                {{ btnStatus ? "更新する" : "登録する" }}
               </v-btn>
             </v-col>
           </v-row>
@@ -185,6 +185,7 @@ export default {
   },
   data() {
     return {
+      btnStatus: false,
       loading: false,
       leagues: [],
       prefectures: [],
@@ -237,6 +238,7 @@ export default {
       const response = await this.$axios.get("/api/v1/profile")
       if (response.data) {
         this.profile = response.data
+        this.btnStatus = true
       }
       this.loading = true
     },
