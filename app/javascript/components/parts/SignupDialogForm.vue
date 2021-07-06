@@ -173,7 +173,6 @@
                   large
                   dark
                   block
-                  depressed
                   @click="handleSubmit(sendUserData)"
                 >
                   登録する
