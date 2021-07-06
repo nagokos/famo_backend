@@ -2,11 +2,13 @@
 <html>
   <head>
     <title>Myapp</title>
-    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' %>
+    <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' %>
+    <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    </head>
+  </head>
 
   <body>
     <div id='app'></div>
