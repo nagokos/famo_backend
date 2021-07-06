@@ -102,9 +102,21 @@ export default {
   },
   methods: {
     async resendEmail() {
-      await this.$axios.post("/api/v1/account_activations", {
-        email: this.email
-      })
+      try {
+        await this.$axios.post("/api/v1/account_activations", {
+          email: this.email
+        })
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "認証メールを送信しました"
+        })
+      } catch(err) {
+        console.log(err.response.data.email);
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: err.response.data.email
+        })
+      }
     }
   }
 }
