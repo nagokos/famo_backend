@@ -165,7 +165,17 @@ export default {
     },
     async updateIntroduction() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) return this.$refs.profileIntroduction.setErrors(response.errors)
+      if (response.errors) {
+        this.$refs.profileIntroduction.setErrors(response.errors)
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "文字数がオーバーしています"
+        })
+      }
+      this.$store.dispatch("flash/setFlash", {
+        type: "success",
+        message: "更新しました"
+      })
       this.$refs.profileIntroduction.close()
     },
   }

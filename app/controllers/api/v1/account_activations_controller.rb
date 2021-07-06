@@ -23,6 +23,7 @@ class Api::V1::AccountActivationsController < ApplicationController
         user.activate_attributes
         token = user.create_token
         cookies[:token] = { value: token, expires: 1.month.from_now, secure: Rails.env.production?, httponly: true, same_site: 'Lax' }
+        cookies[:activation] = { value: 1, expires: 1.minutes.from_now }
         redirect_to root_path
       else
         case failure_reason

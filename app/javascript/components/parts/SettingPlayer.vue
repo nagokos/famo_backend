@@ -136,7 +136,7 @@
                 block
                 @click="handleSubmit(sendPlayerData)"
               >
-                登録する
+                {{ btnStatus ? "更新する" : "登録する" }}
               </v-btn>
             </v-col>
           </v-row>
@@ -185,6 +185,7 @@ export default {
   },
   data() {
     return {
+      btnStatus: false,
       loading: false,
       leagues: [],
       prefectures: [],
@@ -237,6 +238,7 @@ export default {
       const response = await this.$axios.get("/api/v1/profile")
       if (response.data) {
         this.profile = response.data
+        this.btnStatus = true
       }
       this.loading = true
     },
@@ -247,15 +249,27 @@ export default {
             profile: this.profile
           })
           this.profile = response.data
+          this.$store.dispatch("flash/setFlash", {
+            type: "success",
+            message: "登録しました"
+          })
           this.$emit('fetch-user')
         } else {
           const response = await this.$axios.patch("/api/v1/profile", {
             profile: this.profile
           })
           this.profile = response.data
+          this.$store.dispatch("flash/setFlash", {
+            type: "success",
+            message: "更新しました"
+          })
         }
       } catch(err) {
         this.$refs.observer.setErrors(err.response.data.errors)
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
       }
     },
   }
