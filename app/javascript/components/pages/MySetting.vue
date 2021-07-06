@@ -128,10 +128,20 @@ export default {
     },
     async updateProfile() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) return this.$refs.profileEdit.setErrors(response.errors)
+      if (response.errors) {
+        this.$refs.profileEdit.setErrors(response.errors)
+        return this.$store.dispatch("flash/setFlash", {
+                  type: "error",
+                  message: "フォームに不備があります"
+                })
+      }
       if (response.activationState === "pending") {
         this.dialog = true
       }
+      this.$store.dispatch("flash/setFlash", {
+        type: "success",
+        message: "更新しました"
+      })
     },
     async deleteUser() {
       await this.$store.dispatch("user/deleteCurrentUser")
