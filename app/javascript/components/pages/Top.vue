@@ -137,6 +137,39 @@ export default {
       if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-black'
       else return 'text-h3 font-weight-black mt-4'
     }
+  },
+  mounted() {
+    this.isActivation()
+    this.isLogout()
+    this.isDelete()
+  },
+  methods: {
+    isActivation() {
+      if (document.cookie.includes("activation=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: 'アカウントを認証しました'
+        })
+      }
+    },
+    isLogout() {
+      if (localStorage.getItem('logout')) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "ログアウトしました"
+        })
+        localStorage.removeItem("logout")
+      }
+    },
+    isDelete() {
+      if (localStorage.getItem('delete')) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "アカウントを削除しました"
+        })
+        localStorage.removeItem("delete")
+      }
+    }
   }
 }
 </script>
