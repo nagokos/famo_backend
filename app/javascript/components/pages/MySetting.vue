@@ -145,6 +145,7 @@ export default {
     },
     async deleteUser() {
       await this.$store.dispatch("user/deleteCurrentUser")
+      localStorage.delete = 1
       location.href = "/"
     }
   }
