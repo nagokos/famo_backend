@@ -33,6 +33,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|max:30"
+                  vid="last_name"
                   name="性"
                 >
                   <v-text-field
@@ -54,6 +55,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|max:30"
+                  vid="first_name"
                   name="名"
                 >
                   <v-text-field
@@ -82,6 +84,7 @@
                   <template #activator="{ on, attrs }">
                     <ValidationProvider
                       v-slot="{ errors }"
+                      vid="birth_date"
                       :rules="{ required: true, formFormat: /\d{4}-\d{2}-\d{2}/ }"
                       name="生年月日"
                     >
@@ -141,6 +144,7 @@
               >
                 <ValidationProvider
                   v-slot="{ errors }"
+                  vid="password"
                   :rules="{ required: true, min: 8, formFormat: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}$/i }"
                   name="パスワード"
                 >
