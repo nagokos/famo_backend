@@ -174,6 +174,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch("user/logout")
+      localStorage.logout = 1
       location.href = "/"
     }
   }
