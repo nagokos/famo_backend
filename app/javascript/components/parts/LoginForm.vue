@@ -149,11 +149,23 @@ export default {
           password: this.password,
         })
         await this.$store.dispatch("user/getCurrentUserFromAPI")
+        await this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "ログインしました"
+        })
         this.$router.push({ name: "profile" })
       } catch(err) {
         if (err.response.data.key === "inactive") {
-          return this.inActive = true
+          this.inActive = true
+          return this.$store.dispatch("flash/setFlash", {
+                    type: "error",
+                    message: "アカウントを認証してください"
+                  })
         }
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
         this.$refs.observer.setErrors(err.response.data)
       }
     }
