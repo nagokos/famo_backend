@@ -17,6 +17,7 @@ class Api::V1::Users::CurrentsController < Api::V1::BaseController
   def destroy
     current_user.destroy!
     cookies.delete(:token)
+    @current_user = nil
   end
 
   private
