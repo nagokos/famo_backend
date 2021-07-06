@@ -143,7 +143,7 @@
         </v-container>
       </v-form>
     </ValidationObserver>
-    <the-register-team-dialog
+    <the-team-register-dialog
       ref="registerTeamDialog"
       :prefectures="prefectures"
       @create-team="pushTeam"
@@ -166,7 +166,7 @@ import PlayerFormTeam from "./PlayerFormTeam"
 import PlayerFormLeague from "./PlayerFormLeague"
 import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
-import TheRegisterTeamDialog from "./TheRegisterTeamDialog"
+import TheTeamRegisterDialog from "./TheTeamRegisterDialog"
 
 export default {
   components : {
@@ -174,7 +174,7 @@ export default {
     PlayerFormLeague,
     PlayerFormPosition,
     PlayerFormNumber,
-    TheRegisterTeamDialog
+    TheTeamRegisterDialog
   },
   props: {
     user: {

@@ -150,6 +150,7 @@ export default {
           type: "success",
           message: 'アカウントを認証しました'
         })
+        document.cookie = "activation=; max-age=0"
       }
     },
     isLogout() {

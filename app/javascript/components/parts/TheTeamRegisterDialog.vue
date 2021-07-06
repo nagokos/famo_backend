@@ -181,9 +181,17 @@ export default {
         const response = await this.$axios.post("/api/v1/teams", {
           team: this.team
         })
+        await this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "チームを登録しました"
+        })
         this.$refs.form.reset()
         this.$emit("create-team", response.data)
       } catch(err) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
         this.$refs.observer.setErrors(err.response.data.errors)
       }
     }

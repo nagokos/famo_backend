@@ -33,6 +33,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|max:30"
+                  vid="last_name"
                   name="性"
                 >
                   <v-text-field
@@ -54,6 +55,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|max:30"
+                  vid="first_name"
                   name="名"
                 >
                   <v-text-field
@@ -82,6 +84,7 @@
                   <template #activator="{ on, attrs }">
                     <ValidationProvider
                       v-slot="{ errors }"
+                      vid="birth_date"
                       :rules="{ required: true, formFormat: /\d{4}-\d{2}-\d{2}/ }"
                       name="生年月日"
                     >
@@ -141,6 +144,7 @@
               >
                 <ValidationProvider
                   v-slot="{ errors }"
+                  vid="password"
                   :rules="{ required: true, min: 8, formFormat: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}$/i }"
                   name="パスワード"
                 >
@@ -169,7 +173,6 @@
                   large
                   dark
                   block
-                  depressed
                   @click="handleSubmit(sendUserData)"
                 >
                   登録する
@@ -213,8 +216,16 @@ export default {
         await this.$axios.post("/api/v1/users", {
           user: this.user
         })
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "認証メールを送信しました"
+        })
         this.$emit("create-user", this.user.email)
       } catch(err) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
         this.$refs.observer.setErrors(err.response.data.errors)
       }
     }
