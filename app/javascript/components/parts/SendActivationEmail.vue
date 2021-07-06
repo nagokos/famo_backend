@@ -37,7 +37,7 @@
             <v-sheet
               class="d-flex"
               rounded
-              color="grey lighten-3"
+              color="#f1f4f8"
               height="50"
             >
               <v-col
