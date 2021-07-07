@@ -19,8 +19,8 @@
           </v-btn>
         </v-list-item-content>
         <v-btn
-          :ripple="false"
           v-if="!$vuetify.breakpoint.mobile"
+          :ripple="false"
           class="font-weight-bold"
         >
           変更する
