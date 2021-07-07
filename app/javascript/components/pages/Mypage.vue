@@ -36,14 +36,25 @@
       </v-list>
       <v-container class="px-4 pt-0">
         <v-row>
-          <!-- 自己紹介文 -->
-          <profile-introduction
-            ref="profileIntroduction"
-            :user="currentUser"
-            v-bind.sync="userEdit"
-            @click-introduction="userEdit = { ...currentUser }"
-            @click-update="updateIntroduction"
-          />
+          <v-col
+            cols="12"
+            lg="8"
+          >
+            <!-- 自己紹介文 -->
+            <introduction
+              v-if="!introductionForm"
+              :user="currentUser"
+              @open-form="introductionOpen"
+            />
+            <!-- 自己紹介編集 -->
+            <introduction-edit
+              ref="introductionEdit"
+              v-if="introductionForm"
+              v-bind.sync="userEdit"
+              @send-introduction="updateIntroduction"
+              @close-form="introductionForm = false"
+            />
+          </v-col>
           <v-col
             v-if="loading && currentUser.role === 'player' && !$vuetify.breakpoint.mobile"
             cols="4"
@@ -99,7 +110,8 @@ import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import PlayerTable from "../parts/PlayerTable"
 import PlayerCard from "../parts/PlayerCard"
-import ProfileIntroduction from '../parts/ProfileIntroduction.vue'
+import Introduction from '../parts/Introduction.vue'
+import IntroductionEdit from '../parts/IntroductionEdit.vue'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewList from "../parts/ReviewList"
 import RelationCard from "../parts/RelationCard"
@@ -112,7 +124,8 @@ export default {
     PlayerCard,
     ProfileAction,
     ProfileTitle,
-    ProfileIntroduction,
+    Introduction,
+    IntroductionEdit,
     ProfileTab,
     ReviewList,
     RelationCard,
@@ -120,6 +133,7 @@ export default {
   },
   data() {
     return {
+      introductionForm: false,
       userInformation: true,
       reviewList: false,
       userEdit: {},
@@ -158,6 +172,10 @@ export default {
       this.reviewList = true
       this.userInformation = false
     },
+    introductionOpen() {
+      this.introductionForm = true
+      this.setUserEdit()
+    },
     async getProfileData() {
       const response = await this.$axios.get("/api/v1/profile")
       this.profile = response.data
@@ -166,7 +184,7 @@ export default {
     async updateIntroduction() {
       const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
       if (response.errors) {
-        this.$refs.profileIntroduction.setErrors(response.errors)
+        this.$refs.introductionEdit.setErrors(response.errors)
         return this.$store.dispatch("flash/setFlash", {
           type: "error",
           message: "文字数がオーバーしています"
@@ -176,7 +194,7 @@ export default {
         type: "success",
         message: "更新しました"
       })
-      this.$refs.profileIntroduction.close()
+      this.introductionForm = false
     },
   }
 }
