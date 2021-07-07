@@ -6,16 +6,34 @@
     background-color="#FAFAFA"
   >
     <v-tab
-      class="mr-5 font-weight-bold"
-      @click="$emit('click-user')"
+      class="mr-2 font-weight-bold"
+      v-for="route in routes"
+      :key="route.name"
+      :to="{ name: 'profile', params: { type: route.params } }"
     >
-      ユーザー情報
-    </v-tab>
-    <v-tab
-      class="font-weight-bold"
-      @click="$emit('click-review')"
-    >
-      レビュー一覧
+      {{ route.name }}
     </v-tab>
   </v-tabs>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      routes: [
+        {
+          name: "トップ",
+        },
+        {
+          name: "レビュー",
+          params: "review"
+        },
+        {
+          name: "つながり",
+          params: "relation"
+        }
+      ]
+    }
+  }
+}
+</script>
