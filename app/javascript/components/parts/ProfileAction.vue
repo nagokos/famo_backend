@@ -7,9 +7,6 @@
       width="130"
       :to="{ name: 'mySetting', params: { type: 'profile' } }"
     >
-      <v-icon>
-        mdi-pencil-outline
-      </v-icon>
       プロフィール編集
     </v-btn>
   </div>
