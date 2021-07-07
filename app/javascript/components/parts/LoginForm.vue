@@ -55,27 +55,15 @@
             class="pt-0"
           >
             <v-btn
-              v-if="!inActive"
-              dark
-              depressed
+              :dark="!inActive"
               x-large
               block
+              :disabled="inActive"
               color="black"
               class="font-weight-black"
               @click="handleSubmit(sendLoginData)"
             >
-              ログイン
-            </v-btn>
-            <v-btn
-              v-if="inActive"
-              depressed
-              x-large
-              block
-              class="font-weight-black"
-              disabled
-              max-width="264"
-            >
-              アカウントを認証してください
+              {{ inActive ? "アカウントを認証してください" : "ログイン"  }}
             </v-btn>
             <p
               class="mb-0 mt-2"
@@ -83,7 +71,8 @@
             >
               ＊ ログインできない場合は
               <strong
-                style="cursor: pointer; color: red;"
+                style="cursor: pointer;"
+                class="red--text"
                 @click="$emit('click-login-help')"
               >
                 こちら

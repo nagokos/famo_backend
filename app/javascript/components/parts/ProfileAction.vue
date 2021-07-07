@@ -2,11 +2,8 @@
   <div :style="$vuetify.breakpoint.mobile ? 'position: relative; top: 27px;' : ''">
     <!-- ログインユーザーの場合 -->
     <v-btn
-      rounded
       class="font-weight-bold px-2 py-5 text-caption"
-      outlined
-      x-large
-      color="primary"
+      large
       :to="{ name: 'mySetting', params: { type: 'profile' } }"
     >
       <v-icon>
