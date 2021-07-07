@@ -58,12 +58,13 @@
               :dark="!inActive"
               x-large
               block
+              :ripple="false"
               :disabled="inActive"
               color="black"
               class="font-weight-black"
               @click="handleSubmit(sendLoginData)"
             >
-              {{ inActive ? "アカウントを認証してください" : "ログイン"  }}
+              {{ inActive ? "アカウントを認証してください" : "ログイン" }}
             </v-btn>
             <p
               class="mb-0 mt-2"
