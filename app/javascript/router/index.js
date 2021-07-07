@@ -18,10 +18,10 @@ const routes = [
     component: SignupLogin
   },
   {
-    path: "/profile",
+    path: "/profile/:type?",
     name: "profile",
     component: Mypage,
-    meta: { requiredLogin: true }
+    meta: { requiredLogin: true },
   },
   {
     path: "/settings/:type",
