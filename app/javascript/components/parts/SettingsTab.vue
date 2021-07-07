@@ -4,12 +4,14 @@
     @change="$emit('data-reset', $event)"
   >
     <v-tab
-      v-for="setting in settings"
-      :key="setting.params"
-      :to="{ name: 'mySetting', params: { type: setting.params } }"
+      v-for="route in routes"
+      :key="route.params"
+      :ripple="false"
+      exact
+      :to="{ name: 'mySetting', params: { type: route.params } }"
       class="font-weight-bold"
     >
-      {{ setting.name }}
+      {{ route.name }}
     </v-tab>
   </v-tabs>
 </template>
@@ -18,7 +20,7 @@
 export default {
   data() {
     return {
-      settings: [
+      routes: [
         {
           name: "アカウント",
           params: "account"
