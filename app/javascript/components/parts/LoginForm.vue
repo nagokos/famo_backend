@@ -71,7 +71,8 @@
             >
               ＊ ログインできない場合は
               <strong
-                style="cursor: pointer; color: red;"
+                style="cursor: pointer;"
+                class="red--text"
                 @click="$emit('click-login-help')"
               >
                 こちら
