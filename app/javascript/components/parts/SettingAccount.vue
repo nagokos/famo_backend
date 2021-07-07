@@ -12,12 +12,14 @@
           <v-btn
             v-if="$vuetify.breakpoint.mobile"
             max-width="90"
+            :ripple="false"
             class="font-weight-bold text-caption mt-1"
           >
             変更する
           </v-btn>
         </v-list-item-content>
         <v-btn
+          :ripple="false"
           v-if="!$vuetify.breakpoint.mobile"
           class="font-weight-bold"
         >
@@ -38,6 +40,7 @@
           <v-btn
             v-if="$vuetify.breakpoint.mobile"
             max-width="90"
+            :ripple="false"
             class="font-weight-bold text-caption mt-1"
             :disabled="user.role !== 'player'"
             @click="$refs.playerReleaseDialog.open()"
@@ -48,6 +51,7 @@
         <v-btn
           v-if="!$vuetify.breakpoint.mobile"
           class="font-weight-bold"
+          :ripple="false"
           :disabled="user.role !== 'player'"
           @click="$refs.playerReleaseDialog.open()"
         >
@@ -68,6 +72,7 @@
           <v-btn
             v-if="$vuetify.breakpoint.mobile"
             max-width="90"
+            :ripple="false"
             class="font-weight-bold text-caption mt-1"
             @click="$refs.accountDeleteDialog.open()"
           >
@@ -77,6 +82,7 @@
         <v-btn
           v-if="!$vuetify.breakpoint.mobile"
           class="font-weight-bold"
+          :ripple="false"
           @click="$refs.accountDeleteDialog.open()"
         >
           退会する

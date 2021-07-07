@@ -48,6 +48,7 @@
                           rounded
                           color="primary"
                           outlined
+                          :ripple="false"
                           class="font-weight-bold text-capitalize"
                         >
                           Follow

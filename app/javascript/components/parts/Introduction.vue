@@ -7,6 +7,7 @@
     <v-btn
       :small="user.introduction !== ''"
       text
+      :ripple="false"
       color="primary"
       @click="$emit('open-form')"
     >

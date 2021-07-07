@@ -11,6 +11,7 @@
     >
       <v-btn
         icon
+        :ripple="false"
         @click="close"
       >
         <v-icon>
@@ -79,6 +80,7 @@
                   <v-btn
                     :disabled="invalid"
                     large
+                    :ripple="false"
                     color="red"
                     :dark="!invalid"
                     width="300"

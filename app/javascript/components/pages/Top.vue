@@ -24,6 +24,7 @@
               color="black"
               class="mt-4"
               x-large
+              :ripple="false"
               style="font-weight: bold"
               :to="{ name: 'login' }"
             >

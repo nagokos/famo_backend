@@ -11,6 +11,7 @@
     >
       <v-btn
         icon
+        :ripple="false"
         @click="closeDialog"
       >
         <v-icon>
@@ -32,6 +33,7 @@
                 color="#FAFAFA"
               >
                 <v-list-group
+                  :ripple="false"
                   v-for="item in items"
                   :key="item.question"
                   v-model="item.active"

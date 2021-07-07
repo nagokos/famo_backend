@@ -38,6 +38,7 @@
                   width="100"
                   height="35"
                   small
+                  :ripple="false"
                   @click="$refs.registerTeamDialog.open()"
                 >
                   チーム登録
@@ -134,6 +135,7 @@
                 large
                 dark
                 block
+                :ripple="false"
                 @click="handleSubmit(sendPlayerData)"
               >
                 {{ btnStatus ? "更新する" : "登録する" }}

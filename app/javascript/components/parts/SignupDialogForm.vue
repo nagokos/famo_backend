@@ -4,6 +4,7 @@
   >
     <v-btn
       icon
+      :ripple="false"
       @click="$emit('click-back')"
     >
       <v-icon>
@@ -173,6 +174,7 @@
                   large
                   dark
                   block
+                  :ripple="false"
                   @click="handleSubmit(sendUserData)"
                 >
                   登録する

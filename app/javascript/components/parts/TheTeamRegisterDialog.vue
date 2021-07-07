@@ -11,6 +11,7 @@
     >
       <v-btn
         icon
+        :ripple="false"
         @click="close"
       >
         <v-icon>
@@ -123,6 +124,7 @@
                     class="font-weight-bold"
                     large
                     dark
+                    :ripple="false"
                     block
                     @click="handleSubmit(sendTeamData)"
                   >

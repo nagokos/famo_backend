@@ -4,6 +4,7 @@
   >
     <v-btn
       icon
+      :ripple="false"
       @click="$emit('click-close')"
     >
       <v-icon>
@@ -26,6 +27,7 @@
           <v-btn
             width="250"
             x-large
+            :ripple="false"
             class="font-weight-bold"
             @click="$emit('email-register')"
           >
@@ -45,6 +47,7 @@
           <v-btn
             width="250"
             x-large
+            :ripple="false"
             class="font-weight-bold"
           >
             <v-img
@@ -64,6 +67,7 @@
           <v-btn
             width="250"
             x-large
+            :ripple="false"
             class="font-weight-bold text-capitalize"
           >
             <v-img

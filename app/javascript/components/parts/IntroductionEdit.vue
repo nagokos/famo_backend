@@ -26,6 +26,7 @@
         <v-btn
           color="primary"
           text
+          :ripple="false"
           @click="$emit('close-form')"
         >
           キャンセル
@@ -33,6 +34,7 @@
         <v-btn
           color="primary"
           text
+          :ripple="false"
           @click="handleSubmit(sendIntroduction)"
         >
           更新

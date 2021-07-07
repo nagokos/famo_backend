@@ -9,6 +9,7 @@
     >
       <v-btn
         icon
+        :ripple="false"
         @click="closeDialog"
       >
         <v-icon>
@@ -63,6 +64,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
+                    :ripple="false"
                     @click="handleSubmit(sendEmailData)"
                   >
                     送信
