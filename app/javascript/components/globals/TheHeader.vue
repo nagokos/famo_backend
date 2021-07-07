@@ -22,6 +22,7 @@
         <v-btn
           v-if="!currentUser"
           text
+          :ripple="false"
           @click="pushPage('/login', 'login')"
         >
           <span
@@ -73,6 +74,7 @@
                 text
                 block
                 large
+                :ripple="false"
                 class="justify-start"
                 @click="pushPage('/profile', 'profile')"
               >
@@ -96,6 +98,7 @@
                 text
                 block
                 large
+                :ripple="false"
                 class="justify-start"
                 @click="pushPage('/settings/account', 'mySetting', 'account')"
               >
@@ -116,6 +119,7 @@
                 text
                 block
                 large
+                :ripple="false"
                 class="justify-start"
               >
                 <v-icon
@@ -135,6 +139,7 @@
                 text
                 block
                 large
+                :ripple="false"
                 class="justify-start"
                 @click="logout"
               >
