@@ -121,6 +121,7 @@
               large
               dark
               block
+              :ripple="false"
               @click="handleSubmit(clickUpdate)"
             >
               更新する

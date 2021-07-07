@@ -4,6 +4,7 @@
   >
     <v-btn
       icon
+      :ripple="false"
       @click="$emit('click-close')"
     >
       <v-icon>
@@ -81,6 +82,7 @@
               block
               depressed
               outlined
+              :ripple="false"
               @click="resendEmail"
             >
               再度送信

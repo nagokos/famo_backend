@@ -25,6 +25,7 @@
         <v-btn
           dark
           x-large
+          :ripple="false"
           block
           color="#EF5350"
           class="font-weight-bold"
