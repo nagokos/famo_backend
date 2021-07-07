@@ -4,7 +4,7 @@
     <v-btn
       :ripple="false"
       class="font-weight-bold px-2 py-5 text-caption"
-      large
+      width="130"
       :to="{ name: 'mySetting', params: { type: 'profile' } }"
     >
       <v-icon>
