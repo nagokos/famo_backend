@@ -50,9 +50,9 @@
             />
             <!-- 自己紹介編集 -->
             <introduction-edit
-              ref="introductionEdit"
               v-if="introductionForm"
-              v-bind.sync="userEdit"
+              ref="introductionEdit"
+              :introduction.sync="userEdit.introduction"
               @send-introduction="updateIntroduction"
               @close-form="introductionForm = false"
             />
