@@ -5,7 +5,7 @@
   >
     {{ user.introduction }}
     <v-btn
-      :small="user.introduction !== ''"
+      :small="user.introduction ? true : false"
       text
       :ripple="false"
       color="primary"
