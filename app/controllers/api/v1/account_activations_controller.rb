@@ -2,6 +2,7 @@ class Api::V1::AccountActivationsController < ApplicationController
   def create
     if (user = User.find_by(email: params[:email]))
       if !user.activation_token.nil?
+        user.setup_activation
         if user.save
           UserMailer.activation_needed_email(user).deliver_now
           head :ok
