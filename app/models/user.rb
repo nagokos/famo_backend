@@ -25,11 +25,6 @@ class User < ApplicationRecord
 
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
-  def setup_activation_attributes
-    setup_activation
-    self.activation_token_expires_at = Time.zone.now.since(1.day)
-  end
-
   def activate_attributes
     activate!
     update_column(:activation_token_expires_at, nil)
