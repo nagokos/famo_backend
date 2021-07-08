@@ -110,7 +110,6 @@
 
 <script>
 import { mapGetters } from "vuex"
-import CareerCard from "../parts/CareerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import PlayerTable from "../parts/PlayerTable"
@@ -118,13 +117,12 @@ import PlayerCard from "../parts/PlayerCard"
 import Introduction from '../parts/Introduction.vue'
 import IntroductionEdit from '../parts/IntroductionEdit.vue'
 import ProfileTab from "../parts/ProfileTab"
-import ReviewList from "../parts/ReviewList"
+import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 
 export default {
   components: {
-    CareerCard,
     PlayerTable,
     PlayerCard,
     ProfileAction,
@@ -132,7 +130,7 @@ export default {
     Introduction,
     IntroductionEdit,
     ProfileTab,
-    ReviewList,
+    ReviewCard,
     RelationCard,
     TheBreadCrumb,
   },
