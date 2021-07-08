@@ -10,8 +10,4 @@ FactoryBot.define do
   trait :invalid do
     first_name { nil }
   end
-
-  trait :expired do
-    activation_token_expires_at { Time.zone.now.ago(2.day) }
-  end
 end
