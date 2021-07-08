@@ -70,7 +70,8 @@
       </v-container>
     </div>
     <div
-      class="profile-tabs"
+      class="mx-auto"
+      style="max-width: 1018px;"
     >
       <v-divider />
       <!-- タブ -->
