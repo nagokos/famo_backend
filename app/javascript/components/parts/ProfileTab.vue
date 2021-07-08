@@ -2,13 +2,15 @@
   <v-tabs
     color="black"
     :fixed-tabs="$vuetify.breakpoint.mobile"
-    :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
     background-color="#FAFAFA"
+    :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
   >
     <v-tab
-      class="mr-2 font-weight-bold"
       v-for="route in routes"
       :key="route.name"
+      exact
+      :ripple="false"
+      class="font-weight-bold"
       :to="{ name: 'profile', params: { type: route.params } }"
     >
       {{ route.name }}
@@ -37,3 +39,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .v-tabs
+  >>>
+  .v-slide-group__prev {
+    display: none !important;
+  }
+</style>
