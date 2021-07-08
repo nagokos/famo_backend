@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   before_save :email_downcase, if: -> { email_changed? }
   before_update :setup_activation, if: -> { email_changed? }
-  after_update :send_activation_needed_email!, if: -> { previous_changes["email"].present? }
+  after_update :send_activation_needed_email!, if: -> { previous_changes['email'].present? }
 
   has_one :profile, dependent: :destroy
 
