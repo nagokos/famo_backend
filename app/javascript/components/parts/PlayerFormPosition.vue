@@ -26,7 +26,7 @@ export default {
   props: {
     position: {
       type: String,
-      default: "GK",
+      default: "",
       required: true
     }
   },
