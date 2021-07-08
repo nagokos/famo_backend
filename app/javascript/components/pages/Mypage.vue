@@ -159,9 +159,6 @@ export default {
       ]
     }
   },
-  computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
-  },
   created() {
     this.setUserEdit()
     this.getProfileData()
@@ -169,14 +166,6 @@ export default {
   methods: {
     setUserEdit() {
       this.userEdit = { ...this.currentUser }
-    },
-    changeUserInformation() {
-      this.userInformation = true
-      this.reviewList = false
-    },
-    changeReviewList() {
-      this.reviewList = true
-      this.userInformation = false
     },
     introductionOpen() {
       this.introductionForm = true
