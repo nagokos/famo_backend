@@ -3,7 +3,9 @@
     <the-bread-crumb
       :bread-crumbs="breadCrumbs"
     />
-    <div class="profile-top">
+    <div
+      class="contents"
+    >
       <v-list
         color="#FAFAFA"
       >
@@ -48,9 +50,9 @@
             />
             <!-- 自己紹介編集 -->
             <introduction-edit
-              ref="introductionEdit"
               v-if="introductionForm"
-              v-bind.sync="userEdit"
+              ref="introductionEdit"
+              :introduction.sync="userEdit.introduction"
               @send-introduction="updateIntroduction"
               @close-form="introductionForm = false"
             />
@@ -68,44 +70,46 @@
       </v-container>
     </div>
     <div
-      class="profile-tabs"
+      class="mx-auto"
+      style="max-width: 1018px;"
     >
       <v-divider />
       <!-- タブ -->
-      <profile-tab
-        @click-user="changeUserInformation"
-        @click-review="changeReviewList"
-      />
+      <profile-tab />
     </div>
     <v-divider />
-    <div class="profile-contents mt-4">
-      <!-- 選手カード -->
-      <v-col
-        v-if="loading && currentUser.role === 'player' && userInformation && $vuetify.breakpoint.mobile"
-        cols="12"
-      >
-        <player-card
-          :profile="profile"
-        />
-      </v-col>
-      <career-card
-        v-if="userInformation"
-      />
-      <relation-card
-        v-if="userInformation"
-        :user="currentUser"
-      />
-      <review-list
-        v-if="reviewList"
-        :user="currentUser"
-      />
+    <div
+      class="contents mt-5"
+    >
+      <v-container>
+        <v-row>
+          <!-- 選手カード -->
+          <v-col
+            v-if="$route.path === '/profile'"
+            cols="12"
+            md="4"
+          />
+          <v-col
+            v-if="$route.path === '/profile'"
+            cols="12"
+            md="8"
+          >
+            <review-card
+              :user="currentUser"
+            />
+          </v-col>
+          <relation-card
+            v-if="$route.path === '/profile/relation'"
+            :user="currentUser"
+          />
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import CareerCard from "../parts/CareerCard"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import PlayerTable from "../parts/PlayerTable"
@@ -113,13 +117,12 @@ import PlayerCard from "../parts/PlayerCard"
 import Introduction from '../parts/Introduction.vue'
 import IntroductionEdit from '../parts/IntroductionEdit.vue'
 import ProfileTab from "../parts/ProfileTab"
-import ReviewList from "../parts/ReviewList"
+import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 
 export default {
   components: {
-    CareerCard,
     PlayerTable,
     PlayerCard,
     ProfileAction,
@@ -127,19 +130,22 @@ export default {
     Introduction,
     IntroductionEdit,
     ProfileTab,
-    ReviewList,
+    ReviewCard,
     RelationCard,
     TheBreadCrumb,
   },
   data() {
     return {
       introductionForm: false,
-      userInformation: true,
-      reviewList: false,
       userEdit: {},
       profile: {},
       loading: false,
-      breadCrumbs: [
+    }
+  },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    breadCrumbs() {
+      return [
         {
           text: "TOP",
           to: "/",
@@ -147,14 +153,11 @@ export default {
         },
         {
           text: "マイページ",
-          to: "/profile",
+          to: this.$route.path,
           disabled: true
-        }
+        },
       ]
     }
-  },
-  computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
   },
   created() {
     this.setUserEdit()
@@ -163,14 +166,6 @@ export default {
   methods: {
     setUserEdit() {
       this.userEdit = { ...this.currentUser }
-    },
-    changeUserInformation() {
-      this.userInformation = true
-      this.reviewList = false
-    },
-    changeReviewList() {
-      this.reviewList = true
-      this.userInformation = false
     },
     introductionOpen() {
       this.introductionForm = true
@@ -201,15 +196,7 @@ export default {
 </script>
 
 <style scoped>
-  .profile-top {
-    max-width: 1050px;
-    margin: 0 auto;
-  }
-  .profile-tabs {
-    max-width: 1018px;
-    margin: 0 auto;
-  }
-  .profile-contents {
+  .contents {
     max-width: 1050px;
     margin: 0 auto;
   }
