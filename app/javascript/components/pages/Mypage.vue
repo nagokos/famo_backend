@@ -78,27 +78,32 @@
       <profile-tab />
     </div>
     <v-divider />
-    <div class="profile-contents mt-4">
-      <!-- 選手カード -->
-      <v-col
-        v-if="loading && currentUser.role === 'player' && userInformation && $vuetify.breakpoint.mobile"
-        cols="12"
-      >
-        <player-card
-          :profile="profile"
-        />
-      </v-col>
-      <career-card
-        v-if="userInformation"
-      />
-      <relation-card
-        v-if="userInformation"
-        :user="currentUser"
-      />
-      <review-list
-        v-if="reviewList"
-        :user="currentUser"
-      />
+    <div
+      class="contents mt-5"
+    >
+      <v-container>
+        <v-row>
+          <!-- 選手カード -->
+          <v-col
+            v-if="$route.path === '/profile'"
+            cols="12"
+            md="4"
+          />
+          <v-col
+            v-if="$route.path === '/profile'"
+            cols="12"
+            md="8"
+          >
+            <review-card
+              :user="currentUser"
+            />
+          </v-col>
+          <relation-card
+            v-if="$route.path === '/profile/relation'"
+            :user="currentUser"
+          />
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
