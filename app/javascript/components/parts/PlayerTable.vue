@@ -58,13 +58,13 @@ export default {
           information: this.leagueName
         },
         {
-          name: "ポジション",
-          information: this.profile.position
+          name: "ポジション・背番号",
+          information: this.positionAndUniform
         },
         {
-          name: "背番号",
-          information: this.uniformNumber
-        },
+          name: "前所属",
+          information: this.careerName
+        }
       ]
     },
     teamName() {
