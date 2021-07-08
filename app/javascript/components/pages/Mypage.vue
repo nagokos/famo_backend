@@ -3,7 +3,9 @@
     <the-bread-crumb
       :bread-crumbs="breadCrumbs"
     />
-    <div class="profile-top">
+    <div
+      class="contents"
+    >
       <v-list
         color="#FAFAFA"
       >
@@ -201,15 +203,7 @@ export default {
 </script>
 
 <style scoped>
-  .profile-top {
-    max-width: 1050px;
-    margin: 0 auto;
-  }
-  .profile-tabs {
-    max-width: 1018px;
-    margin: 0 auto;
-  }
-  .profile-contents {
+  .contents {
     max-width: 1050px;
     margin: 0 auto;
   }
