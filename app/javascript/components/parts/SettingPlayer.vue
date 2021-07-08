@@ -82,6 +82,27 @@
                 :group-id.sync="profile.groupId"
               />
             </v-col>
+            <v-col
+              class="pt-1 pb-0"
+              cols="12"
+              md="4"
+            >
+              <span
+                class="font-weight-bold text-h6 black--text"
+              >
+                前所属
+              </span>
+            </v-col>
+            <v-col
+              class="py-0"
+              cols="12"
+              md="8"
+            >
+              <player-form-career
+                class="mt-2"
+                :career.sync="profile.career"
+              />
+            </v-col>
             <!-- ポジション選択 -->
             <v-col
               cols="12"
@@ -168,6 +189,7 @@ import PlayerFormTeam from "./PlayerFormTeam"
 import PlayerFormLeague from "./PlayerFormLeague"
 import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
+import PlayerFormCareer from "./PlayerFormCareer"
 import TheTeamRegisterDialog from "./TheTeamRegisterDialog"
 
 export default {
@@ -176,6 +198,7 @@ export default {
     PlayerFormLeague,
     PlayerFormPosition,
     PlayerFormNumber,
+    PlayerFormCareer,
     TheTeamRegisterDialog
   },
   props: {
@@ -195,6 +218,7 @@ export default {
         position: "",
         officialNumber: "",
         practiceNumber: "",
+        career: "",
         groupId: "",
         teamId: "",
         team: {

@@ -2,20 +2,20 @@
   <div>
     <ValidationProvider
       v-slot="{ errors }"
-      rules="required"
-      name="ポジション"
-      vid="position"
+      rules="max:50"
+      name="前所属"
+      vid="career"
     >
-      <v-select
-        :value="position"
+      <v-text-field
+        :value="career"
         outlined
         dense
-        label="ポジション"
-        :items="positions"
-        required
+        label="前所属"
         background-color="#F2F4F8"
+        hint="中学生での所属チーム(必須ではありません)"
+        persistent-hint
         :error-messages="errors"
-        @change="$emit('update:position', $event)"
+        @input="$emit('update:career', $event)"
       />
     </ValidationProvider>
   </div>
@@ -24,15 +24,10 @@
 <script>
 export default {
   props: {
-    position: {
+    career: {
       type: String,
       default: "",
       required: true
-    }
-  },
-  data() {
-    return {
-      positions: ["GK", "DF", "MF", "FW"]
     }
   }
 }
