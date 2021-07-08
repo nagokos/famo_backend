@@ -24,7 +24,7 @@ export default {
     return {
       routes: [
         {
-          name: "トップ",
+          name: "トップ"
         },
         {
           name: "レビュー",
