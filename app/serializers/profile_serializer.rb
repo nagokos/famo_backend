@@ -1,5 +1,5 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :position, :official_number, :practice_number, :team_id, :group_id
+  attributes :id, :position, :official_number, :practice_number, :career, :team_id, :group_id
   belongs_to :team
   belongs_to :group
 
