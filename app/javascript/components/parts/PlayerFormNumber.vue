@@ -21,6 +21,7 @@
       />
     </ValidationProvider>
     <ValidationProvider
+      v-slot="{ errors }"
       rules="numeric"
       name="練習試合"
       vid="practice_number"
@@ -35,6 +36,7 @@
         hint="練習試合での背番号(必須ではありません)"
         persistent-hint
         type="number"
+        :error-messages="errors"
         @input="$emit('update:practiceNumber', $event)"
       />
     </ValidationProvider>
@@ -45,14 +47,14 @@
 export default {
   props: {
     officialNumber: {
-      type: [Number, String],
+      type: String,
       default: "",
       required: true
     },
     practiceNumber: {
-      type: [Number, String],
+      type: String,
       default: "",
-      required: false
+      required: true
     }
   }
 }
