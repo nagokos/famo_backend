@@ -34,6 +34,6 @@ class Api::V1::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:position, :official_number, :practice_number, :carrer, :group_id, :team_id)
+    params.require(:profile).permit(:position, :official_number, :practice_number, :career, :group_id, :team_id)
   end
 end
