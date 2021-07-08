@@ -75,10 +75,7 @@
     >
       <v-divider />
       <!-- タブ -->
-      <profile-tab
-        @click-user="changeUserInformation"
-        @click-review="changeReviewList"
-      />
+      <profile-tab />
     </div>
     <v-divider />
     <div class="profile-contents mt-4">
