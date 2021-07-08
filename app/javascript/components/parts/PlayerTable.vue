@@ -72,14 +72,21 @@ export default {
     },
     leagueName() {
       if (this.profile.group.name) {
-        return `${this.profile.group.category.league.name}${this.profile.group.category.name}${this.profile.group.name}`
+        return `${this.profile.group.category.league.name}${this.profile.group.category.name}(${this.profile.group.name})`
       } else {
         return `${this.profile.group.category.league.name}${this.profile.group.category.name}`
       }
     },
-    uniformNumber() {
+    careerName() {
+      if (this.profile.career) {
+        return this.profile.career
+      } else {
+        return "所属はありません"
+      }
+    },
+    positionAndUniform() {
       if (this.profile.practiceNumber) {
-        return `公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
+        return `${this.profile.position} / 公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
       } else {
         return this.profile.officialNumber
       }
