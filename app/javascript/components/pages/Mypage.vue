@@ -140,7 +140,12 @@ export default {
       userEdit: {},
       profile: {},
       loading: false,
-      breadCrumbs: [
+    }
+  },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    breadCrumbs() {
+      return [
         {
           text: "TOP",
           to: "/",
@@ -148,9 +153,9 @@ export default {
         },
         {
           text: "マイページ",
-          to: "/profile",
+          to: this.$route.path,
           disabled: true
-        }
+        },
       ]
     }
   },
