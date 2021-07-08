@@ -24,11 +24,7 @@ export default {
     return {
       routes: [
         {
-          name: "トップ"
-        },
-        {
-          name: "レビュー",
-          params: "review"
+          name: "レビュー"
         },
         {
           name: "つながり",
