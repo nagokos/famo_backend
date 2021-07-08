@@ -137,8 +137,6 @@ export default {
   data() {
     return {
       introductionForm: false,
-      userInformation: true,
-      reviewList: false,
       userEdit: {},
       profile: {},
       loading: false,
