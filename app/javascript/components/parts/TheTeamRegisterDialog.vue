@@ -76,7 +76,7 @@
                 >
                   <ValidationProvider
                     v-slot="{ errors }"
-                    rules="required"
+                    rules="required|max:50"
                     vid="name"
                     name="チーム"
                   >
