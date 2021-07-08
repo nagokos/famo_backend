@@ -63,8 +63,11 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
     end
 
     context '認証URLの有効期限が切れている場合' do #token_expired
-      before { get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header }
-      let!(:user) { create(:user, :expired) }
+      let!(:user) { create(:user) }
+      before do
+        travel_to(1.day.since)
+        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
+      end
 
       it '失敗して４００を返す' do
         expect(response.status).to eq(400)
