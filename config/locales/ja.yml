@@ -63,6 +63,7 @@ ja:
       taken: この%{attribute}は既に存在します
       too_long: "%{attribute}は%{count}文字以内で入力してください"
       too_short: "%{attribute}は%{count}文字以上で入力してください"
+      not_a_number: "%{attribute}は数字で入力してください"
   enums:
     user:
       role:
