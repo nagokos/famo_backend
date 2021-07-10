@@ -7,13 +7,13 @@ class Api::V1::AccountActivationsController < ApplicationController
           UserMailer.activation_needed_email(user).deliver_now
           head :ok
         else
-          render json: { email: '送信に失敗しました。もう一度お試しください。' }, status: :bad_request
+          render json: { errors: { email: '送信に失敗しました。もう一度お試しください。' } }, status: :bad_request
         end
       else
-        render json: { email: 'このメールアドレスは認証済みです' }, status: :bad_request
+        render json: { errors: { email: 'アカウントは認証済みです' } }, status: :bad_request
       end
     else
-      render json: { email: 'ユーザーが見つかりませんでした' }, status: :bad_request
+      render json: { errors: { email: 'ユーザーが見つかりませんでした' } }, status: :bad_request
     end
   end
 
@@ -28,9 +28,9 @@ class Api::V1::AccountActivationsController < ApplicationController
       else
         case failure_reason
         when :user_not_found
-          render json: { message: '既に認証済み又はURLが無効です' }, status: :bad_request
+          render json: { errors: { message: '既に認証済み又はURLが無効です' } }, status: :bad_request
         when :token_expired
-          render json: { message: '有効期限切れです' }, status: :bad_request
+          render json: { errors: { message: '有効期限切れです' } }, status: :bad_request
         end
       end
     end

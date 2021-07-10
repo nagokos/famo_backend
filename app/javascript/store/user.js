@@ -39,15 +39,11 @@ const actions = {
     }
   },
   async updateCurrentUser({ commit }, user) {
-    try {
-      const response = await axios.patch("/api/v1/users/current", {
-        user: user
-      })
-      commit("setCurrentUser", response.data.user)
-      return response.data.user
-    } catch(err) {
-      return err.response.data
-    }
+    const response = await axios.patch("/api/v1/users/current", {
+      user: user
+    })
+    commit("setCurrentUser", response.data.user)
+    return response.data.user
   },
   async deleteCurrentUser({ commit }) {
     await axios.delete("/api/v1/users/current")

@@ -47,14 +47,14 @@
     </div>
     <!-- メール送信モーダル -->
     <v-dialog
-      v-model="dialog"
+      v-model="activationDialog"
       width="500"
       :persistent="true"
       scrollable
     >
       <send-activation-email
         :email="currentUser.email"
-        @click-close="dialog = false"
+        @click-close="activationDialog = false"
       />
     </v-dialog>
   </div>
@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      dialog: false,
+      activationDialog: false,
       userEdit: {},
     }
   },
@@ -127,21 +127,22 @@ export default {
       this.$store.dispatch("user/getCurrentUserFromAPI")
     },
     async updateProfile() {
-      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) {
-        this.$refs.profileEdit.setErrors(response.errors)
+      try {
+        const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+        if (response.activationState === "pending") {
+          this.activationDialog = true
+        }
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "更新しました"
+        })
+      } catch(error) {
+        this.$refs.profileEdit.setErrors(error.response.data.errors)
         return this.$store.dispatch("flash/setFlash", {
-                  type: "error",
-                  message: "フォームに不備があります"
-                })
+          type: "error",
+          message: "フォームに不備があります"
+        })
       }
-      if (response.activationState === "pending") {
-        this.dialog = true
-      }
-      this.$store.dispatch("flash/setFlash", {
-        type: "success",
-        message: "更新しました"
-      })
     },
     async deleteUser() {
       await this.$store.dispatch("user/deleteCurrentUser")
