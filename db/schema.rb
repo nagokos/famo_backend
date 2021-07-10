@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_115233) do
+ActiveRecord::Schema.define(version: 2021_07_10_090031) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_07_08_115233) do
     t.index ["prefecture_id"], name: "index_teams_on_prefecture_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "avatar", default: "https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png", null: false
