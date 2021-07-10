@@ -4,7 +4,7 @@ class Api::V1::UserSessionsController < Api::V1::BaseController
       if user && !failure_reason.present?
         token = user.create_token
         cookies[:token] = { value: token, expires: 1.month.from_now, secure: Rails.env.production?, httponly: true, same_site: 'Lax' }
-        head :ok
+        render json: user, status: :ok
       else
         case failure_reason
         when :invalid_login
