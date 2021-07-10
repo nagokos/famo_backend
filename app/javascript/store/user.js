@@ -15,6 +15,13 @@ const mutations = {
 }
 
 const actions = {
+  async loginUser({ commit }, user) {
+    const response = await axios.post("/api/v1/login", {
+      email: user.email,
+      password: user.password,
+    })
+    commit("setCurrentUser", response.data.user)
+  },
   getCurrentUser({ state, dispatch }) {
     const { currentUser } = state
     if (currentUser) {
