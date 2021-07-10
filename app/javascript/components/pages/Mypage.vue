@@ -169,25 +169,21 @@ export default {
       this.introductionForm = true
       this.setUserEdit()
     },
-    async getProfileData() {
-      const response = await this.$axios.get("/api/v1/profile")
-      this.profile = response.data
-      this.loading = true
-    },
     async updateIntroduction() {
-      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) {
-        this.$refs.introductionEdit.setErrors(response.errors)
+      try {
+        await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "更新しました"
+        })
+        this.introductionForm = false
+      } catch(error) {
+        this.$refs.introductionEdit.setErrors(error.response.data.errors)
         return this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "文字数がオーバーしています"
+          message: "文字数をオーバーしています"
         })
       }
-      this.$store.dispatch("flash/setFlash", {
-        type: "success",
-        message: "更新しました"
-      })
-      this.introductionForm = false
     },
   }
 }
