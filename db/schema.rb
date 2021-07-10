@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_10_090031) do
+ActiveRecord::Schema.define(version: 2021_07_10_102545) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_090031) do
     t.string "official_number", null: false
     t.string "practice_number"
     t.string "career"
-    t.bigint "user_id", null: false
+    t.string "user_id", null: false
     t.bigint "group_id", null: false
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
