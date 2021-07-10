@@ -15,7 +15,10 @@
           cols="12"
           md="6"
         >
-          <login />
+          <login
+            ref="login"
+            @login-data="sendLoginData"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -47,6 +50,31 @@ export default {
           disabled: true,
         }
       ]
+    }
+  },
+  methods: {
+    async sendLoginData(user) {
+      try {
+        await this.$store.dispatch("user/loginUser", user)
+        await this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "ログインしました"
+        })
+        this.$router.push({ name: "profile" })
+      } catch(error) {
+        if (error.response.data.errors.key === "inactive") {
+          this.$refs.login.setInActive()
+          return await this.$store.dispatch("flash/setFlash", {
+            type: "error",
+            message: "アカウントを認証してください"
+          })
+        }
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "フォームに不備があります"
+        })
+        this.$refs.login.setErrors(error.response.data.errors)
+      }
     }
   }
 }
