@@ -47,14 +47,14 @@
     </div>
     <!-- メール送信モーダル -->
     <v-dialog
-      v-model="dialog"
+      v-model="activationDialog"
       width="500"
       :persistent="true"
       scrollable
     >
       <send-activation-email
         :email="currentUser.email"
-        @click-close="dialog = false"
+        @click-close="activationDialog = false"
       />
     </v-dialog>
   </div>
@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      dialog: false,
+      activationDialog: false,
       userEdit: {},
     }
   },
