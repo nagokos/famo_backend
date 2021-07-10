@@ -113,7 +113,6 @@ import { mapGetters } from "vuex"
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import PlayerTable from "../parts/PlayerTable"
-import PlayerCard from "../parts/PlayerCard"
 import Introduction from '../parts/Introduction.vue'
 import IntroductionEdit from '../parts/IntroductionEdit.vue'
 import ProfileTab from "../parts/ProfileTab"
@@ -124,7 +123,6 @@ import TheBreadCrumb from "../globals/TheBreadCrumb"
 export default {
   components: {
     PlayerTable,
-    PlayerCard,
     ProfileAction,
     ProfileTitle,
     Introduction,
