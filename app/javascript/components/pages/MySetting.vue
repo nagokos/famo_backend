@@ -127,21 +127,22 @@ export default {
       this.$store.dispatch("user/getCurrentUserFromAPI")
     },
     async updateProfile() {
-      const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
-      if (response.errors) {
-        this.$refs.profileEdit.setErrors(response.errors)
+      try {
+        const response = await this.$store.dispatch("user/updateCurrentUser", this.userEdit)
+        if (response.activationState === "pending") {
+          this.activationDialog = true
+        }
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "更新しました"
+        })
+      } catch(error) {
+        this.$refs.profileEdit.setErrors(error.response.data.errors)
         return this.$store.dispatch("flash/setFlash", {
-                  type: "error",
-                  message: "フォームに不備があります"
-                })
+          type: "error",
+          message: "フォームに不備があります"
+        })
       }
-      if (response.activationState === "pending") {
-        this.dialog = true
-      }
-      this.$store.dispatch("flash/setFlash", {
-        type: "success",
-        message: "更新しました"
-      })
     },
     async deleteUser() {
       await this.$store.dispatch("user/deleteCurrentUser")
