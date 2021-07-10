@@ -31,7 +31,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
         end
 
         it 'エラーメッセージを返す' do
-          expect(json['email']).to eq('メールアドレスが間違っています')
+          expect(json['errors']['email']).to eq('メールアドレスが間違っています')
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
         end
 
         it 'jsonを返す' do
-          expect(json['key']).to eq('inactive')
+          expect(json['errors']['key']).to eq('inactive')
         end
       end
 
@@ -58,7 +58,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
         end
 
         it 'エラーメッセージを返す' do
-          expect(json['password']).to eq('パスワードが間違っています')
+          expect(json['errors']['password']).to eq('パスワードが間違っています')
         end
       end
     end

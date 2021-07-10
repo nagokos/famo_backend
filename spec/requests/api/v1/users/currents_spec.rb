@@ -14,7 +14,7 @@ RSpec.describe "Api::V1::Users::Currents", type: :request do
       end
 
       it 'ログインユーザーを返す' do
-        expect(json['id']).to eq(current_user.id)
+        expect(json['user']['id']).to eq(current_user.id)
       end
     end
   end
