@@ -10,7 +10,7 @@
       <v-btn
         icon
         :ripple="false"
-        @click="closeDialog"
+        @click="close"
       >
         <v-icon>
           mdi-close
@@ -79,7 +79,7 @@
     <send-activation-email
       v-if="sendEmail"
       :email="email"
-      @click-close="closeDialog"
+      @click-close="close"
     />
   </v-dialog>
 </template>
@@ -95,16 +95,16 @@ export default {
     return {
       dialog: false,
       email: "",
-      form: false,
+      form: true,
       sendEmail: false
     }
   },
   methods: {
     open() {
       this.dialog = true
-      this.form = true
     },
-    closeDialog() {
+    close() {
+      this.$refs.observer.reset()
       Object.assign(this.$data, this.$options.data())
     },
     async sendEmailData() {
