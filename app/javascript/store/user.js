@@ -32,8 +32,8 @@ const actions = {
   async getCurrentUserFromAPI({ commit }) {
     try {
       const response = await axios.get("/api/v1/users/current")
-      commit("setCurrentUser", response.data)
-      return response.data
+      commit("setCurrentUser", response.data.user)
+      return response.data.user
     } catch(err) {
       return null
     }
@@ -43,8 +43,8 @@ const actions = {
       const response = await axios.patch("/api/v1/users/current", {
         user: user
       })
-      commit("setCurrentUser", response.data)
-      return response.data
+      commit("setCurrentUser", response.data.user)
+      return response.data.user
     } catch(err) {
       return err.response.data
     }
