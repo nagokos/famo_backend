@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include JwtToken
 
+  before_create :set_uuid
   before_save :email_downcase, if: -> { email_changed? }
   before_update :setup_activation, if: -> { email_changed? }
   after_update :send_activation_needed_email!, if: -> { previous_changes['email'].present? }
@@ -31,6 +32,13 @@ class User < ApplicationRecord
   end
 
   private
+
+  def set_uuid
+    self.id = loop do
+      random_token = SecureRandom.urlsafe_base64(8)
+      break random_token unless self.class.exists?(id: random_token)
+    end
+  end
 
   def email_downcase
     self.email = email.downcase
