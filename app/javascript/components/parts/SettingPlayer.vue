@@ -53,7 +53,7 @@
               <player-form-team
                 class="mt-3"
                 :prefectures="prefectures"
-                :prefecture="profile.team.prefecture.id"
+                :prefecture="profile.prefecture.id"
                 :team-id.sync="profile.teamId"
               />
             </v-col>
@@ -77,8 +77,8 @@
               <player-form-league
                 class="mt-2"
                 :leagues="leagues"
-                :league="profile.group.category.league.id"
-                :category="profile.group.category.id"
+                :league="profile.league.id"
+                :category="profile.category.id"
                 :group-id.sync="profile.groupId"
               />
             </v-col>
@@ -159,7 +159,7 @@
                 :ripple="false"
                 @click="handleSubmit(sendPlayerData)"
               >
-                {{ btnStatus ? "更新する" : "登録する" }}
+                {{ user.profile ? "更新する" : "登録する" }}
               </v-btn>
             </v-col>
           </v-row>
@@ -205,12 +205,11 @@ export default {
     user: {
       type: Object,
       default: () => {},
-      required: true
+      required: true,
     }
   },
   data() {
     return {
-      btnStatus: false,
       loading: false,
       leagues: [],
       prefectures: [],
@@ -219,26 +218,25 @@ export default {
         officialNumber: "",
         practiceNumber: "",
         career: "",
-        groupId: "",
         teamId: "",
-        team: {
-          prefecture: {
-            id: ""
-          }
+        team: "",
+        groupId: "",
+        group: "",
+        prefecture: {
+          id: ""
         },
-        group: {
-          category: {
-            id: "",
-            league: {
-              id: ""
-            }
-          }
+        category: {
+          id: ""
+        },
+        league: {
+          id: ""
         }
       },
     }
   },
   created() {
     this.setData()
+    this.serProfile()
   },
   methods: {
     pushTeam(team) {
@@ -247,26 +245,23 @@ export default {
       }).teams.push(team)
       this.$refs.registerTeamDialog.close()
     },
+    serProfile() {
+      if (this.user.profile) {
+        this.profile = this.user.profile
+      }
+    },
     async setData() {
       await this.getLeagueData()
       await this.getPrefectureTeamData()
-      this.getProfileData()
+      this.loading = true
     },
     async getLeagueData() {
       const response = await this.$axios.get("/api/v1/leagues")
-      this.leagues = response.data
+      this.leagues = response.data.leagues
     },
     async getPrefectureTeamData() {
       const response = await this.$axios.get("/api/v1/prefecture_teams")
-      this.prefectures = response.data
-    },
-    async getProfileData() {
-      const response = await this.$axios.get("/api/v1/profile")
-      if (response.data) {
-        this.profile = response.data
-        this.btnStatus = true
-      }
-      this.loading = true
+      this.prefectures = response.data.prefectures
     },
     async sendPlayerData() {
       try {
@@ -274,28 +269,28 @@ export default {
           const response = await this.$axios.post("/api/v1/profile", {
             profile: this.profile
           })
-          this.profile = response.data
-          this.$store.dispatch("flash/setFlash", {
+          await this.$store.dispatch("flash/setFlash", {
             type: "success",
             message: "登録しました"
           })
+          this.profile = response.data.profile
           this.$emit('fetch-user')
         } else {
           const response = await this.$axios.patch("/api/v1/profile", {
             profile: this.profile
           })
-          this.profile = response.data
-          this.$store.dispatch("flash/setFlash", {
+          await this.$store.dispatch("flash/setFlash", {
             type: "success",
             message: "更新しました"
           })
+          this.profile = response.data.profile
         }
       } catch(err) {
-        this.$refs.observer.setErrors(err.response.data.errors)
-        this.$store.dispatch("flash/setFlash", {
+        await this.$store.dispatch("flash/setFlash", {
           type: "error",
           message: "フォームに不備があります"
         })
+        this.$refs.observer.setErrors(err.response.data.errors)
       }
     },
   }
