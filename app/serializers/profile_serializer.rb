@@ -20,14 +20,14 @@ class ProfileSerializer < ActiveModel::Serializer
   def category
     {
       id: object.group.category.id,
-      name: object.group.category.name,
+      name: object.group.category.name
     }
   end
 
   def league
     {
       id: object.group.category.league.id,
-      name: object.group.category.league.name,
+      name: object.group.category.league.name
     }
   end
 end
