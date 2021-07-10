@@ -112,10 +112,18 @@ export default {
         await this.$axios.post("/api/v1/account_activations", {
           email: this.email
         })
+        await this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "認証メールを送信しました"
+        })
         this.form = false
         this.sendEmail = true
-      } catch(err) {
-        this.$refs.observer.setErrors(err.response.data)
+      } catch(error) {
+        await this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: Object.values(error.response.data.errors)[0]
+        })
+        this.$refs.observer.setErrors(error.response.data.errors)
       }
     }
   }
