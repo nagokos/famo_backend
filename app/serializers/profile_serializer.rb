@@ -1,28 +1,33 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :position, :official_number, :practice_number, :career, :team_id, :group_id
-  belongs_to :team
-  belongs_to :group
+  attributes :position, :official_number, :practice_number, :career,
+             :team, :prefecture, :group, :category, :league, :team_id, :group_id
 
-  class TeamSerializer < ActiveModel::Serializer
-    attributes :name
-    belongs_to :prefecture
-
-    class PrefectureSerializer < ActiveModel::Serializer
-      attributes :id, :name
-    end
+  def team
+    object.team.name
   end
 
-  class GroupSerializer < ActiveModel::Serializer
-    attributes :name
-    belongs_to :category
+  def prefecture
+    {
+      id: object.team.prefecture.id,
+      name: object.team.prefecture.name
+    }
+  end
 
-    class CategorySerializer < ActiveModel::Serializer
-      attributes :id, :name
-      belongs_to :league
+  def group
+    object.group.name
+  end
 
-      class LeagueSerializer < ActiveModel::Serializer
-        attributes :id, :name
-      end
-    end
+  def category
+    {
+      id: object.group.category.id,
+      name: object.group.category.name,
+    }
+  end
+
+  def league
+    {
+      id: object.group.category.league.id,
+      name: object.group.category.league.name,
+    }
   end
 end
