@@ -50,7 +50,7 @@ export default {
       ]
     },
     fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
+      return `${this.user.lastName}${this.user.firstName}`
     }
   },
 }
