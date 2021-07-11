@@ -88,7 +88,7 @@ export default {
       if (this.profile.practiceNumber) {
         return `${this.profile.position} / 公式戦${this.profile.officialNumber} 練習${this.profile.practiceNumber}`
       } else {
-        return this.profile.officialNumber
+        return `${this.profile.position} / ${this.profile.officialNumber}`
       }
     }
   },
