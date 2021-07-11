@@ -21,7 +21,7 @@
       class="text-caption"
       style="color: #616161; overflow-wrap: break-word;"
     >
-      {{ user.introduction ? user.introduction : `${this.fullName}です。よろしくお願いします。` }}
+      {{ user.introduction ? user.introduction : `${fullName}です。よろしくお願いします。` }}
     </p>
   </div>
 </template>
