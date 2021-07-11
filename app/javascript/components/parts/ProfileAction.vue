@@ -31,7 +31,6 @@
         large
         :ripple="false"
         width="130"
-
         color="primary"
       >
         レビューを書く
