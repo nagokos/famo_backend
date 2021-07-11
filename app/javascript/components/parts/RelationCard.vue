@@ -11,7 +11,9 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-tabs>
+              <v-tabs
+                color="black"
+              >
                 <v-tab class="font-weight-bold">
                   フォロー
                 </v-tab>
