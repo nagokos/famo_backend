@@ -83,12 +83,12 @@
         <v-row>
           <!-- 選手カード -->
           <v-col
-            v-if="$route.path === '/profile'"
+            v-if="!isRelation"
             cols="12"
             md="4"
           />
           <v-col
-            v-if="$route.path === '/profile'"
+            v-if="!isRelation"
             cols="12"
             md="8"
           >
@@ -97,7 +97,7 @@
             />
           </v-col>
           <relation-card
-            v-if="$route.path === '/profile/relation'"
+            v-if="isRelation"
             :user="user"
           />
         </v-row>
@@ -138,6 +138,11 @@ export default {
     return {
       introductionForm: false,
       userEdit: { ...this.user }
+    }
+  },
+  computed: {
+    isRelation() {
+      return this.$route.path.includes('/relation')
     }
   },
   methods: {
