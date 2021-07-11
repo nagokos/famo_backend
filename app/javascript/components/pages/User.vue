@@ -24,16 +24,6 @@ export default {
       user: {}
     }
   },
-  created() {
-    this.getUser()
-  },
-  methods: {
-    async getUser() {
-      const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
-      this.user = response.data.user
-      this.loading = true
-    }
-  },
   computed: {
     breadCrumbs() {
       return [
@@ -51,6 +41,16 @@ export default {
     },
     fullName() {
       return `${this.user.lastName}${this.user.firstName}`
+    }
+  },
+  created() {
+    this.getUser()
+  },
+  methods: {
+    async getUser() {
+      const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
+      this.user = response.data.user
+      this.loading = true
     }
   },
 }
