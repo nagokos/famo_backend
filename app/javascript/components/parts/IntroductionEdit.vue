@@ -16,7 +16,7 @@
               :value="introduction"
               counter="400"
               :error-messages="errors"
-              @input="$emit('update:introduction', $event)"
+              @input="$emit('update:introduction', removeWhiteSpace($event))"
             />
           </ValidationProvider>
         </v-form>
@@ -54,6 +54,9 @@ export default {
     }
   },
   methods: {
+    removeWhiteSpace(text) {
+      return text.replace(/[\s\/]/g, '');
+    },
     sendIntroduction() {
       this.$emit("send-introduction")
     },
