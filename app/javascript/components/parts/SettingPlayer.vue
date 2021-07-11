@@ -274,7 +274,6 @@ export default {
             message: "登録しました"
           })
           this.profile = response.data.profile
-          this.$emit('fetch-user')
         } else {
           const response = await this.$axios.patch("/api/v1/profile", {
             profile: this.profile
@@ -285,6 +284,7 @@ export default {
           })
           this.profile = response.data.profile
         }
+        this.$emit('fetch-user')
       } catch(error) {
         await this.$store.dispatch("flash/setFlash", {
           type: "error",
