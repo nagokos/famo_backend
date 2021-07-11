@@ -285,7 +285,7 @@ export default {
           })
           this.profile = response.data.profile
         }
-      } catch(err) {
+      } catch(error) {
         await this.$store.dispatch("flash/setFlash", {
           type: "error",
           message: "フォームに不備があります"
