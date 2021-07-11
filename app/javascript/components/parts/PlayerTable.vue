@@ -68,13 +68,13 @@ export default {
       ]
     },
     teamName() {
-      return `${this.profile.team.name}(${this.profile.team.prefecture.name})`
+      return `${this.profile.team}(${this.profile.prefecture.name})`
     },
     leagueName() {
-      if (this.profile.group.name) {
-        return `${this.profile.group.category.league.name}${this.profile.group.category.name}(${this.profile.group.name})`
+      if (this.profile.group) {
+        return `${this.profile.league.name}${this.profile.category.name}(${this.profile.group})`
       } else {
-        return `${this.profile.group.category.league.name}${this.profile.group.category.name}`
+        return `${this.profile.league.name}${this.profile.category.name}`
       }
     },
     careerName() {
