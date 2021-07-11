@@ -11,7 +11,7 @@
       exact
       :ripple="false"
       class="font-weight-bold"
-      :to="{ name: 'profile', params: { type: route.params } }"
+      :to="{ name: setName, params: { type: route.params } }"
     >
       {{ route.name }}
     </v-tab>
@@ -31,6 +31,11 @@ export default {
           params: "relation"
         }
       ]
+    }
+  },
+  computed: {
+    setName() {
+      return this.$route.path.includes("/profile") ? "profile" : "userProfile"
     }
   }
 }
