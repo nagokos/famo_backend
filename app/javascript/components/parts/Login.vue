@@ -73,7 +73,7 @@
                   :ripple="false"
                   :disabled="inActive"
                   color="black"
-                  class="font-weight-black"
+                  class="font-weight-bold"
                   @click="handleSubmit(sendLoginData)"
                 >
                   {{ inActive ? "アカウントを認証してください" : "ログイン" }}
