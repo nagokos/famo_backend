@@ -107,7 +107,7 @@
                 counter="400"
                 background-color="#F2F4F8"
                 :error-messages="errors"
-                @input="$emit('update:introduction', $event)"
+                @input="$emit('update:introduction', removeWhiteSpace($event))"
               />
             </ValidationProvider>
           </v-col>
@@ -163,6 +163,9 @@ export default {
     }
   },
   methods: {
+    removeWhiteSpace(text) {
+      return text.replace(/[\s\/]/g, '');
+    },
     clickUpdate() {
       this.$emit("click-update")
     },
