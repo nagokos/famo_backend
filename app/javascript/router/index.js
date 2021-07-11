@@ -5,6 +5,7 @@ import Top from "../components/pages/Top"
 import SignupLogin from "../components/pages/SignupLogin"
 import Mypage from "../components/pages/Mypage"
 import MySetting from "../components/pages/MySetting"
+import User from "../components/pages/User"
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
     name: "mySetting",
     component: MySetting,
     meta: { requiredLogin: true }
+  },
+  {
+    path: "/users/:userId/:type?",
+    name: "userProfile",
+    component: User,
   }
 ]
 

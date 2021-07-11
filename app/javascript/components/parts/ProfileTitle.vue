@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list-item-title
-      class="font-weight-black text-h5"
+      class="font-weight-bold text-h5"
       style="margin-left: 2px;"
     >
       <v-tooltip bottom>
