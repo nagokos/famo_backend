@@ -265,7 +265,7 @@ export default {
     },
     async sendPlayerData() {
       try {
-        if (this.user.role !== "player") {
+        if (!this.user.profile) {
           const response = await this.$axios.post("/api/v1/profile", {
             profile: this.profile
           })
