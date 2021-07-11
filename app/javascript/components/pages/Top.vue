@@ -22,10 +22,9 @@
             <v-btn
               dark
               color="black"
-              class="mt-4"
+              class="mt-4 font-weight-bold"
               x-large
               :ripple="false"
-              style="font-weight: bold"
               :to="{ name: 'login' }"
             >
               今すぐはじめる
@@ -49,11 +48,11 @@
       <v-container>
         <v-row>
           <v-col>
-            <p class="text-h4 font-weight-black mb-1">
+            <p class="text-h4 font-weight-bold mb-1">
               選手を探す
             </p>
             <p
-              class="font-weight-black mt-3"
+              class="font-weight-bold mt-3"
               style="color: #EF5350;"
             >
               各リーグから選手を探すことができます
@@ -90,11 +89,11 @@
       <v-container>
         <v-row>
           <v-col>
-            <p class="text-h4 font-weight-black mb-1">
+            <p class="text-h4 font-weight-bold mb-1">
               The Best Players
             </p>
             <p
-              class="font-weight-black mt-3"
+              class="font-weight-bold mt-3"
               style="color: #EF5350;"
             >
               シーズンを通してのベストプレイヤー達です！
@@ -107,11 +106,11 @@
       <v-container>
         <v-row>
           <v-col>
-            <p class="text-h4 font-weight-black mb-1">
+            <p class="text-h4 font-weight-bold mb-1">
               みんなの評価
             </p>
             <p
-              class="font-weight-black mt-3"
+              class="font-weight-bold mt-3"
               style="color: #EF5350;"
             >
               選手達の評価です！
@@ -135,8 +134,8 @@ export default {
   },
   computed: {
     mobileStyle() {
-      if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-black'
-      else return 'text-h3 font-weight-black mt-4'
+      if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-bold'
+      else return 'text-h3 font-weight-bold mt-4'
     }
   },
   mounted() {
