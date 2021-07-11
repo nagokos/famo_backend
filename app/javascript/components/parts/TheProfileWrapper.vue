@@ -24,6 +24,7 @@
             />
           </v-list-item-content>
           <profile-action
+            :user="user"
             :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
           />
         </v-list-item>
