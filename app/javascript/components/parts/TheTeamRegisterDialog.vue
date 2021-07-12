@@ -188,7 +188,7 @@ export default {
           message: "チームを登録しました"
         })
         this.$refs.form.reset()
-        this.$emit("create-team", response.data)
+        this.$emit("create-team", response.data.team)
       } catch(err) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",

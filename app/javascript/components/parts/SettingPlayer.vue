@@ -290,7 +290,7 @@ export default {
           type: "error",
           message: "フォームに不備があります"
         })
-        this.$refs.observer.setErrors(err.response.data.errors)
+        this.$refs.observer.setErrors(error.response.data.errors)
       }
     },
   }
