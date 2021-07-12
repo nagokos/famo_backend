@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   def set_uuid
     self.id = loop do
-      random_token = SecureRandom.urlsafe_base64(8)
+      random_token = SecureRandom.urlsafe_base64(9)
       break random_token unless self.class.exists?(id: random_token)
     end
   end
