@@ -37,6 +37,18 @@ class User < ApplicationRecord
     update_column(:activation_token_expires_at, nil)
   end
 
+  def follow(other_user)
+    followings << other_user
+  end
+
+  def unfollow(other_user)
+    followings.destroy(other_user)
+  end
+
+  def follow?(other_user)
+    followings.include?(other_user)
+  end
+
   private
 
   def set_uuid
