@@ -40,6 +40,9 @@ ja:
       group:
         name: グループ名
         category: カテゴリ
+      relationship:
+        follower: フォロワー
+        followed: フォロー
     errors:
       models:
         profile:
