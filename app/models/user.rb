@@ -8,6 +8,12 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
 
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
+
   authenticates_with_sorcery!
 
   EMAIL_FORMAT = /\A[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}\z/i
@@ -31,11 +37,23 @@ class User < ApplicationRecord
     update_column(:activation_token_expires_at, nil)
   end
 
+  def follow(other_user)
+    followings << other_user
+  end
+
+  def unfollow(other_user)
+    followings.destroy(other_user)
+  end
+
+  def follow?(other_user)
+    followings.include?(other_user)
+  end
+
   private
 
   def set_uuid
     self.id = loop do
-      random_token = SecureRandom.urlsafe_base64(8)
+      random_token = SecureRandom.urlsafe_base64(9)
       break random_token unless self.class.exists?(id: random_token)
     end
   end
