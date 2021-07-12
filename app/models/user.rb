@@ -8,6 +8,12 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
 
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id',  dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
+
   authenticates_with_sorcery!
 
   EMAIL_FORMAT = /\A[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}\z/i
