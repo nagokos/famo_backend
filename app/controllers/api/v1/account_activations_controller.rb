@@ -1,4 +1,4 @@
-class Api::V1::AccountActivationsController < ApplicationController
+class Api::V1::AccountActivationsController < Api::V1::BaseController
   def create
     if (user = User.find_by(email: params[:email]))
       if !user.activation_token.nil?

@@ -9,15 +9,15 @@ Rails.application.routes.draw do
             resource :current, only: %i[show update destroy]
           end
         end
-        resource :relationships, only: %i[create destroy]
-        get 'relationships/check', to: 'relationships#check'
+        resource :relationships, only: %i[create destroy] do
+          get :check, on: :member
+        end
       end
       resource :profile, only: %i[create update destroy]
       resources :leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
-
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
     end
