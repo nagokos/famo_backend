@@ -1,5 +1,6 @@
 class Api::V1::ProfilesController < ApplicationController
   before_action :required_login, only: %i[create update destroy]
+  before_action :check_activation, only: %i[create update destroy]
 
   def create
     profile = current_user.build_profile(profile_params)
@@ -17,7 +18,7 @@ class Api::V1::ProfilesController < ApplicationController
     if profile.save
       render json: profile, status: :ok
     else
-      render json: { errors: profile.errors }, status: :unprocessable_entity
+      render json: { errors: profile.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
     end
   end
 
