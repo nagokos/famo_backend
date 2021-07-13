@@ -14,23 +14,22 @@
       v-if="!isMypage && user.role === 'player'"
     >
       <v-btn
-        icon
-        large
         :ripple="false"
+        rounded
+        :outlined="!isFollow"
+        depressed
+        width="80"
         color="primary"
-        outlined
-        class="font-weight-bold px-2 py-5 text-caption mr-2"
+        class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
+        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-        <v-icon>
-          mdi-account-plus
-        </v-icon>
+        {{ isFollow ? 'Following' : 'Follow' }}
       </v-btn>
       <v-btn
         class="font-weight-bold text-caption px-2 py-5"
         dark
-        large
         :ripple="false"
-        width="130"
+        width="120"
         color="primary"
       >
         レビューを書く
@@ -40,15 +39,16 @@
       v-if="!isMypage && user.role === 'reviewer'"
     >
       <v-btn
-        class="font-weight-bold px-2 py-5 text-capitalize"
-        dark
         :ripple="false"
-        color="primary"
-        outlined
-        width="90"
         rounded
+        :outlined="!isFollow"
+        depressed
+        width="80"
+        color="primary"
+        class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
+        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-        Follow
+        {{ isFollow ? 'Following' : 'Follow' }}
       </v-btn>
     </template>
   </div>
@@ -61,13 +61,17 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    isFollow: {
+      type: Boolean,
+      default: false,
+      required: true
     }
   },
   computed: {
     isMypage() {
-      console.log(this.user);
       return this.$route.path.includes("/profile")
     }
-  }
+  },
 }
 </script>

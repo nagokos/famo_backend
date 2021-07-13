@@ -25,7 +25,10 @@
           </v-list-item-content>
           <profile-action
             :user="user"
+            :is-follow="isFollow"
             :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
+            @click-follow="$emit('click-follow')"
+            @click-unfollow="$emit('click-unfollow')"
           />
         </v-list-item>
         <profile-title
@@ -132,6 +135,11 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    isFollow: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data() {
