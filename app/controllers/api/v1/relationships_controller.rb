@@ -1,4 +1,4 @@
-class Api::V1::RelationshipsController < ApplicationController
+class Api::V1::RelationshipsController < Api::V1::BaseController
   before_action :required_login, only: %i[create destroy check]
 
   def create
