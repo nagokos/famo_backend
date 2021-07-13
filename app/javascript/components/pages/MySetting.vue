@@ -147,9 +147,16 @@ export default {
       }
     },
     async deleteUser() {
-      await this.$store.dispatch("user/deleteCurrentUser")
-      localStorage.delete = 1
-      location.href = "/"
+      try {
+        await this.$store.dispatch("user/deleteCurrentUser")
+        localStorage.delete = 1
+        location.href = "/"
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
     }
   }
 }
