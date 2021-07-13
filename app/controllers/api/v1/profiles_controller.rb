@@ -1,4 +1,4 @@
-class Api::V1::ProfilesController < ApplicationController
+class Api::V1::ProfilesController < Api::V1::BaseController
   before_action :required_login, only: %i[create update destroy]
   before_action :check_activation, only: %i[create update destroy]
 
