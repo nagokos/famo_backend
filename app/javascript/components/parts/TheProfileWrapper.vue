@@ -9,7 +9,7 @@
         <v-list-item>
           <!-- アバター -->
           <v-list-item-avatar
-            size="110"
+            :size="$vuetify.breakpoint.mobile ? 100 : 110"
           >
             <v-img
               :src="user.avatar"
