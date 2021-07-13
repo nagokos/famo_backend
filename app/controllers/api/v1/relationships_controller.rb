@@ -1,5 +1,6 @@
 class Api::V1::RelationshipsController < Api::V1::BaseController
   before_action :required_login, only: %i[create destroy check]
+  before_action :check_activation, only: %i[create destroy]
 
   def create
     user = User.find(params[:user_id])
