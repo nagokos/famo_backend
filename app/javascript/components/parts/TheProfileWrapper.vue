@@ -25,7 +25,7 @@
           </v-list-item-content>
           <profile-action
             :user="user"
-            :isFollow="isFollow"
+            :is-follow="isFollow"
             :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
             @click-follow="$emit('click-follow')"
             @click-unfollow="$emit('click-unfollow')"
