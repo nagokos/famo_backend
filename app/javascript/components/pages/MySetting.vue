@@ -137,10 +137,12 @@ export default {
           message: "更新しました"
         })
       } catch(error) {
-        this.$refs.profileEdit.setErrors(error.response.data.errors)
-        return this.$store.dispatch("flash/setFlash", {
+        if (error.response.data.errors) {
+          this.$refs.profileEdit.setErrors(error.response.data.errors)
+        }
+        this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "フォームに不備があります"
+          message: error.response.data.message
         })
       }
     },
