@@ -104,7 +104,7 @@ export default {
       this.dialog = true
     },
     close() {
-      this.$refs.observer.reset()
+      if (this.form) this.$refs.observer.reset()
       Object.assign(this.$data, this.$options.data())
     },
     async sendEmailData() {
