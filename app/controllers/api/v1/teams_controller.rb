@@ -1,5 +1,6 @@
 class Api::V1::TeamsController < Api::V1::BaseController
   before_action :required_login, only: %i[create]
+  before_action :check_activation, only: %i[create]
 
   def create
     team = Team.new(team_params)
