@@ -62,18 +62,16 @@ export default {
         })
         this.$router.push({ name: "profile" })
       } catch(error) {
-        if (error.response.data.errors.key === "inactive") {
+        if (error.response.data.errors) {
+          this.$refs.login.setErrors(error.response.data.errors)
+        }
+        if (error.response.data.status === 'inactive') {
           this.$refs.login.setInActive()
-          return await this.$store.dispatch("flash/setFlash", {
-            type: "error",
-            message: "アカウントを認証してください"
-          })
         }
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "フォームに不備があります"
+          message: error.response.data.message
         })
-        this.$refs.login.setErrors(error.response.data.errors)
       }
     }
   }
