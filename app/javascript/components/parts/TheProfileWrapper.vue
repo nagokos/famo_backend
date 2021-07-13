@@ -135,6 +135,11 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    isFollow: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data() {
