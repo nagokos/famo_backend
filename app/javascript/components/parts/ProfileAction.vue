@@ -61,13 +61,17 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    isFollow: {
+      type: Boolean,
+      default: false,
+      required: true
     }
   },
   computed: {
     isMypage() {
-      console.log(this.user);
       return this.$route.path.includes("/profile")
     }
-  }
+  },
 }
 </script>
