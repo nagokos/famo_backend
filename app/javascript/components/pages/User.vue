@@ -5,7 +5,7 @@
     />
     <the-profile-wrapper
       :user="user"
-      :isFollow="isFollow"
+      :is-follow="isFollow"
       @click-follow="userFollow"
       @click-unfollow="userUnfollow"
     />
