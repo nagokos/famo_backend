@@ -23,7 +23,7 @@
         class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
         @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-       {{ isFollow ? 'Following' : 'Follow' }}
+        {{ isFollow ? 'Following' : 'Follow' }}
       </v-btn>
       <v-btn
         class="font-weight-bold text-caption px-2 py-5"
@@ -38,7 +38,7 @@
     <template
       v-if="!isMypage && user.role === 'reviewer'"
     >
-     <v-btn
+      <v-btn
         :ripple="false"
         rounded
         :outlined="!isFollow"
@@ -48,7 +48,7 @@
         class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
         @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-       {{ isFollow ? 'Following' : 'Follow' }}
+        {{ isFollow ? 'Following' : 'Follow' }}
       </v-btn>
     </template>
   </div>
