@@ -121,13 +121,20 @@ export default {
       this.checkbox = null
     },
     async releasePlayer() {
-      await this.$axios.delete("/api/v1/profile")
-      this.$emit('update-user')
-      this.close()
-      this.$store.dispatch("flash/setFlash", {
-        type: "success",
-        message: "選手登録を解除しました"
-      })
+      try {
+        await this.$axios.delete("/api/v1/profile")
+        await this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "選手登録を解除しました"
+        })
+        this.$emit('update-user')
+        this.close()
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
     }
   }
 }

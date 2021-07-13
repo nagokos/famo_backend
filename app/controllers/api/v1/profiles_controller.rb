@@ -8,7 +8,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
       current_user.player!
       render json: profile, status: :created
     else
-      render json: { errors: profile.errors }, status: :unprocessable_entity
+      render json: { errors: profile.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
     end
   end
 

@@ -7,7 +7,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
     if team.save
       render json: team, status: :created
     else
-      render json: { errors: team.errors }, status: :unprocessable_entity
+      render json: { errors: team.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
     end
   end
 

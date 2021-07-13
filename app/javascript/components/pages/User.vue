@@ -61,18 +61,25 @@ export default {
       const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
       this.user = response.data.user
     },
-    userFollow() {
+    async userFollow() {
       try {
-        this.$store.dispatch("relationship/follow", this.user.id)
+        await this.$store.dispatch("relationship/follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "既にフォローしています"
+          message: error.response.data.message
         })
       }
     },
-    userUnfollow() {
-      this.$store.dispatch("relationship/unfollow", this.user.id)
+    async userUnfollow() {
+      try {
+        await this.$store.dispatch("relationship/unfollow", this.user.id)
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
     }
   }
 }

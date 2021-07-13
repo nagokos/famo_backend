@@ -189,12 +189,14 @@ export default {
         })
         this.$refs.form.reset()
         this.$emit("create-team", response.data.team)
-      } catch(err) {
+      } catch(error) {
+        if (error.response.data.errors) {
+          this.$refs.observer.setErrors(err.response.data.errors)
+        }
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "フォームに不備があります"
+          message: error.response.data.message
         })
-        this.$refs.observer.setErrors(err.response.data.errors)
       }
     }
   }

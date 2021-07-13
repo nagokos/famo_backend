@@ -6,6 +6,8 @@ class Api::V1::RelationshipsController < Api::V1::BaseController
     user = User.find(params[:user_id])
     current_user.follow(user)
     head :created
+  rescue ActiveRecord::RecordInvalid
+    render json: { message: 'すでにフォローしています' }, status: :bad_request
   end
 
   def destroy

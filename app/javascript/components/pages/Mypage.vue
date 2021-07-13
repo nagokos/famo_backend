@@ -48,10 +48,12 @@ export default {
         })
         this.$refs.profileWrapper.closeIntroduction()
       } catch(error) {
-        this.$refs.profileWrapper.introductionErrors(error.response.data.errors)
+        if (error.response.data.errors) {
+          this.$refs.profileWrapper.introductionErrors(error.response.data.errors)
+        }
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "文字数がオーバーしています"
+          message: error.response.data.message
         })
       }
     },

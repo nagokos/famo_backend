@@ -286,11 +286,13 @@ export default {
         }
         this.$emit('fetch-user')
       } catch(error) {
-        await this.$store.dispatch("flash/setFlash", {
+        if (error.response.data.errors) {
+          this.$refs.observer.setErrors(error.response.data.errors)
+        }
+        this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "フォームに不備があります"
+          message: error.response.data.message
         })
-        this.$refs.observer.setErrors(error.response.data.errors)
       }
     },
   }

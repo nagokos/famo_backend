@@ -137,17 +137,26 @@ export default {
           message: "更新しました"
         })
       } catch(error) {
-        this.$refs.profileEdit.setErrors(error.response.data.errors)
-        return this.$store.dispatch("flash/setFlash", {
+        if (error.response.data.errors) {
+          this.$refs.profileEdit.setErrors(error.response.data.errors)
+        }
+        this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "フォームに不備があります"
+          message: error.response.data.message
         })
       }
     },
     async deleteUser() {
-      await this.$store.dispatch("user/deleteCurrentUser")
-      localStorage.delete = 1
-      location.href = "/"
+      try {
+        await this.$store.dispatch("user/deleteCurrentUser")
+        localStorage.delete = 1
+        location.href = "/"
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
     }
   }
 }

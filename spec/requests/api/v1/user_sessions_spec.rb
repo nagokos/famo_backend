@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
         end
 
         it 'jsonを返す' do
-          expect(json['errors']['key']).to eq('inactive')
+          expect(json['status']).to eq('inactive')
         end
       end
 
