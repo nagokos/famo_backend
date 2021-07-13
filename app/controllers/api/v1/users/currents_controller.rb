@@ -11,7 +11,7 @@ class Api::V1::Users::CurrentsController < Api::V1::BaseController
     if current_user.save
       render json: current_user
     else
-      render json: { errors: current_user.errors }, status: :unprocessable_entity
+      render json: { errors: current_user.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
     end
   end
 
