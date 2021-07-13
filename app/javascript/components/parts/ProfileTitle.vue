@@ -4,21 +4,9 @@
       class="font-weight-bold text-h5"
       style="margin-left: 2px;"
     >
-      <v-tooltip bottom>
-        <template #activator="{ on, attrs }">
-          <v-icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            mdi-soccer
-          </v-icon>
-        </template>
-        プレイヤー
-      </v-tooltip>
       {{ fullName }}
     </v-list-item-title>
     <v-list-item-title
-      class="mt-1"
     >
       <v-rating
         v-model="rating"

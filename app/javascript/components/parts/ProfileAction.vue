@@ -14,22 +14,38 @@
       v-if="!isMypage && user.role === 'player'"
     >
       <v-btn
+        v-if="!$vuetify.breakpoint.mobile"
         :ripple="false"
-        rounded
         :outlined="!isFollow"
         depressed
-        width="80"
+        width="120"
         color="primary"
-        class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
+        class="font-weight-bold px-2 py-5 text-caption mr-2"
         @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-        {{ isFollow ? 'Following' : 'Follow' }}
+        {{ isFollow ? 'フォロー中' : 'フォローする' }}
       </v-btn>
       <v-btn
-        class="font-weight-bold text-caption px-2 py-5"
-        dark
+        v-if="$vuetify.breakpoint.mobile"
+        depressed
+        height="40"
         :ripple="false"
-        width="120"
+        :outlined="!isFollow"
+        color="primary"
+        class="px-2"
+        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
+      >
+        <v-icon>
+          {{ isFollow ? 'mdi-account-check' : 'mdi-account-plus' }}
+        </v-icon>
+      </v-btn>
+      <v-btn
+        class="font-weight-bold px-2 py-5"
+        dark
+        depressed
+        :ripple="false"
+        :width="$vuetify.breakpoint.mobile ? 100 : 120"
+        :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
         color="primary"
       >
         レビューを書く
@@ -40,15 +56,14 @@
     >
       <v-btn
         :ripple="false"
-        rounded
         :outlined="!isFollow"
         depressed
-        width="80"
+        width="120"
         color="primary"
-        class="font-weight-bold px-2 py-5 text-caption mr-2 text-capitalize"
+        class="font-weight-bold px-2 py-5 text-caption mr-2"
         @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
       >
-        {{ isFollow ? 'Following' : 'Follow' }}
+        {{ isFollow ? 'フォロー中' : 'フォローする' }}
       </v-btn>
     </template>
   </div>
