@@ -28,7 +28,7 @@ export default {
         },
         {
           name: "つながり",
-          params: "relation"
+          params: "following"
         }
       ]
     }
