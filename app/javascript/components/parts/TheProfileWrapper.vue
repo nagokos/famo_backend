@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loading">
     <div
       class="contents"
     >
@@ -136,14 +136,14 @@ export default {
       default: () => {},
       required: true
     },
-    isFollow: {
-      type: Boolean,
-      default: false,
-      required: false
-    }
+  },
+  created() {
+    this.checkFollow()
   },
   data() {
     return {
+      loading: false,
+      isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user }
     }
@@ -151,6 +151,9 @@ export default {
   computed: {
     isRelation() {
       return this.$route.path.includes("/following") || this.$route.path.includes("/followers")
+    },
+    isMypage() {
+      return this.$route.path.includes("/profile")
     }
   },
   methods: {
@@ -163,6 +166,13 @@ export default {
     },
     introductionErrors(errors) {
       this.$refs.introductionEdit.setErrors(errors)
+    },
+    async checkFollow() {
+      if (!this.isMypage) {
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
+        this.isFollow = response.data.status
+        this.loading = true
+      }
     }
   }
 }
