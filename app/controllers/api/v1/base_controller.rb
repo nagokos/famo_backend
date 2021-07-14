@@ -10,7 +10,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def check_activation
-    return if current_user.activation_state == 'active'
+    return if current_user.activation_token.nil?
 
     render json: { message: 'アカウントを認証してください' }, status: :forbidden
   end

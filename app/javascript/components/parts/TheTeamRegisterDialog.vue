@@ -191,7 +191,7 @@ export default {
         this.$emit("create-team", response.data.team)
       } catch(error) {
         if (error.response.data.errors) {
-          this.$refs.observer.setErrors(err.response.data.errors)
+          this.$refs.observer.setErrors(error.response.data.errors)
         }
         this.$store.dispatch("flash/setFlash", {
           type: "error",

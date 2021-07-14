@@ -19,14 +19,14 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="mt-6 py-0"
+              class="mt-8 py-0"
               :user="user"
             />
           </v-list-item-content>
           <profile-action
             :user="user"
             :is-follow="isFollow"
-            :class="{ 'mt-6': !$vuetify.breakpoint.mobile }"
+            :class="{ 'mt-12': !$vuetify.breakpoint.mobile }"
             @click-follow="$emit('click-follow')"
             @click-unfollow="$emit('click-unfollow')"
           />
