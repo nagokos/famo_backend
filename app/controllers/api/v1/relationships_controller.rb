@@ -18,6 +18,7 @@ class Api::V1::RelationshipsController < Api::V1::BaseController
 
   def check
     return unless current_user
+
     user = User.find(params[:user_id])
     boolean = current_user.follow?(user)
     render json: { status: boolean }
