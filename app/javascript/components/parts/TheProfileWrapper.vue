@@ -150,7 +150,7 @@ export default {
   },
   computed: {
     isRelation() {
-      return this.$route.path.includes('/relation')
+      return this.$route.path.includes("/following") || this.$route.path.includes("/followers")
     }
   },
   methods: {
