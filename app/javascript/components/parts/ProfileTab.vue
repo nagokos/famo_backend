@@ -49,11 +49,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .v-tabs
-  >>>
-  .v-slide-group__prev {
-    display: none !important;
-  }
-</style>
