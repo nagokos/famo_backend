@@ -6,8 +6,7 @@
     >
       {{ fullName }}
     </v-list-item-title>
-    <v-list-item-title
-    >
+    <v-list-item-title>
       <v-rating
         v-model="rating"
         background-color="#EF5350"

@@ -5,15 +5,11 @@
     />
     <the-profile-wrapper
       :user="user"
-      :is-follow="isFollow"
-      @click-follow="userFollow"
-      @click-unfollow="userUnfollow"
     />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import TheProfileWrapper from "../parts/TheProfileWrapper"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 
@@ -25,11 +21,10 @@ export default {
   data() {
     return {
       loading: false,
-      user: {}
+      user: {},
     }
   },
   computed: {
-    ...mapGetters({ isFollow: "relationship/isFollow" }),
     breadCrumbs() {
       return [
         {
@@ -49,38 +44,14 @@ export default {
     }
   },
   created() {
-    this.setData()
+    this.getUser()
   },
   methods: {
-    async setData() {
-      await this.getUser()
-      await this.$store.dispatch("relationship/checkFollow", this.user.id)
-      this.loading = true
-    },
     async getUser() {
       const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
       this.user = response.data.user
+      this.loading = true
     },
-    async userFollow() {
-      try {
-        await this.$store.dispatch("relationship/follow", this.user.id)
-      } catch(error) {
-        this.$store.dispatch("flash/setFlash", {
-          type: "error",
-          message: error.response.data.message
-        })
-      }
-    },
-    async userUnfollow() {
-      try {
-        await this.$store.dispatch("relationship/unfollow", this.user.id)
-      } catch(error) {
-        this.$store.dispatch("flash/setFlash", {
-          type: "error",
-          message: error.response.data.message
-        })
-      }
-    }
   }
 }
 </script>

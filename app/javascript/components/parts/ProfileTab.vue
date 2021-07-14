@@ -28,7 +28,7 @@ export default {
         },
         {
           name: "つながり",
-          params: "relation"
+          params: "following"
         }
       ]
     }
@@ -37,14 +37,15 @@ export default {
     setName() {
       return this.$route.path.includes("/profile") ? "profile" : "userProfile"
     }
+  },
+  watch: {
+    $route() {
+      if (this.$route.path.includes("/following")) {
+        this.routes[1].params = "following"
+      } else if (this.$route.path.includes("/followers")) {
+        this.routes[1].params = "followers"
+      }
+    }
   }
 }
 </script>
-
-<style scoped>
-  .v-tabs
-  >>>
-  .v-slide-group__prev {
-    display: none !important;
-  }
-</style>
