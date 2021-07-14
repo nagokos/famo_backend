@@ -16,33 +16,32 @@
       <v-btn
         v-if="!$vuetify.breakpoint.mobile"
         :ripple="false"
-        :outlined="!isFollow"
+        :outlined="!followStatus"
         depressed
         width="120"
         color="primary"
         class="font-weight-bold px-2 py-5 text-caption mr-2"
-        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
+        @click="followStatus ? unfollow() : follow()"
       >
-        {{ isFollow ? 'フォロー中' : 'フォローする' }}
+        {{ followStatus ? 'フォロー中' : 'フォローする' }}
       </v-btn>
       <v-btn
         v-if="$vuetify.breakpoint.mobile"
         depressed
         height="40"
         :ripple="false"
-        :outlined="!isFollow"
+        :outlined="!followStatus"
         color="primary"
         class="px-2"
-        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
+        @click="followStatus ? unfollow() : follow()"
       >
         <v-icon>
-          {{ isFollow ? 'mdi-account-check' : 'mdi-account-plus' }}
+          {{ followStatus ? 'mdi-account-check' : 'mdi-account-plus' }}
         </v-icon>
       </v-btn>
       <v-btn
         class="font-weight-bold px-2 py-5"
         dark
-        depressed
         :ripple="false"
         :width="$vuetify.breakpoint.mobile ? 100 : 120"
         :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
@@ -56,14 +55,14 @@
     >
       <v-btn
         :ripple="false"
-        :outlined="!isFollow"
+        :outlined="!followStatus"
         depressed
         width="120"
         color="primary"
         class="font-weight-bold px-2 py-5 text-caption mr-2"
-        @click="$emit(isFollow ? 'click-unfollow' : 'click-follow')"
+        @click="followStatus ? unfollow() : follow()"
       >
-        {{ isFollow ? 'フォロー中' : 'フォローする' }}
+        {{ followStatus ? 'フォロー中' : 'フォローする' }}
       </v-btn>
     </template>
   </div>
@@ -83,10 +82,39 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      followStatus: this.isFollow
+    }
+  },
   computed: {
     isMypage() {
       return this.$route.path.includes("/profile")
     }
   },
+  methods: {
+    async follow() {
+      try {
+        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationships`)
+        this.followStatus = true
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
+    },
+    async unfollow() {
+      try {
+        await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationships`)
+        this.followStatus = false
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+      }
+    }
+  }
 }
 </script>
