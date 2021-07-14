@@ -5,7 +5,6 @@
     />
     <the-profile-wrapper
       :user="user"
-      :is-follow="isFollow"
     />
   </div>
 </template>
@@ -23,7 +22,6 @@ export default {
     return {
       loading: false,
       user: {},
-      isFollow: false
     }
   },
   computed: {
@@ -47,14 +45,8 @@ export default {
   },
   created() {
     this.getUser()
-    this.checkFollow()
   },
   methods: {
-     async checkFollow() {
-      const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
-      this.isFollow = response.data.status
-      this.loading = true
-    },
     async getUser() {
       const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
       this.user = response.data.user
