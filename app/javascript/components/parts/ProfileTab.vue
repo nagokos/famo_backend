@@ -1,6 +1,5 @@
 <template>
   <v-tabs
-    color="black"
     :fixed-tabs="$vuetify.breakpoint.mobile"
     background-color="#FAFAFA"
     :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
