@@ -13,7 +13,7 @@
         outlined
         dense
         required
-        hint="公式戦での背番号"
+        hint="※ 必須項目です"
         persistent-hint
         type="number"
         :error-messages="errors"
@@ -33,7 +33,6 @@
         outlined
         dense
         background-color="#F2F4F8"
-        hint="練習試合での背番号(必須ではありません)"
         persistent-hint
         type="number"
         :error-messages="errors"
