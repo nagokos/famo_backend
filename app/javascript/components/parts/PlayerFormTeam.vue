@@ -14,6 +14,8 @@
         :items="prefectures"
         item-value="id"
         item-text="name"
+        hint="※ 必須項目です"
+        persistent-hint
         background-color="#F2F4F8"
         :error-messages="errors"
         @click="$emit('update:teamId', '')"
@@ -33,6 +35,8 @@
         outlined
         dense
         required
+        hint="※ 必須項目です"
+        persistent-hint
         label="チーム"
         :items="filterTeams"
         item-value="id"
