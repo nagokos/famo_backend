@@ -6,9 +6,16 @@ Rails.application.routes.draw do
       resources :users, only: %i[create show] do
         collection do
           scope module: :users do
-            resource :current, only: %i[show update destroy]
+            resource :current, only: %i[show update destroy] do
+              scope module: :current do
+                resources :followers, only: %i[index]
+                resources :following, only: %i[index]
+              end
+            end
           end
         end
+        resources :followers, only: %i[index]
+        resources :following, only: %i[index]
         resource :relationships, only: %i[create destroy] do
           get :check, on: :member
         end
