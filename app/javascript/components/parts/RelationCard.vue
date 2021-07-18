@@ -63,7 +63,12 @@
 </template>
 
 <script>
+import RelationCardItem from './RelationCardItem'
+
 export default {
+  components: {
+    RelationCardItem,
+  },
   props: {
     user: {
       type: Object,
