@@ -14,6 +14,8 @@
         :items="leagues"
         item-value="id"
         item-text="name"
+        hint="※ 必須項目です"
+        persistent-hint
         background-color="#F2F4F8"
         :error-messages="errors"
         @click="resetId"
@@ -33,6 +35,8 @@
         dense
         required
         label="カテゴリ"
+        hint="※ 必須項目です"
+        persistent-hint
         :items="filterCategories"
         item-value="id"
         item-text="name"
@@ -58,6 +62,8 @@
         label="グループ"
         :items="filterGroups"
         item-value="id"
+        hint="※ 必須項目です"
+        persistent-hint
         item-text="name"
         background-color="#F2F4F8"
         :error-messages="errors"

@@ -12,7 +12,7 @@
         dense
         label="前所属"
         background-color="#F2F4F8"
-        hint="中学生での所属チーム(必須ではありません)"
+        hint="中学生での所属チーム"
         persistent-hint
         :error-messages="errors"
         @input="$emit('update:career', $event)"

@@ -12,6 +12,8 @@
         dense
         label="ポジション"
         :items="positions"
+        hint="※ 必須項目です"
+        persistent-hint
         required
         background-color="#F2F4F8"
         :error-messages="errors"
