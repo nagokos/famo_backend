@@ -137,9 +137,6 @@ export default {
       required: true
     },
   },
-  created() {
-    this.checkFollow()
-  },
   data() {
     return {
       loading: false,
@@ -156,6 +153,9 @@ export default {
       return this.$route.path.includes("/profile")
     }
   },
+  created() {
+    this.checkFollow()
+  },
   methods: {
     openIntroduction() {
       this.introductionForm = true
@@ -171,8 +171,8 @@ export default {
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
-        this.loading = true
       }
+      this.loading = true
     }
   }
 }
