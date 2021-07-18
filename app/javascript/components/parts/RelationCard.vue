@@ -1,65 +1,59 @@
 <template>
   <v-col cols="12">
     <v-card
-      elevation="1"
       outlined
     >
-      <v-card-title class="font-weight-bold">
-        つながり
-      </v-card-title>
-      <v-card-text>
+      <v-col cols="12">
+        <v-card-title class="font-weight-bold text-h5 pb-0">
+          つながり
+        </v-card-title>
+      </v-col>
+      <v-card-text :class="$vuetify.breakpoint.mobile ? 'px-0 pt-0' : 'pt-0'">
         <v-container>
           <v-row>
             <v-col cols="12">
               <v-tabs
-                color="black"
+                :grow="$vuetify.breakpoint.mobile"
+                :centered="$vuetify.breakpoint.mobile"
               >
-                <v-tab class="font-weight-bold">
-                  フォロー
-                </v-tab>
-                <v-tab class="font-weight-bold">
-                  フォロワー
+                <v-tab
+                  v-for="route in routes"
+                  :key="route.params"
+                  :to="{ name: isMypage ? 'profile' : 'userProfile', params: { type: route.params } }"
+                  class="font-weight-bold"
+                  @click.once="getFollowerData"
+                >
+                  {{ route.name }}
                 </v-tab>
               </v-tabs>
             </v-col>
+            <template v-for="follow in following">
+              <relation-card-item
+                v-show="$route.path.includes('/following') && loading"
+                ref="followComp"
+                :key="`follow-${follow.id}`"
+                :user="follow"
+                @check-follow="followerCheck(follow.id)"
+              />
+            </template>
+            <template v-for="follower in followers">
+              <relation-card-item
+                v-show="$route.path.includes('/followers') && loading"
+                ref="followerComp"
+                :key="`follower-${follower.id}`"
+                :user="follower"
+                @check-follow="follwCheck(follower.id)"
+              />
+            </template>
             <v-col
+              v-if="!loading"
               cols="12"
-              lg="6"
+              align="center"
             >
-              <v-card
-                rounded
-                outlined
-              >
-                <v-card-text
-                  class="px-0 py-0"
-                >
-                  <v-list>
-                    <v-list-item>
-                      <v-list-item-avatar>
-                        <v-img
-                          :src="user.avatar"
-                        />
-                      </v-list-item-avatar>
-                      <v-list-item-content>
-                        <v-list-item-title class="font-weight-black">
-                          {{ fullName }}
-                        </v-list-item-title>
-                      </v-list-item-content>
-                      <v-list-item-action>
-                        <v-btn
-                          rounded
-                          color="primary"
-                          outlined
-                          :ripple="false"
-                          class="font-weight-bold text-capitalize"
-                        >
-                          Follow
-                        </v-btn>
-                      </v-list-item-action>
-                    </v-list-item>
-                  </v-list>
-                </v-card-text>
-              </v-card>
+              <v-progress-circular
+                indeterminate
+                color="primary"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -69,7 +63,12 @@
 </template>
 
 <script>
+import RelationCardItem from './RelationCardItem'
+
 export default {
+  components: {
+    RelationCardItem,
+  },
   props: {
     user: {
       type: Object,
@@ -77,9 +76,85 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      loading: false,
+      following: [],
+      followers: [],
+      routes: [
+        {
+          name: "フォロー",
+          params: "following"
+        },
+        {
+          name: "フォロワー",
+          params: "followers"
+        }
+      ]
+    }
+  },
   computed: {
-    fullName() {
-      return `${this.user.last_name} ${this.user.first_name}`
+    isMypage() {
+      return this.$route.path.includes("/profile")
+    }
+  },
+  mounted() {
+    if (!this.$route.path.includes("/following")) {
+      this.$router.push({ name: this.setName, params: { type: "following" } })
+    }
+    this.setFollowing()
+  },
+  methods: {
+    followerCheck(id) {
+      if (this.followers.length !== 0) {
+        const index = this.$refs.followerComp.findIndex(el => {
+          return el.user.id === id
+        })
+        if (index !== -1) {
+          this.$refs.followerComp[index].switchFollow()
+        }
+      }
+    },
+    follwCheck(id) {
+      if (this.following.length !== 0) {
+        const index = this.$refs.followComp.findIndex(el => {
+          return el.user.id === id
+        })
+        if (index !== -1) {
+          this.$refs.followComp[index].switchFollow()
+        }
+      }
+    },
+    async setFollowing() {
+      await this.getFollowing()
+      await this.$refs.followComp[this.following.length - 1].checkFollow()
+      this.loading = true
+    },
+    async getFollowerData() {
+      if (this.$route.path.includes("/followers")) {
+        this.loading = false
+        await this.getFollowers()
+        await this.$refs.followerComp[this.followers.length - 1].checkFollow()
+        this.loading = true
+      }
+    },
+    async getFollowing() {
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/following")
+        this.following = response.data.users
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/following`)
+        this.following = response.data.users
+      }
+    },
+    async getFollowers() {
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/followers")
+        this.followers = response.data.users
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/followers`)
+        this.followers = response.data.users
+      }
     }
   }
 }

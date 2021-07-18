@@ -18,6 +18,10 @@ export default {
     TheProfileWrapper,
     TheBreadCrumb,
   },
+  beforeRouteUpdate (to, from, next) {
+    next()
+    this.getUser()
+  },
   data() {
     return {
       loading: false,
