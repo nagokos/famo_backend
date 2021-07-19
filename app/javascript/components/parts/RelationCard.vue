@@ -133,7 +133,9 @@ export default {
     },
     async setFollowing() {
       await this.getFollowing()
-      await this.$refs.followComp[this.following.length - 1].checkFollow()
+      if (this.following.length !== 0) {
+        await this.$refs.followComp[this.following.length - 1].checkFollow()
+      }
       this.loading = true
     },
     async setFollowers() {
