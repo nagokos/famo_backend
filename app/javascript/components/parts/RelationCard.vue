@@ -55,10 +55,10 @@
                 color="primary"
               />
             </v-col>
-            <v-col cols="12" align="center" class="text-h6" v-if="$route.path.includes('/following') && following.length === 0">
+            <v-col cols="12" align="center" class="text-h6" v-if="loading && $route.path.includes('/following') && following.length === 0">
               フォローしていません
             </v-col>
-            <v-col cols="12" align="center" class="text-h6" v-if="$route.path.includes('/followers') && followers.length === 0">
+            <v-col cols="12" align="center" class="text-h6" v-if="loading && $route.path.includes('/followers') && followers.length === 0">
               フォロワーがいません
             </v-col>
           </v-row>
