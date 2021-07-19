@@ -21,7 +21,7 @@
                   :key="route.params"
                   :to="{ name: isMypage ? 'profile' : 'userProfile', params: { type: route.params } }"
                   class="font-weight-bold"
-                  @click.once="getFollowerData"
+                  @click.once="setFollowers"
                 >
                   {{ route.name }}
                 </v-tab>
@@ -130,11 +130,13 @@ export default {
       await this.$refs.followComp[this.following.length - 1].checkFollow()
       this.loading = true
     },
-    async getFollowerData() {
+    async setFollowers() {
       if (this.$route.path.includes("/followers")) {
         this.loading = false
         await this.getFollowers()
-        await this.$refs.followerComp[this.followers.length - 1].checkFollow()
+        if (this.followers.length !== 0) {
+          await this.$refs.followerComp[this.followers.length - 1].checkFollow()
+        }
         this.loading = true
       }
     },
