@@ -44,6 +44,7 @@ group :test do
   gem 'capybara'
   gem 'rspec_junit_formatter'
   gem 'shoulda-matchers'
+  gem 'simplecov'
   gem 'webdrivers'
 end
 
