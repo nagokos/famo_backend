@@ -15,6 +15,7 @@
             <v-textarea
               :value="introduction"
               counter="400"
+              auto-grow
               :error-messages="errors"
               @input="$emit('update:introduction', removeWhiteSpace($event))"
             />
