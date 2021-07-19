@@ -1,8 +1,8 @@
 User.create!(
-  first_name: Faker::Name.first_name
-  last_name: Faker::Name.last_name
-  email: 'rails@gmail.com'
-  birth_date: Time.zone.now.strftime("%F")
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  email: 'rails@gmail.com',
+  birth_date: Time.zone.now.strftime("%F"),
   password: 'foobar1111'
 )
 
