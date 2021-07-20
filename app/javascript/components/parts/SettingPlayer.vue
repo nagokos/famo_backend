@@ -266,7 +266,7 @@ export default {
     async sendPlayerData() {
       try {
         if (!this.user.profile) {
-          const response = await this.$axios.post("/api/v1/profile", {
+          const response = await this.$axios.post("/api/v1/users/current/profile", {
             profile: this.profile
           })
           await this.$store.dispatch("flash/setFlash", {
@@ -275,7 +275,7 @@ export default {
           })
           this.profile = response.data.profile
         } else {
-          const response = await this.$axios.patch("/api/v1/profile", {
+          const response = await this.$axios.patch("/api/v1/users/current/profile", {
             profile: this.profile
           })
           await this.$store.dispatch("flash/setFlash", {
