@@ -103,6 +103,7 @@
                 :value="introduction"
                 outlined
                 dense
+                auto-grow
                 label="自己紹介"
                 counter="400"
                 background-color="#F2F4F8"
