@@ -43,6 +43,11 @@ ja:
       relationship:
         follower: フォロワー
         followed: フォロー
+      review:
+        rate: 評価点
+        content: 本文
+        game_date: 試合日
+        privacy: プライバシー
     errors:
       models:
         profile:
