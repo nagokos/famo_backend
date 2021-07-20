@@ -122,7 +122,7 @@ export default {
     },
     async releasePlayer() {
       try {
-        await this.$axios.delete("/api/v1/profile")
+        await this.$axios.delete("/api/v1/users/current/profile")
         await this.$store.dispatch("flash/setFlash", {
           type: "success",
           message: "選手登録を解除しました"
