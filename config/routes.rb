@@ -10,17 +10,21 @@ Rails.application.routes.draw do
               scope module: :current do
                 resources :followers, only: %i[index]
                 resources :following, only: %i[index]
+                resource :profile, only: %i[create update destroy]
               end
             end
           end
         end
-        resources :followers, only: %i[index]
-        resources :following, only: %i[index]
-        resource :relationships, only: %i[create destroy] do
-          get :check, on: :member
+        scope module: :users do
+          resources :reviews, only: %i[index create]
+          resources :followers, only: %i[index]
+          resources :following, only: %i[index]
+          resource :relationships, only: %i[create destroy] do
+            get :check, on: :member
+          end
         end
       end
-      resource :profile, only: %i[create update destroy]
+      resources :reviews, only: %i[index]
       resources :leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]

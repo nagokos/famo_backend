@@ -1,4 +1,4 @@
-class Api::V1::FollowingController < Api::V1::BaseController
+class Api::V1::Users::FollowingController < Api::V1::BaseController
   def index
     user = User.find(params[:user_id])
     following = user.following
