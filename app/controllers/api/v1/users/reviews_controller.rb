@@ -11,7 +11,7 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
   def create
     reviewee = User.find(params[:user_id])
     review = current_user.active_reviews.build(review_params)
-    review.reviewee_id = reviewee.id
+    review.reviewee = reviewee
     if review.save
       render json: review, status: :created
     else
