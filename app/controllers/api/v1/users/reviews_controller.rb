@@ -4,11 +4,11 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
 
   def index
     user = User.find(params[:user_id])
-    if user.reviewer?
-      reviews = user.active_reviews.where.not(privacy: 'player_only')
-    else
-      reviews = user.passive_reviews.where.not(privacy: 'player_only')
-    end
+    reviews = if user.reviewer?
+                user.active_reviews.where.not(privacy: 'player_only')
+              else
+                user.passive_reviews.where.not(privacy: 'player_only')
+              end
     render json: reviews, role: user.role
   end
 
