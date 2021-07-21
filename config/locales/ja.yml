@@ -89,3 +89,7 @@ ja:
         DF: ディフェンダー
         MF: ミッドフィルダー
         FW: フォワード
+    review:
+      privacy:
+        published: 公開
+        player_only: 評価選手のみ
