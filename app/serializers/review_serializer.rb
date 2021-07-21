@@ -8,14 +8,14 @@ class ReviewSerializer < ActiveModel::Serializer
   end
 
   def game_date
-    object.game_date.strftime("%Y/%m/%d")
+    object.game_date.strftime('%Y/%m/%d')
   end
 
   def reviewer
     {
       id: object.reviewer.id,
       full_name: "#{object.reviewer.last_name} #{object.reviewer.first_name}",
-      avatar: object.reviewer.avatar,
+      avatar: object.reviewer.avatar
     }
   end
 
