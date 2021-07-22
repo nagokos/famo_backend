@@ -91,18 +91,27 @@
             md="4"
           />
           <v-col
-            v-if="!isRelation"
+            v-show="!isRelation"
             cols="12"
             md="8"
           >
-            <review-card
+            <keep-alive
+              v-for="(review, index) in reviews"
+              :key="index"
+            >
+              <review-card
+                v-if="!isRelation"
+                :user="user"
+                :review="review"
+              />
+            </keep-alive>
+          </v-col>
+          <keep-alive>
+            <relation-card
+              v-if="isRelation"
               :user="user"
             />
-          </v-col>
-          <relation-card
-            v-if="isRelation"
-            :user="user"
-          />
+          </keep-alive>
         </v-row>
       </v-container>
     </div>
