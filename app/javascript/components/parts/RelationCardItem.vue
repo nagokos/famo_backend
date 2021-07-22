@@ -10,7 +10,7 @@
         class="px-0 py-0"
       >
         <v-list>
-          <v-list-item style="min-height: 66px;">
+          <v-list-item>
             <v-list-item-avatar
               style="cursor: pointer"
               @click="pushUserPage"
@@ -20,11 +20,15 @@
               />
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title class="font-weight-bold">
+              <v-list-item-title
+                class="font-weight-bold"
+              >
                 <span
                   style="cursor: pointer"
                   @click="pushUserPage"
-                >{{ fullName }}</span>
+                >
+                  {{ fullName }}
+                </span>
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>

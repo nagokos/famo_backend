@@ -4,28 +4,32 @@
     class="mb-8"
   >
     <v-card-title>
-      <v-avatar class="mr-4">
+      <v-avatar
+        class="mr-4"
+        style="cursor: pointer;"
+        @click="pushUserPage"
+      >
         <v-img
           :src="user.avatar"
         />
       </v-avatar>
-      <v-icon
-        small
-        class="mr-1"
+      <span
+        class="font-weight-bold text-subtitle-1"
+        style="cursor: pointer;"
+        @click="pushUserPage"
       >
-        mdi-soccer
-      </v-icon>
-      <span class="font-weight-bold text-subtitle-1">{{ fullName }}</span>
+        {{ fullName }}
+      </span>
     </v-card-title>
     <v-card-text class="pb-0">
       <p class="mb-0">
-        とても良いプレーでした。とても良いプレーでしたとても良いプレとても良いプレーでした
+        {{ review.content }}
       </p>
     </v-card-text>
     <v-card-actions class="mr-4 mb-2">
       <v-spacer />
       <v-rating
-        v-model="rating"
+        v-model="rate"
         align="right"
         background-color="#ef5350"
         color="#ef5350"
@@ -33,29 +37,51 @@
         readonly
         dense
       />
-      <span class="mt-1 ml-1 font-weight-bold">{{ rating }}</span>
+      <span
+        class="mt-1 ml-1 font-weight-bold"
+      >
+        {{ review.rate }}
+      </span>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     user: {
       type: Object,
       default: () => {},
       required: true
-    }
-  },
-  data() {
-    return {
-      rating: 3.1
+    },
+    review: {
+      type: Object,
+      default: () => {},
+      required: true
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    rate() {
+      return +this.review.rate
+    },
     fullName() {
-      return `${this.user.last_name} ${this.user.first_name}`
-    }
+      return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
+    },
+    reviewUserId() {
+      return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
+    },
+  },
+  methods: {
+    pushUserPage() {
+      if (this.currentUser.id === this.reviewUserId) {
+        this.$router.push({ name: "profile" })
+      } else {
+        this.$router.push({ name: "userProfile", params: { userId: this.reviewUserId } })
+      }
+    },
   }
 }
 </script>

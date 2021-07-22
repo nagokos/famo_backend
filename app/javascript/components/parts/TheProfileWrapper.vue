@@ -91,18 +91,27 @@
             md="4"
           />
           <v-col
-            v-if="!isRelation"
+            v-show="!isRelation"
             cols="12"
             md="8"
           >
-            <review-card
+            <keep-alive
+              v-for="(review, index) in reviews"
+              :key="index"
+            >
+              <review-card
+                v-if="!isRelation"
+                :user="user"
+                :review="review"
+              />
+            </keep-alive>
+          </v-col>
+          <keep-alive>
+            <relation-card
+              v-if="isRelation"
               :user="user"
             />
-          </v-col>
-          <relation-card
-            v-if="isRelation"
-            :user="user"
-          />
+          </keep-alive>
         </v-row>
       </v-container>
     </div>
@@ -142,7 +151,8 @@ export default {
       loading: false,
       isFollow: false,
       introductionForm: false,
-      userEdit: { ...this.user }
+      userEdit: { ...this.user },
+      reviews: []
     }
   },
   computed: {
@@ -155,6 +165,7 @@ export default {
   },
   created() {
     this.checkFollow()
+    this.getReviews()
   },
   methods: {
     openIntroduction() {
@@ -167,12 +178,21 @@ export default {
     introductionErrors(errors) {
       this.$refs.introductionEdit.setErrors(errors)
     },
+    async getReviews() {
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/reviews")
+        this.reviews = response.data.reviews
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.user.id}/reviews`)
+        this.reviews = response.data.reviews
+      }
+      this.loading = true
+    },
     async checkFollow() {
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
-      this.loading = true
     }
   }
 }

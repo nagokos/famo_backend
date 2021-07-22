@@ -88,33 +88,116 @@
     <div class="players-area">
       <v-container>
         <v-row>
-          <v-col>
+          <v-col cols="12">
             <p class="text-h4 font-weight-bold mb-1">
               The Best Players
-            </p>
-            <p
-              class="font-weight-bold mt-3"
-              style="color: #EF5350;"
-            >
-              シーズンを通してのベストプレイヤー達です！
             </p>
           </v-col>
         </v-row>
       </v-container>
     </div>
-    <div class="review-area">
+    <div class="review-area mb-16">
       <v-container>
         <v-row>
-          <v-col>
+          <v-col cols="12">
             <p class="text-h4 font-weight-bold mb-1">
               みんなの評価
             </p>
-            <p
-              class="font-weight-bold mt-3"
-              style="color: #EF5350;"
+          </v-col>
+          <v-col
+            v-for="(review, index) in reviews"
+            :key="index"
+            cols="12"
+            lg="6"
+          >
+            <v-card
+              outlined
+              :min-height="$vuetify.breakpoint.mobile ? 370 : 310"
+              :max-height="$vuetify.breakpoint.mobile ? 370 : 310"
             >
-              選手達の評価です！
-            </p>
+              <v-card-title>
+                <v-avatar
+                  class="mr-3"
+                  style="cursor: pointer;"
+                  @click="pushUserPage(review.reviewee.id)"
+                >
+                  <v-img
+                    :src="review.reviewee.avatar"
+                  />
+                </v-avatar>
+                <span
+                  class="font-weight-bold"
+                  style="cursor: pointer;"
+                  @click="pushUserPage(review.reviewee.id)"
+                >{{ review.reviewee.fullName }}</span>
+              </v-card-title>
+              <v-card-text class="pb-0">
+                <p class="text-caption">
+                  {{ review.reviewee.team }} / {{ review.reviewee.position }}
+                </p>
+                <v-divider />
+              </v-card-text>
+              <v-card-actions class="pl-3 mt-2 pb-0">
+                <v-rating
+                  v-model="review.rate"
+                  align="right"
+                  background-color="#ef5350"
+                  color="#ef5350"
+                  readonly
+                  dense
+                />
+                <span
+                  class="ml-1 text-h6 font-weight-bold"
+                >
+                  {{ review.rate.toFixed(1) }}
+                </span>
+                <span
+                  v-if="!$vuetify.breakpoint.mobile"
+                  class="text-caption mt-1 ml-3"
+                  style="color: rgba(0,0,0,.6)"
+                >
+                  試合日 {{ review.gameDate }}
+                </span>
+              </v-card-actions>
+              <v-card-text
+                class="py-0 mt-2"
+                :style="$vuetify.breakpoint.mobile ? 'height: 135px; max-height: 135px;' : 'height: 75px; max-height: 75px;'"
+              >
+                <p
+                  v-if="$vuetify.breakpoint.mobile"
+                  class="text-caption"
+                >
+                  試合日 {{ review.gameDate }}
+                </p>
+                <p>
+                  {{ cutContent(review.content) }}<span
+                    v-if="review.content.length >= 80"
+                    class="text-caption mt-1 ml-3 blue--text text--darken-2"
+                    style="cursor: pointer;"
+                  >
+                    もっとみる
+                  </span>
+                </p>
+              </v-card-text>
+              <v-card-actions class="mr-3">
+                <v-spacer />
+                <v-avatar
+                  size="40"
+                  class="mr-3"
+                  style="cursor: pointer;"
+                  @click="pushUserPage(review.reviewer.id)"
+                >
+                  <v-img
+                    :src="review.reviewer.avatar"
+                  />
+                </v-avatar>
+                <span
+                  class="font-weight-bold"
+                  style="cursor: pointer;"
+                  @click="pushUserPage(review.reviewer.id)"
+                >{{ review.reviewer.fullName }}</span>
+              </v-card-actions>
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -126,17 +209,36 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SignupDialog from "../parts/SignupDialog"
 
 export default {
   components: {
     SignupDialog
   },
+  data() {
+    return {
+      reviews: []
+    }
+  },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    cutContent: () =>  {
+      return(content) => {
+        if (content.length >= 80) {
+          return `${content.substr(0, 80)}...`;
+        } else {
+          return content
+        }
+      }
+    },
     mobileStyle() {
       if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-bold'
       else return 'text-h3 font-weight-bold mt-4'
-    }
+    },
+  },
+  created() {
+    this.getReviews()
   },
   mounted() {
     this.isActivation()
@@ -170,6 +272,18 @@ export default {
         })
         localStorage.removeItem("delete")
       }
+    },
+    pushUserPage(userId) {
+      if (this.currentUser.id === userId) {
+        this.$router.push({ name: "profile" })
+      } else {
+        this.$router.push({ name: "userProfile", params: { userId: userId } })
+      }
+    },
+    async getReviews() {
+      const response = await this.$axios.get("/api/v1/reviews")
+      this.reviews = response.data.reviews
+      console.log(this.reviews);
     }
   }
 }
