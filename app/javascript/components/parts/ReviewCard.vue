@@ -28,13 +28,15 @@
               <span v-if="user.role === 'player'">
                 さんのレビュー
               </span>
-              <span v-if="user.role === 'reviewer'"
-              >
+              <span v-if="user.role === 'reviewer'">
                 さんへのレビュー
               </span>
             </span>
           </v-list-item-title>
-          <v-list-item-subtitle class="pb-0" v-if="user.role === 'reviewer'">
+          <v-list-item-subtitle
+            v-if="user.role === 'reviewer'"
+            class="pb-0"
+          >
             <span
               class="text-caption"
               style="color: rgba(0,0,0,.6)"
