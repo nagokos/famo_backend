@@ -4,28 +4,32 @@
     class="mb-8"
   >
     <v-card-title>
-      <v-avatar class="mr-4">
+      <v-avatar
+        class="mr-4"
+        style="cursor: pointer;"
+        @click="pushUserPage"
+      >
         <v-img
           :src="user.avatar"
         />
       </v-avatar>
-      <v-icon
-        small
-        class="mr-1"
+      <span
+        class="font-weight-bold text-subtitle-1"
+        style="cursor: pointer;"
+        @click="pushUserPage"
       >
-        mdi-soccer
-      </v-icon>
-      <span class="font-weight-bold text-subtitle-1">{{ fullName }}</span>
+        {{ fullName }}
+      </span>
     </v-card-title>
     <v-card-text class="pb-0">
       <p class="mb-0">
-        とても良いプレーでした。とても良いプレーでしたとても良いプレとても良いプレーでした
+        {{ review.content }}
       </p>
     </v-card-text>
     <v-card-actions class="mr-4 mb-2">
       <v-spacer />
       <v-rating
-        v-model="rating"
+        v-model="rate"
         align="right"
         background-color="#ef5350"
         color="#ef5350"
