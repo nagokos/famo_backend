@@ -115,15 +115,6 @@ export default {
     reviewUserId() {
       return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
     },
-    cutContent: () => {
-      return(content) => {
-        if (content.length >= 350) {
-          return `${content.substr(0, 350)}...`;
-        } else {
-          return content
-        }
-      }
-    }
   },
   methods: {
     pushUserPage() {
