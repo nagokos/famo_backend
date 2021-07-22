@@ -17,7 +17,7 @@
               <br
                 v-if="!$vuetify.breakpoint.mobile"
               >
-              高校生のプレーヤーを評価するサイトです。
+              高校生のサッカープレーヤーを評価するサイトです。
             </p>
             <v-btn
               dark
@@ -112,12 +112,12 @@
           >
             <v-card
               outlined
-              :min-height="$vuetify.breakpoint.mobile ? 370 : 310"
-              :max-height="$vuetify.breakpoint.mobile ? 370 : 310"
+              :min-height="$vuetify.breakpoint.mobile ? 380 : 310"
+              :max-height="$vuetify.breakpoint.mobile ? 380 : 310"
             >
               <v-card-title>
                 <v-avatar
-                  class="mr-3"
+                  class="mr-2"
                   style="cursor: pointer;"
                   @click="pushUserPage(review.reviewee.id)"
                 >
@@ -125,12 +125,14 @@
                     :src="review.reviewee.avatar"
                   />
                 </v-avatar>
-                <span
-                  class="font-weight-bold"
-                  style="cursor: pointer;"
-                  @click="pushUserPage(review.reviewee.id)"
-                >
-                  {{ review.reviewee.fullName }}
+                <span :class="$vuetify.breakpoint.mobile ? 'text-subtitle-2 font-weight-bold' : 'text-subtitle-1 font-weight-bold'">
+                  <span
+                    style="cursor: pointer;"
+                    @click="pushUserPage(review.reviewee.id)"
+                  >
+                    {{ review.reviewee.fullName }}
+                  </span>
+                  さんへのレビュー
                 </span>
               </v-card-title>
               <v-card-text class="pb-0">
@@ -142,7 +144,6 @@
               <v-card-actions class="pl-3 mt-2 pb-0">
                 <v-rating
                   v-model="review.rate"
-                  align="right"
                   background-color="#ef5350"
                   color="#ef5350"
                   readonly
@@ -161,7 +162,7 @@
               </v-card-actions>
               <v-card-text
                 class="py-0 mt-2"
-                :style="$vuetify.breakpoint.mobile ? 'height: 135px; max-height: 135px;' : 'height: 75px; max-height: 75px;'"
+                :style="$vuetify.breakpoint.mobile ? 'height: 145px; max-height: 145px;' : 'height: 75px; max-height: 75px;'"
               >
                 <p
                   v-if="$vuetify.breakpoint.mobile"
@@ -192,7 +193,7 @@
                   />
                 </v-avatar>
                 <span
-                  class="font-weight-bold"
+                  :class="$vuetify.breakpoint.mobile ? 'text-subtitle-2 font-weight-bold' : 'text-subtitle-1 font-weight-bold'"
                   style="cursor: pointer;"
                   @click="pushUserPage(review.reviewer.id)"
                 >
