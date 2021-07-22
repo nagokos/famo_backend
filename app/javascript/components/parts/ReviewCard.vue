@@ -37,29 +37,51 @@
         readonly
         dense
       />
-      <span class="mt-1 ml-1 font-weight-bold">{{ rating }}</span>
+      <span
+        class="mt-1 ml-1 font-weight-bold"
+      >
+        {{ review.rate }}
+      </span>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     user: {
       type: Object,
       default: () => {},
       required: true
-    }
-  },
-  data() {
-    return {
-      rating: 3.1
+    },
+    review: {
+      type: Object,
+      default: () => {},
+      required: true
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    rate() {
+      return +this.review.rate
+    },
     fullName() {
-      return `${this.user.last_name} ${this.user.first_name}`
-    }
+      return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
+    },
+    reviewUserId() {
+      return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
+    },
+  },
+  methods: {
+    pushUserPage() {
+      if (this.currentUser.id === this.reviewUserId) {
+        this.$router.push({ name: "profile" })
+      } else {
+        this.$router.push({ name: "userProfile", params: { userId: this.reviewUserId } })
+      }
+    },
   }
 }
 </script>
