@@ -3,44 +3,86 @@
     outlined
     class="mb-8"
   >
-    <v-card-title>
-      <v-avatar
-        class="mr-4"
-        style="cursor: pointer;"
-        @click="pushUserPage"
-      >
-        <v-img
-          :src="user.avatar"
-        />
-      </v-avatar>
-      <span
-        class="font-weight-bold text-subtitle-1"
-        style="cursor: pointer;"
-        @click="pushUserPage"
-      >
-        {{ fullName }}
-      </span>
-    </v-card-title>
-    <v-card-text class="pb-0">
-      <p class="mb-0">
-        {{ review.content }}
-      </p>
-    </v-card-text>
-    <v-card-actions class="mr-4 mb-2">
-      <v-spacer />
+    <v-list class="pb-0">
+      <v-list-item>
+        <v-list-item-avatar
+          size="45"
+          class="mr-2"
+          style="cursor: pointer;"
+          @click="pushUserPage"
+        >
+          <v-img
+            :src="user.avatar"
+          />
+        </v-list-item-avatar>
+        <v-list-item-content class="mt-1">
+          <v-list-item-title>
+            <span :class="$vuetify.breakpoint.mobile ? 'text-body-2 font-weight-bold' : 'text-body-2 font-weight-bold'">
+              <span
+                v-cloak
+                style="cursor: pointer;"
+                @click="pushUserPage"
+              >
+                {{ fullName }}
+              </span>
+              <span v-if="user.role === 'player'">
+                さんのレビュー
+              </span>
+              <span v-if="user.role === 'reviewer'"
+              >
+                さんへのレビュー
+              </span>
+            </span>
+          </v-list-item-title>
+          <v-list-item-subtitle class="pb-0" v-if="user.role === 'reviewer'">
+            <span
+              class="text-caption"
+              style="color: rgba(0,0,0,.6)"
+            >
+              {{ review.reviewee.team }} / {{ review.reviewee.position }}
+            </span>
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-card-actions class="pl-3 py-0">
       <v-rating
-        v-model="rate"
-        align="right"
+        v-model="review.rate"
         background-color="#ef5350"
         color="#ef5350"
-        small
         readonly
         dense
       />
-      <span class="mt-1 ml-1 font-weight-bold">
-        {{ review.rate }}
+      <span class="ml-1 text-h6 font-weight-bold">
+        {{ review.rate.toFixed(1) }}
+      </span>
+      <span
+        v-if="!$vuetify.breakpoint.mobile"
+        class="text-caption mt-1 ml-3"
+        style="color: rgba(0,0,0,.6)"
+      >
+        試合日 {{ review.gameDate }}
       </span>
     </v-card-actions>
+    <v-card-text class="mb-2 pt-1">
+      <span
+        v-if="$vuetify.breakpoint.mobile"
+        class="text-caption"
+        style="color: rgba(0,0,0,.6)"
+      >
+        試合日 {{ review.gameDate }}
+      </span>
+      <p class="mb-0 mt-2">
+        {{ cutContent(review.content) }}
+        <span
+          v-if="review.content.length >= 350"
+          class="text-caption mt-1 ml-3 blue--text text--darken-2"
+          style="cursor: pointer;"
+        >
+          もっとみる
+        </span>
+      </p>
+    </v-card-text>
   </v-card>
 </template>
 
