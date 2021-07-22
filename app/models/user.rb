@@ -51,6 +51,14 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def filter_reviews
+    if reviewer?
+      active_reviews
+    else
+      passive_reviews
+    end
+  end
+
   private
 
   def set_uuid
