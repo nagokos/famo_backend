@@ -6,9 +6,7 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
-    <v-card
-      color="#FAFAFA"
-    >
+    <v-card color="#FAFAFA">
       <v-card-actions class="pb-0">
         <v-btn
           icon
@@ -20,9 +18,7 @@
           </v-icon>
         </v-btn>
       </v-card-actions>
-      <v-card-title
-        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-      >
+      <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
         レビュー
       </v-card-title>
       <v-divider />
@@ -187,7 +183,9 @@
                   >
                     {{ item.icon }}
                   </v-icon>
-                  <span class="text-caption">{{ item.title }}</span>
+                  <span class="text-caption">
+                    {{ item.title }}
+                  </span>
                 </v-btn>
               </v-list-item>
             </v-list>

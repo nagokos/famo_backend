@@ -1,7 +1,5 @@
 <template>
-  <v-card
-    color="#FAFAFA"
-  >
+  <v-card color="#FAFAFA">
     <v-btn
       icon
       :ripple="false"
@@ -11,9 +9,7 @@
         mdi-close
       </v-icon>
     </v-btn>
-    <v-card-title
-      class="pt-0 pb-5 font-weight-bold justify-center text-h6"
-    >
+    <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h6">
       認証メール送信
     </v-card-title>
     <v-divider />
@@ -25,9 +21,7 @@
             class="pb-0 mt-6"
             align="center"
           >
-            <p
-              class="font-weight-bold black--text"
-            >
+            <p class="font-weight-bold black--text">
               ご登録のアドレスにアカウント<br v-if="$vuetify.breakpoint.mobile">認証メールを送信しました
             </p>
           </v-col>
@@ -71,9 +65,7 @@
             class="mt-6 pb-0"
             align="center"
           >
-            <p
-              class="font-weight-bold black--text"
-            >
+            <p class="font-weight-bold black--text">
               メールが届かない方はこちら
             </p>
           </v-col>

@@ -13,14 +13,19 @@
         <span
           v-if="props.item.to !== '/'"
           :class="$route.path === props.item.to ? 'black--text font-weight-bold' : ''"
-        >{{ props.item.text }}</span>
-        <span
-          v-else
-        ><v-icon
-          size="18"
-          class="mr-1"
-          style="position: relative; bottom: 2px;"
-        >mdi-home</v-icon>{{ props.item.text }}</span>
+        >
+          {{ props.item.text }}
+        </span>
+        <span v-else>
+          <v-icon
+            size="18"
+            class="mr-1"
+            style="position: relative; bottom: 2px;"
+          >
+            mdi-home
+          </v-icon>
+          {{ props.item.text }}
+        </span>
       </v-breadcrumbs-item>
     </template>
     <template #divider>

@@ -4,9 +4,7 @@
     width="500"
     :persistent="true"
   >
-    <v-card
-      v-if="form"
-    >
+    <v-card v-if="form">
       <v-btn
         icon
         :ripple="false"
@@ -16,15 +14,11 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title
-        class="pt-0 font-weight-bold justify-center"
-      >
+      <v-card-title class="pt-0 font-weight-bold justify-center">
         認証メール再送信
       </v-card-title>
       <v-divider />
-      <v-card-text
-        class="pt-6 pb-0"
-      >
+      <v-card-text class="pt-6 pb-0">
         <ValidationObserver
           ref="observer"
           v-slot="{ handleSubmit }"

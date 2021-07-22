@@ -27,9 +27,7 @@
               md="4"
               class="pt-1 pb-0"
             >
-              <span
-                class="font-weight-bold text-h6 black--text"
-              >
+              <span class="font-weight-bold text-h6 black--text">
                 所属チーム
               </span>
               <div class="mt-1 mb-1">
@@ -63,9 +61,7 @@
               md="4"
               class="pt-1 pb-0"
             >
-              <span
-                class="font-weight-bold text-h6 black--text"
-              >
+              <span class="font-weight-bold text-h6 black--text">
                 所属リーグ
               </span>
             </v-col>
@@ -87,9 +83,7 @@
               cols="12"
               md="4"
             >
-              <span
-                class="font-weight-bold text-h6 black--text"
-              >
+              <span class="font-weight-bold text-h6 black--text">
                 前所属
               </span>
             </v-col>
@@ -109,9 +103,7 @@
               md="4"
               class="pt-1 pb-0"
             >
-              <span
-                class="font-weight-bold text-h6 black--text"
-              >
+              <span class="font-weight-bold text-h6 black--text">
                 ポジション
               </span>
             </v-col>
@@ -131,9 +123,7 @@
               cols="12"
               md="4"
             >
-              <span
-                class="font-weight-bold text-h6 black--text"
-              >
+              <span class="font-weight-bold text-h6 black--text">
                 背番号
               </span>
             </v-col>
@@ -147,9 +137,7 @@
                 v-bind.sync="profile"
               />
             </v-col>
-            <v-col
-              cols="12"
-            >
+            <v-col cols="12">
               <v-btn
                 color="#3949AB"
                 class="font-weight-bold"

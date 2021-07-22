@@ -4,9 +4,7 @@
     elevation="1"
     outlined
   >
-    <v-card-title
-      class="font-weight-bold justify-center"
-    >
+    <v-card-title class="font-weight-bold justify-center">
       ログイン
     </v-card-title>
     <v-divider />

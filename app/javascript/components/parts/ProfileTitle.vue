@@ -19,7 +19,9 @@
       <span
         class="text-h5 font-weight-bold"
         style="position: relative; bottom: 2px;"
-      >{{ rating }}</span>
+      >
+        {{ rating }}
+      </span>
     </v-list-item-title>
   </div>
 </template>

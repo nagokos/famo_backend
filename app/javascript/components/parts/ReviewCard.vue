@@ -37,9 +37,7 @@
         readonly
         dense
       />
-      <span
-        class="mt-1 ml-1 font-weight-bold"
-      >
+      <span class="mt-1 ml-1 font-weight-bold">
         {{ review.rate }}
       </span>
     </v-card-actions>

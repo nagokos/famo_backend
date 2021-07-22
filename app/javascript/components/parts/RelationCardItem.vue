@@ -3,12 +3,8 @@
     cols="12"
     lg="6"
   >
-    <v-card
-      outlined
-    >
-      <v-card-text
-        class="px-0 py-0"
-      >
+    <v-card outlined>
+      <v-card-text class="px-0 py-0">
         <v-list>
           <v-list-item>
             <v-list-item-avatar
@@ -20,9 +16,7 @@
               />
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title
-                class="font-weight-bold"
-              >
+              <v-list-item-title class="font-weight-bold">
                 <span
                   style="cursor: pointer"
                   @click="pushUserPage"

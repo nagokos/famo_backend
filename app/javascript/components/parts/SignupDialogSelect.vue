@@ -1,7 +1,5 @@
 <template>
-  <v-card
-    color="#FAFAFA"
-  >
+  <v-card color="#FAFAFA">
     <v-btn
       icon
       :ripple="false"
@@ -11,9 +9,7 @@
         mdi-close
       </v-icon>
     </v-btn>
-    <v-card-title
-      class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-    >
+    <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
       新規登録
     </v-card-title>
     <v-divider />
@@ -76,7 +72,9 @@
               max-width="25"
               max-height="25"
             />
-            <span class="mx-auto">FaceBookで登録</span>
+            <span class="mx-auto">
+              FaceBookで登録
+            </span>
           </v-btn>
         </v-col>
       </v-row>
