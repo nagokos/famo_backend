@@ -151,7 +151,8 @@ export default {
       loading: false,
       isFollow: false,
       introductionForm: false,
-      userEdit: { ...this.user }
+      userEdit: { ...this.user },
+      reviews: []
     }
   },
   computed: {
@@ -164,6 +165,7 @@ export default {
   },
   created() {
     this.checkFollow()
+    this.getReviews()
   },
   methods: {
     openIntroduction() {
@@ -176,12 +178,21 @@ export default {
     introductionErrors(errors) {
       this.$refs.introductionEdit.setErrors(errors)
     },
+    async getReviews() {
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/reviews")
+        this.reviews = response.data.reviews
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.user.id}/reviews`)
+        this.reviews = response.data.reviews
+      }
+      this.loading = true
+    },
     async checkFollow() {
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
-      this.loading = true
     }
   }
 }
