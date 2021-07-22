@@ -75,7 +75,7 @@
         試合日 {{ review.gameDate }}
       </span>
       <p class="mb-0 mt-2">
-        {{ cutContent(review.content) }}
+        {{ review.content.length >= 350 ? `${review.content.substr(0, 350)}...` : review.content }}
         <span
           v-if="review.content.length >= 350"
           class="text-caption mt-1 ml-3 blue--text text--darken-2"
