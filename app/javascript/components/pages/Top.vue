@@ -227,19 +227,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    cutContent: () =>  {
-      return(content) => {
-        if (content.length >= 80) {
-          return `${content.substr(0, 80)}...`;
-        } else {
-          return content
-        }
-      }
-    },
-    mobileStyle() {
-      if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-bold'
-      else return 'text-h3 font-weight-bold mt-4'
-    },
   },
   created() {
     this.getReviews()
