@@ -209,17 +209,36 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SignupDialog from "../parts/SignupDialog"
 
 export default {
   components: {
     SignupDialog
   },
+  data() {
+    return {
+      reviews: []
+    }
+  },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    cutContent: () =>  {
+      return(content) => {
+        if (content.length >= 80) {
+          return `${content.substr(0, 80)}...`;
+        } else {
+          return content
+        }
+      }
+    },
     mobileStyle() {
       if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-bold'
       else return 'text-h3 font-weight-bold mt-4'
-    }
+    },
+  },
+  created() {
+    this.getReviews()
   },
   mounted() {
     this.isActivation()
@@ -253,6 +272,18 @@ export default {
         })
         localStorage.removeItem("delete")
       }
+    },
+    pushUserPage(userId) {
+      if (this.currentUser.id === userId) {
+        this.$router.push({ name: "profile" })
+      } else {
+        this.$router.push({ name: "userProfile", params: { userId: userId } })
+      }
+    },
+    async getReviews() {
+      const response = await this.$axios.get("/api/v1/reviews")
+      this.reviews = response.data.reviews
+      console.log(this.reviews);
     }
   }
 }
