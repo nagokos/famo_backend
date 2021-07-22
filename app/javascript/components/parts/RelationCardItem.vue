@@ -10,7 +10,7 @@
         class="px-0 py-0"
       >
         <v-list>
-          <v-list-item style="min-height: 66px;">
+          <v-list-item>
             <v-list-item-avatar
               style="cursor: pointer"
               @click="pushUserPage"
