@@ -8,4 +8,7 @@ class Review < ApplicationRecord
   validates :content, presence: true, length: { maximum: 10_000 }
 
   enum privacy: { published: 0, player_only: 1 }
+
+  scope :not_player, -> { where.not(privacy: 'player_only') }
+  scope :conditions_shuffle, -> { where('LENGTH(content) >= 80').order('RAND()').limit(4) }
 end
