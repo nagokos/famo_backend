@@ -103,6 +103,9 @@ export default {
     }
   },
   computed: {
+    setName() {
+      return this.isMypage ? 'profile' : 'userProfile'
+    },
     isMypage() {
       return this.$route.path.includes("/profile")
     }
