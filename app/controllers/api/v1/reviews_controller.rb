@@ -1,6 +1,6 @@
 class Api::V1::ReviewsController < ApplicationController
   def index
-    reviews = Review.where.not(privacy: 'player_only').order('RAND()').limit(4)
+    reviews = Review.not_player.conditions_shuffle
     render json: reviews
   end
 end
