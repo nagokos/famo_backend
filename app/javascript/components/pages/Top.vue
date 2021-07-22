@@ -9,7 +9,7 @@
             md="6"
             :class="$vuetify.breakpoint.mobile ? 'text-center' : 'mt-10'"
           >
-            <p :class="mobileStyle">
+            <p :class="$vuetify.breakpoint.mobile ? 'text-h4 font-weight-bold' : 'text-h3 font-weight-bold mt-4'">
               Everyone please rate
             </p>
             <p style="color: #616161;">
@@ -143,7 +143,7 @@
               </v-card-text>
               <v-card-actions class="pl-3 mt-2 pb-0">
                 <v-rating
-                  v-model="review.rate"
+                  :value="review.rate"
                   background-color="#ef5350"
                   color="#ef5350"
                   readonly
@@ -171,7 +171,8 @@
                   試合日 {{ review.gameDate }}
                 </p>
                 <p>
-                  {{ cutContent(review.content) }}<span
+                  {{ review.content.length >= 80 ? `${review.content.substr(0, 80)}...` : review.content }}
+                  <span
                     v-if="review.content.length >= 80"
                     class="text-caption mt-1 ml-3 blue--text text--darken-2"
                     style="cursor: pointer;"
@@ -226,19 +227,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    cutContent: () =>  {
-      return(content) => {
-        if (content.length >= 80) {
-          return `${content.substr(0, 80)}...`;
-        } else {
-          return content
-        }
-      }
-    },
-    mobileStyle() {
-      if (this.$vuetify.breakpoint.mobile) return 'text-h4 font-weight-bold'
-      else return 'text-h3 font-weight-bold mt-4'
-    },
   },
   created() {
     this.getReviews()

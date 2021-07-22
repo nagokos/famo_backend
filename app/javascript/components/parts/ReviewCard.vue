@@ -28,13 +28,15 @@
               <span v-if="user.role === 'player'">
                 さんのレビュー
               </span>
-              <span v-if="user.role === 'reviewer'"
-              >
+              <span v-if="user.role === 'reviewer'">
                 さんへのレビュー
               </span>
             </span>
           </v-list-item-title>
-          <v-list-item-subtitle class="pb-0" v-if="user.role === 'reviewer'">
+          <v-list-item-subtitle
+            v-if="user.role === 'reviewer'"
+            class="pb-0"
+          >
             <span
               class="text-caption"
               style="color: rgba(0,0,0,.6)"
@@ -47,7 +49,7 @@
     </v-list>
     <v-card-actions class="pl-3 py-0">
       <v-rating
-        v-model="review.rate"
+        :value="review.rate"
         background-color="#ef5350"
         color="#ef5350"
         readonly
@@ -73,7 +75,7 @@
         試合日 {{ review.gameDate }}
       </span>
       <p class="mb-0 mt-2">
-        {{ cutContent(review.content) }}
+        {{ review.content.length >= 350 ? `${review.content.substr(0, 350)}...` : review.content }}
         <span
           v-if="review.content.length >= 350"
           class="text-caption mt-1 ml-3 blue--text text--darken-2"
@@ -113,15 +115,6 @@ export default {
     reviewUserId() {
       return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
     },
-    cutContent: () => {
-      return(content) => {
-        if (content.length >= 350) {
-          return `${content.substr(0, 350)}...`;
-        } else {
-          return content
-        }
-      }
-    }
   },
   methods: {
     pushUserPage() {
