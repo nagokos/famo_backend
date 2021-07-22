@@ -110,7 +110,7 @@ export default {
       return this.$route.path.includes("/profile")
     }
   },
-  mounted() {
+  created() {
     if (!this.$route.path.includes("/following")) {
       this.$router.push({ name: this.setName, params: { type: "following" } })
     }
