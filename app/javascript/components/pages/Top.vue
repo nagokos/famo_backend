@@ -143,7 +143,7 @@
               </v-card-text>
               <v-card-actions class="pl-3 mt-2 pb-0">
                 <v-rating
-                  v-model="review.rate"
+                  :value="review.rate"
                   background-color="#ef5350"
                   color="#ef5350"
                   readonly
