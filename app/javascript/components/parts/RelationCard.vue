@@ -1,8 +1,6 @@
 <template>
   <v-col cols="12">
-    <v-card
-      outlined
-    >
+    <v-card outlined>
       <v-col cols="12">
         <v-card-title class="font-weight-bold text-h5 pb-0">
           つながり

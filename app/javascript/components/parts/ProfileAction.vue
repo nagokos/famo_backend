@@ -10,9 +10,7 @@
     >
       プロフィール編集
     </v-btn>
-    <template
-      v-if="!isMypage && user.role === 'player'"
-    >
+    <template v-if="!isMypage && user.role === 'player'">
       <v-btn
         v-if="!$vuetify.breakpoint.mobile"
         :ripple="false"
@@ -51,9 +49,7 @@
         レビューを書く
       </v-btn>
     </template>
-    <template
-      v-if="!isMypage && user.role === 'reviewer'"
-    >
+    <template v-if="!isMypage && user.role === 'reviewer'">
       <v-btn
         :ripple="false"
         :outlined="!followStatus"

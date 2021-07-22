@@ -6,9 +6,7 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
-    <v-card
-      color="#FAFAFA"
-    >
+    <v-card color="#FAFAFA">
       <v-btn
         icon
         :ripple="false"
@@ -18,9 +16,7 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title
-        class="pt-0 font-weight-black justify-center"
-      >
+      <v-card-title class="pt-0 font-weight-black justify-center">
         ログインでお困りの方
       </v-card-title>
       <v-divider />

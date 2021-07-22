@@ -1,18 +1,12 @@
 <template>
-  <v-card
-    outlined
-  >
-    <v-simple-table
-      dense
-    >
+  <v-card outlined>
+    <v-simple-table dense>
       <tbody>
         <tr
           v-for="data in profileData"
           :key="data.id"
         >
-          <td
-            class="pr-0"
-          >
+          <td class="pr-0">
             <span
               class="font-weight-bold"
               style="font-size: 10px"

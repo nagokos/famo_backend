@@ -28,7 +28,9 @@
           <span
             class="text-caption"
             style="color: white;"
-          >登録 ｜ ログイン</span>
+          >
+            登録 ｜ ログイン
+          </span>
         </v-btn>
         <v-icon
           v-if="currentUser"
@@ -67,9 +69,7 @@
             min-width="240"
             class="py-0"
           >
-            <v-col
-              cols="12"
-            >
+            <v-col cols="12">
               <v-btn
                 text
                 block
@@ -91,9 +91,7 @@
               </v-btn>
             </v-col>
             <v-divider />
-            <v-col
-              cols="12"
-            >
+            <v-col cols="12">
               <v-btn
                 text
                 block
@@ -108,7 +106,9 @@
                 >
                   mdi-cog
                 </v-icon>
-                <span class="text-caption font-weight-bold">アカウント設定</span>
+                <span class="text-caption font-weight-bold">
+                  アカウント設定
+                </span>
               </v-btn>
             </v-col>
             <v-col
@@ -128,7 +128,9 @@
                 >
                   mdi-comment-question
                 </v-icon>
-                <span class="text-caption font-weight-bold">お問い合わせ</span>
+                <span class="text-caption font-weight-bold">
+                  お問い合わせ
+                </span>
               </v-btn>
             </v-col>
             <v-col
@@ -149,9 +151,9 @@
                 >
                   mdi-logout
                 </v-icon>
-                <span
-                  class="text-caption font-weight-bold"
-                >ログアウト</span>
+                <span class="text-caption font-weight-bold">
+                  ログアウト
+                </span>
               </v-btn>
             </v-col>
           </v-list>

@@ -6,9 +6,7 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     @input="close(close)"
   >
-    <v-card
-      color="#FAFAFA"
-    >
+    <v-card color="#FAFAFA">
       <v-btn
         icon
         :ripple="false"
@@ -18,9 +16,7 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title
-        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-      >
+      <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
         アカウント削除
       </v-card-title>
       <v-divider />
@@ -32,12 +28,8 @@
         >
           <v-form>
             <v-container>
-              <v-row
-                justify="center"
-              >
-                <v-col
-                  cols="12"
-                >
+              <v-row justify="center">
+                <v-col cols="12">
                   <v-sheet
                     color="#f1f4f8"
                     rounded
@@ -47,9 +39,7 @@
                         <div class="font-weight-bold text-subtitle-1">
                           注意事項
                         </div>
-                        <ul
-                          class="mt-3"
-                        >
+                        <ul class="mt-3">
                           <li
                             v-for="precaution in precautions"
                             :key="precaution"

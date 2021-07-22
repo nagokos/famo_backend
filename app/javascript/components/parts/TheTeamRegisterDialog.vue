@@ -6,9 +6,7 @@
     :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
     :persistent="true"
   >
-    <v-card
-      color="#FAFAFA"
-    >
+    <v-card color="#FAFAFA">
       <v-btn
         icon
         :ripple="false"
@@ -18,9 +16,7 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-card-title
-        class="pt-0 pb-5 font-weight-bold justify-center text-h5"
-      >
+      <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
         チーム登録
       </v-card-title>
       <v-divider />
@@ -29,9 +25,7 @@
           ref="observer"
           v-slot="{ handleSubmit }"
         >
-          <v-form
-            ref="form"
-          >
+          <v-form ref="form">
             <v-container>
               <v-row>
                 <v-col

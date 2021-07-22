@@ -129,7 +129,9 @@
                   class="font-weight-bold"
                   style="cursor: pointer;"
                   @click="pushUserPage(review.reviewee.id)"
-                >{{ review.reviewee.fullName }}</span>
+                >
+                  {{ review.reviewee.fullName }}
+                </span>
               </v-card-title>
               <v-card-text class="pb-0">
                 <p class="text-caption">
@@ -146,9 +148,7 @@
                   readonly
                   dense
                 />
-                <span
-                  class="ml-1 text-h6 font-weight-bold"
-                >
+                <span class="ml-1 text-h6 font-weight-bold">
                   {{ review.rate.toFixed(1) }}
                 </span>
                 <span
@@ -195,7 +195,9 @@
                   class="font-weight-bold"
                   style="cursor: pointer;"
                   @click="pushUserPage(review.reviewer.id)"
-                >{{ review.reviewer.fullName }}</span>
+                >
+                  {{ review.reviewer.fullName }}
+                </span>
               </v-card-actions>
             </v-card>
           </v-col>

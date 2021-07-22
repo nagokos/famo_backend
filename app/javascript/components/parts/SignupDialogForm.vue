@@ -1,7 +1,5 @@
 <template>
-  <v-card
-    color="#FAFAFA"
-  >
+  <v-card color="#FAFAFA">
     <v-btn
       icon
       :ripple="false"
@@ -11,15 +9,11 @@
         mdi-arrow-left
       </v-icon>
     </v-btn>
-    <v-card-title
-      class="pt-0 pb-5 font-weight-bold justify-center text-h6"
-    >
+    <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h6">
       メールアドレス登録
     </v-card-title>
     <v-divider />
-    <v-card-text
-      class="pb-0"
-    >
+    <v-card-text class="pb-0">
       <ValidationObserver
         ref="observer"
         v-slot="{ handleSubmit }"

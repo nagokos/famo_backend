@@ -1,16 +1,10 @@
 <template>
   <div v-if="loading">
-    <div
-      class="contents"
-    >
-      <v-list
-        color="#FAFAFA"
-      >
+    <div class="contents">
+      <v-list color="#FAFAFA">
         <v-list-item>
           <!-- アバター -->
-          <v-list-item-avatar
-            :size="$vuetify.breakpoint.mobile ? 100 : 110"
-          >
+          <v-list-item-avatar :size="$vuetify.breakpoint.mobile ? 100 : 110">
             <v-img
               :src="user.avatar"
             />
@@ -79,9 +73,7 @@
       <profile-tab />
     </div>
     <v-divider />
-    <div
-      class="contents mt-5"
-    >
+    <div class="contents mt-5">
       <v-container>
         <v-row>
           <!-- 選手カード -->

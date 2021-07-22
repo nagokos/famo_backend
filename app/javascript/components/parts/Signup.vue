@@ -4,16 +4,12 @@
     elevation="1"
     outlined
   >
-    <v-card-title
-      class="font-weight-bold justify-center"
-    >
+    <v-card-title class="font-weight-bold justify-center">
       新規登録
     </v-card-title>
     <v-divider />
     <div class="signup mx-auto">
-      <v-col
-        align="center"
-      >
+      <v-col align="center">
         <p
           style="color: #616161;"
           class="text-body-1 font-weight-medium"

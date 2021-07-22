@@ -8,9 +8,7 @@
     :class="!$vuetify.breakpoint.mobile ? 'mt-5 mr-14' : 'mb-3'"
     min-width="0"
   >
-    <v-icon
-      :color="flash.type"
-    >
+    <v-icon :color="flash.type">
       {{ flash.icon }}
     </v-icon>
     {{ flash.message }}
