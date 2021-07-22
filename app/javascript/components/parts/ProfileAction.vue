@@ -46,6 +46,7 @@
         :width="$vuetify.breakpoint.mobile ? 100 : 120"
         :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
         color="primary"
+        @click="$refs.reviewDialog.open()"
       >
         レビューを書く
       </v-btn>
@@ -65,11 +66,20 @@
         {{ followStatus ? 'フォロー中' : 'フォローする' }}
       </v-btn>
     </template>
+    <the-review-dialog
+      ref="reviewDialog"
+      :user="user"
+    />
   </div>
 </template>
 
 <script>
+import TheReviewDialog from "./TheReviewDialog"
+
 export default {
+  components: {
+    TheReviewDialog
+  },
   props: {
     user: {
       type: Object,
