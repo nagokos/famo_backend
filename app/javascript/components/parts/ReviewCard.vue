@@ -49,7 +49,7 @@
     </v-list>
     <v-card-actions class="pl-3 py-0">
       <v-rating
-        v-model="review.rate"
+        :value="review.rate"
         background-color="#ef5350"
         color="#ef5350"
         readonly
