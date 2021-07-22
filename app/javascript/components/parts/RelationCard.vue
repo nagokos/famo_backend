@@ -85,13 +85,6 @@ export default {
   components: {
     RelationCardItem,
   },
-  props: {
-    user: {
-      type: Object,
-      default: () => {},
-      required: true
-    }
-  },
   data() {
     return {
       loading: false,
