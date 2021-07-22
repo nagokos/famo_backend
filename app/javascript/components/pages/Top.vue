@@ -9,7 +9,7 @@
             md="6"
             :class="$vuetify.breakpoint.mobile ? 'text-center' : 'mt-10'"
           >
-            <p :class="mobileStyle">
+            <p :class="$vuetify.breakpoint.mobile ? 'text-h4 font-weight-bold' : 'text-h3 font-weight-bold mt-4'">
               Everyone please rate
             </p>
             <p style="color: #616161;">
