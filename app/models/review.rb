@@ -3,7 +3,7 @@ class Review < ApplicationRecord
   belongs_to :reviewee, class_name: 'User'
 
   validates :rate, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
-  validates :game_date, presence: true, format: { with: /\d{4}-\d{2}-\d{2}/ }, uniqueness: { scope: [:reviewer, :reviewee] }
+  validates :game_date, presence: true, format: { with: /\d{4}-\d{2}-\d{2}/ }, uniqueness: { scope: %i[reviewer reviewee] }
   validates :privacy, presence: true
   validates :content, presence: true, length: { maximum: 10_000 }
 
