@@ -18,9 +18,11 @@ export default {
     TheProfileWrapper,
     TheBreadCrumb,
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
+    if (from.params.userId !== to.params.userId) {
+      this.getUser(to.params.userId)
+    }
     next()
-    this.getUser()
   },
   data() {
     return {
