@@ -175,7 +175,7 @@ export default {
         const response = await this.$axios.get("/api/v1/users/current/reviews")
         this.reviews = response.data.reviews
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.user.id}/reviews`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`)
         this.reviews = response.data.reviews
       }
       this.loading = true
