@@ -106,9 +106,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    rate() {
-      return +this.review.rate
-    },
     fullName() {
       return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
     },
