@@ -115,6 +115,7 @@ export default {
   },
   methods: {
     pushUserPage() {
+      if (!this.reviewUserId) return
       if (this.currentUser.id === this.reviewUserId) {
         this.$router.push({ name: "profile" })
       } else {
