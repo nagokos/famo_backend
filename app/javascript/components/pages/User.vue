@@ -50,11 +50,12 @@ export default {
     }
   },
   created() {
-    this.getUser()
+    this.getUser(this.$route.params.userId)
   },
   methods: {
-    async getUser() {
-      const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}`)
+    async getUser(userId) {
+      this.loading = false
+      const response = await this.$axios.get(`/api/v1/users/${userId}`)
       this.user = response.data.user
       this.loading = true
     },
