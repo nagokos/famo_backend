@@ -274,7 +274,6 @@ export default {
     async getReviews() {
       const response = await this.$axios.get("/api/v1/reviews")
       this.reviews = response.data.reviews
-      console.log(this.reviews);
     }
   }
 }
