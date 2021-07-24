@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_141906) do
+ActiveRecord::Schema.define(version: 2021_07_24_091155) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_141906) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reviewee_id"], name: "index_reviews_on_reviewee_id"
+    t.index ["reviewer_id", "reviewee_id", "game_date"], name: "index_reviews_on_reviewer_id_and_reviewee_id_and_game_date", unique: true
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
