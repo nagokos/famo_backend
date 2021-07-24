@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   def filter_reviews
     if reviewer?
-      active_reviews
+      active_reviews.joins(:reviewee).merge(User.where(role: 'player'))
     else
       passive_reviews
     end
