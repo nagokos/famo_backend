@@ -8,7 +8,7 @@
         <v-list-item-avatar
           size="45"
           class="mr-2"
-          style="cursor: pointer;"
+          :style="!!reviewUserId ? 'cursor: pointer;' : ''"
           @click="pushUserPage"
         >
           <v-img
@@ -20,12 +20,12 @@
             <span :class="$vuetify.breakpoint.mobile ? 'text-body-2 font-weight-bold' : 'text-body-2 font-weight-bold'">
               <span
                 v-cloak
-                style="cursor: pointer;"
+                :style="!!reviewUserId ? 'cursor: pointer;' : ''"
                 @click="pushUserPage"
               >
                 {{ fullName }}
               </span>
-              <span v-if="user.role === 'player'">
+              <span v-if="user.role === 'player' && !!reviewUserId">
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
@@ -106,9 +106,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    rate() {
-      return +this.review.rate
-    },
     fullName() {
       return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
     },
@@ -118,6 +115,7 @@ export default {
   },
   methods: {
     pushUserPage() {
+      if (!this.reviewUserId) return
       if (this.currentUser.id === this.reviewUserId) {
         this.$router.push({ name: "profile" })
       } else {
