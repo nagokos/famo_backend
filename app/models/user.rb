@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   has_many :active_reviews, class_name: 'Review', foreign_key: 'reviewer_id', dependent: :nullify
-  has_many :passive_reviews, class_name: 'Review', foreign_key: 'reviewee_id', dependent: :nullify
+  has_many :passive_reviews, class_name: 'Review', foreign_key: 'reviewee_id', dependent: :destroy
 
   authenticates_with_sorcery!
 
