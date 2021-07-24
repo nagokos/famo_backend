@@ -13,9 +13,9 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def reviewer
     {
-      id: object.reviewer.id,
-      full_name: "#{object.reviewer.last_name} #{object.reviewer.first_name}",
-      avatar: object.reviewer.avatar
+      id: object.reviewer_id.nil? ? '' : object.reviewer.id,
+      full_name: object.reviewer_id.nil? ? '退会したユーザー' : "#{object.reviewer.last_name} #{object.reviewer.first_name}",
+      avatar: object.reviewer_id.nil? ? 'https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png' : object.reviewer.avatar
     }
   end
 

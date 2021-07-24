@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_043300) do
+ActiveRecord::Schema.define(version: 2021_07_22_141906) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_043300) do
     t.date "game_date", null: false
     t.integer "privacy", default: 0, null: false
     t.text "content", null: false
-    t.string "reviewer_id", null: false
+    t.string "reviewer_id"
     t.string "reviewee_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
