@@ -75,7 +75,7 @@ export default {
       if (this.profile.career) {
         return this.profile.career
       } else {
-        return "所属はありません"
+        return "前所属はありません"
       }
     },
     positionAndUniform() {
