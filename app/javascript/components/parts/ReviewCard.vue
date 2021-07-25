@@ -232,6 +232,20 @@ export default {
     reviewUserId() {
       return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
     },
+    items() {
+      return [
+        {
+          title: "削除",
+          value: 0,
+          icon: "mdi-delete"
+        },
+        {
+          title: "公開設定",
+          value: 1,
+          icon: this.review.privacy === "published" ? "mdi-earth" : "mdi-soccer"
+        }
+      ]
+    }
   },
   methods: {
     pushUserPage() {
