@@ -263,7 +263,8 @@ export default {
     changeMenu(value) {
       switch(value) {
       case 0:
-        this.deleteReview()
+        this.menu = false
+        this.$refs.reviewDeleteDialog.open()
         break
       case 1:
         this.menuSelect = false
@@ -304,7 +305,7 @@ export default {
           type: "success",
           message: "レビューを削除しました"
         })
-        this.menu = false
+        this.$refs.reviewDeleteDialog.close()
         this.$emit("delete-review", this.review)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
