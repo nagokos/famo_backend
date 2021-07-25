@@ -1,4 +1,4 @@
-class Api::V1::ReviewsController < ApplicationController
+class Api::V1::ReviewsController < Api::V1::BaseController
   def index
     reviews = Review.joins(:reviewee).everyone.require_reviewer.conditions_shuffle.merge(User.where(role: 'player'))
     render json: reviews
