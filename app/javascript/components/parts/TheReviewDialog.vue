@@ -256,14 +256,14 @@ export default {
     setPrivacy(value) {
       this.review.privacy = value
     },
-    countDown() {
-      if (this.review.rate === 1) return
-      this.review.rate -= 0.1
-      this.review.rate = Math.round(this.review.rate * 10) / 10
-    },
     countUp() {
       if (this.review.rate === 5) return
       this.review.rate += 0.1
+      this.review.rate = Math.round(this.review.rate * 10) / 10
+    },
+    countDown() {
+      if (this.review.rate === 1) return
+      this.review.rate -= 0.1
       this.review.rate = Math.round(this.review.rate * 10) / 10
     },
     async sendReviewData() {
