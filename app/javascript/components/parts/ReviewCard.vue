@@ -45,6 +45,107 @@
             </span>
           </v-list-item-subtitle>
         </v-list-item-content>
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          left
+          :nudge-left="privacySelect ? '65' : ''"
+          min-width="160"
+        >
+          <template #activator="{ on, attrs }">
+            <v-btn
+              v-if="review.reviewer.id === currentUser.id"
+              :ripple="false"
+              icon
+              back
+              v-bind="attrs"
+              v-on="on"
+              @click="open"
+            >
+              <v-icon>
+                mdi-dots-horizontal
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list
+            v-if="menuSelect"
+            class="py-4"
+          >
+            <v-list-item
+              v-for="(item, index) in items"
+              :key="index"
+            >
+              <v-list-item-title class="text-subtitle-2">
+                <v-btn
+                  large
+                  :ripple="false"
+                  block
+                  text
+                  class="justify-start"
+                  @click="changeMenu(item.value)"
+                >
+                  <v-icon
+                    :color="item.value === 0 ? 'red' : ''"
+                    class="mr-1"
+                    size="20"
+                  >
+                    {{ item.icon }}
+                  </v-icon>
+                  <span :style="item.value === 0 ? 'color: red;' : ''">
+                    {{ item.title }}
+                  </span>
+                </v-btn>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+          <v-list
+            v-if="privacySelect"
+            min-width="225"
+          >
+            <v-col
+              align="center"
+              class="font-weight-bold"
+              cols="12"
+            >
+              公開設定
+            </v-col>
+            <v-divider
+              class="mb-1"
+            />
+            <v-list-item
+              v-for="setting in settings"
+              :key="setting.title"
+              class="my-3"
+            >
+              <v-btn
+                text
+                class="justify-start"
+                block
+                large
+                :value="review.privacy"
+                :ripple="false"
+                @click="changePrivacy(setting)"
+              >
+                <v-icon
+                  class="mr-1"
+                >
+                  {{ setting.icon }}
+                </v-icon>
+                <span>
+                  {{ setting.title }}
+                </span>
+                <v-spacer />
+                <v-icon
+                  v-if="setting.value === review.privacy"
+                  color="primary"
+                  class="ml-2"
+                >
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-list-item>
     </v-list>
     <v-card-actions class="pl-3 py-0">
