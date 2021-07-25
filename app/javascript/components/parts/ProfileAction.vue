@@ -65,6 +65,7 @@
     <the-review-dialog
       ref="reviewDialog"
       :user="user"
+      @create-review="createReview"
     />
   </div>
 </template>
@@ -99,6 +100,9 @@ export default {
     }
   },
   methods: {
+    createReview(review) {
+      this.$emit("create-review", review)
+    },
     async follow() {
       try {
         await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationships`)

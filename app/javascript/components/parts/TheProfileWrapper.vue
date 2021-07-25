@@ -21,8 +21,7 @@
             :user="user"
             :is-follow="isFollow"
             :class="{ 'mt-12': !$vuetify.breakpoint.mobile }"
-            @click-follow="$emit('click-follow')"
-            @click-unfollow="$emit('click-unfollow')"
+            @create-review="pushReview"
           />
         </v-list-item>
         <profile-title
@@ -95,6 +94,7 @@
                 v-if="!isRelation"
                 :user="user"
                 :review="review"
+                @delete-review="filterReview"
               />
             </keep-alive>
           </v-col>
@@ -169,6 +169,13 @@ export default {
     },
     introductionErrors(errors) {
       this.$refs.introductionEdit.setErrors(errors)
+    },
+    filterReview(deleteReview) {
+      this.reviews = this.reviews.filter(review => review.id !== deleteReview.id )
+    },
+    pushReview(review) {
+      console.log(review);
+      this.reviews.unshift(review)
     },
     async getReviews() {
       if (this.isMypage) {
