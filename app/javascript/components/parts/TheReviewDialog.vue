@@ -7,17 +7,15 @@
     :persistent="true"
   >
     <v-card color="#FAFAFA">
-      <v-card-actions class="pb-0">
-        <v-btn
-          icon
-          :ripple="false"
-          @click="close"
-        >
-          <v-icon>
-            mdi-close
-          </v-icon>
-        </v-btn>
-      </v-card-actions>
+      <v-btn
+        icon
+        :ripple="false"
+        @click="close"
+      >
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
       <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
         レビュー
       </v-card-title>
