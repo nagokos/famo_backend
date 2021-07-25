@@ -12,7 +12,7 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
     if review.update(review_params)
       render json: review
     else
-      render json: { errors: review.errors, message: "もう一度選択してください" }
+      render json: { errors: review.errors }
     end
   end
 
