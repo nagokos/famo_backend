@@ -285,7 +285,7 @@ export default {
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "設定に失敗しました"
+          message: "もう一度選択してください"
         })
       }
     },
