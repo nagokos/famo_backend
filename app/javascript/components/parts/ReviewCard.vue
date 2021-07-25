@@ -186,13 +186,21 @@
         </span>
       </p>
     </v-card-text>
+    <the-review-delete-dialog
+      ref="reviewDeleteDialog"
+      @click-delete="deleteReview"
+    />
   </v-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import TheReviewDeleteDialog from "./TheReviewDeleteDialog.vue"
 
 export default {
+  components: {
+    TheReviewDeleteDialog
+  },
   props: {
     user: {
       type: Object,
