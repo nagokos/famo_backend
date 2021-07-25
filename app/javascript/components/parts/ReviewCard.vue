@@ -186,13 +186,21 @@
         </span>
       </p>
     </v-card-text>
+    <the-review-delete-dialog
+      ref="reviewDeleteDialog"
+      @click-delete="deleteReview"
+    />
   </v-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import TheReviewDeleteDialog from "./TheReviewDeleteDialog.vue"
 
 export default {
+  components: {
+    TheReviewDeleteDialog
+  },
   props: {
     user: {
       type: Object,
@@ -255,7 +263,8 @@ export default {
     changeMenu(value) {
       switch(value) {
       case 0:
-        this.deleteReview()
+        this.menu = false
+        this.$refs.reviewDeleteDialog.open()
         break
       case 1:
         this.menuSelect = false
@@ -296,7 +305,7 @@ export default {
           type: "success",
           message: "レビューを削除しました"
         })
-        this.menu = false
+        this.$refs.reviewDeleteDialog.close()
         this.$emit("delete-review", this.review)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {

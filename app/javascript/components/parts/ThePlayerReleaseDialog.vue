@@ -48,9 +48,7 @@
                     </v-container>
                   </v-sheet>
                 </v-col>
-                <v-col
-                  cols="12"
-                >
+                <v-col cols="12">
                   <div>ただし、今までの評価は削除されないため、再登録後も引き継いだままとなります。</div>
                 </v-col>
                 <ValidationProvider rules="required">
