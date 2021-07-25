@@ -12,7 +12,11 @@
         <v-form>
           <v-container>
             <v-row justify="center">
-              <v-col :class="$vuetify.breakpoint.mobile ? 'pb-0 text-caption' : 'pb-0'" align="center" cols="12">
+              <v-col
+                :class="$vuetify.breakpoint.mobile ? 'pb-0 text-caption' : 'pb-0'"
+                align="center"
+                cols="12"
+              >
                 <p>これは、元に戻すことはできません。</p>
               </v-col>
               <v-col
@@ -25,8 +29,8 @@
                   :ripple="false"
                   rounded
                   depressed
-                  @click="close"
                   class="font-weight-bold"
+                  @click="close"
                 >
                   キャンセル
                 </v-btn>
@@ -44,8 +48,8 @@
                   depressed
                   min-width="116"
                   rounded
-                  @click="$emit('click-delete')"
                   class="font-weight-bold"
+                  @click="$emit('click-delete')"
                 >
                   削除
                 </v-btn>

@@ -14,6 +14,7 @@
             max-width="90"
             :ripple="false"
             class="font-weight-bold text-caption mt-1"
+            @click="$refs.passwordChangeDialog.open()"
           >
             変更する
           </v-btn>
@@ -22,6 +23,7 @@
           v-if="!$vuetify.breakpoint.mobile"
           :ripple="false"
           class="font-weight-bold"
+          @click="$refs.passwordChangeDialog.open()"
         >
           変更する
         </v-btn>
@@ -100,17 +102,22 @@
       ref="accountDeleteDialog"
       @delete-user="$emit('delete-user')"
     />
+    <the-password-change-dialog
+      ref="passwordChangeDialog"
+    />
   </div>
 </template>
 
 <script>
 import ThePlayerReleaseDialog from "../parts/ThePlayerReleaseDialog"
 import TheAccountDeleteDialog from "../parts/TheAccountDeleteDialog"
+import ThePasswordChangeDialog from './ThePasswordChangeDialog'
 
 export default {
   components: {
     ThePlayerReleaseDialog,
-    TheAccountDeleteDialog
+    TheAccountDeleteDialog,
+    ThePasswordChangeDialog
   },
   props: {
     user: {

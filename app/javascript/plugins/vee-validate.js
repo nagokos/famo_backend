@@ -1,5 +1,5 @@
 import { ValidationObserver, ValidationProvider, extend, setInteractionMode } from 'vee-validate'
-import { required, max, min, numeric } from 'vee-validate/dist/rules';
+import { required, max, min, numeric, confirmed } from 'vee-validate/dist/rules';
 
 setInteractionMode("eager");
 
@@ -21,6 +21,11 @@ extend("min", {
 extend("numeric", {
   ...numeric,
   message: "{_field_}は数字のみ入力可能です"
+})
+
+extend("passwordConfirmed", {
+  ...confirmed,
+  message: "パスワードが一致していません"
 })
 
 extend("formFormat", {

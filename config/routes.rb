@@ -10,8 +10,9 @@ Rails.application.routes.draw do
               scope module: :current do
                 resources :followers, only: %i[index]
                 resources :following, only: %i[index]
-                resource :profile, only: %i[create update destroy]
                 resources :reviews, only: %i[index update destroy]
+                resource :profile, only: %i[create update destroy]
+                resource :password_changes, only: %i[update]
               end
             end
           end
