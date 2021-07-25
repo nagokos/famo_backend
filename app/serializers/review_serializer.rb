@@ -1,7 +1,7 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :rate, :content, :game_date
-  belongs_to :reviewer, if: -> { instance_options[:role] != 'reviewer' }
-  belongs_to :reviewee, if: -> { instance_options[:role] != 'player' }
+  attributes :id, :rate, :content, :game_date, :privacy
+  belongs_to :reviewer
+  belongs_to :reviewee
 
   def rate
     object.rate.to_i
