@@ -274,7 +274,7 @@ export default {
         })
       }
       try {
-        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/reviews`, {
+        const response = await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/reviews`, {
           review: this.review
         })
         await this.$store.dispatch("flash/setFlash", {
@@ -282,8 +282,18 @@ export default {
           message: "レビューを投稿しました"
         })
         this.close()
+        this.$emit("create-review", response.data.review)
       } catch(error) {
-        console.log(error.response.data);
+        if (Object.keys(error.response.data.errors).includes("game_date")) {
+          return this.$store.dispatch("flash/setFlash", {
+            type: "error",
+            message: "その試合日のレビューは既に存在します"
+          })
+        }
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.errors
+        })
       }
     }
   }
