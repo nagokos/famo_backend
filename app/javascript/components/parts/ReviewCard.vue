@@ -248,6 +248,21 @@ export default {
     }
   },
   methods: {
+    open() {
+      this.menuSelect = true
+      this.privacySelect = false
+    },
+    changeMenu(value) {
+      switch(value) {
+      case 0:
+        this.deleteReview()
+        break
+      case 1:
+        this.menuSelect = false
+        this.privacySelect = true
+        break
+      }
+    },
     pushUserPage() {
       if (!this.reviewUserId) return
       if (this.currentUser.id === this.reviewUserId) {
@@ -256,6 +271,40 @@ export default {
         this.$router.push({ name: "userProfile", params: { userId: this.reviewUserId } })
       }
     },
+    async changePrivacy(setting) {
+      try {
+        this.$set(this.review, 'privacy', setting.value)
+        await this.$axios.patch(`/api/v1/users/current/reviews/${this.review.id}`, {
+          review: this.review
+        })
+        this.menu = false
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: `${setting.title}に設定しました`
+        })
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "設定に失敗しました"
+        })
+      }
+    },
+    async deleteReview() {
+      try {
+        await this.$axios.delete(`/api/v1/users/current/reviews/${this.review.id}`)
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "レビューを削除しました"
+        })
+        this.menu = false
+        this.$emit("delete-review", this.review)
+      } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "レビューを削除できませんでした"
+        })
+      }
+    }
   }
 }
 </script>
