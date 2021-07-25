@@ -11,7 +11,7 @@ Rails.application.routes.draw do
                 resources :followers, only: %i[index]
                 resources :following, only: %i[index]
                 resource :profile, only: %i[create update destroy]
-                resources :reviews, only: %i[index]
+                resources :reviews, only: %i[index update destroy]
               end
             end
           end
