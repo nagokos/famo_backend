@@ -205,6 +205,25 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      menu: false,
+      menuSelect: true,
+      privacySelect: false,
+      settings: [
+        {
+          title: "公開",
+          value: "published",
+          icon: "mdi-earth"
+        },
+        {
+          title: "評価選手のみ",
+          value: "player_only",
+          icon: "mdi-soccer"
+        }
+      ]
+    }
+  },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
     fullName() {
