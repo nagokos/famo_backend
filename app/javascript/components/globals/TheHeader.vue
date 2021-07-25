@@ -80,7 +80,7 @@
               >
                 <v-avatar
                   style="position: relative; right: 5px;"
-                  size="36"
+                  size="32"
                 >
                   <v-img
                     color="#5b7083"
