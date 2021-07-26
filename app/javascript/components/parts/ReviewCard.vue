@@ -51,10 +51,10 @@
           left
           :nudge-left="privacySelect ? '65' : ''"
           min-width="160"
+          v-if="isMyReview"
         >
           <template #activator="{ on, attrs }">
             <v-btn
-              v-if="review.reviewer.id === currentUser.id"
               :ripple="false"
               icon
               back
