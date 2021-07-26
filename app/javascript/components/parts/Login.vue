@@ -23,7 +23,10 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   vid="email"
-                  rules="required"
+                  :rules="{
+                    required: true,
+                    formFormat: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i
+                  }"
                   name="メールアドレス"
                 >
                   <v-text-field
@@ -43,7 +46,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   vid="password"
-                  rules="required"
+                  :rules="{ required: true, min: 8, formFormat: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}$/i }"
                   name="パスワード"
                 >
                   <v-text-field
