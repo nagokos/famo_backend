@@ -174,7 +174,6 @@ export default {
       this.reviews = this.reviews.filter(review => review.id !== deleteReview.id )
     },
     pushReview(review) {
-      console.log(review);
       this.reviews.unshift(review)
     },
     async getReviews() {
