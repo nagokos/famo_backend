@@ -38,7 +38,7 @@
               </v-col>
               <v-col
                 cols="12"
-                class="pt-0"
+                class="py-0"
               >
                 <ValidationProvider
                   v-slot="{ errors }"
@@ -59,6 +59,15 @@
                     @click:append="show = !show"
                   />
                 </ValidationProvider>
+              </v-col>
+              <v-col class="pt-0 pb-1">
+                <span
+                  class="text-caption blue--text text--darken-2"
+                  style="cursor: pointer;"
+                  @click="$router.push({ name: 'passwordReset', params: { type: 'send_password_reset' } })"
+                >
+                  パスワードをお忘れですか？
+                </span>
               </v-col>
               <v-col
                 cols="12"
@@ -102,6 +111,7 @@
               <v-col
                 cols="6"
                 align="center"
+                class="pt-1"
               >
                 <v-avatar
                   size="55"
@@ -115,6 +125,7 @@
               <v-col
                 cols="6"
                 align="center"
+                class="pt-1"
               >
                 <v-avatar
                   size="55"
