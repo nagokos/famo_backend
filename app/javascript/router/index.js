@@ -6,6 +6,7 @@ import SignupLogin from "../components/pages/SignupLogin"
 import Mypage from "../components/pages/Mypage"
 import MySetting from "../components/pages/MySetting"
 import User from "../components/pages/User"
+import PasswordReset from "../components/pages/PasswordReset"
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     path: "/users/:userId/:type?",
     name: "userProfile",
     component: User,
+  },
+  {
+    path: "/account/:type",
+    name: "passwordReset",
+    component: PasswordReset
   }
 ]
 
