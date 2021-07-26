@@ -105,6 +105,7 @@
                   <span
                     class="text-caption blue--text text--darken-2"
                     style="cursor: pointer;"
+                    @click="$router.push({ name: 'passwordReset', params: { type: 'send_password_reset' } })"
                   >
                     現在のパスワードをお忘れですか？
                   </span>
