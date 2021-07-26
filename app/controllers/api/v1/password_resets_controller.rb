@@ -9,7 +9,7 @@ class Api::V1::PasswordResetsController < Api::V1::BaseController
 
   def edit
     token = params[:id]
-    user = User.load_from_reset_password_token(params[:id]) do |user, failure_reason|
+    User.load_from_reset_password_token(params[:id]) do |user, failure_reason|
       if user && !failure_reason
         cookies[:reset_token] = { value: token, path: account_password_reset_path,
                                   expires: 5.minutes.from_now, secure: Rails.env.production?, same_site: 'Lax' }
