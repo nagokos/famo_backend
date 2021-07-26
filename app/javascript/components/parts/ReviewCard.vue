@@ -234,6 +234,9 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
+    isMyReview() {
+      return this.review.reviewer.id === this.currentUser.id
+    },
     fullName() {
       return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
     },
