@@ -38,7 +38,7 @@
               </v-col>
               <v-col
                 cols="12"
-                class="pt-0"
+                class="py-0"
               >
                 <ValidationProvider
                   v-slot="{ errors }"
@@ -102,6 +102,7 @@
               <v-col
                 cols="6"
                 align="center"
+                class="pt-1"
               >
                 <v-avatar
                   size="55"
@@ -115,6 +116,7 @@
               <v-col
                 cols="6"
                 align="center"
+                class="pt-1"
               >
                 <v-avatar
                   size="55"
