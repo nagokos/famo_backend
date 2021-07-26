@@ -51,10 +51,10 @@
           left
           :nudge-left="privacySelect ? '65' : ''"
           min-width="160"
+          v-if="isMyReview"
         >
           <template #activator="{ on, attrs }">
             <v-btn
-              v-if="review.reviewer.id === currentUser.id"
               :ripple="false"
               icon
               back
@@ -234,6 +234,9 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
+    isMyReview() {
+      return this.review.reviewer.id === this.currentUser.id
+    },
     fullName() {
       return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
     },
