@@ -27,10 +27,12 @@ class Api::V1::AccountActivationsController < Api::V1::BaseController
         redirect_to root_path
       else
         case failure_reason
+        when :invalid_token
+          render json: { message: '認証メールの取得からやり直してください' }, status: :bad_request
         when :user_not_found
-          render json: { errors: { message: '既に認証済み又はURLが無効です' } }, status: :bad_request
+          render json: { message: '認証済み又はURLが無効です' }, status: :bad_request
         when :token_expired
-          render json: { errors: { message: '有効期限切れです' } }, status: :bad_request
+          render json: { message: '認証メールの取得からやり直してください' }, status: :bad_request
         end
       end
     end

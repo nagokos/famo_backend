@@ -8,11 +8,11 @@ class Api::V1::UserSessionsController < Api::V1::BaseController
       else
         case failure_reason
         when :invalid_login
-          render json: { errors: { email: 'メールアドレスが間違っています' }, message: 'メールアドレスが間違っています' }, status: :bad_request
+          render json: { errors: { email: 'メールアドレスが間違っています' }, message: 'フォームに不備があります' }, status: :bad_request
         when :inactive
           render json: { status: 'inactive', message: 'アカウントを認証してください' }, status: :bad_request
         when :invalid_password
-          render json: { errors: { password: 'パスワードが間違っています' }, message: 'パスワードが間違っています' }, status: :bad_request
+          render json: { errors: { password: 'パスワードが間違っています' }, message: 'フォームに不備があります' }, status: :bad_request
         end
       end
     end

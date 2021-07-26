@@ -74,7 +74,7 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
       end
 
       it 'エラーメッセージを返す' do
-        expect(json['errors']['message']).to eq('有効期限切れです')
+        expect(json['message']).to eq('認証メールの取得からやり直してください')
       end
     end
 
@@ -89,7 +89,7 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
 
       it 'エラーメッセージを返す' do
         get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
-        expect(json['errors']['message']).to eq('既に認証済み又はURLが無効です')
+        expect(json['message']).to eq('認証済み又はURLが無効です')
       end
     end
   end

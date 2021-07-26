@@ -1,4 +1,7 @@
-class Api::V1::Users::Current::PasswordChangesController < ApplicationController
+class Api::V1::Users::Current::PasswordChangesController < Api::V1::BaseController
+  before_action :required_login, only: %i[update]
+  before_action :check_activation, only: %i[update]
+
   def update
     if current_user.valid_password?(params[:current_password])
       current_user.assign_attributes(user_params)
