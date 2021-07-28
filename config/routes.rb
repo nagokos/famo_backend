@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-
   get 'account/password_reset', to: 'home#index'
   get 'account/send_password_reset', to: 'home#index'
 
@@ -29,20 +28,22 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :password_resets, only: %i[create edit update]
+      resources :reviews, only: %i[index]
       resources :leagues, only: %i[index show] do
         resources :users, only: %i[index], module: :leagues
       end
-      resources :categories, only: %i[show] do
+      resources :categories, only: [] do
         resources :users, only: %i[index], module: :categories
       end
-      resources :groups, only: %i[show] do
+      resources :groups, only: [] do
         resources :users, only: %i[index], module: :groups
       end
-      resources :password_resets, only: %i[create edit update]
-      resources :reviews, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
+      get ':league_id/categories/:id', to: 'categories#show'
+      get ':league_id/:category_id/groups/:id', to: 'groups#show'
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
     end
