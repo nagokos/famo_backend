@@ -7,6 +7,10 @@ import Mypage from "../components/pages/Mypage"
 import MySetting from "../components/pages/MySetting"
 import User from "../components/pages/User"
 import PasswordReset from "../components/pages/PasswordReset"
+import LeaguePlayers from "../components/pages/LeaguePlayers"
+import CategoryPlayers from "../components/pages/CategoryPlayers"
+import GroupPlayers from "../components/pages/GroupPlayers"
+import NotFound from "../components/pages/NotFound"
 
 const routes = [
   {
@@ -37,9 +41,35 @@ const routes = [
     component: User,
   },
   {
+    path: "/:league/:categoryId/:groupId/:userId/:type?",
+    name: "playerProfile",
+    component: User
+  },
+  {
     path: "/account/:type",
     name: "passwordReset",
     component: PasswordReset
+  },
+  {
+    path: "/:league",
+    name: "leaguePlayer",
+    component: LeaguePlayers
+  },
+  {
+    path: "/:league/:categoryId",
+    name: "categoryPlayer",
+    component: CategoryPlayers
+  },
+  {
+    path: "/:league/:categoryId/:groupId",
+    name: "groupPlayer",
+    component: GroupPlayers
+  },
+  {
+    name: "notFound",
+    path: "*",
+    component: NotFound,
+    meta: { title: "お探しのページは見つかりませんでした" }
   }
 ]
 
