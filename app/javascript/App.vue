@@ -3,7 +3,8 @@
     <the-header />
     <v-main style="background: #FAFAFA;">
       <the-flash-message />
-      <router-view />
+      <not-found v-if="isNotFound" />
+      <router-view v-if="!isNotFound" />
     </v-main>
     <the-footer />
   </v-app>
@@ -13,12 +14,23 @@
 import TheHeader from "./components/globals/TheHeader"
 import TheFlashMessage from "./components/globals/TheFlashMessage"
 import TheFooter from "./components/globals/TheFooter"
+import NotFound from "./components/pages/NotFound"
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     TheHeader,
     TheFlashMessage,
-    TheFooter
+    TheFooter,
+    NotFound
   },
+  computed: {
+    ...mapGetters({ isNotFound: "notFound/isNotFound" })
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch("notFound/setNotFound", false)
+    }
+  }
 }
 </script>
