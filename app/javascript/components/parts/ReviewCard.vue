@@ -46,12 +46,12 @@
           </v-list-item-subtitle>
         </v-list-item-content>
         <v-menu
+          v-if="isMyReview"
           v-model="menu"
           :close-on-content-click="false"
           left
           :nudge-left="privacySelect ? '65' : ''"
           min-width="160"
-          v-if="isMyReview"
         >
           <template #activator="{ on, attrs }">
             <v-btn

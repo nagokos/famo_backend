@@ -6,6 +6,7 @@
   >
     <template #item="props">
       <v-breadcrumbs-item
+        exact
         :to="props.item.to"
         :disabled="props.item.disabled"
         class="text-caption"
