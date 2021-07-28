@@ -9,7 +9,7 @@
           class="font-weight-bold"
           style="font-size: 30px;"
         >
-          アカウント設定
+          ユーザー設定
         </div>
       </v-col>
       <v-col
@@ -102,7 +102,7 @@ export default {
           disabled: false
         },
         {
-          text: "アカウント設定",
+          text: "ユーザー設定",
           to: `/settings/${this.$route.params.type}`,
           disabled: true
         },
