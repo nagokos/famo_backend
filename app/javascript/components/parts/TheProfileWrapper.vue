@@ -159,6 +159,11 @@ export default {
     this.checkFollow()
     this.getReviews()
   },
+  mounted() {
+    if (!this.$route.params.type) return
+    if (this.$route.params.type.includes("following") || this.$route.params.type.includes("followers")) return
+    this.$store.dispatch("notFound/setNotFound", true)
+  },
   methods: {
     openIntroduction() {
       this.introductionForm = true
