@@ -31,12 +31,12 @@ Rails.application.routes.draw do
       end
       resources :leagues, only: %i[index show] do
         resources :users, only: %i[index], module: :leagues
-      end
-      resources :categories, only: %i[show] do
-        resources :users, only: %i[index], module: :categories
-      end
-      resources :groups, only: %i[show] do
-        resources :users, only: %i[index], module: :groups
+        resources :categories, only: %i[show] do
+          resources :users, only: %i[index], module: :categories
+          resources :groups, only: %i[show] do
+            resources :users, only: %i[index], module: :groups
+          end
+        end
       end
       resources :password_resets, only: %i[create edit update]
       resources :reviews, only: %i[index]
