@@ -3,4 +3,9 @@ class Api::V1::LeaguesController < Api::V1::BaseController
     leagues = League.preload(categories: [:groups])
     render json: leagues, each_serializer: LeagueSerializer, include: '**'
   end
+
+  def show
+    league = League.find(params[:id])
+    render json: league
+  end
 end

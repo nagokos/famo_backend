@@ -29,9 +29,17 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :leagues, only: %i[index show] do
+        resources :users, only: %i[index], module: :leagues
+      end
+      resources :categories, only: %i[show] do
+        resources :users, only: %i[index], module: :categories
+      end
+      resources :groups, only: %i[show] do
+        resources :users, only: %i[index], module: :groups
+      end
       resources :password_resets, only: %i[create edit update]
       resources :reviews, only: %i[index]
-      resources :leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
