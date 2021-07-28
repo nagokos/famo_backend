@@ -112,6 +112,10 @@ export default {
   created() {
     this.dupUser()
   },
+  mounted() {
+    if (this.$route.params.type.includes("account") || this.$route.params.type.includes("profile") || this.$route.params.type.includes("player")) return
+    this.$store.dispatch("notFound/setNotFound", true)
+  },
   methods: {
     dupUser() {
       this.userEdit = { ...this.currentUser }
