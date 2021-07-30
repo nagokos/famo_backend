@@ -19,6 +19,13 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      default: () => {},
+      required: true
+    }
+  },
   data() {
     return {
       routes: [
@@ -26,25 +33,26 @@ export default {
           name: "レビュー"
         },
         {
-          name: "つながり",
+          name: "フォロー",
           params: "following"
+        },
+        {
+          name: "フォロワー",
+          params: "followers"
         }
       ]
     }
   },
   computed: {
     setName() {
-      return this.$route.path.includes("/profile") ? "profile" : "userProfile"
-    }
-  },
-  watch: {
-    $route() {
-      if (this.$route.path.includes("/following")) {
-        this.routes[1].params = "following"
-      } else if (this.$route.path.includes("/followers")) {
-        this.routes[1].params = "followers"
+      if (!this.$route.path.includes("/profile") && this.user.role === "player") {
+        return "playerProfile"
+      } else if (!this.$route.path.includes("/profile") && this.user.role === "reviewer") {
+        return "reviewerProfile"
+      } else if (this.$route.path.includes("/profile")) {
+        return "profile"
       }
-    }
+    },
   }
 }
 </script>
