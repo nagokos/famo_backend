@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import HomeReviews from "../parts/HomeReviews"
 import HomePlayerSearch from "../parts/HomePlayerSearch"
 import SignupDialog from "../parts/SignupDialog"
@@ -86,6 +87,9 @@ export default {
       reviews: [],
       leagues: [],
     }
+  },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" })
   },
   created() {
     this.getLeagues()
