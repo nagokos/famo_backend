@@ -45,13 +45,15 @@ export default {
   },
   computed: {
     setName() {
-      if (!this.$route.path.includes("/profile") && this.user.role === "player") {
-        return "playerProfile"
+      let name = ""
+      if (!this.$route.path.includes("/profile") && this.user.role === "player")  {
+        name = "playerProfile"
       } else if (!this.$route.path.includes("/profile") && this.user.role === "reviewer") {
-        return "reviewerProfile"
+        name = "reviewerProfile"
       } else if (this.$route.path.includes("/profile")) {
-        return "profile"
+        name = "profile"
       }
+      return name
     },
   }
 }
