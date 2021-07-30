@@ -6,6 +6,6 @@ class Api::V1::LeaguesController < Api::V1::BaseController
 
   def show
     league = League.find(params[:id])
-    render json: league
+    render json: league, nested: true
   end
 end
