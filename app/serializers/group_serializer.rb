@@ -1,6 +1,6 @@
 class GroupSerializer < ActiveModel::Serializer
   attributes :id, :name, :league
-  belongs_to :category
+  belongs_to :category, if: -> { instance_options[:nested] }
 
   def league
     {

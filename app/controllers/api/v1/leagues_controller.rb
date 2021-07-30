@@ -1,7 +1,7 @@
 class Api::V1::LeaguesController < Api::V1::BaseController
   def index
-    leagues = League.preload(categories: [:groups])
-    render json: leagues, each_serializer: LeagueSerializer, include: '**'
+    leagues = League.all
+    render json: leagues, nested: false
   end
 
   def show

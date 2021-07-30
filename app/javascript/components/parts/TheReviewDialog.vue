@@ -282,16 +282,17 @@ export default {
         this.close()
         this.$emit("create-review", response.data.review)
       } catch(error) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: error.response.data.message
+        })
+        if (!error.response.data.errors) return
         if (Object.keys(error.response.data.errors).includes("game_date")) {
           return this.$store.dispatch("flash/setFlash", {
             type: "error",
             message: "その試合日のレビューは既に存在します"
           })
         }
-        this.$store.dispatch("flash/setFlash", {
-          type: "error",
-          message: error.response.data.errors
-        })
       }
     }
   }
