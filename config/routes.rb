@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :groups, only: [] do
         resources :users, only: %i[index], module: :groups
       end
+      resources :hierarchy_leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
