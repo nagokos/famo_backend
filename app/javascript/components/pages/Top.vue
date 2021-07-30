@@ -134,7 +134,7 @@ export default {
       this.reviews = response.data.reviews
     },
     async getLeagues() {
-      const response = await this.$axios.get("/api/v1/leagues")
+      const response = await this.$axios.get("/api/v1/hierarchy_leagues")
       this.leagues = response.data.leagues
     },
   }
