@@ -130,7 +130,6 @@ export default {
     },
     async getReviews() {
       const response = await this.$axios.get("/api/v1/reviews")
-      console.log(response);
       this.reviews = response.data.reviews
     },
     async getLeagues() {
