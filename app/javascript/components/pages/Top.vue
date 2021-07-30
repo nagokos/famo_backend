@@ -20,6 +20,7 @@
               高校生のサッカープレーヤーを評価するサイトです。
             </p>
             <v-btn
+              v-if="!currentUser"
               dark
               color="black"
               class="mt-4 font-weight-bold"
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import HomeReviews from "../parts/HomeReviews"
 import HomePlayerSearch from "../parts/HomePlayerSearch"
 import SignupDialog from "../parts/SignupDialog"
@@ -85,6 +87,9 @@ export default {
       reviews: [],
       leagues: [],
     }
+  },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" })
   },
   created() {
     this.getLeagues()
@@ -129,7 +134,7 @@ export default {
       this.reviews = response.data.reviews
     },
     async getLeagues() {
-      const response = await this.$axios.get("/api/v1/leagues")
+      const response = await this.$axios.get("/api/v1/hierarchy_leagues")
       this.leagues = response.data.leagues
     },
   }
