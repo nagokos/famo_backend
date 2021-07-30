@@ -1,6 +1,6 @@
 class LeagueSerializer < ActiveModel::Serializer
   attributes :id, :name
-  has_many :categories
+  has_many :categories, if: -> { instance_options[:nested] }
 
   class CategorySerializer < ActiveModel::Serializer
     attributes :id, :name
