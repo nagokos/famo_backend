@@ -20,6 +20,7 @@
               高校生のサッカープレーヤーを評価するサイトです。
             </p>
             <v-btn
+              v-if="!currentUser"
               dark
               color="black"
               class="mt-4 font-weight-bold"
