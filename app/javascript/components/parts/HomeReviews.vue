@@ -22,7 +22,7 @@
               <v-avatar
                 class="mr-2"
                 style="cursor: pointer;"
-                @click="pushUserPage(review.reviewee.id)"
+                @click="pushUserPage(review.reviewee)"
               >
                 <v-img
                   :src="review.reviewee.avatar"
@@ -31,16 +31,16 @@
               <span :class="$vuetify.breakpoint.mobile ? 'text-subtitle-2 font-weight-bold' : 'text-subtitle-1 font-weight-bold'">
                 <span
                   style="cursor: pointer;"
-                  @click="pushUserPage(review.reviewee.id)"
+                  @click="pushUserPage(review.reviewee)"
                 >
-                  {{ review.reviewee.fullName }}
+                  {{ fullName(review.reviewee) }}
                 </span>
                 さんへのレビュー
               </span>
             </v-card-title>
             <v-card-text class="pb-0">
               <p class="text-caption">
-                {{ review.reviewee.team }} / {{ review.reviewee.position }}
+                {{ review.reviewee.profile.team }} / {{ review.reviewee.profile.position }}
               </p>
               <v-divider />
             </v-card-text>
@@ -90,7 +90,7 @@
                 size="40"
                 class="mr-3"
                 style="cursor: pointer;"
-                @click="pushUserPage(review.reviewer.id)"
+                @click="pushUserPage(review.reviewer)"
               >
                 <v-img
                   :src="review.reviewer.avatar"
@@ -99,9 +99,9 @@
               <span
                 :class="$vuetify.breakpoint.mobile ? 'text-subtitle-2 font-weight-bold' : 'text-subtitle-1 font-weight-bold'"
                 style="cursor: pointer;"
-                @click="pushUserPage(review.reviewer.id)"
+                @click="pushUserPage(review.reviewer)"
               >
-                {{ review.reviewer.fullName }}
+                {{ fullName(review.reviewer) }}
               </span>
             </v-card-actions>
           </v-card>
@@ -113,6 +113,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Transform from "../../packs/league-transform"
+
 export default {
   props: {
     reviews: {
@@ -122,14 +124,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ currentUser: "user/currentUser" })
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    fullName: () => {
+      return(user) => {
+        return `${user.lastName} ${user.firstName}`
+      }
+    }
   },
   methods: {
-    pushUserPage(userId) {
-      if (this.currentUser.id === userId) {
-        this.$router.push({ name: "profile" })
+    pushUserPage(user) {
+      if (this.currentUser.id === user.id) return this.$router.push({ name: "profile" })
+      if (user.role === "player") {
+        const leagueEigo = Transform.leagueNameEigo(user.profile.league.name)
+        const leagueId = Transform.getLeagueId(leagueEigo)
+        this.$router.push({
+          name: "playerProfile",
+          params: { league: leagueId, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }
+        })
       } else {
-        this.$router.push({ name: "userProfile", params: { userId: userId } })
+        return console.log('reviewer');
       }
     }
   }

@@ -244,7 +244,7 @@ export default {
       this.loading = true
     },
     async getLeagueData() {
-      const response = await this.$axios.get("/api/v1/leagues")
+      const response = await this.$axios.get("/api/v1/hierarchy_leagues")
       this.leagues = response.data.leagues
     },
     async getPrefectureTeamData() {
