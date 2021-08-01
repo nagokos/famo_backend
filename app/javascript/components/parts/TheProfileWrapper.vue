@@ -168,6 +168,19 @@ export default {
       return this.$route.path.includes("/profile")
     }
   },
+  watch: {
+    $route(route) {
+      if(route.path.includes("/following")) {
+        this.$nextTick(() => {
+          this.$refs.following.switchFollow(this.ids)
+        })
+      } else if (route.path.includes("/followers")) {
+        this.$nextTick(() => {
+           this.$refs.followers.switchFollow(this.ids)
+        })
+      }
+    }
+  },
   created() {
     this.checkFollow()
     this.getReviews()
