@@ -156,7 +156,8 @@ export default {
       isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user },
-      reviews: []
+      reviews: [],
+      ids: []
     }
   },
   computed: {
