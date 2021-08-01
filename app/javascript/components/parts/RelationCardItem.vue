@@ -87,11 +87,16 @@ export default {
     switchFollow() {
       this.isFollow = !this.isFollow
     },
-    pushUserPage() {
-      if (this.currentUser.id === this.user.id) {
-        this.$router.push({ name: "profile" })
+    pushUserPage(user) {
+      if (this.currentUser.id === user.id) return this.$router.push({ name: "profile" })
+      if (user.role === "player") {
+        const leagueEigo = Transform.leagueNameEigo(user.profile.league.name)
+        this.$router.push({
+          name: "playerProfile",
+          params: { league: leagueEigo, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }
+        })
       } else {
-        this.$router.push({ name: "userProfile", params: { userId: this.user.id } })
+        this.$router.push({ name: "reviewerProfile", params: { userId: user.id } })
       }
     },
     async checkFollow() {
@@ -102,7 +107,7 @@ export default {
       try {
         await this.$axios.post(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = true
-        this.$emit("check-follow")
+        this.$emit("check-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
@@ -114,7 +119,7 @@ export default {
       try {
         await this.$axios.delete(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = false
-        this.$emit("check-follow")
+        this.$emit("check-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
