@@ -102,8 +102,18 @@
           </v-col>
           <keep-alive>
             <relation-card
-              v-if="isRelation"
-              :user="user"
+              v-if="$route.path.includes('/following')"
+              ref="following"
+              @check-follow="setFollowIds"
+              @reset-ids="ids = []"
+            />
+          </keep-alive>
+          <keep-alive>
+            <relation-card
+              v-if="$route.path.includes('/followers')"
+              ref="followers"
+              @check-follow="setFollowIds"
+              @reset-ids="ids = []"
             />
           </keep-alive>
         </v-row>
