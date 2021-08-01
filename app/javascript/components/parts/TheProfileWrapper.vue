@@ -69,7 +69,9 @@
     >
       <v-divider />
       <!-- タブ -->
-      <profile-tab />
+      <profile-tab
+        :user="user"
+      />
     </div>
     <v-divider />
     <div class="contents mt-5">
