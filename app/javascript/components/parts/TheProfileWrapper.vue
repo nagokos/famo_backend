@@ -191,6 +191,9 @@ export default {
     this.$store.dispatch("notFound/setNotFound", true)
   },
   methods: {
+    setFollowIds(id) {
+      this.ids.push(id)
+    },
     openIntroduction() {
       this.introductionForm = true
       this.userEdit = { ...this.user }
