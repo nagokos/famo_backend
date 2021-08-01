@@ -4,59 +4,53 @@
     lg="6"
   >
     <v-card outlined>
-      <v-card-text class="px-0 py-0">
-        <v-list>
-          <v-list-item style="min-height: 66px;">
-            <v-list-item-avatar
-              style="cursor: pointer"
-              @click="pushUserPage"
-            >
-              <v-img
-                :src="user.avatar"
-              />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="font-weight-bold">
-                <span
-                  style="cursor: pointer"
-                  @click="pushUserPage"
-                >
-                  {{ fullName }}
-                </span>
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
-                v-if="!$vuetify.breakpoint.mobile && currentUser.id !== user.id"
-                :ripple="false"
-                :outlined="!isFollow"
-                depressed
-                width="120"
-                color="primary"
-                class="font-weight-bold px-2 py-5 text-caption mr-2"
-                @click="isFollow ? unfollow() : follow()"
-              >
-                {{ isFollow ? 'フォロー中' : 'フォローする' }}
-              </v-btn>
-              <v-btn
-                v-if="$vuetify.breakpoint.mobile && currentUser.id !== user.id"
-                depressed
-                small
-                height="30"
-                :outlined="!isFollow"
-                :ripple="false"
-                color="primary"
-                class="px-2"
-                @click="isFollow ? unfollow() : follow()"
-              >
-                <v-icon>
-                  {{ isFollow ? "mdi-account-check" : "mdi-account-plus" }}
-                </v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-      </v-card-text>
+      <v-list-item>
+        <v-avatar
+          class="my-3 mr-4"
+          size="60"
+          style="cursor: pointer"
+          @click="pushUserPage(user)"
+        >
+          <v-img
+            :src="user.avatar"
+          />
+        </v-avatar>
+        <v-list-item-title class="font-weight-bold text-subtitle-1">
+          <span
+            style="cursor: pointer"
+            @click="pushUserPage(user)"
+          >
+            {{ fullName(user) }}
+          </span>
+        </v-list-item-title>
+        <v-spacer />
+        <v-btn
+          v-if="!$vuetify.breakpoint.mobile && currentUser.id !== user.id"
+          :ripple="false"
+          :outlined="!isFollow"
+          depressed
+          width="120"
+          color="primary"
+          class="font-weight-bold px-2 py-5 text-caption mr-2"
+          @click="isFollow ? unfollow() : follow()"
+        >
+          {{ isFollow ? 'フォロー中' : 'フォローする' }}
+        </v-btn>
+        <v-btn
+          v-if="$vuetify.breakpoint.mobile && currentUser.id !== user.id"
+          depressed
+          height="40"
+          :ripple="false"
+          :outlined="!isFollow"
+          color="primary"
+          class="px-2"
+          @click="isFollow ? unfollow() : follow()"
+        >
+          <v-icon>
+            {{ isFollow ? 'mdi-account-check' : 'mdi-account-plus' }}
+          </v-icon>
+        </v-btn>
+      </v-list-item>
     </v-card>
   </v-col>
 </template>
