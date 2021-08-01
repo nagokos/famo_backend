@@ -69,14 +69,15 @@ export default {
   },
   data() {
     return {
-      loading: false,
       isFollow: false,
     }
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
+    fullName: () => {
+      return(user) => {
+        return `${user.lastName} ${user.firstName}`
+      }
     }
   },
   created() {
