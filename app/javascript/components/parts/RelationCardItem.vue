@@ -4,65 +4,61 @@
     lg="6"
   >
     <v-card outlined>
-      <v-card-text class="px-0 py-0">
-        <v-list>
-          <v-list-item style="min-height: 66px;">
-            <v-list-item-avatar
-              style="cursor: pointer"
-              @click="pushUserPage"
-            >
-              <v-img
-                :src="user.avatar"
-              />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="font-weight-bold">
-                <span
-                  style="cursor: pointer"
-                  @click="pushUserPage"
-                >
-                  {{ fullName }}
-                </span>
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
-                v-if="!$vuetify.breakpoint.mobile && currentUser.id !== user.id"
-                :ripple="false"
-                :outlined="!isFollow"
-                depressed
-                width="120"
-                color="primary"
-                class="font-weight-bold px-2 py-5 text-caption mr-2"
-                @click="isFollow ? unfollow() : follow()"
-              >
-                {{ isFollow ? 'フォロー中' : 'フォローする' }}
-              </v-btn>
-              <v-btn
-                v-if="$vuetify.breakpoint.mobile && currentUser.id !== user.id"
-                depressed
-                small
-                height="30"
-                :outlined="!isFollow"
-                :ripple="false"
-                color="primary"
-                class="px-2"
-                @click="isFollow ? unfollow() : follow()"
-              >
-                <v-icon>
-                  {{ isFollow ? "mdi-account-check" : "mdi-account-plus" }}
-                </v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-      </v-card-text>
+      <v-list-item>
+        <v-avatar
+          class="my-3 mr-4"
+          size="60"
+          style="cursor: pointer"
+          @click="pushUserPage(user)"
+        >
+          <v-img
+            :src="user.avatar"
+          />
+        </v-avatar>
+        <v-list-item-title class="font-weight-bold text-subtitle-1">
+          <span
+            style="cursor: pointer"
+            @click="pushUserPage(user)"
+          >
+            {{ fullName(user) }}
+          </span>
+        </v-list-item-title>
+        <v-spacer />
+        <v-btn
+          v-if="!$vuetify.breakpoint.mobile && currentUser.id !== user.id"
+          :ripple="false"
+          :outlined="!isFollow"
+          depressed
+          width="120"
+          color="primary"
+          class="font-weight-bold px-2 py-5 text-caption mr-2"
+          @click="isFollow ? unfollow() : follow()"
+        >
+          {{ isFollow ? 'フォロー中' : 'フォローする' }}
+        </v-btn>
+        <v-btn
+          v-if="$vuetify.breakpoint.mobile && currentUser.id !== user.id"
+          depressed
+          height="40"
+          :ripple="false"
+          :outlined="!isFollow"
+          color="primary"
+          class="px-2"
+          @click="isFollow ? unfollow() : follow()"
+        >
+          <v-icon>
+            {{ isFollow ? 'mdi-account-check' : 'mdi-account-plus' }}
+          </v-icon>
+        </v-btn>
+      </v-list-item>
     </v-card>
   </v-col>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Transform from "../../packs/league-transform"
+
 export default {
   props: {
     user: {
@@ -73,14 +69,15 @@ export default {
   },
   data() {
     return {
-      loading: false,
       isFollow: false,
     }
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
+    fullName: () => {
+      return(user) => {
+        return `${user.lastName} ${user.firstName}`
+      }
     }
   },
   created() {
@@ -90,11 +87,16 @@ export default {
     switchFollow() {
       this.isFollow = !this.isFollow
     },
-    pushUserPage() {
-      if (this.currentUser.id === this.user.id) {
-        this.$router.push({ name: "profile" })
+    pushUserPage(user) {
+      if (this.currentUser.id === user.id) return this.$router.push({ name: "profile" })
+      if (user.role === "player") {
+        const leagueEigo = Transform.leagueNameEigo(user.profile.league.name)
+        this.$router.push({
+          name: "playerProfile",
+          params: { league: leagueEigo, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }
+        })
       } else {
-        this.$router.push({ name: "userProfile", params: { userId: this.user.id } })
+        this.$router.push({ name: "reviewerProfile", params: { userId: user.id } })
       }
     },
     async checkFollow() {
@@ -105,7 +107,7 @@ export default {
       try {
         await this.$axios.post(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = true
-        this.$emit("check-follow")
+        this.$emit("check-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
@@ -117,7 +119,7 @@ export default {
       try {
         await this.$axios.delete(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = false
-        this.$emit("check-follow")
+        this.$emit("check-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",

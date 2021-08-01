@@ -69,7 +69,9 @@
     >
       <v-divider />
       <!-- タブ -->
-      <profile-tab />
+      <profile-tab
+        :user="user"
+      />
     </div>
     <v-divider />
     <div class="contents mt-5">
@@ -82,7 +84,7 @@
             md="4"
           />
           <v-col
-            v-show="!isRelation"
+            v-if="!isRelation"
             cols="12"
             md="8"
           >
@@ -100,8 +102,18 @@
           </v-col>
           <keep-alive>
             <relation-card
-              v-if="isRelation"
-              :user="user"
+              v-if="$route.path.includes('/following')"
+              ref="following"
+              @check-follow="setFollowIds"
+              @reset-ids="ids = []"
+            />
+          </keep-alive>
+          <keep-alive>
+            <relation-card
+              v-if="$route.path.includes('/followers')"
+              ref="followers"
+              @check-follow="setFollowIds"
+              @reset-ids="ids = []"
             />
           </keep-alive>
         </v-row>
@@ -114,8 +126,8 @@
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
 import PlayerTable from "../parts/PlayerTable"
-import Introduction from '../parts/Introduction.vue'
-import IntroductionEdit from '../parts/IntroductionEdit.vue'
+import Introduction from '../parts/Introduction'
+import IntroductionEdit from '../parts/IntroductionEdit'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
@@ -144,7 +156,8 @@ export default {
       isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user },
-      reviews: []
+      reviews: [],
+      ids: []
     }
   },
   computed: {
@@ -153,6 +166,19 @@ export default {
     },
     isMypage() {
       return this.$route.path.includes("/profile")
+    }
+  },
+  watch: {
+    $route(route) {
+      if(route.path.includes("/following")) {
+        this.$nextTick(() => {
+          this.$refs.following.switchFollow(this.ids)
+        })
+      } else if (route.path.includes("/followers")) {
+        this.$nextTick(() => {
+           this.$refs.followers.switchFollow(this.ids)
+        })
+      }
     }
   },
   created() {
@@ -165,6 +191,9 @@ export default {
     this.$store.dispatch("notFound/setNotFound", true)
   },
   methods: {
+    setFollowIds(id) {
+      this.ids.push(id)
+    },
     openIntroduction() {
       this.introductionForm = true
       this.userEdit = { ...this.user }
@@ -189,13 +218,13 @@ export default {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`)
         this.reviews = response.data.reviews
       }
-      this.loading = true
     },
     async checkFollow() {
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
+      this.loading = true
     }
   }
 }
