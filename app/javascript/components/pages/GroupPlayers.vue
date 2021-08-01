@@ -19,6 +19,7 @@ export default {
   },
   data() {
     return {
+      players: [],
       group: {},
       loading: false
     }
@@ -51,8 +52,13 @@ export default {
   },
   created() {
     this.getGroup()
+    this.getPlayers()
   },
   methods: {
+    async getPlayers() {
+      const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}/users`)
+      this.players = response.data.users
+    },
     async getGroup() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(
@@ -60,7 +66,6 @@ export default {
       )
       this.group = response.data.group
       this.loading = true
-      console.log(this.group);
     }
   }
 }
