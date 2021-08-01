@@ -8,7 +8,7 @@
         <v-list-item-avatar
           size="45"
           class="mr-2"
-          :style="!!reviewUserId ? 'cursor: pointer;' : ''"
+          :style="!!reviewUser.id ? 'cursor: pointer;' : ''"
           @click="pushUserPage"
         >
           <v-img
@@ -20,12 +20,12 @@
             <span :class="$vuetify.breakpoint.mobile ? 'text-body-2 font-weight-bold' : 'text-body-2 font-weight-bold'">
               <span
                 v-cloak
-                :style="!!reviewUserId ? 'cursor: pointer;' : ''"
+                :style="!!reviewUser.id ? 'cursor: pointer;' : ''"
                 @click="pushUserPage"
               >
                 {{ fullName }}
               </span>
-              <span v-if="user.role === 'player' && !!reviewUserId">
+              <span v-if="user.role === 'player' && !!reviewUser.id">
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
