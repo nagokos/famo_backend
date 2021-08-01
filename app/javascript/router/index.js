@@ -5,7 +5,8 @@ import Top from "../components/pages/Top"
 import SignupLogin from "../components/pages/SignupLogin"
 import Mypage from "../components/pages/Mypage"
 import MySetting from "../components/pages/MySetting"
-import User from "../components/pages/User"
+import Reviewer from "../components/pages/Reviewer"
+import Player from "../components/pages/Player"
 import PasswordReset from "../components/pages/PasswordReset"
 import LeaguePlayers from "../components/pages/LeaguePlayers"
 import CategoryPlayers from "../components/pages/CategoryPlayers"
@@ -37,13 +38,13 @@ const routes = [
   },
   {
     path: "/users/:userId/:type?",
-    name: "userProfile",
-    component: User,
+    name: "reviewerProfile",
+    component: Reviewer,
   },
   {
     path: "/:league/:categoryId/:groupId/:userId/:type?",
     name: "playerProfile",
-    component: User
+    component: Player
   },
   {
     path: "/account/:type",

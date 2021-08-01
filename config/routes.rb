@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       resources :account_activations, only: %i[create edit]
       get ':league_id/categories/:id', to: 'categories#show'
       get ':league_id/:category_id/groups/:id', to: 'groups#show'
+      get ':league_id/:category_id/:group_id/users/:id', to: 'groups/users#show'
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
     end
