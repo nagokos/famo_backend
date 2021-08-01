@@ -84,7 +84,7 @@
             md="4"
           />
           <v-col
-            v-show="!isRelation"
+            v-if="!isRelation"
             cols="12"
             md="8"
           >
