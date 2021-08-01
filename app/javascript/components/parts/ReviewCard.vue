@@ -41,7 +41,7 @@
               class="text-caption"
               style="color: rgba(0,0,0,.6)"
             >
-              {{ review.reviewee.team }} / {{ review.reviewee.position }}
+              {{ review.reviewee.profile.team }}({{ review.reviewee.profile.prefecture.name }}) / {{ review.reviewee.profile.position }}
             </span>
           </v-list-item-subtitle>
         </v-list-item-content>
