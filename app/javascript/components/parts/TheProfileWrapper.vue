@@ -218,13 +218,13 @@ export default {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`)
         this.reviews = response.data.reviews
       }
-      this.loading = true
     },
     async checkFollow() {
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
+      this.loading = true
     }
   }
 }
