@@ -195,6 +195,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Transform from "../../packs/league-transform"
 import TheReviewDeleteDialog from "./TheReviewDeleteDialog.vue"
 
 export default {
@@ -238,10 +239,11 @@ export default {
       return this.review.reviewer.id === this.currentUser.id
     },
     fullName() {
-      return this.user.role === 'player' ? this.review.reviewer.fullName : this.review.reviewee.fullName
+      return this.user.role === 'player' ? `${this.review.reviewer.lastName} ${this.review.reviewer.firstName}` :
+                                           `${this.review.reviewee.lastName} ${this.review.reviewee.firstName}`
     },
-    reviewUserId() {
-      return this.user.role === 'player' ? this.review.reviewer.id : this.review.reviewee.id
+    reviewUser() {
+      return this.user.role === 'player' ? this.review.reviewer : this.review.reviewee
     },
     items() {
       return [
@@ -276,11 +278,15 @@ export default {
       }
     },
     pushUserPage() {
-      if (!this.reviewUserId) return
-      if (this.currentUser.id === this.reviewUserId) {
-        this.$router.push({ name: "profile" })
+      if (this.currentUser.id === this.reviewUser.id) return this.$router.push({ name: "profile" })
+      if (this.reviewUser.role === "player") {
+        const leagueEigo = Transform.leagueNameEigo(this.reviewUser.profile.league.name)
+        this.$router.push({
+          name: "playerProfile",
+          params: { league: leagueEigo, categoryId: this.reviewUser.profile.category.id, groupId: this.reviewUser.profile.groupId, userId: this.reviewUser.id }
+        })
       } else {
-        this.$router.push({ name: "userProfile", params: { userId: this.reviewUserId } })
+        this.$router.push({ name: "reviewerProfile", params: { userId: this.reviewUser.id } })
       }
     },
     async changePrivacy(setting) {
