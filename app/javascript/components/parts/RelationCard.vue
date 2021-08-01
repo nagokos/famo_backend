@@ -45,7 +45,7 @@ import RelationCardItem from './RelationCardItem'
 
 export default {
   components: {
-    RelationCardItem,
+    RelationCardItem
   },
   data() {
     return {
