@@ -19,6 +19,7 @@ export default {
   },
   data() {
     return {
+      players: [],
       category: {},
       loading: false
     }
@@ -46,14 +47,18 @@ export default {
   },
   created() {
     this.getCategory()
+    this.getPlayers()
   },
   methods: {
+     async getPlayers() {
+      const response = await this.$axios.get(`/api/v1/categories/${this.$route.params.categoryId}/users`)
+      this.players = response.data.users
+    },
     async getCategory() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/${leagueId}/categories/${this.$route.params.categoryId}`)
       this.category = response.data.category
       this.loading = true
-      console.log(this.category.league.name);
     }
   }
 }
