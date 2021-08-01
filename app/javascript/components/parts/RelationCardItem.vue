@@ -57,6 +57,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Transform from "../../packs/league-transform"
+
 export default {
   props: {
     user: {
