@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: %i[index create show] do
+      resources :users, only: %i[create show] do
         collection do
           scope module: :users do
             resource :current, only: %i[show update destroy] do
