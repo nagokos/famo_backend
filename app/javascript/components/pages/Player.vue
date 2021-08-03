@@ -42,17 +42,17 @@ export default {
           },
           {
             text: this.user.profile.league.name,
-            to: `/${this.$route.params.league}`,
+            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}`,
             disabled: false
           },
           {
             text: this.user.profile.category.name,
-            to: `/${this.$route.params.league}/${this.$route.params.categoryId}`,
+            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
             disabled: false
           },
           {
             text: this.user.profile.group,
-            to: `/${this.$route.params.league}/${this.$route.params.categoryId}/${this.$route.params.groupId}`,
+            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}/${this.user.profile.groupId}`,
             disabled: false
           },
           {
@@ -70,12 +70,12 @@ export default {
           },
           {
             text: this.user.profile.league.name,
-            to: `/${this.$route.params.league}`,
+            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}`,
             disabled: false
           },
           {
             text: this.user.profile.category.name,
-            to: `/${this.$route.params.league}/${this.$route.params.categoryId}`,
+            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
             disabled: false
           },
           {
@@ -91,13 +91,14 @@ export default {
     }
   },
   created() {
-    this.getUser(this.$route.params.userId)
+    this.getUser()
   },
   methods: {
-    async getUser(userId) {
+    async getUser() {
       this.loading = false
+      const userId = this.$route.params.userId
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/${leagueId}/${this.$route.params.categoryId}/${this.$route.params.groupId}/users/${userId}`)
+      const response = await this.$axios.get(`/api/v1/users/${userId}?role=player`)
       this.user = response.data.user
       this.loading = true
     },
