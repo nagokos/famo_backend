@@ -31,7 +31,9 @@ import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
-    TheBreadCrumb
+    TheBreadCrumb,
+    PlayerSearch,
+    PlayerList
   },
   beforeRouteUpdate(to, from, next) {
     next()
@@ -40,38 +42,15 @@ export default {
   },
   data() {
     return {
-      menu: false,
       loading: false,
-      position: "指定なし",
-      players: [],
+      users: [],
       league: {},
       leagues: [],
-      positions: [
-        {
-          name: "指定なし"
-        },
-        {
-          name: "GK"
-        },
-        {
-          name: "DF"
-        },
-        {
-          name: "MF"
-        },
-        {
-          name: "FW"
-        }
-      ]
+      teams: []
     }
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    filterLeagues() {
-      return this.leagues.filter(league => {
-        return league.id !== this.league.id
-      })
-    },
     breadCrumbs() {
       return [
         {
@@ -85,42 +64,18 @@ export default {
           disabled: false,
         },
       ]
-    },
-    fullName: () => {
-      return(player) => {
-        return `${player.lastName} ${player.firstName}`
-      }
-    },
-    information: () => {
-      return(player) => {
-        return `${player.profile.team}(${player.profile.prefecture.name}) ${player.profile.position} / ${player.profile.officialNumber}`
-      }
-    },
+    }
   },
   created() {
     this.getData()
   },
   methods: {
-    pushUserPage(user) {
-      if (this.currentUser.id === user.id) {
-        this.$router.push({ name: "profile" })
-      } else {
-        this.$router.push({
-          name: "playerProfile",
-          params: { league: this.$route.params.league, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }
-        })
-      }
-    },
     async getData() {
       await this.getLeague()
       await this.getPlayers()
       await this.getLeagues()
+      await this.getTeams()
       this.loading = true
-    },
-    pushLeague(league) {
-      const leagueEigo = Transform.leagueNameEigo(league.name)
-      this.menu = false
-      this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo } })
     },
     async getLeagues() {
       const response = await this.$axios.get("/api/v1/leagues")
@@ -128,9 +83,15 @@ export default {
     },
     async getPlayers() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/users`)
-      this.players = response.data.users
-      console.log(this.players);
+      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/users?team_id=''&position=''`)
+      this.users = response.data.users
+    },
+    async getTeams() {
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/teams`)
+      this.teams = response.data.teams
+      const unspecified = { name: "指定なし", id: 0 }
+      this.teams.unshift(unspecified)
     },
     async getLeague() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
