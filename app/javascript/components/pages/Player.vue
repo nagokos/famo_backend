@@ -94,10 +94,11 @@ export default {
     this.getUser()
   },
   methods: {
-    async getUser(userId) {
+    async getUser() {
       this.loading = false
+      const userId = this.$route.params.userId
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/${leagueId}/${this.$route.params.categoryId}/${this.$route.params.groupId}/users/${userId}`)
+      const response = await this.$axios.get(`/api/v1/users/${userId}?role=player`)
       this.user = response.data.user
       this.loading = true
     },
