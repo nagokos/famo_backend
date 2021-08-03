@@ -6,12 +6,27 @@
     <the-bread-crumb
       :bread-crumbs="breadCrumbs"
     />
+    <v-container>
+      <v-row>
+        <player-search
+          :league="group"
+          :leagues="groups"
+          :teams="teams"
+        />
+        <player-list
+          :users="users"
+          :league="group"
+        />
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
 import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
+import PlayerSearch from "../parts/PlayerSearch"
+import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
