@@ -4,7 +4,7 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
 
   def index
     reviews = current_user.filter_reviews.desc
-    render json: reviews
+    render json: reviews, include: '**'
   end
 
   def update
