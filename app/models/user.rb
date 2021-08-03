@@ -38,6 +38,8 @@ class User < ApplicationRecord
 
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
+  scope :cache_profile, -> { includes(profile: [team: :prefecture, group: { category: :league }]) }
+
   def activate_attributes
     activate!
     update_column(:activation_token_expires_at, nil)
@@ -57,9 +59,9 @@ class User < ApplicationRecord
 
   def filter_reviews
     if reviewer?
-      active_reviews.joins(:reviewee).includes(:reviewer, reviewee: { profile: :team }).merge(User.where(role: 'player'))
+      active_reviews.joins(:reviewee).cache_profile.merge(User.where(role: 'player'))
     else
-      passive_reviews.includes(:reviewer, :reviewee)
+      passive_reviews.includes(:reviewee, reviewer: :profile)
     end
   end
 

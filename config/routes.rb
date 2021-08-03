@@ -31,18 +31,20 @@ Rails.application.routes.draw do
       resources :password_resets, only: %i[create edit update]
       resources :reviews, only: %i[index]
       resources :leagues, only: %i[index show] do
+        resources :categories, only: %i[index]
         scope module: :leagues do
           resources :users, only: %i[index]
           resources :teams, only: %i[index]
         end
       end
-      resources :categories, only: %i[index] do
+      resources :categories, only: %i[show] do
+        resources :groups, only: %i[index]
         scope module: :categories do
           resources :users, only: %i[index]
           resources :teams, only: %i[index]
         end
       end
-      resources :groups, only: %i[index] do
+      resources :groups, only: %i[show] do
         scope module: :groups do
           resources :users, only: %i[index]
           resources :teams, only: %i[index]
@@ -52,9 +54,6 @@ Rails.application.routes.draw do
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[create]
       resources :account_activations, only: %i[create edit]
-      get ':league_id/categories/:id', to: 'categories#show'
-      get ':league_id/:category_id/groups/:id', to: 'groups#show'
-      get ':league_id/:category_id/:group_id/users/:id', to: 'groups/users#show'
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
     end
