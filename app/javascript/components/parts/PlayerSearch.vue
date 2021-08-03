@@ -219,9 +219,12 @@ export default {
       })
     },
     leagueChild() {
-      if (!this.$route.params.categoryId && !this.$route.params.groupId) return this.league.categories
-      if (!this.$route.params.groupId && this.league.groups.length >= 2) {
+      if (!this.$route.params.categoryId && !this.$route.params.groupId) {
+        return this.league.categories
+      } else if (!this.$route.params.groupId && this.league.groups.length >= 2) {
         return this.league.groups
+      } else {
+        return false
       }
     },
   },
