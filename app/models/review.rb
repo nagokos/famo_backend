@@ -13,4 +13,5 @@ class Review < ApplicationRecord
   scope :everyone, -> { where(privacy: 'published') }
   scope :require_reviewer, -> { where.not(reviewer_id: nil) }
   scope :conditions_shuffle, -> { where('LENGTH(content) >= 80').order('RAND()').limit(4) }
+  scope :cache_profile, -> { includes(:reviewer, reviewee: { profile: [team: :prefecture, group: { category: :league }] }) }
 end
