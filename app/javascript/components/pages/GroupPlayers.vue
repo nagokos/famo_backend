@@ -30,12 +30,21 @@ import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
-    TheBreadCrumb
+    TheBreadCrumb,
+    PlayerSearch,
+    PlayerList
+  },
+  beforeRouteUpdate(to, from, next) {
+    next()
+    this.getGroup()
+    this.getPlayers()
   },
   data() {
     return {
-      players: [],
+      users: [],
       group: {},
+      groups: [],
+      teams: [],
       loading: false
     }
   },
@@ -49,12 +58,12 @@ export default {
         },
         {
           text: this.group.league.name,
-          to: `/${this.$route.params.league}`,
+          to: `/${Transform.leagueNameEigo(this.group.league.name)}`,
           disabled: false,
         },
         {
           text: this.group.category.name,
-          to: `/${this.$route.params.league}/${this.$route.params.categoryId}`,
+          to: `/${Transform.leagueNameEigo(this.group.league.name)}/${this.group.category.id}`,
           disabled: false
         },
         {
@@ -65,23 +74,43 @@ export default {
       ]
     }
   },
-  created() {
-    this.getGroup()
+  async created() {
+    await this.getGroup()
     this.getPlayers()
+    this.getGroups()
   },
   methods: {
-    async getPlayers() {
+     async getPlayers() {
       const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}/users`)
-      this.players = response.data.users
+      this.users = response.data.users
     },
     async getGroup() {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(
-        `/api/v1/${leagueId}/${this.$route.params.categoryId}/groups/${this.$route.params.groupId}`
-      )
+      const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}`)
+      console.log(response);
       this.group = response.data.group
+      if (this.group.name === null) {
+        this.$store.dispatch("notFound/setNotFound", true)
+      }
       this.loading = true
+    },
+    async getTeams() {
+      const response = await this.$axios.get(`/api/v1/groups/${this.group.id}/teams`)
+      this.teams = response.data.teams
+      const unspecified = { name: "指定なし", id: 0 }
+      this.teams.unshift(unspecified)
+    },
+    async getGroups() {
+      const categoryId = this.group.category.id
+      const response = await this.$axios.get(`/api/v1/categories/${categoryId}/groups`)
+      this.groups = response.data.groups
     }
   }
 }
 </script>
+
+<style scoped>
+  .league {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+</style>
