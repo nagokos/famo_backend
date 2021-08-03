@@ -30,12 +30,21 @@ import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
-    TheBreadCrumb
+    TheBreadCrumb,
+    PlayerSearch,
+    PlayerList
+  },
+  beforeRouteUpdate(to, from, next) {
+    next()
+    this.getCategory()
+    this.getPlayers()
   },
   data() {
     return {
-      players: [],
+      users: [],
       category: {},
+      categories: [],
+      teams: [],
       loading: false
     }
   },
@@ -49,7 +58,7 @@ export default {
         },
         {
           text: this.category.league.name,
-          to: `/${this.$route.params.league}`,
+          to: `/${Transform.leagueNameEigo(this.category.league.name)}`,
           disabled: false,
         },
         {
@@ -61,20 +70,43 @@ export default {
     }
   },
   created() {
-    this.getCategory()
-    this.getPlayers()
+    this.getData()
   },
   methods: {
-     async getPlayers() {
+    async getData() {
+      await this.getCategory()
+      await this.getPlayers()
+      await this.getCategories()
+      await this.getTeams()
+      this.loading = true
+    },
+    async getPlayers() {
       const response = await this.$axios.get(`/api/v1/categories/${this.$route.params.categoryId}/users`)
-      this.players = response.data.users
+      this.users = response.data.users
     },
     async getCategory() {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/${leagueId}/categories/${this.$route.params.categoryId}`)
+      const response = await this.$axios.get(`/api/v1/categories/${this.$route.params.categoryId}`)
       this.category = response.data.category
-      this.loading = true
+    },
+    async getTeams() {
+      const response = await this.$axios.get(`/api/v1/categories/${this.category.id}/teams`)
+      this.teams = response.data.teams
+      const unspecified = { name: "指定なし", id: 0 }
+      this.teams.unshift(unspecified)
+    },
+    async getCategories() {
+      const leagueEigo = Transform.leagueNameEigo(this.category.league.name)
+      const leagueId = Transform.getLeagueId(leagueEigo)
+      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/categories`)
+      this.categories = response.data.categories
     }
   }
 }
 </script>
+
+<style scoped>
+  .league {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+</style>
