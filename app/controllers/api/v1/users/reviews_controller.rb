@@ -5,7 +5,7 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
   def index
     user = User.find(params[:user_id])
     reviews = user.filter_reviews.everyone.desc
-    render json: reviews
+    render json: reviews, include: '**'
   end
 
   def create
