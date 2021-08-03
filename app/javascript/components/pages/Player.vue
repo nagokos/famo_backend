@@ -91,7 +91,7 @@ export default {
     }
   },
   created() {
-    this.getUser(this.$route.params.userId)
+    this.getUser()
   },
   methods: {
     async getUser(userId) {
