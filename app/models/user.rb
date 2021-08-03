@@ -59,9 +59,9 @@ class User < ApplicationRecord
 
   def filter_reviews
     if reviewer?
-      active_reviews.joins(:reviewee).includes(:reviewer, reviewee: { profile: :team }).merge(User.where(role: 'player'))
+      active_reviews.joins(:reviewee).cache_profile.merge(User.where(role: 'player'))
     else
-      passive_reviews.includes(:reviewer, :reviewee)
+      passive_reviews.includes(:reviewee, reviewer: :profile)
     end
   end
 
