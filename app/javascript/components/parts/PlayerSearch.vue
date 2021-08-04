@@ -114,7 +114,6 @@
       :items="positions"
       item-text="name"
       item-value="value"
-      return-object
       style="max-width: 300px;"
     />
     <v-card
@@ -143,7 +142,6 @@
       dense
       :items="teams"
       item-value="id"
-      return-object
       item-text="name"
       no-data-text="選択できるチームがありません"
       style="max-width: 300px;"
