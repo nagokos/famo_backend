@@ -114,7 +114,6 @@
       :items="positions"
       item-text="name"
       item-value="value"
-      return-object
       style="max-width: 300px;"
     />
     <v-card
@@ -143,7 +142,6 @@
       dense
       :items="teams"
       item-value="id"
-      return-object
       item-text="name"
       no-data-text="選択できるチームがありません"
       style="max-width: 300px;"
@@ -186,12 +184,12 @@ export default {
   data() {
     return {
       menu: false,
-      position: 10,
-      team: 0,
+      position: "",
+      team: "",
       positions: [
         {
           name: "指定なし",
-          value: 10
+          value: ""
         },
         {
           name: "GK",
@@ -230,7 +228,7 @@ export default {
   },
   methods: {
     searchPlayer() {
-      this.$emit("search-player", this.position, this,team)
+      this.$emit("search-player", this.position, this.team)
     },
     pushLeague(league) {
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {

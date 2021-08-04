@@ -12,6 +12,7 @@
           :league="group"
           :leagues="groups"
           :teams="teams"
+          @search-player="searchPlayer"
         />
         <player-list
           :users="users"
@@ -74,30 +75,52 @@ export default {
       ]
     }
   },
-  async created() {
-    await this.getGroup()
-    this.getPlayers()
-    this.getGroups()
+  created() {
+   this.getData()
   },
   methods: {
-     async getPlayers() {
-      const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}/users`)
+    async getData() {
+      await this.getGroup()
+      await this.getPlayers()
+      await this.getGroups()
+      this.getTeams()
+      this.loading = true
+    },
+    async getPlayers() {
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            group_id: this.$route.params.groupId
+          }
+        }
+      })
+      this.users = response.data.users
+    },
+    async searchPlayer(position, team) {
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            group_id: this.$route.params.groupId,
+            position: position,
+            team_id: team
+          }
+        }
+      })
       this.users = response.data.users
     },
     async getGroup() {
       const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}`)
-      console.log(response);
       this.group = response.data.group
       if (this.group.name === null) {
         this.$store.dispatch("notFound/setNotFound", true)
       }
-      this.loading = true
     },
     async getTeams() {
       const response = await this.$axios.get(`/api/v1/groups/${this.group.id}/teams`)
       this.teams = response.data.teams
-      const unspecified = { name: "指定なし", id: 0 }
+      const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
+      console.log(this.teams);
     },
     async getGroups() {
       const categoryId = this.group.category.id

@@ -12,6 +12,7 @@
           :league="category"
           :leagues="categories"
           :teams="teams"
+          @search-player="searchPlayer"
         />
         <player-list
           :users="users"
@@ -77,11 +78,29 @@ export default {
       await this.getCategory()
       await this.getPlayers()
       await this.getCategories()
-      await this.getTeams()
+      this.getTeams()
       this.loading = true
     },
     async getPlayers() {
-      const response = await this.$axios.get(`/api/v1/categories/${this.$route.params.categoryId}/users`)
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            group_id: this.$route.params.categoryId
+          }
+        }
+      })
+      this.users = response.data.users
+    },
+    async searchPlayer(position, team) {
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            category_id: this.$route.params.categoryId,
+            position: position,
+            team_id: team
+          }
+        }
+      })
       this.users = response.data.users
     },
     async getCategory() {
@@ -91,7 +110,7 @@ export default {
     async getTeams() {
       const response = await this.$axios.get(`/api/v1/categories/${this.category.id}/teams`)
       this.teams = response.data.teams
-      const unspecified = { name: "指定なし", id: 0 }
+      const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
     },
     async getCategories() {
