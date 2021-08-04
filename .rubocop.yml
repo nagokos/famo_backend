@@ -37,7 +37,7 @@ Metrics/BlockLength:
 Metrics/AbcSize:
   Max: 25   #default 15
   Exclude:
-    - "app/serializers/*.rb"
+    - "app/forms/*.rb"
 
 # 一行の長さは１５０文字まで。 コメントは制限しない
 Metrics/LineLength:

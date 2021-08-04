@@ -28,25 +28,23 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :players, only: %i[index]
       resources :password_resets, only: %i[create edit update]
       resources :reviews, only: %i[index]
       resources :leagues, only: %i[index show] do
         resources :categories, only: %i[index]
         scope module: :leagues do
-          resources :users, only: %i[index]
           resources :teams, only: %i[index]
         end
       end
       resources :categories, only: %i[show] do
         resources :groups, only: %i[index]
         scope module: :categories do
-          resources :users, only: %i[index]
           resources :teams, only: %i[index]
         end
       end
       resources :groups, only: %i[show] do
         scope module: :groups do
-          resources :users, only: %i[index]
           resources :teams, only: %i[index]
         end
       end
