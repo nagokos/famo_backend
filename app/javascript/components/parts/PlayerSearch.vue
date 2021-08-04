@@ -228,7 +228,7 @@ export default {
   },
   methods: {
     searchPlayer() {
-      this.$emit("search-player", this.position, this,team)
+      this.$emit("search-player", this.position, this.team)
     },
     pushLeague(league) {
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {
