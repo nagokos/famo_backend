@@ -9,7 +9,7 @@ class SearchUsersForm
   attribute :team_id, :integer
 
   def search
-    relation = User.cache_profile
+    relation = User.cache_profile.joins(:profile)
 
     relation = relation.joins(profile: { group: { category: :league } }).merge(League.where(id: league_id)) if league_id.present?
     relation = relation.joins(profile: { group: :category }).merge(Category.where(id: category_id)) if category_id.present?
