@@ -28,7 +28,7 @@ Rails.application.routes.draw do
           end
         end
       end
-      resources :players, only: %i[index show]
+      resources :players, only: %i[index]
       resources :password_resets, only: %i[create edit update]
       resources :reviews, only: %i[index]
       resources :leagues, only: %i[index show] do
