@@ -1,7 +1,12 @@
 import Axios from "axios"
 import store from "../store"
+import qs from 'qs'
 
-const instance = Axios.create()
+const instance = Axios.create({
+  paramsSerializer: (params) => {
+    return qs.stringify(params, {arrayFormat: 'brackets'})
+  }
+})
 
 instance.interceptors.request.use(request => {
   const csrfToken = document.getElementsByName("csrf-token")[0].content
