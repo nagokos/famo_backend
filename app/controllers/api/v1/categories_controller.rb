@@ -5,7 +5,7 @@ class Api::V1::CategoriesController < Api::V1::BaseController
   end
 
   def show
-    category = League.find(params[:league_id]).categories.find(params[:id])
-    render json: category
+    category = Category.find(params[:id])
+    render json: category, nested: true
   end
 end
