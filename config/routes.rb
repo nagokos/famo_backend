@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       end
       resources :hierarchy_leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
-      resources :teams, only: %i[create]
+      resources :teams, only: %i[index create]
       resources :account_activations, only: %i[create edit]
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
