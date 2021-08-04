@@ -184,12 +184,12 @@ export default {
   data() {
     return {
       menu: false,
-      position: 10,
-      team: 0,
+      position: "",
+      team: "",
       positions: [
         {
           name: "指定なし",
-          value: 10
+          value: ""
         },
         {
           name: "GK",
