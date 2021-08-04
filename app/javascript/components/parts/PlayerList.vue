@@ -7,7 +7,7 @@
       class="font-weight-bold"
       style="font-size: 1.8rem"
     >
-      {{ league.name }}
+      {{ $route.path.includes("/whole") ? "全国" : league.name }}
     </div>
     <div v-if="$vuetify.breakpoint.mobile">
       詳細条件

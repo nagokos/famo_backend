@@ -8,9 +8,10 @@ import MySetting from "../components/pages/MySetting"
 import Reviewer from "../components/pages/Reviewer"
 import Player from "../components/pages/Player"
 import PasswordReset from "../components/pages/PasswordReset"
-import LeaguePlayers from "../components/pages/LeaguePlayers"
-import CategoryPlayers from "../components/pages/CategoryPlayers"
-import GroupPlayers from "../components/pages/GroupPlayers"
+import WholePlayer from "../components/pages/WholePlayer"
+import LeaguePlayer from "../components/pages/LeaguePlayer"
+import CategoryPlayer from "../components/pages/CategoryPlayer"
+import GroupPlayer from "../components/pages/GroupPlayer"
 import NotFound from "../components/pages/NotFound"
 
 const routes = [
@@ -52,19 +53,24 @@ const routes = [
     component: PasswordReset
   },
   {
+    path: "/whole",
+    name: "wholePlayer",
+    component: WholePlayer
+  },
+  {
     path: "/:league",
     name: "leaguePlayer",
-    component: LeaguePlayers
+    component: LeaguePlayer
   },
   {
     path: "/:league/:categoryId",
     name: "categoryPlayer",
-    component: CategoryPlayers
+    component: CategoryPlayer
   },
   {
     path: "/:league/:categoryId/:groupId",
     name: "groupPlayer",
-    component: GroupPlayers
+    component: GroupPlayer
   },
   {
     name: "notFound",

@@ -32,7 +32,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            {{ league.name }}
+            {{ isWhole ? "全国" : league.name }}
             <v-spacer />
             <v-icon>
               mdi-chevron-right
@@ -50,6 +50,8 @@
               <v-chip
                 outlined
                 small
+                to="/whole"
+                v-if="!isWhole"
               >
                 全国
               </v-chip>
@@ -211,6 +213,9 @@ export default {
     }
   },
   computed: {
+    isWhole() {
+      return this.$route.path.includes('/whole')
+    },
     filterLeagues() {
       return this.leagues.filter(league => {
         return league.id !== this.league.id

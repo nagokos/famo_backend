@@ -9,14 +9,14 @@
     <v-container>
       <v-row>
         <player-search
-          :league="group"
-          :leagues="groups"
+          :league="league"
+          :leagues="leagues"
           :teams="teams"
           @search-player="searchPlayer"
         />
         <player-list
           :users="users"
-          :league="group"
+          :league="league"
         />
       </v-row>
     </v-container>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
@@ -37,19 +38,20 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getGroup()
+    this.getLeague()
     this.getPlayers()
   },
   data() {
     return {
+      loading: false,
       users: [],
-      group: {},
-      groups: [],
-      teams: [],
-      loading: false
+      league: {},
+      leagues: [],
+      teams: []
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
     breadCrumbs() {
       return [
         {
@@ -58,49 +60,45 @@ export default {
           disabled: false,
         },
         {
-          text: this.group.league.name,
-          to: `/${Transform.leagueNameEigo(this.group.league.name)}`,
+          text: this.league.name,
+          to: this.$route.path,
           disabled: false,
         },
-        {
-          text: this.group.category.name,
-          to: `/${Transform.leagueNameEigo(this.group.league.name)}/${this.group.category.id}`,
-          disabled: false
-        },
-        {
-          text: this.group.name,
-          to: this.$route.path,
-          disabled: true
-        }
       ]
     }
   },
   created() {
-   this.getData()
+    this.getData()
   },
   methods: {
     async getData() {
-      await this.getGroup()
+      await this.getLeague()
       await this.getPlayers()
-      await this.getGroups()
-      this.getTeams()
+      await this.getLeagues()
+      await this.getTeams()
       this.loading = true
     },
+    async getLeagues() {
+      const response = await this.$axios.get("/api/v1/leagues")
+      this.leagues = response.data.leagues
+    },
     async getPlayers() {
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/players`, {
         params: {
           q: {
-            group_id: this.$route.params.groupId
+            league_id: leagueId,
           }
         }
       })
       this.users = response.data.users
     },
     async searchPlayer(position, team) {
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/players`, {
         params: {
           q: {
-            group_id: this.$route.params.groupId,
+            league_id: leagueId,
             position: position,
             team_id: team
           }
@@ -108,25 +106,18 @@ export default {
       })
       this.users = response.data.users
     },
-    async getGroup() {
-      const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}`)
-      this.group = response.data.group
-      if (this.group.name === null) {
-        this.$store.dispatch("notFound/setNotFound", true)
-      }
-    },
     async getTeams() {
-      const response = await this.$axios.get(`/api/v1/groups/${this.group.id}/teams`)
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/teams`)
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
-      console.log(this.teams);
     },
-    async getGroups() {
-      const categoryId = this.group.category.id
-      const response = await this.$axios.get(`/api/v1/categories/${categoryId}/groups`)
-      this.groups = response.data.groups
-    }
+    async getLeague() {
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}`)
+      this.league = response.data.league
+    },
   }
 }
 </script>

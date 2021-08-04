@@ -78,7 +78,7 @@ export default {
       await this.getCategory()
       await this.getPlayers()
       await this.getCategories()
-      this.getTeams()
+      await this.getTeams()
       this.loading = true
     },
     async getPlayers() {
