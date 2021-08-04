@@ -12,6 +12,7 @@
           :league="league"
           :leagues="leagues"
           :teams="teams"
+          @search-player="searchPlayer"
         />
         <player-list
           :users="users"
@@ -74,7 +75,7 @@ export default {
       await this.getLeague()
       await this.getPlayers()
       await this.getLeagues()
-      await this.getTeams()
+      this.getTeams()
       this.loading = true
     },
     async getLeagues() {
@@ -83,14 +84,33 @@ export default {
     },
     async getPlayers() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/users?team_id=''&position=''`)
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            league_id: leagueId,
+          }
+        }
+      })
+      this.users = response.data.users
+    },
+    async searchPlayer(position, team) {
+      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const response = await this.$axios.get(`/api/v1/players`, {
+        params: {
+          q: {
+            league_id: leagueId,
+            position: position,
+            team_id: team
+          }
+        }
+      })
       this.users = response.data.users
     },
     async getTeams() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/teams`)
       this.teams = response.data.teams
-      const unspecified = { name: "指定なし", id: 0 }
+      const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
     },
     async getLeague() {
