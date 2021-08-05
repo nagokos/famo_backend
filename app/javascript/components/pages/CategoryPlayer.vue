@@ -74,8 +74,11 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getCategory()
-    this.getPlayers()
+    if (to.params.categoryId !== from.params.categoryId) {
+      this.getData()
+    } else {
+      this.getPlayers()
+    }
   },
   data() {
     return {
