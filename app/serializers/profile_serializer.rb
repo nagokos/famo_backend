@@ -7,10 +7,10 @@ class ProfileSerializer < ActiveModel::Serializer
   end
 
   def rate
-    if object.rate == 0
+    if object.rate.zero?
       0
     else
-      sprintf("%10.2f", object.rate).strip
+      format('%10.2f', object.rate).strip
     end
   end
 
