@@ -72,8 +72,11 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getGroup()
-    this.getPlayers()
+    if (to.params.groupId !== from.params.groupId) {
+      this.getData()
+    } else {
+      this.getPlayers()
+    }
   },
   data() {
     return {
