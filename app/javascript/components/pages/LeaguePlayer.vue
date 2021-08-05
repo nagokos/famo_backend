@@ -111,6 +111,7 @@ export default {
   },
   methods: {
     async getData() {
+      this.loading = false
       await this.getLeague()
       await this.getPlayers()
       await this.getLeagues()
