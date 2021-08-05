@@ -90,6 +90,9 @@ export default {
     }
   },
   computed: {
+    isRating() {
+      return this.$route.path.includes("ratings")
+    },
     breadCrumbs() {
       return [
         {
