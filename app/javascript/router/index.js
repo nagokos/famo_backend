@@ -13,6 +13,7 @@ import LeaguePlayer from "../components/pages/LeaguePlayer"
 import CategoryPlayer from "../components/pages/CategoryPlayer"
 import GroupPlayer from "../components/pages/GroupPlayer"
 import NotFound from "../components/pages/NotFound"
+import PlayerList from "../components/parts/PlayerList"
 
 const routes = [
   {
@@ -54,23 +55,67 @@ const routes = [
   },
   {
     path: "/whole",
-    name: "wholePlayer",
-    component: WholePlayer
+    component: WholePlayer,
+    children: [
+      {
+        path: "",
+        name: "wholePlayer",
+        component: PlayerList
+      },
+      {
+        path: "ratings",
+        name: "wholeRating",
+        component: PlayerList
+      }
+    ]
   },
   {
     path: "/:league",
-    name: "leaguePlayer",
-    component: LeaguePlayer
+    component: LeaguePlayer,
+    children: [
+      {
+        path: "",
+        name: "leaguePlayer",
+        component: PlayerList
+      },
+      {
+        path: "ratings",
+        name: "leagueRating",
+        component: PlayerList
+      }
+    ]
   },
   {
     path: "/:league/:categoryId",
-    name: "categoryPlayer",
-    component: CategoryPlayer
+    component: CategoryPlayer,
+    children: [
+      {
+        path: "",
+        name: "categoryPlayer",
+        component: PlayerList
+      },
+      {
+        path: "ratings",
+        name: "categoryRating",
+        component: PlayerList
+      }
+    ]
   },
   {
     path: "/:league/:categoryId/:groupId",
-    name: "groupPlayer",
-    component: GroupPlayer
+    component: GroupPlayer,
+    children: [
+      {
+        path: "",
+        name: "groupPlayer",
+        component: PlayerList
+      },
+      {
+        path: "ratings",
+        name: "groupRating",
+        component: PlayerList
+      }
+    ]
   },
   {
     name: "notFound",
