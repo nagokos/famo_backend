@@ -108,7 +108,7 @@
       </v-card-text>
     </v-card>
     <v-select
-      v-model="position"
+      v-model="q.position"
       class="mt-5"
       background-color="white"
       outlined
@@ -137,7 +137,7 @@
       </v-card-text>
     </v-card>
     <v-select
-      v-model="team"
+      v-model="q.team_id"
       class="mt-5"
       background-color="white"
       outlined
@@ -186,8 +186,10 @@ export default {
   data() {
     return {
       menu: false,
-      position: "",
-      team: "",
+      q: {
+        position: "",
+        team_id: "",
+      },
       positions: [
         {
           name: "指定なし",
@@ -231,9 +233,19 @@ export default {
       }
     },
   },
+  watch: {
+    $route() {
+      this.resetSearch()
+    }
+  },
   methods: {
+    resetSearch() {
+      this.q.position = ""
+      this.q.team_id = ""
+    },
     searchPlayer() {
-      this.$emit("search-player", this.position, this.team)
+      if (this.$route.path.includes("ratings")) this.q.rating = true
+      this.$emit("search-player", this.q)
     },
     pushLeague(league) {
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {
