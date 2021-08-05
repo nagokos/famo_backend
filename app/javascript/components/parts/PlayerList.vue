@@ -20,11 +20,6 @@ export default {
     PlayerListItem
   },
   props: {
-    league: {
-      type: Object,
-      default: () => {},
-      required: true
-    },
     users: {
       type: Array,
       default: () => {},
