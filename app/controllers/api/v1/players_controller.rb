@@ -8,6 +8,6 @@ class Api::V1::PlayersController < ApplicationController
   private
 
   def search_params
-    params[:q]&.permit(:league_id, :category_id, :group_id, :position, :team_id)
+    params[:q]&.permit(:league_id, :category_id, :group_id, :position, :team_id, :rating)
   end
 end

@@ -48,10 +48,10 @@
               column
             >
               <v-chip
+                v-if="!isWhole"
                 outlined
                 small
                 to="/whole"
-                v-if="!isWhole"
               >
                 全国
               </v-chip>
