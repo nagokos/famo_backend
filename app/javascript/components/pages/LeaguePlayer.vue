@@ -88,7 +88,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
+    isRating() {
+      return this.$route.path.includes("ratings")
+    },
     breadCrumbs() {
       return [
         {
