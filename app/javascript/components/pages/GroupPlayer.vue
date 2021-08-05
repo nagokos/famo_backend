@@ -64,13 +64,11 @@
 import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
-import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
     TheBreadCrumb,
     PlayerSearch,
-    PlayerList
   },
   beforeRouteUpdate(to, from, next) {
     next()
