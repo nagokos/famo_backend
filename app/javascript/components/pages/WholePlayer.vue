@@ -116,17 +116,16 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
-      const response = await this.$axios.get(`/api/v1/players`)
+      const q = {}
+      this.isRating ? q.rating = true : q.rating = false
+      const response = await this.$axios.get("/api/v1/players", {
+        params: { q }
+      })
       this.users = response.data.users
     },
-    async searchPlayer(position, team) {
+    async searchPlayer(q) {
       const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            position: position,
-            team_id: team
-          }
-        }
+        params: { q }
       })
       this.users = response.data.users
     },
