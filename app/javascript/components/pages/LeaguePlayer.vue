@@ -72,8 +72,11 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getLeague()
-    this.getPlayers()
+    if (to.params.league !== from.params.league) {
+      this.getData()
+    } else {
+      this.getPlayers()
+    }
   },
   data() {
     return {
