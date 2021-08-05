@@ -8,7 +8,7 @@
     </v-list-item-title>
     <v-list-item-title>
       <v-rating
-        v-model="rating"
+        :value="+user.profile.rate"
         background-color="#EF5350"
         color="#EF5350"
         class="mr-1 float-left"
@@ -20,7 +20,7 @@
         class="text-h5 font-weight-bold"
         style="position: relative; bottom: 2px;"
       >
-        {{ rating }}
+        {{ user.profile.rate }}
       </span>
     </v-list-item-title>
   </div>
@@ -33,11 +33,6 @@ export default {
       type: Object,
       default: () => {},
       required: true
-    }
-  },
-  data() {
-    return {
-      rating: 3.1
     }
   },
   computed: {
