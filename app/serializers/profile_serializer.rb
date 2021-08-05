@@ -1,9 +1,17 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :position, :official_number, :practice_number, :career,
+  attributes :position, :official_number, :practice_number, :career, :rate,
              :team, :prefecture, :group, :category, :league, :team_id, :group_id
 
   def team
     object.team.name
+  end
+
+  def rate
+    if object.rate == 0
+      0
+    else
+      sprintf("%10.2f", object.rate).strip
+    end
   end
 
   def prefecture
