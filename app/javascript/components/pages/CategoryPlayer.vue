@@ -118,6 +118,7 @@ export default {
   },
   methods: {
     async getData() {
+      this.loading = false
       await this.getCategory()
       await this.getPlayers()
       await this.getCategories()
