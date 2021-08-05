@@ -1,48 +1,15 @@
 <template>
-  <v-col
-    cols="12"
-    lg="8"
+  <v-list
+    three-line
+    class="mt-2"
+    color="#FAFAFA"
   >
-    <div
-      class="font-weight-bold"
-      style="font-size: 1.8rem"
-    >
-      {{ $route.path.includes("/whole") ? "全国" : league.name }}
-    </div>
-    <div v-if="$vuetify.breakpoint.mobile">
-      詳細条件
-    </div>
-    <v-tabs
-      class="mt-2"
-      background-color="#FAFAFA"
-      color="black"
-    >
-      <v-tab
-        class="font-weight-bold"
-        :ripple="false"
-      >
-        選手一覧
-      </v-tab>
-      <v-tab
-        class="font-weight-bold"
-        :ripple="false"
-      >
-        ランキング
-      </v-tab>
-    </v-tabs>
-    <v-divider />
-    <v-list
-      three-line
-      class="mt-2"
-      color="#FAFAFA"
-    >
-      <player-list-item
-        v-for="user in users"
-        :key="user.id"
-        :user="user"
-      />
-    </v-list>
-  </v-col>
+    <player-list-item
+      v-for="user in users"
+      :key="user.id"
+      :user="user"
+    />
+  </v-list>
 </template>
 
 <script>
