@@ -154,7 +154,6 @@ export default {
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
-      console.log(this.teams);
     },
     async getGroups() {
       const categoryId = this.group.category.id
