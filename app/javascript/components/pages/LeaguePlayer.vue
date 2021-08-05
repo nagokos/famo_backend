@@ -14,32 +14,69 @@
           :teams="teams"
           @search-player="searchPlayer"
         />
-        <player-list
-          :users="users"
-          :league="league"
-        />
+        <v-col
+          cols="12"
+          lg="8"
+        >
+          <div
+            class="font-weight-bold"
+            style="font-size: 1.8rem"
+          >
+            {{ league.name }}
+          </div>
+          <div v-if="$vuetify.breakpoint.mobile">
+            詳細条件
+          </div>
+          <v-tabs
+            class="mt-2"
+            background-color="#FAFAFA"
+            color="black"
+          >
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'leaguePlayer' }"
+            >
+              選手一覧
+            </v-tab>
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'leagueRating' }"
+            >
+              ランキング
+            </v-tab>
+          </v-tabs>
+          <v-divider />
+          <router-view
+            :users="users"
+            :league="league"
+          />
+        </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
-import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
     TheBreadCrumb,
     PlayerSearch,
-    PlayerList
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getLeague()
-    this.getPlayers()
+    if (to.params.league !== from.params.league) {
+      this.getData()
+    } else {
+      this.getPlayers()
+    }
   },
   data() {
     return {
@@ -51,7 +88,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
+    isRating() {
+      return this.$route.path.includes("ratings")
+    },
     breadCrumbs() {
       return [
         {
@@ -72,6 +111,7 @@ export default {
   },
   methods: {
     async getData() {
+      this.loading = false
       await this.getLeague()
       await this.getPlayers()
       await this.getLeagues()
@@ -84,25 +124,18 @@ export default {
     },
     async getPlayers() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            league_id: leagueId,
-          }
-        }
+      const q = { league_id: leagueId }
+      this.isRating ? q.rating = true : q.rating = false
+      const response = await this.$axios.get("/api/v1/players", {
+        params: { q }
       })
       this.users = response.data.users
     },
-    async searchPlayer(position, team) {
+    async searchPlayer(q) {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
+      q.league_id = leagueId
       const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            league_id: leagueId,
-            position: position,
-            team_id: team
-          }
-        }
+        params: { q }
       })
       this.users = response.data.users
     },

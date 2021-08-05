@@ -14,10 +14,47 @@
           :teams="teams"
           @search-player="searchPlayer"
         />
-        <player-list
-          :users="users"
-          :league="group"
-        />
+        <v-col
+          cols="12"
+          lg="8"
+        >
+          <div
+            class="font-weight-bold"
+            style="font-size: 1.8rem"
+          >
+            {{ group.name }}
+          </div>
+          <div v-if="$vuetify.breakpoint.mobile">
+            詳細条件
+          </div>
+          <v-tabs
+            class="mt-2"
+            background-color="#FAFAFA"
+            color="black"
+          >
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'groupPlayer' }"
+            >
+              選手一覧
+            </v-tab>
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'groupRating' }"
+            >
+              ランキング
+            </v-tab>
+          </v-tabs>
+          <v-divider />
+          <router-view
+            :users="users"
+            :league="group"
+          />
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -27,18 +64,19 @@
 import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
-import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
     TheBreadCrumb,
     PlayerSearch,
-    PlayerList
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getGroup()
-    this.getPlayers()
+    if (to.params.groupId !== from.params.groupId) {
+      this.getData()
+    } else {
+      this.getPlayers()
+    }
   },
   data() {
     return {
@@ -50,6 +88,9 @@ export default {
     }
   },
   computed: {
+    isRating() {
+      return this.$route.path.includes("ratings")
+    },
     breadCrumbs() {
       return [
         {
@@ -87,24 +128,17 @@ export default {
       this.loading = true
     },
     async getPlayers() {
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            group_id: this.$route.params.groupId
-          }
-        }
+      const q = { group_id: this.group.id }
+      this.isRating ? q.rating = true : q.rating = false
+      const response = await this.$axios.get("/api/v1/players", {
+        params: { q }
       })
       this.users = response.data.users
     },
-    async searchPlayer(position, team) {
+    async searchPlayer(q) {
+      q.group_id = this.$route.params.groupId
       const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            group_id: this.$route.params.groupId,
-            position: position,
-            team_id: team
-          }
-        }
+        params: { q }
       })
       this.users = response.data.users
     },
@@ -120,7 +154,6 @@ export default {
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
-      console.log(this.teams);
     },
     async getGroups() {
       const categoryId = this.group.category.id

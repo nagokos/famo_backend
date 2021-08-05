@@ -28,16 +28,20 @@
         </v-list-item-subtitle>
         <v-card-actions class="pl-0">
           <v-rating
-            :value="3"
+            :value="+user.profile.rate"
             background-color="#ef5350"
             color="#ef5350"
             readonly
             size="30"
             dense
+            :half-increments="true"
             style="position: relative; right: 3px;"
           />
-          <span class="ml-1 text-h5 font-weight-bold">
-            3.0
+          <span
+            class="ml-1 text-h5 font-weight-bold"
+            style="margin-top: 2px;"
+          >
+            {{ user.profile.rate }}
           </span>
         </v-card-actions>
       </v-list-item-content>
