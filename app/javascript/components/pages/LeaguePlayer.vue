@@ -124,25 +124,18 @@ export default {
     },
     async getPlayers() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            league_id: leagueId,
-          }
-        }
+      const q = { league_id: leagueId }
+      this.isRating ? q.rating = true : q.rating = false
+      const response = await this.$axios.get("/api/v1/players", {
+        params: { q }
       })
       this.users = response.data.users
     },
-    async searchPlayer(position, team) {
+    async searchPlayer(q) {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
+      q.league_id = leagueId
       const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            league_id: leagueId,
-            position: position,
-            team_id: team
-          }
-        }
+        params: { q }
       })
       this.users = response.data.users
     },
