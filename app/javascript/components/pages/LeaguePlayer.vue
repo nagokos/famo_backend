@@ -14,10 +14,47 @@
           :teams="teams"
           @search-player="searchPlayer"
         />
-        <player-list
-          :users="users"
-          :league="league"
-        />
+        <v-col
+          cols="12"
+          lg="8"
+        >
+          <div
+            class="font-weight-bold"
+            style="font-size: 1.8rem"
+          >
+            {{ league.name }}
+          </div>
+          <div v-if="$vuetify.breakpoint.mobile">
+            詳細条件
+          </div>
+          <v-tabs
+            class="mt-2"
+            background-color="#FAFAFA"
+            color="black"
+          >
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'leaguePlayer' }"
+            >
+              選手一覧
+            </v-tab>
+            <v-tab
+              exact
+              class="font-weight-bold"
+              :ripple="false"
+              :to="{ name: 'leagueRating' }"
+            >
+              ランキング
+            </v-tab>
+          </v-tabs>
+          <v-divider />
+          <router-view
+            :users="users"
+            :league="league"
+          />
+        </v-col>
       </v-row>
     </v-container>
   </div>
