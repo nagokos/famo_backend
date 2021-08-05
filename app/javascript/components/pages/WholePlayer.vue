@@ -61,21 +61,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
-import PlayerList from "../parts/PlayerList"
 
 export default {
   components: {
     TheBreadCrumb,
     PlayerSearch,
-    PlayerList
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.getLeague()
     this.getPlayers()
   },
   data() {
