@@ -126,24 +126,17 @@ export default {
       this.loading = true
     },
     async getPlayers() {
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            group_id: this.$route.params.categoryId
-          }
-        }
+      const q = { category_id: this.category.id }
+      this.isRating ? q.rating = true : q.rating = false
+      const response = await this.$axios.get("/api/v1/players", {
+        params: { q }
       })
       this.users = response.data.users
     },
-    async searchPlayer(position, team) {
+    async searchPlayer(q) {
+      q.category_id = this.$route.params.categoryId
       const response = await this.$axios.get(`/api/v1/players`, {
-        params: {
-          q: {
-            category_id: this.$route.params.categoryId,
-            position: position,
-            team_id: team
-          }
-        }
+        params: { q }
       })
       this.users = response.data.users
     },
