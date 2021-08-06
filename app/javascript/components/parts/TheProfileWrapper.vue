@@ -52,12 +52,13 @@
             />
           </v-col>
           <v-col
-            v-if="user.role === 'player' && !$vuetify.breakpoint.mobile"
+            v-if="!$vuetify.breakpoint.mobile"
             cols="4"
           >
-            <!-- 選手テーブル -->
-            <player-table
+            <!-- テーブル -->
+            <profile-table
               :profile="user.profile"
+              :reviews="reviews"
             />
           </v-col>
         </v-row>
@@ -125,7 +126,7 @@
 <script>
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import PlayerTable from "../parts/PlayerTable"
+import ProfileTable from "../parts/ProfileTable"
 import Introduction from '../parts/Introduction'
 import IntroductionEdit from '../parts/IntroductionEdit'
 import ProfileTab from "../parts/ProfileTab"
@@ -134,7 +135,7 @@ import RelationCard from "../parts/RelationCard"
 
 export default {
   components: {
-    PlayerTable,
+    ProfileTable,
     ProfileAction,
     ProfileTitle,
     Introduction,
