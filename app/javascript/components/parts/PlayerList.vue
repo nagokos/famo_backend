@@ -1,7 +1,7 @@
 <template>
   <v-list
     three-line
-    class="mt-2"
+    :class="$vuetify.breakpoint.mobile ? '' : 'mt-3'"
     color="#FAFAFA"
   >
     <player-list-item
