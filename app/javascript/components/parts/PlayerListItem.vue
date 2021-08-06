@@ -77,10 +77,10 @@ export default {
     pushUserPage() {
       const leagueEigo = Transform.leagueNameEigo(this.user.profile.league.name)
       if (this.currentUser.id === this.user.id) {
-        this.$router.push({ name: "profile" })
+        this.$router.push({ name: "myReview" })
       } else {
         this.$router.push({
-          name: "playerProfile",
+          name: "playerReview",
           params: { league: leagueEigo, categoryId: this.user.profile.category.id, groupId: this.user.profile.groupId, userId: this.user.id }
         })
       }
