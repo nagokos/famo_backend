@@ -278,15 +278,15 @@ export default {
       }
     },
     pushUserPage() {
-      if (this.currentUser.id === this.reviewUser.id) return this.$router.push({ name: "profile" })
+      if (this.currentUser.id === this.reviewUser.id) return this.$router.push({ name: "myReview" })
       if (this.reviewUser.role === "player") {
         const leagueEigo = Transform.leagueNameEigo(this.reviewUser.profile.league.name)
         this.$router.push({
-          name: "playerProfile",
+          name: "playerReview",
           params: { league: leagueEigo, categoryId: this.reviewUser.profile.category.id, groupId: this.reviewUser.profile.groupId, userId: this.reviewUser.id }
         })
       } else {
-        this.$router.push({ name: "reviewerProfile", params: { userId: this.reviewUser.id } })
+        this.$router.push({ name: "reviewerReview", params: { userId: this.reviewUser.id } })
       }
     },
     async changePrivacy(setting) {
