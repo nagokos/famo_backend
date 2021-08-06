@@ -88,15 +88,15 @@ export default {
       this.isFollow = !this.isFollow
     },
     pushUserPage(user) {
-      if (this.currentUser.id === user.id) return this.$router.push({ name: "profile" })
+      if (this.currentUser.id === user.id) return this.$router.push({ name: "myReview" })
       if (user.role === "player") {
         const leagueEigo = Transform.leagueNameEigo(user.profile.league.name)
         this.$router.push({
-          name: "playerProfile",
+          name: "playerReview",
           params: { league: leagueEigo, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }
         })
       } else {
-        this.$router.push({ name: "reviewerProfile", params: { userId: user.id } })
+        this.$router.push({ name: "reviewerReview", params: { userId: user.id } })
       }
     },
     async checkFollow() {
