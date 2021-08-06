@@ -182,9 +182,10 @@ export default {
       }
     }
   },
-  created() {
-    this.checkFollow()
-    this.getReviews()
+  async  created() {
+    await this.checkFollow()
+    await this.getReviews()
+    this.loading = true
   },
   methods: {
     setFollowIds(id) {
@@ -220,7 +221,6 @@ export default {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
-      this.loading = true
     }
   }
 }
