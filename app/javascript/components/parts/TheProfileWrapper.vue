@@ -13,14 +13,14 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="mt-8 py-0"
+              :class="user.role === 'player' ? 'mt-8 py-0' : ''"
               :user="user"
             />
           </v-list-item-content>
           <profile-action
             :user="user"
             :is-follow="isFollow"
-            :class="{ 'mt-12': !$vuetify.breakpoint.mobile }"
+            :class="!$vuetify.breakpoint.mobile && user.role === 'player' ? 'mt-12' : ''"
             @create-review="pushReview"
           />
         </v-list-item>
