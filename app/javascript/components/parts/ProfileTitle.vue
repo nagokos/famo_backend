@@ -6,7 +6,7 @@
     >
       {{ fullName }}
     </v-list-item-title>
-    <v-list-item-title>
+    <v-list-item-title v-if="user.role === 'player'">
       <v-rating
         :value="+user.profile.rate"
         background-color="#EF5350"
