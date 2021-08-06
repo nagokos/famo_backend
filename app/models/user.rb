@@ -61,7 +61,7 @@ class User < ApplicationRecord
     if reviewer?
       active_reviews.joins(:reviewee).cache_profile.merge(User.where(role: 'player'))
     else
-      passive_reviews.includes(:reviewee, reviewer: :profile)
+      passive_reviews.includes(:reviewee, reviewer: [profile: [team: :prefecture, group: [category: :league]]])
     end
   end
 
