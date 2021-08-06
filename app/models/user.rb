@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
-  scope :cache_profile, -> { includes(profile: [team: :prefecture, group: { category: :league }]) }
+  scope :cache_profile, -> { includes(profile: [team: :prefecture, group: [category: :league]]) }
 
   def activate_attributes
     activate!
