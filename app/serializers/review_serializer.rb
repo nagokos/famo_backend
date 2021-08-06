@@ -4,7 +4,7 @@ class ReviewSerializer < ActiveModel::Serializer
   belongs_to :reviewee
 
   def rate
-    object.rate.to_i
+    format('%10.1f', object.rate).strip
   end
 
   def game_date

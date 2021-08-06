@@ -13,14 +13,14 @@
           <v-list-item-content>
             <profile-title
               v-if="!$vuetify.breakpoint.mobile"
-              class="mt-8 py-0"
+              :class="user.role === 'player' ? 'mt-8 py-0' : ''"
               :user="user"
             />
           </v-list-item-content>
           <profile-action
             :user="user"
             :is-follow="isFollow"
-            :class="{ 'mt-12': !$vuetify.breakpoint.mobile }"
+            :class="!$vuetify.breakpoint.mobile && user.role === 'player' ? 'mt-12' : ''"
             @create-review="pushReview"
           />
         </v-list-item>
@@ -52,12 +52,13 @@
             />
           </v-col>
           <v-col
-            v-if="user.role === 'player' && !$vuetify.breakpoint.mobile"
+            v-if="!$vuetify.breakpoint.mobile"
             cols="4"
           >
-            <!-- 選手テーブル -->
-            <player-table
+            <!-- テーブル -->
+            <profile-table
               :profile="user.profile"
+              :reviews="reviews"
             />
           </v-col>
         </v-row>
@@ -125,7 +126,7 @@
 <script>
 import ProfileAction from "../parts/ProfileAction"
 import ProfileTitle from "../parts/ProfileTitle"
-import PlayerTable from "../parts/PlayerTable"
+import ProfileTable from "../parts/ProfileTable"
 import Introduction from '../parts/Introduction'
 import IntroductionEdit from '../parts/IntroductionEdit'
 import ProfileTab from "../parts/ProfileTab"
@@ -134,7 +135,7 @@ import RelationCard from "../parts/RelationCard"
 
 export default {
   components: {
-    PlayerTable,
+    ProfileTable,
     ProfileAction,
     ProfileTitle,
     Introduction,
@@ -181,9 +182,10 @@ export default {
       }
     }
   },
-  created() {
-    this.checkFollow()
-    this.getReviews()
+  async  created() {
+    await this.checkFollow()
+    await this.getReviews()
+    this.loading = true
   },
   methods: {
     setFollowIds(id) {
@@ -219,7 +221,6 @@ export default {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
-      this.loading = true
     }
   }
 }

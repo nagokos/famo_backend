@@ -20,12 +20,9 @@
         >
           <div
             class="font-weight-bold"
-            style="font-size: 1.8rem"
+            :style="$vuetify.breakpoint.mobile ? 'font-size: 25px;' : 'font-size: 1.8rem'"
           >
             {{ league.name }}
-          </div>
-          <div v-if="$vuetify.breakpoint.mobile">
-            詳細条件
           </div>
           <v-tabs
             class="mt-2"

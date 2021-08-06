@@ -46,14 +46,15 @@
             </v-card-text>
             <v-card-actions class="pl-3 mt-2 pb-0">
               <v-rating
-                :value="review.rate"
+                :value="+review.rate"
                 background-color="#ef5350"
                 color="#ef5350"
                 readonly
+                half-increments
                 dense
               />
               <span class="ml-1 text-h6 font-weight-bold">
-                {{ review.rate.toFixed(1) }}
+                {{ review.rate }}
               </span>
               <span
                 v-if="!$vuetify.breakpoint.mobile"

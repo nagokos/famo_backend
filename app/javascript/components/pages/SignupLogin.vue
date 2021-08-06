@@ -60,7 +60,7 @@ export default {
           type: "success",
           message: "ログインしました"
         })
-        this.$router.push({ name: "profile" })
+        this.$router.push({ name: "myReview" })
       } catch(error) {
         if (error.response.data.errors) {
           this.$refs.login.setErrors(error.response.data.errors)

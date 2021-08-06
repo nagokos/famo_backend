@@ -9,7 +9,7 @@
       @click="pushUserPage"
     >
       <v-avatar
-        size="130"
+        :size="$vuetify.breakpoint.mobile ? 100 : 130"
         rounded
       >
         <v-img
@@ -17,29 +17,32 @@
         />
       </v-avatar>
       <v-list-item-content class="ml-5">
-        <v-list-item-title class="font-weight-bold text-h5 mt-2">
+        <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-2'">
           {{ fullName }}
         </v-list-item-title>
         <v-list-item-subtitle
-          class="mt-2"
+          :class="$vuetify.breakpoint.mobile ? 'text-caption mt-1' : 'mt-2'"
           style="margin-left: 1px;"
         >
           {{ information }}
         </v-list-item-subtitle>
-        <v-card-actions class="pl-0">
+        <v-card-actions
+          class="pl-0"
+          :style="$vuetify.breakpoint.mobile ? 'position: relative; bottom: 5px;' : ''"
+        >
           <v-rating
             :value="+user.profile.rate"
             background-color="#ef5350"
             color="#ef5350"
             readonly
-            size="30"
+            :size="$vuetify.breakpoint.mobile ? 20 : 30"
             dense
             :half-increments="true"
             style="position: relative; right: 3px;"
           />
           <span
-            class="ml-1 text-h5 font-weight-bold"
-            style="margin-top: 2px;"
+            :class="$vuetify.breakpoint.mobile ? 'text-subtitle-1 font-weight-bold' : 'ml-1 text-h5 font-weight-bold'"
+            :style="$vuetify.breakpoint.mobile ? '' : 'margin-top: 2px;'"
           >
             {{ user.profile.rate }}
           </span>
@@ -47,7 +50,7 @@
       </v-list-item-content>
     </v-list-item>
     <v-divider
-      class="my-4"
+      :class="$vuetify.breakpoint.mobile ? '' : 'my-5'"
     />
   </div>
 </template>

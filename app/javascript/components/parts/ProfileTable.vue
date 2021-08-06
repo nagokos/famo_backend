@@ -1,9 +1,9 @@
 <template>
   <v-card outlined>
     <v-simple-table dense>
-      <tbody>
+      <tbody v-if="profile">
         <tr
-          v-for="data in profileData"
+          v-for="data in playerData"
           :key="data.id"
         >
           <td class="pr-0">
@@ -27,6 +27,53 @@
           </td>
         </tr>
       </tbody>
+      <tbody v-if="!profile">
+        <tr
+          v-for="data in reviewerData"
+          :key="data.id"
+        >
+          <td
+            class="pr-0"
+            style="height: 37px;"
+          >
+            <span
+              class="font-weight-bold text-caption"
+            >
+              {{ data.name }}
+            </span>
+          </td>
+          <td
+            align="end"
+            class="pl-0"
+          >
+            <v-card-actions
+              v-if="data.name === 'レビュー平均'"
+              class="py-0 px-0"
+            >
+              <v-spacer />
+              <v-rating
+                style="position: relative; bottom: 1px; left: 3px;"
+                color="orange"
+                size="18"
+                readonly
+                :value="1"
+                length="1"
+              />
+              <span
+                class="font-weight-bold"
+              >
+                {{ data.information }}
+              </span>
+            </v-card-actions>
+            <span
+              v-else
+              class="font-weight-bold"
+            >
+              {{ data.information }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
     </v-simple-table>
   </v-card>
 </template>
@@ -38,10 +85,15 @@ export default {
       type: Object,
       default: () => {},
       required: false
+    },
+    reviews: {
+      type: Array,
+      default: () => {},
+      required: true
     }
   },
   computed: {
-    profileData() {
+    playerData() {
       return [
         {
           name: "チーム",
@@ -58,6 +110,18 @@ export default {
         {
           name: "前所属",
           information: this.careerName
+        }
+      ]
+    },
+    reviewerData() {
+      return [
+        {
+          name: "レビュー数",
+          information: this.reviewCount
+        },
+        {
+          name: "レビュー平均",
+          information: this.reviewAverage
         }
       ]
     },
@@ -84,6 +148,17 @@ export default {
       } else {
         return `${this.profile.position} / ${this.profile.officialNumber}`
       }
+    },
+    reviewCount() {
+      return `${this.reviews.length}件`
+    },
+    reviewAverage() {
+      const rateArray = this.reviews.map(review => +review.rate)
+      const sumRate = rateArray.reduce((rate, currentRate) => {
+        return rate + currentRate
+      })
+      const rateAverage = sumRate / this.reviews.length
+      return Math.round(rateAverage * 10) / 10
     }
   },
 }
