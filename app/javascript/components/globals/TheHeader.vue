@@ -76,7 +76,7 @@
                 large
                 :ripple="false"
                 class="justify-start"
-                @click="pushPage('/profile', 'profile')"
+                @click="pushPage('/profile', 'myReview')"
               >
                 <v-avatar
                   style="position: relative; right: 5px;"

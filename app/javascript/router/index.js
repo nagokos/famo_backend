@@ -14,6 +14,8 @@ import CategoryPlayer from "../components/pages/CategoryPlayer"
 import GroupPlayer from "../components/pages/GroupPlayer"
 import NotFound from "../components/pages/NotFound"
 import PlayerList from "../components/parts/PlayerList"
+import ReviewCard from "../components/parts/ReviewCard"
+import RelationCard from "../components/parts/RelationCard"
 
 const routes = [
   {
@@ -27,10 +29,26 @@ const routes = [
     component: SignupLogin
   },
   {
-    path: "/profile/:type?",
-    name: "profile",
+    path: "/profile",
     component: Mypage,
     meta: { requiredLogin: true },
+    children: [
+      {
+        path: "",
+        name: "myReview",
+        component: ReviewCard
+      },
+      {
+        path: "following",
+        name: "myFollowing",
+        component: RelationCard
+      },
+      {
+        path: "followers",
+        name: "myFollowers",
+        component: RelationCard
+      }
+    ]
   },
   {
     path: "/settings/:type",
@@ -39,15 +57,27 @@ const routes = [
     meta: { requiredLogin: true }
   },
   {
-    path: "/users/:userId/:type?",
-    name: "reviewerProfile",
+    path: "/users/:userId",
     component: Reviewer,
+    children: [
+      {
+        path: "",
+        name: "reviewerReview",
+        component: ReviewCard
+      },
+      {
+        path: "following",
+        name: "reviewerFollowing",
+        component: RelationCard
+      },
+      {
+        path: "followers",
+        name: "reviewerFollowers",
+        component: RelationCard
+      }
+    ]
   },
-  {
-    path: "/:league/:categoryId/:groupId/:userId/:type?",
-    name: "playerProfile",
-    component: Player
-  },
+
   {
     path: "/account/:type",
     name: "passwordReset",
@@ -114,6 +144,27 @@ const routes = [
         path: "ratings",
         name: "groupRating",
         component: PlayerList
+      }
+    ]
+  },
+  {
+    path: "/:league/:categoryId/:groupId/:userId",
+    component: Player,
+    children: [
+      {
+        path: "",
+        name: "playerReview",
+        component: ReviewCard
+      },
+      {
+        path: "following",
+        name: "playerFollowing",
+        component: RelationCard
+      },
+      {
+        path: "followers",
+        name: "playerFollowers",
+        component: RelationCard
       }
     ]
   },

@@ -5,14 +5,28 @@
     :class="$vuetify.breakpoint.mobile ? 'px-4' : ''"
   >
     <v-tab
-      v-for="route in routes"
-      :key="route.name"
       exact
       :ripple="false"
       class="font-weight-bold"
-      :to="{ name: setName, params: { type: route.params } }"
+      :to="{ name: setReviewName }"
     >
-      {{ route.name }}
+      レビュー
+    </v-tab>
+    <v-tab
+      exact
+      :ripple="false"
+      class="font-weight-bold"
+      :to="{ name: setFollowingName }"
+    >
+      フォロー
+    </v-tab>
+    <v-tab
+      exact
+      :ripple="false"
+      class="font-weight-bold"
+      :to="{ name: setFollowersName }"
+    >
+      フォロワー
     </v-tab>
   </v-tabs>
 </template>
@@ -26,35 +40,34 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      routes: [
-        {
-          name: "レビュー"
-        },
-        {
-          name: "フォロー",
-          params: "following"
-        },
-        {
-          name: "フォロワー",
-          params: "followers"
-        }
-      ]
-    }
-  },
   computed: {
-    setName() {
-      let name = ""
-      if (!this.$route.path.includes("/profile") && this.user.role === "player")  {
-        name = "playerProfile"
-      } else if (!this.$route.path.includes("/profile") && this.user.role === "reviewer") {
-        name = "reviewerProfile"
-      } else if (this.$route.path.includes("/profile")) {
-        name = "profile"
+    setReviewName() {
+      if (this.$route.path.includes("profile")) {
+        return "myReview"
+      } else if (this.$route.path.includes("users")) {
+        return "reviewerReview"
+      } else {
+        return "playerReview"
       }
-      return name
     },
+    setFollowingName() {
+      if (this.$route.path.includes("profile")) {
+        return "myFollowing"
+      } else if (this.$route.path.includes("users")) {
+        return "reviewerFollowing"
+      } else {
+        return "playerFollowing"
+      }
+    },
+    setFollowersName() {
+      if (this.$route.path.includes("profile")) {
+        return "myFollowers"
+      } else if (this.$route.path.includes("users")) {
+        return "reviewerFollowers"
+      } else {
+        return "playerFollowers"
+      }
+    }
   }
 }
 </script>
