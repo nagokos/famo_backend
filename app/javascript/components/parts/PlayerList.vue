@@ -89,11 +89,15 @@
 </template>
 
 <script>
-import PlayerListItem from "../parts/PlayerListItem.vue"
+import PlayerListItem from "../parts/PlayerListItem"
+import TheAreaChangeDialog from "../parts/TheAreaChangeDialog"
+import ThePlayerSearchDialog from "../parts/ThePlayerSearchDialog"
 
 export default {
   components: {
-    PlayerListItem
+    PlayerListItem,
+    TheAreaChangeDialog,
+    ThePlayerSearchDialog
   },
   props: {
     users: {
