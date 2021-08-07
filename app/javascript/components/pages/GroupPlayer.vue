@@ -86,6 +86,7 @@ export default {
   },
   methods: {
     async getData() {
+      this.loading = false
       await this.getGroup()
       await this.getPlayers()
       await this.getGroups()
