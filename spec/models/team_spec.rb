@@ -9,6 +9,5 @@ RSpec.describe Team, type: :model do
 
   describe 'presence' do
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:kind) }
   end
 end

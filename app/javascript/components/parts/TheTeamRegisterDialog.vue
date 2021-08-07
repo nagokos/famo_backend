@@ -38,7 +38,7 @@
                   >
                     大会に記載しているチーム名で登録してください。
                     <br>
-                    〇〇高校、〇〇U-18、〇〇ユースの形で登録してください。
+                    〇〇高校、〇〇U18、〇〇ユースの形で登録してください。
                     <br>
                     2nd、3rdなどの区別はしないでください。
                   </span>
@@ -89,30 +89,6 @@
                   cols="12"
                   class="pt-0"
                 >
-                  <ValidationProvider
-                    v-slot="{ errors }"
-                    rules="required"
-                    name="選択"
-                    vid="kind"
-                  >
-                    <v-select
-                      v-model="team.kind"
-                      outlined
-                      dense
-                      label="選択"
-                      :items="kinds"
-                      item-value="id"
-                      item-text="name"
-                      required
-                      background-color="#F2F4F8"
-                      :error-messages="errors"
-                    />
-                  </ValidationProvider>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pt-0"
-                >
                   <v-btn
                     color="#3949AB"
                     class="font-weight-bold"
@@ -149,18 +125,7 @@ export default {
       team: {
         prefectureId: "",
         name: "",
-        kind: "",
-      },
-      kinds: [
-        {
-          id: 0,
-          name: "高体連"
-        },
-        {
-          id: 1,
-          name: "ユースチーム"
-        }
-      ]
+      }
     }
   },
   methods: {
