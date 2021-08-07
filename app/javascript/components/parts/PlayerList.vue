@@ -72,15 +72,18 @@
       color="#FAFAFA"
     >
       <player-list-item
-        v-for="user in users"
+        v-for="(user, index) in users"
         :key="user.id"
         :user="user"
+        :index="index + 1"
       />
     </v-list>
     <the-area-change-dialog
+      v-if="$vuetify.breakpoint.mobile"
       ref="areaChangeDialog"
     />
     <the-player-search-dialog
+      v-if="$vuetify.breakpoint.mobile"
       ref="playerSearchDialog"
       :teams="teams"
       @search-player="searchPlayer"
