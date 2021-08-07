@@ -88,6 +88,12 @@ export default {
     }
   },
   computed: {
+    setColor() {
+      if (this.index === 1) return "#dab300"
+      if (this.index === 2) return "#C0C0C0"
+      if (this.index === 3) return "#816D46"
+      else return "#d3b572"
+    },
     ...mapGetters({ currentUser: "user/currentUser" }),
     fullName() {
       return `${this.user.lastName} ${this.user.firstName}`
