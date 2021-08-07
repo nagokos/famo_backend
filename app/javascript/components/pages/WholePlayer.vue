@@ -14,47 +14,12 @@
           :teams="teams"
           @search-player="searchPlayer"
         />
-        <v-col
-          cols="12"
-          lg="8"
-        >
-          <div
-            class="font-weight-bold"
-            style="font-size: 1.8rem"
-          >
-            全国
-          </div>
-          <div v-if="$vuetify.breakpoint.mobile">
-            詳細条件
-          </div>
-          <v-tabs
-            class="mt-2"
-            background-color="#FAFAFA"
-            color="black"
-          >
-            <v-tab
-              exact
-              class="font-weight-bold"
-              :ripple="false"
-              :to="{ name: 'wholePlayer' }"
-            >
-              選手一覧
-            </v-tab>
-            <v-tab
-              exact
-              class="font-weight-bold"
-              :ripple="false"
-              :to="{ name: 'wholeRating' }"
-            >
-              ランキング
-            </v-tab>
-          </v-tabs>
-          <v-divider />
-          <router-view
-            :users="users"
-            :league="league"
-          />
-        </v-col>
+        <router-view
+          :users="users"
+          :teams="teams"
+          :area="league"
+          @search-player="searchPlayer"
+        />
       </v-row>
     </v-container>
   </div>
