@@ -100,7 +100,17 @@ export default {
     ThePlayerSearchDialog
   },
   props: {
+    area: {
+      type: Object,
+      default: () => {},
+      required: true
+    },
     users: {
+      type: Array,
+      default: () => {},
+      required: true
+    },
+    teams: {
       type: Array,
       default: () => {},
       required: true
