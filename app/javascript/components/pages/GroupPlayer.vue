@@ -14,47 +14,12 @@
           :teams="teams"
           @search-player="searchPlayer"
         />
-        <v-col
-          cols="12"
-          lg="8"
-        >
-          <div
-            class="font-weight-bold"
-            style="font-size: 1.8rem"
-          >
-            {{ group.name }}
-          </div>
-          <div v-if="$vuetify.breakpoint.mobile">
-            詳細条件
-          </div>
-          <v-tabs
-            class="mt-2"
-            background-color="#FAFAFA"
-            color="black"
-          >
-            <v-tab
-              exact
-              class="font-weight-bold"
-              :ripple="false"
-              :to="{ name: 'groupPlayer' }"
-            >
-              選手一覧
-            </v-tab>
-            <v-tab
-              exact
-              class="font-weight-bold"
-              :ripple="false"
-              :to="{ name: 'groupRating' }"
-            >
-              ランキング
-            </v-tab>
-          </v-tabs>
-          <v-divider />
-          <router-view
-            :users="users"
-            :league="group"
-          />
-        </v-col>
+        <router-view
+          :users="users"
+          :teams="teams"
+          :area="group"
+          @search-player="searchPlayer"
+        />
       </v-row>
     </v-container>
   </div>
