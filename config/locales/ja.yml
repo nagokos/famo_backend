@@ -31,7 +31,6 @@ ja:
         name: 都道府県名
       team:
         name: チーム名
-        kind: 種類
         prefecture: 都道府県
       league:
         name: リーグ名
