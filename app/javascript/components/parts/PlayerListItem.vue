@@ -99,7 +99,14 @@ export default {
       return `${this.user.lastName} ${this.user.firstName}`
     },
     information() {
-      return `${this.user.profile.team}(${this.user.profile.prefecture.name}) ${this.user.profile.position} / ${this.user.profile.officialNumber}`
+      if (this.$vuetify.breakpoint.mobile && this.$vuetify.breakpoint.width <= 320) {
+        const information = `${this.user.profile.team} / ${this.user.profile.position}`
+        return information.length >= 16 ? `${information.substr(0, 12)}...` : information
+      } else if (this.$vuetify.breakpoint.mobile && this.$vuetify.breakpoint.width > 320) {
+        return `${this.user.profile.team} / ${this.user.profile.position}`
+      } else {
+        return `${this.user.profile.team}(${this.user.profile.prefecture.name}) / ${this.user.profile.position}`
+      }
     }
   },
   methods: {
