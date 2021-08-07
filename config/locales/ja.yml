@@ -62,8 +62,6 @@ ja:
           attributes:
             prefecture:
               required: "%{attribute}を選択して下さい"
-            kind:
-              blank: "選択して下さい"
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -80,10 +78,6 @@ ja:
         reviewer: レビュアー
         player: 選手
         admin: 管理者
-    team:
-      kind:
-        high_school: 高校
-        youth: ユース
     profile:
       position:
         GK: ゴールキーパー
