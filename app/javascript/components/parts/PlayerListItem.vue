@@ -8,6 +8,21 @@
       style="cursor: pointer;"
       @click="pushUserPage"
     >
+      <v-icon
+        v-if="$route.path.includes('ratings')"
+        size="45"
+        :color="setColor"
+        :style="$vuetify.breakpoint.mobile ? 'position: absolute; bottom: 82px; z-index: 1;' : 'position: absolute; bottom: 102px; z-index: 1;'"
+      >
+        mdi-bookmark
+      </v-icon>
+      <span
+        v-if="$route.path.includes('ratings')"
+        class="font-weight-bold white--text"
+        :style="$vuetify.breakpoint.mobile ? 'position: absolute; bottom: 93px; left: 18px; z-index: 1;' : 'position: absolute; bottom: 114px; left: 18px; z-index: 1;'"
+      >
+        {{ index }}
+      </span>
       <v-avatar
         :size="$vuetify.breakpoint.mobile ? 100 : 130"
         rounded
@@ -17,7 +32,7 @@
         />
       </v-avatar>
       <v-list-item-content class="ml-5">
-        <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-2'">
+        <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-4'">
           {{ fullName }}
         </v-list-item-title>
         <v-list-item-subtitle
