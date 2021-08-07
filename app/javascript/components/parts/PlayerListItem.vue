@@ -80,6 +80,11 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    index: {
+      type: Number,
+      default: () => {},
+      required: true
     }
   },
   computed: {
