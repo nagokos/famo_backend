@@ -19,6 +19,6 @@ class Api::V1::TeamsController < Api::V1::BaseController
   private
 
   def team_params
-    params.require(:team).permit(:name, :kind, :prefecture_id)
+    params.require(:team).permit(:name, :prefecture_id)
   end
 end
