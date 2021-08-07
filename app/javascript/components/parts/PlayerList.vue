@@ -118,6 +118,7 @@ export default {
   },
   data() {
     return {
+      searchData: "",
       routes: [
         {
           name: "選手一覧",
@@ -129,5 +130,48 @@ export default {
       ]
     }
   },
+  computed: {
+    searchDataInformation() {
+      if (!this.searchData || !this.searchData.team.id && this.searchData.position.value === "") return "標準"
+      if (!!this.searchData.team.id && this.searchData.position.value !== "") {
+        return `${this.searchData.position.name} / ${this.searchData.team.name}`
+      } else if (!!this.searchData.team.id) {
+        return this.searchData.team.name
+      } else {
+        return this.searchData.position.name
+      }
+    },
+    isWhole() {
+      return this.$route.path.includes("whole")
+    },
+    playerName() {
+      if (this.isWhole) {
+        return "wholePlayer"
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return "leaguePlayer"
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return "categoryPlayer"
+      } else {
+        return "groupPlayer"
+      }
+    },
+    ratingName() {
+      if (this.isWhole) {
+        return "wholeRating"
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return "leagueRating"
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return "categoryRating"
+      } else {
+        return "groupRating"
+      }
+    }
+  },
+  methods: {
+    searchPlayer(q, data) {
+      this.searchData = data
+      this.$emit("search-player", q)
+    }
+  }
 }
 </script>
