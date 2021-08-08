@@ -153,8 +153,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
-
 export default {
   data() {
     return {
@@ -239,15 +237,15 @@ export default {
         this.$router.push({ name: 'wholePlayer', params: { q: this.q } })
       } else if (this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId)
-        const leagueEigo = Transform.leagueNameEigo(league.name)
+        const leagueEigo = this.leagueNameEigo(league.name)
         this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo, search: this.q } })
       } else if (this.q.leagueId && this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
-        const leagueEigo = Transform.leagueNameEigo(league)
+        const leagueEigo = this.leagueNameEigo(league)
         this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, search: this.q } })
       } else {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
-        const leagueEigo = Transform.leagueNameEigo(league)
+        const leagueEigo = this.leagueNameEigo(league)
         this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId, search: this.q } })
       }
     },
