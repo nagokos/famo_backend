@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
 
@@ -101,7 +100,7 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const leagueId = this.getLeagueId(this.$route.params.league)
       this.q.leagueId = leagueId
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
@@ -110,14 +109,14 @@ export default {
       this.users = response.data.users
     },
     async getTeams() {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const leagueId = this.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/teams`)
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
     },
     async getLeague() {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const leagueId = this.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/leagues/${leagueId}`)
       this.league = response.data.league
     },
