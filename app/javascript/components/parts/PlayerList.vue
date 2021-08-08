@@ -141,13 +141,17 @@ export default {
   },
   computed: {
     searchDataInformation() {
-      if (!this.searchData || !this.searchData.team.id && this.searchData.position.value === "") return "標準"
-      if (!!this.searchData.team.id && this.searchData.position.value !== "") {
-        return `${this.searchData.position.name} / ${this.searchData.team.name}`
-      } else if (!!this.searchData.team.id) {
-        return this.searchData.team.name
+      if (this.q.position === "" && !this.q.teamId) {
+        return "標準"
+      } else if (this.q.position !== "" && !this.q.teamId) {
+        return this.positionTransForm(this.q.position)
+      } else if (this.q.position === "" && !!this.q.teamId) {
+        const team = this.teams.find(team => team.id === this.q.teamId)
+        return team.name
       } else {
-        return this.searchData.position.name
+        const team = this.teams.find(team => team.id === this.q.teamId)
+        const position = this.positionTransForm(this.q.position)
+        return `${position} / ${team.name}`
       }
     },
     isWhole() {
@@ -180,6 +184,24 @@ export default {
     searchPlayer(q, data) {
       this.searchData = data
       this.$emit("search-player", q)
+    },
+    positionTransForm(id) {
+      let position = ""
+      switch (id) {
+      case 0:
+        position = "GK"
+        break
+      case 1:
+        position = "DF"
+        break
+      case 2:
+        position = "MF"
+        break
+      case 3:
+        position = "FW"
+        break
+      }
+      return position
     }
   }
 }
