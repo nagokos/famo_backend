@@ -86,6 +86,7 @@
       v-if="$vuetify.breakpoint.mobile"
       ref="playerSearchDialog"
       :teams="teams"
+      v-bind.sync="q"
       @search-player="searchPlayer"
     />
   </v-col>
@@ -115,6 +116,11 @@ export default {
     },
     teams: {
       type: Array,
+      default: () => {},
+      required: true
+    },
+    q: {
+      type: Object,
       default: () => {},
       required: true
     }
