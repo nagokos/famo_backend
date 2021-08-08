@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
 import TheProfileWrapper from "../parts/TheProfileWrapper"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 
@@ -42,17 +41,17 @@ export default {
           },
           {
             text: this.user.profile.league.name,
-            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}`,
+            to: `/${this.leagueNameEigo(this.user.profile.league.name)}`,
             disabled: false
           },
           {
             text: this.user.profile.category.name,
-            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
+            to: `/${this.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
             disabled: false
           },
           {
             text: this.user.profile.group,
-            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}/${this.user.profile.groupId}`,
+            to: `/${this.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}/${this.user.profile.groupId}`,
             disabled: false
           },
           {
@@ -70,12 +69,12 @@ export default {
           },
           {
             text: this.user.profile.league.name,
-            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}`,
+            to: `/${this.leagueNameEigo(this.user.profile.league.name)}`,
             disabled: false
           },
           {
             text: this.user.profile.category.name,
-            to: `/${Transform.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
+            to: `/${this.leagueNameEigo(this.user.profile.league.name)}/${this.user.profile.category.id}`,
             disabled: false
           },
           {
@@ -97,7 +96,7 @@ export default {
     async getUser() {
       this.loading = false
       const userId = this.$route.params.userId
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
+      const leagueId = this.getLeagueId(this.$route.params.league)
       const response = await this.$axios.get(`/api/v1/users/${userId}?role=player`)
       this.user = response.data.user
       this.loading = true
