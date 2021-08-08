@@ -15,6 +15,9 @@ import Vuex from "vuex"
 import store from "../store/index"
 Vue.use(Vuex)
 
+import globalMethods from "../mixins/global-valiables"
+Vue.mixin(globalMethods)
+
 // VeeValidate
 import VeeValidate from "../plugins/vee-validate"
 Vue.mixin(VeeValidate)
