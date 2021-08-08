@@ -12,13 +12,15 @@
           :league="league"
           :leagues="leagues"
           :teams="teams"
-          @search-player="searchPlayer"
+          v-bind.sync="q"
+          @search-player="getPlayers"
         />
         <router-view
           :users="users"
           :teams="teams"
           :area="league"
-          @search-player="searchPlayer"
+          :q="q"
+          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -40,6 +42,7 @@ export default {
     if (to.params.league !== from.params.league) {
       this.getData()
     } else {
+      this.resetSearch()
       this.getPlayers()
     }
   },
@@ -49,7 +52,12 @@ export default {
       users: [],
       league: {},
       leagues: [],
-      teams: []
+      teams: [],
+      q: {
+        leagueId: "",
+        position: "",
+        teamId: ""
+      }
     }
   },
   computed: {
@@ -72,9 +80,14 @@ export default {
     }
   },
   created() {
+    if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
   methods: {
+    resetSearch() {
+      this.q.teamId = ""
+      this.q.position = ""
+    },
     async getData() {
       this.loading = false
       await this.getLeague()
@@ -89,18 +102,10 @@ export default {
     },
     async getPlayers() {
       const leagueId = Transform.getLeagueId(this.$route.params.league)
-      const q = { league_id: leagueId }
-      this.isRating ? q.rating = true : q.rating = false
+      this.q.leagueId = leagueId
+      this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
-        params: { q }
-      })
-      this.users = response.data.users
-    },
-    async searchPlayer(q) {
-      const leagueId = Transform.getLeagueId(this.$route.params.league)
-      q.league_id = leagueId
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: { q }
+        params: { q: this.q }
       })
       this.users = response.data.users
     },
