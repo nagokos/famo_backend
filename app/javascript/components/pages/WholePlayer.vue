@@ -9,16 +9,19 @@
     <v-container>
       <v-row>
         <player-search
+          v-if="!$vuetify.breakpoint.mobile"
           :league="league"
           :leagues="leagues"
           :teams="teams"
-          @search-player="searchPlayer"
+          v-bind.sync="q"
+          @search-player="getPlayers"
         />
         <router-view
           :users="users"
           :teams="teams"
           :area="league"
-          @search-player="searchPlayer"
+          :q="q"
+          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -36,6 +39,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.resetSearch()
     this.getPlayers()
   },
   data() {
@@ -44,7 +48,11 @@ export default {
       users: [],
       league: {},
       leagues: [],
-      teams: []
+      teams: [],
+      q: {
+        position: "",
+        teamId: ""
+      }
     }
   },
   computed: {
@@ -70,6 +78,10 @@ export default {
     this.getData()
   },
   methods: {
+    resetSearch() {
+      this.q.teamId = ""
+      this.q.position = ""
+    },
     async getData() {
       await this.getPlayers()
       await this.getLeagues()
@@ -81,16 +93,9 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
-      const q = {}
-      this.isRating ? q.rating = true : q.rating = false
+      this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
-        params: { q }
-      })
-      this.users = response.data.users
-    },
-    async searchPlayer(q) {
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: { q }
+        params: { q: this.q }
       })
       this.users = response.data.users
     },

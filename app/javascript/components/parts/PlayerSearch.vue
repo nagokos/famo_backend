@@ -108,7 +108,7 @@
       </v-card-text>
     </v-card>
     <v-select
-      v-model="q.position"
+      :value="position"
       class="mt-5"
       background-color="white"
       outlined
@@ -117,6 +117,7 @@
       item-text="name"
       item-value="value"
       style="max-width: 300px;"
+      @change="$emit('update:position', $event)"
     />
     <v-card
       color="#f1f4f8"
@@ -137,7 +138,7 @@
       </v-card-text>
     </v-card>
     <v-select
-      v-model="q.team_id"
+      :value="teamId"
       class="mt-5"
       background-color="white"
       outlined
@@ -147,14 +148,24 @@
       item-text="name"
       no-data-text="選択できるチームがありません"
       style="max-width: 300px;"
+      @change="$emit('update:teamId', $event)"
     />
     <v-btn
-      width="300"
+      width="50"
+      large
+      :ripple="false"
+      class="font-weight-bold mt-3 text-caption"
+      @click="resetSearch"
+    >
+      リセット
+    </v-btn>
+    <v-btn
+      width="210"
       large
       :ripple="false"
       color="#3949AB"
       dark
-      class="font-weight-bold mt-3"
+      class="font-weight-bold mt-3 text-caption ml-2"
       @click="searchPlayer"
     >
       検索する
@@ -167,6 +178,16 @@ import Transform from "../../packs/league-transform"
 
 export default {
   props: {
+    teamId: {
+      type: [String, Number],
+      default: () => {},
+      required: true
+    },
+    position: {
+      type: [String, Number],
+      default: () => {},
+      required: true
+    },
     league: {
       type: Object,
       default: () => {},
@@ -186,10 +207,6 @@ export default {
   data() {
     return {
       menu: false,
-      q: {
-        position: "",
-        team_id: "",
-      },
       positions: [
         {
           name: "指定なし",
@@ -233,19 +250,13 @@ export default {
       }
     },
   },
-  watch: {
-    $route() {
-      this.resetSearch()
-    }
-  },
   methods: {
     resetSearch() {
-      this.q.position = ""
-      this.q.team_id = ""
+      this.$emit("update:position", "")
+      this.$emit("update:teamId", "")
     },
     searchPlayer() {
-      if (this.$route.path.includes("ratings")) this.q.rating = true
-      this.$emit("search-player", this.q)
+      this.$emit("search-player")
     },
     pushLeague(league) {
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {

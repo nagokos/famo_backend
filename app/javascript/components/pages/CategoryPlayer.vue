@@ -12,13 +12,15 @@
           :league="category"
           :leagues="categories"
           :teams="teams"
-          @search-player="searchPlayer"
+          v-bind.sync="q"
+          @search-player="getPlayers"
         />
         <router-view
           :users="users"
           :teams="teams"
           :area="category"
-          @search-player="searchPlayer"
+          :q="q"
+          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -40,6 +42,7 @@ export default {
     if (to.params.categoryId !== from.params.categoryId) {
       this.getData()
     } else {
+      this.resetSearch()
       this.getPlayers()
     }
   },
@@ -49,7 +52,14 @@ export default {
       category: {},
       categories: [],
       teams: [],
-      loading: false
+      loading: false,
+      q: {
+        leagueId: "",
+        categoryId: "",
+        groupId: "",
+        position: "",
+        teamId: ""
+      }
     }
   },
   computed: {
@@ -77,9 +87,15 @@ export default {
     }
   },
   created() {
+
+    if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
   methods: {
+    resetSearch() {
+      this.q.teamId = ""
+      this.q.position = ""
+    },
     async getData() {
       this.loading = false
       await this.getCategory()
@@ -89,17 +105,10 @@ export default {
       this.loading = true
     },
     async getPlayers() {
-      const q = { category_id: this.category.id }
-      this.isRating ? q.rating = true : q.rating = false
+      this.q.categoryId = this.category.id
+      this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
-        params: { q }
-      })
-      this.users = response.data.users
-    },
-    async searchPlayer(q) {
-      q.category_id = this.$route.params.categoryId
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: { q }
+        params: { q: this.q }
       })
       this.users = response.data.users
     },

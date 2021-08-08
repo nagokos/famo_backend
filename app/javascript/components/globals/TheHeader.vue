@@ -37,16 +37,9 @@
           color="#FAFAFA"
           class="mr-6"
           size="27"
+          @click="pushPage('/search', 'search')"
         >
           mdi-magnify
-        </v-icon>
-        <v-icon
-          v-if="currentUser"
-          color="#FAFAFA"
-          class="mr-6"
-          size="27"
-        >
-          mdi-bell-outline
         </v-icon>
         <v-menu
           v-if="currentUser"

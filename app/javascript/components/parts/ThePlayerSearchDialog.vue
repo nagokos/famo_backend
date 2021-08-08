@@ -42,12 +42,13 @@
               cols="12"
             >
               <v-select
-                v-model="q.position"
+                :value="position"
                 outlined
                 dense
                 :items="positions"
                 item-text="name"
                 item-value="value"
+                @change="$emit('update:position', $event)"
               />
             </v-col>
             <v-col
@@ -61,12 +62,13 @@
               cols="12"
             >
               <v-select
-                v-model="q.team_id"
+                :value="teamId"
                 outlined
                 dense
                 :items="teams"
                 item-value="id"
                 item-text="name"
+                @change="$emit('update:teamId', $event)"
               />
             </v-col>
             <v-col cols="12">
@@ -95,15 +97,21 @@ export default {
       type: Array,
       default: () => {},
       required: true
+    },
+    teamId: {
+      type: [String, Number],
+      default: () => {},
+      required: true
+    },
+    position: {
+      type: [String, Number],
+      default: () => {},
+      required: true
     }
   },
   data() {
     return {
       dialog: false,
-      q: {
-        position: "",
-        team_id: "",
-      },
       positions: [
         {
           name: "指定なし",
@@ -137,18 +145,12 @@ export default {
     },
     searchPlayer() {
       this.dialog = false
-      let searchData = {}
-      const team = this.teams.find(team => team.id === this.q.team_id)
-      const position = this.positions.find(position => position.value === this.q.position)
-      searchData.team = team
-      searchData.position = position
-      if (this.$route.path.includes("ratings")) this.q.rating = true
-      this.$emit("search-player", this.q, searchData)
+      this.$emit("search-player")
     },
     resetSearch() {
-      this.q.position = ""
-      this.q.team_id = ""
-    }
+      this.$emit("update:position", "")
+      this.$emit("update:teamId", "")
+    },
   }
 }
 </script>
