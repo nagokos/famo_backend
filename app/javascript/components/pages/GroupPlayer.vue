@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
 
@@ -75,12 +74,12 @@ export default {
         },
         {
           text: this.group.league.name,
-          to: `/${Transform.leagueNameEigo(this.group.league.name)}`,
+          to: `/${this.leagueNameEigo(this.group.league.name)}`,
           disabled: false,
         },
         {
           text: this.group.category.name,
-          to: `/${Transform.leagueNameEigo(this.group.league.name)}/${this.group.category.id}`,
+          to: `/${this.leagueNameEigo(this.group.league.name)}/${this.group.category.id}`,
           disabled: false
         },
         {
