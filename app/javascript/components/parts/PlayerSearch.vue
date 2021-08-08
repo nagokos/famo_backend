@@ -174,8 +174,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
-
 export default {
   props: {
     teamId: {
@@ -260,7 +258,7 @@ export default {
     },
     pushLeague(league) {
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {
-        const leagueEigo = Transform.leagueNameEigo(league.name)
+        const leagueEigo = this.leagueNameEigo(league.name)
         this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo } })
       } else if (!this.$route.params.groupId) {
         this.$router.push({ name: "categoryPlayer", params: { categoryId: league.id } })

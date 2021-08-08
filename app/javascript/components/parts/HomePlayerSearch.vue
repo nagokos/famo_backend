@@ -112,8 +112,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
-
 export default {
   props: {
     leagues: {
@@ -162,16 +160,16 @@ export default {
       }
     },
     pushLeague() {
-      const leagueEigo = Transform.leagueNameEigo(this.leagueName)
+      const leagueEigo = this.leagueNameEigo(this.leagueName)
       localStorage.leagueId = this.leagueId
       this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo } })
     },
     pushCategory() {
-      const leagueEigo = Transform.leagueNameEigo(this.leagueName)
+      const leagueEigo = this.leagueNameEigo(this.leagueName)
       this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.categoryId } })
     },
     pushGroup(groupId) {
-      const leagueEigo = Transform.leagueNameEigo(this.leagueName)
+      const leagueEigo = this.leagueNameEigo(this.leagueName)
       this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.categoryId, groupId: groupId } })
     },
   }

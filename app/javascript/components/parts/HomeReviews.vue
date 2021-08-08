@@ -114,7 +114,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Transform from "../../packs/league-transform"
 
 export default {
   props: {
@@ -136,7 +135,7 @@ export default {
     pushUserPage(user) {
       if (this.currentUser.id === user.id) return this.$router.push({ name: "myReview" })
       if (user.role === "player") {
-        const leagueEigo = Transform.leagueNameEigo(user.profile.league.name)
+        const leagueEigo = this.leagueNameEigo(user.profile.league.name)
         this.$router.push({
           name: "playerReview",
           params: { league: leagueEigo, categoryId: user.profile.category.id, groupId: user.profile.groupId, userId: user.id }

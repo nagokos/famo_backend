@@ -115,8 +115,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
-
 export default {
   data() {
     return {
@@ -167,7 +165,7 @@ export default {
       this.category = ""
     },
     setId() {
-      if (!!this.$route.params.league) this.league = Transform.getLeagueId(this.$route.params.league)
+      if (!!this.$route.params.league) this.league = this.getLeagueId(this.$route.params.league)
       if (!!this.$route.params.categoryId) this.category = +this.$route.params.categoryId
       if (!!this.$route.params.groupId) this.group = +this.$route.params.groupId
     },
@@ -194,18 +192,18 @@ export default {
         this.$router.push({ name: 'wholePlayer' })
       } else if (this.league && !this.category && !this.group) {
         const league = this.leagues.find(league => league.id === this.league)
-        const leagueEigo = Transform.leagueNameEigo(league.name)
+        const leagueEigo = this.leagueNameEigo(league.name)
         if (this.$route.path.includes(leagueEigo) && !this.$route.params.categoryId && !this.$route.params.groupId) return this.close()
         this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo } })
       } else if (this.league && this.category && !this.group) {
         if (this.$route.path.includes(this.category) && !this.$route.params.groupId) return this.close()
         const league = this.leagues.find(league => league.id === this.league).name
-        const leagueEigo = Transform.leagueNameEigo(league)
+        const leagueEigo = this.leagueNameEigo(league)
         this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.category } })
       } else {
         if (+this.$route.params.groupId === this.group) return this.close()
         const league = this.leagues.find(league => league.id === this.league).name
-        const leagueEigo = Transform.leagueNameEigo(league)
+        const leagueEigo = this.leagueNameEigo(league)
         this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.category, groupId: this.group } })
       }
     },
