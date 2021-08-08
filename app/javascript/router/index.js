@@ -12,6 +12,7 @@ import WholePlayer from "../components/pages/WholePlayer"
 import LeaguePlayer from "../components/pages/LeaguePlayer"
 import CategoryPlayer from "../components/pages/CategoryPlayer"
 import GroupPlayer from "../components/pages/GroupPlayer"
+import Search from "../components/pages/Search"
 import NotFound from "../components/pages/NotFound"
 import PlayerList from "../components/parts/PlayerList"
 import ReviewCard from "../components/parts/ReviewCard"
@@ -27,6 +28,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: SignupLogin
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: Search
   },
   {
     path: "/profile",
