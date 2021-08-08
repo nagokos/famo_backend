@@ -72,7 +72,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Transform from "../../packs/league-transform"
 
 export default {
   props: {
@@ -111,7 +110,7 @@ export default {
   },
   methods: {
     pushUserPage() {
-      const leagueEigo = Transform.leagueNameEigo(this.user.profile.league.name)
+      const leagueEigo = this.leagueNameEigo(this.user.profile.league.name)
       if (this.currentUser.id === this.user.id) {
         this.$router.push({ name: "myReview" })
       } else {
