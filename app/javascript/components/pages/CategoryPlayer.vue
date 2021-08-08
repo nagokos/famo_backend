@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Transform from "../../packs/league-transform"
 import TheBreadCrumb from "../globals/TheBreadCrumb"
 import PlayerSearch from "../parts/PlayerSearch"
 
@@ -75,7 +74,7 @@ export default {
         },
         {
           text: this.category.league.name,
-          to: `/${Transform.leagueNameEigo(this.category.league.name)}`,
+          to: `/${this.leagueNameEigo(this.category.league.name)}`,
           disabled: false,
         },
         {
@@ -87,7 +86,6 @@ export default {
     }
   },
   created() {
-
     if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
@@ -123,8 +121,8 @@ export default {
       this.teams.unshift(unspecified)
     },
     async getCategories() {
-      const leagueEigo = Transform.leagueNameEigo(this.category.league.name)
-      const leagueId = Transform.getLeagueId(leagueEigo)
+      const leagueEigo = this.leagueNameEigo(this.category.league.name)
+      const leagueId = this.getLeagueId(leagueEigo)
       const response = await this.$axios.get(`/api/v1/leagues/${leagueId}/categories`)
       this.categories = response.data.categories
     }
