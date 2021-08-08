@@ -12,13 +12,15 @@
           :league="group"
           :leagues="groups"
           :teams="teams"
-          @search-player="searchPlayer"
+          v-bind.sync="q"
+          @search-player="getPlayers"
         />
         <router-view
           :users="users"
           :teams="teams"
           :area="group"
-          @search-player="searchPlayer"
+          :q="q"
+          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -40,6 +42,7 @@ export default {
     if (to.params.groupId !== from.params.groupId) {
       this.getData()
     } else {
+      this.resetSearch()
       this.getPlayers()
     }
   },
@@ -49,7 +52,14 @@ export default {
       group: {},
       groups: [],
       teams: [],
-      loading: false
+      loading: false,
+      q: {
+        leagueId: "",
+        categoryId: "",
+        groupId: "",
+        position: "",
+        teamId: ""
+      }
     }
   },
   computed: {
@@ -82,9 +92,14 @@ export default {
     }
   },
   created() {
-   this.getData()
+    if (!!this.$route.params.search) this.q = this.$route.params.search
+    this.getData()
   },
   methods: {
+    resetSearch() {
+      this.q.teamId = ""
+      this.q.position = ""
+    },
     async getData() {
       this.loading = false
       await this.getGroup()
@@ -94,17 +109,10 @@ export default {
       this.loading = true
     },
     async getPlayers() {
-      const q = { group_id: this.group.id }
-      this.isRating ? q.rating = true : q.rating = false
+      this.q.groupId = this.group.id
+      this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
-        params: { q }
-      })
-      this.users = response.data.users
-    },
-    async searchPlayer(q) {
-      q.group_id = this.$route.params.groupId
-      const response = await this.$axios.get(`/api/v1/players`, {
-        params: { q }
+        params: { q: this.q }
       })
       this.users = response.data.users
     },
