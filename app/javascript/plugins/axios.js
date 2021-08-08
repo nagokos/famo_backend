@@ -1,11 +1,18 @@
 import Axios from "axios"
 import store from "../store"
+import snakeCase from 'lodash.snakecase'
 import qs from 'qs'
+import deepMapKeys from "../packs/deep-map-keys"
+
 
 const instance = Axios.create({
   paramsSerializer: (params) => {
-    return qs.stringify(params, {arrayFormat: 'brackets'})
-  }
+    return qs.stringify(
+      deepMapKeys(params, (val, key) => {
+        return snakeCase(key)
+      }),
+      params, {arrayFormat: 'brackets'})
+  },
 })
 
 instance.interceptors.request.use(request => {
