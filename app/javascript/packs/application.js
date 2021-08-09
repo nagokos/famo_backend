@@ -22,6 +22,10 @@ Vue.mixin(globalMethods)
 import VeeValidate from "../plugins/vee-validate"
 Vue.mixin(VeeValidate)
 
+// dayjs
+import dayjs from "../plugins/dayjs"
+Vue.prototype.$dayjs = dayjs
+
 // Vuetify
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"

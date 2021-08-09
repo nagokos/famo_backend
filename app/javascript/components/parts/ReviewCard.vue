@@ -29,10 +29,21 @@
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
-                さんへのレビュー
+                {{`さんへのレビュー・${relativeTime}`}}
               </span>
             </span>
           </v-list-item-title>
+          <v-list-item-subtitle
+            v-if="user.role === 'player'"
+            class="pb-0"
+          >
+            <span
+              class="text-caption"
+              style="color: rgba(0,0,0,.6)"
+            >
+              {{ relativeTime }}
+            </span>
+          </v-list-item-subtitle>
           <v-list-item-subtitle
             v-if="user.role === 'reviewer'"
             class="pb-0"
@@ -235,6 +246,9 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
+    relativeTime() {
+      return this.$dayjs(this.review.createdAt).fromNow()
+    },
     isMyReview() {
       return this.review.reviewer.id === this.currentUser.id
     },

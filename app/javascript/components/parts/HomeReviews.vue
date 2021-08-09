@@ -18,27 +18,33 @@
             :min-height="$vuetify.breakpoint.mobile ? 380 : 310"
             :max-height="$vuetify.breakpoint.mobile ? 380 : 310"
           >
-            <v-card-title>
-              <v-avatar
+            <v-list-item two-line>
+              <v-list-item-avatar
                 class="mr-2"
                 style="cursor: pointer;"
+                :size="45"
                 @click="pushUserPage(review.reviewee)"
               >
-                <v-img
+                 <v-img
                   :src="review.reviewee.avatar"
                 />
-              </v-avatar>
-              <span :class="$vuetify.breakpoint.mobile ? 'text-subtitle-2 font-weight-bold' : 'text-subtitle-1 font-weight-bold'">
-                <span
-                  style="cursor: pointer;"
-                  @click="pushUserPage(review.reviewee)"
-                >
-                  {{ fullName(review.reviewee) }}
-                </span>
-                さんへのレビュー
-              </span>
-            </v-card-title>
-            <v-card-text class="pb-0">
+              </v-list-item-avatar>
+              <v-list-item-content class="mt-1">
+                <v-list-item-title class="text-body-2 font-weight-bold">
+                  <span
+                    style="cursor: pointer;"
+                    @click="pushUserPage(review.reviewee)"
+                  >
+                    {{ fullName(review.reviewee) }}
+                  </span>
+                  さんへのレビュー
+                </v-list-item-title>
+                <v-list-item-subtitle class="text-caption">
+                  {{ $dayjs(review.createdAt).fromNow() }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-card-text class="py-0">
               <p class="text-caption">
                 {{ review.reviewee.profile.team }} / {{ review.reviewee.profile.position }}
               </p>

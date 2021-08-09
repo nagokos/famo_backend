@@ -150,9 +150,14 @@ export default {
       }
     },
     reviewCount() {
-      return `${this.reviews.length}件`
+      if (this.reviews.length === 0) {
+        return "0件"
+      } else {
+        return `${this.reviews.length}件`
+      }
     },
     reviewAverage() {
+      if (this.reviews.length === 0) return 0
       const rateArray = this.reviews.map(review => +review.rate)
       const sumRate = rateArray.reduce((rate, currentRate) => {
         return rate + currentRate
