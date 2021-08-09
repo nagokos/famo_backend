@@ -114,14 +114,31 @@
             </template>
             <v-date-picker
               v-model="review.gameDate"
-              :active-picker.sync="activePicker"
-              :max="new Date().toISOString().substr(0, 10)"
+              :max="$dayjs().format('YYYY-MM-DD')"
               min="1900-01-01"
               color="primary"
               :day-format="date => new Date(date).getDate()"
               locale="jp-ja"
               @change="save"
-            />
+            >
+              <v-spacer />
+              <v-btn
+                text
+                color="primary"
+                :ripple="false"
+                @click="menu = false"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                text
+                :ripple="false"
+                color="primary"
+                @click="$refs.menu.save(review.gameDate)"
+              >
+                指定
+              </v-btn>
+            </v-date-picker>
           </v-menu>
           <!-- プライバシー設定 -->
           <v-menu
@@ -230,11 +247,6 @@ export default {
       ],
     }
   },
-  watch: {
-    menu (val) {
-      val && setTimeout(() => (this.activePicker = "YEAR"))
-    },
-  },
   methods: {
     open() {
       this.dialog = true
@@ -242,9 +254,6 @@ export default {
     close() {
       Object.assign(this.$data, this.$options.data())
       this.$refs.observer.reset()
-    },
-    save(date) {
-      this.$refs.menu.save(date)
     },
     checkRate() {
       if (this.review.rate < 1) {
@@ -298,17 +307,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .v-menu__content
-  >>>
-  .v-date-picker-table.v-date-picker-table--date > table > tbody tr td:nth-child(7) .v-btn__content {
-    color:blue
-  }
-
-  .v-menu__content
-  >>>
-  .v-date-picker-table.v-date-picker-table--date > table > tbody tr td:nth-child(1) .v-btn__content {
-    color:red
-  }
-</style>
