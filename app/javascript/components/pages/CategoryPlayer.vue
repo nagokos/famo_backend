@@ -41,7 +41,6 @@ export default {
     if (to.params.categoryId !== from.params.categoryId) {
       this.getData()
     } else {
-      this.resetSearch()
       this.getPlayers()
     }
   },
@@ -90,10 +89,6 @@ export default {
     this.getData()
   },
   methods: {
-    resetSearch() {
-      this.q.teamId = ""
-      this.q.position = ""
-    },
     async getData() {
       this.loading = false
       await this.getCategory()
