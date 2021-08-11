@@ -192,6 +192,9 @@ export default {
     },
     isMypage() {
       return this.$route.path.includes("/profile")
+    },
+    reviewDays() {
+      return this.reviews.map(review => this.$dayjs(review.gameDate).format("YYYY-MM-DD"))
     }
   },
   watch: {
@@ -207,7 +210,7 @@ export default {
       }
     }
   },
-  async  created() {
+  async created() {
     await this.checkFollow()
     await this.getReviews()
     this.loading = true
@@ -237,10 +240,14 @@ export default {
     },
     async getReviews() {
       if (this.isMypage) {
-        const response = await this.$axios.get("/api/v1/users/current/reviews")
+        const response = await this.$axios.get("/api/v1/users/current/reviews", {
+          params: { q: this.q }
+        })
         this.reviews = response.data.reviews
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`, {
+          params: { q: this.q }
+        })
         this.reviews = response.data.reviews
       }
     },
