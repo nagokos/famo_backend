@@ -9,7 +9,10 @@
     </v-card-title>
     <v-divider />
     <div class="signup mx-auto">
-      <v-col align="center">
+      <v-col
+        cols="12"
+        align="center"
+      >
         <p
           style="color: #616161;"
           class="text-body-1 font-weight-medium"
@@ -30,12 +33,12 @@
           新規会員登録
         </v-btn>
       </v-col>
-      <v-col>
+      <v-col cols="12">
         <p style="font-size: 10px;">
-          ＊会員登録することでFamoの利用規約・プライバシーポリシーに同意するものとします。
+          ※ 会員登録することでFamoの利用規約・プライバシーポリシーに同意するものとします。
         </p>
         <p style="font-size: 10px;">
-          ＊アカウント認証メールが届かない・再取得される方は
+          ※ アカウント認証メールが届かない・再取得される方は
           <br>
           <strong
             style="cursor: pointer;"
