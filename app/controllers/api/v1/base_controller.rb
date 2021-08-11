@@ -1,6 +1,8 @@
 class Api::V1::BaseController < ApplicationController
   before_action :check_xhr_header, only: %i[create update destroy]
 
+  include Pagy::Backend
+
   private
 
   def check_xhr_header
