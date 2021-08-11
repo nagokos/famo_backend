@@ -119,7 +119,6 @@
               color="primary"
               :day-format="date => new Date(date).getDate()"
               locale="jp-ja"
-              @change="save"
             >
               <v-spacer />
               <v-btn
