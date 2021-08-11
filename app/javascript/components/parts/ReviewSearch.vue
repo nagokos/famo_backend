@@ -117,9 +117,9 @@ export default {
       default: "",
       required: true
     },
-    reviewDays: {
+    gameDates: {
       type: Array,
-      default: () => {},
+      default: () => {""},
       required: true
     }
   },
@@ -159,7 +159,7 @@ export default {
       this.dialog = false
     },
     allowedDates(val) {
-      return this.reviewDays.includes(val)
+      return this.gameDates.includes(val)
     }
   }
 }
