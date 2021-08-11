@@ -13,6 +13,7 @@ Rails.application.routes.draw do
                 resources :followers, only: %i[index]
                 resources :following, only: %i[index]
                 resources :reviews, only: %i[index update destroy]
+                resources :game_dates, only: %i[index]
                 resource :profile, only: %i[create update destroy]
                 resource :password_changes, only: %i[update]
               end
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
           resources :reviews, only: %i[index create]
           resources :followers, only: %i[index]
           resources :following, only: %i[index]
+          resources :game_dates, only: %i[index]
           resource :relationships, only: %i[create destroy] do
             get :check, on: :member
           end
