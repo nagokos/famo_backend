@@ -83,11 +83,26 @@
             v-if="!isRelation"
             cols="12"
             md="4"
-          />
+            :class="$vuetify.breakpoint.mobile ? '' : 'pr-10'"
+          >
+            <review-search-mobile
+              v-show="!isRelation && $vuetify.breakpoint.mobile"
+              :q="q"
+              :review-days="reviewDays"
+              @search="getReviews"
+            />
+            <review-search
+              v-show="!isRelation && !$vuetify.breakpoint.mobile"
+              v-bind.sync="q"
+              :review-days="reviewDays"
+              @search="getReviews"
+            />
+          </v-col>
           <v-col
             v-if="!isRelation"
             cols="12"
             md="8"
+            :class="$vuetify.breakpoint.mobile ? '' : 'pl-0'"
           >
             <keep-alive
               v-for="(review, index) in reviews"
@@ -132,6 +147,9 @@ import IntroductionEdit from '../parts/IntroductionEdit'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
+import ReviewSearch from './ReviewSearch'
+import ReviewSearchMobile from "./ReviewSearchMobile"
+
 
 export default {
   components: {
@@ -143,6 +161,8 @@ export default {
     ProfileTab,
     ReviewCard,
     RelationCard,
+    ReviewSearch,
+    ReviewSearchMobile
   },
   props: {
     user: {
