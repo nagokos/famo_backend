@@ -105,16 +105,16 @@
             <relation-card
               v-if="$route.path.includes('/following')"
               ref="following"
-              @check-follow="setFollowIds"
-              @reset-ids="ids = []"
+              @check-follow="setFollowingIds"
+              @reset-ids="followersIds = []"
             />
           </keep-alive>
           <keep-alive>
             <relation-card
               v-if="$route.path.includes('/followers')"
               ref="followers"
-              @check-follow="setFollowIds"
-              @reset-ids="ids = []"
+              @check-follow="setFollowersIds"
+              @reset-ids="followingIds = []"
             />
           </keep-alive>
         </v-row>
@@ -158,7 +158,12 @@ export default {
       introductionForm: false,
       userEdit: { ...this.user },
       reviews: [],
-      ids: []
+      followingIds: [],
+      followersIds: [],
+      q: {
+        sort: "created",
+        gameDate: ""
+      }
     }
   },
   computed: {
@@ -170,14 +175,14 @@ export default {
     }
   },
   watch: {
-    $route(route) {
-      if(route.path.includes("/following")) {
+    $route(to, from) {
+      if(to.path.includes("/following")) {
         this.$nextTick(() => {
-          this.$refs.following.switchFollow(this.ids)
+          this.$refs.following.switchFollow(this.followersIds)
         })
-      } else if (route.path.includes("/followers")) {
+      } else if (to.path.includes("/followers")) {
         this.$nextTick(() => {
-           this.$refs.followers.switchFollow(this.ids)
+           this.$refs.followers.switchFollow(this.followingIds)
         })
       }
     }
@@ -188,8 +193,11 @@ export default {
     this.loading = true
   },
   methods: {
-    setFollowIds(id) {
-      this.ids.push(id)
+    setFollowingIds(id) {
+      this.followingIds.push(id)
+    },
+    setFollowersIds(id) {
+      this.followersIds.push(id)
     },
     openIntroduction() {
       this.introductionForm = true

@@ -27,7 +27,7 @@ export default {
     career: {
       type: String,
       default: "",
-      required: true
+      required: false
     }
   }
 }

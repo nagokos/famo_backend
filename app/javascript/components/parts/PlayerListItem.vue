@@ -19,7 +19,7 @@
       <span
         v-if="$route.path.includes('ratings')"
         class="font-weight-bold white--text"
-        :style="$vuetify.breakpoint.mobile ? 'position: absolute; bottom: 93px; left: 18px; z-index: 1;' : 'position: absolute; bottom: 114px; left: 18px; z-index: 1;'"
+        :style="ratingStyle"
       >
         {{ index }}
       </span>
@@ -87,6 +87,17 @@ export default {
     }
   },
   computed: {
+    ratingStyle() {
+    if (this.$vuetify.breakpoint.mobile && this.index >= 10) {
+      return "position: absolute; bottom: 93px; left: 14px; z-index: 1;"
+    } else if (this.$vuetify.breakpoint.mobile && this.index < 10) {
+      return "position: absolute; bottom: 93px; left: 18px; z-index: 1;"
+    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 10) {
+      return "position: absolute; bottom: 114px; left: 14px; z-index: 1;"
+    } else {
+      return "position: absolute; bottom: 114px; left: 18px; z-index: 1;"
+    }
+    },
     setColor() {
       if (this.index === 1) return "#dab300"
       if (this.index === 2) return "#C0C0C0"

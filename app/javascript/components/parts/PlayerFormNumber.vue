@@ -53,7 +53,7 @@ export default {
     practiceNumber: {
       type: String,
       default: "",
-      required: true
+      required: false
     }
   }
 }

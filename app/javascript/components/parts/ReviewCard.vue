@@ -16,8 +16,8 @@
           />
         </v-list-item-avatar>
         <v-list-item-content class="mt-1">
-          <v-list-item-title>
-            <span :class="$vuetify.breakpoint.mobile ? 'text-body-2 font-weight-bold' : 'text-body-2 font-weight-bold'">
+          <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'mb-0' : ''">
+            <span :class="$vuetify.breakpoint.mobile ? 'text-caption font-weight-bold' : 'text-body-2 font-weight-bold'">
               <span
                 v-cloak
                 :style="!!reviewUser.id ? 'cursor: pointer;' : ''"
@@ -29,7 +29,7 @@
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
-                {{`さんへのレビュー・${relativeTime}`}}
+                {{ `さんへのレビュー・${relativeTime}` }}
               </span>
             </span>
           </v-list-item-title>

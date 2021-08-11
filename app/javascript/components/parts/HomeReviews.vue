@@ -25,7 +25,7 @@
                 :size="45"
                 @click="pushUserPage(review.reviewee)"
               >
-                 <v-img
+                <v-img
                   :src="review.reviewee.avatar"
                 />
               </v-list-item-avatar>
