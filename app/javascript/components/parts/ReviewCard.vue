@@ -29,7 +29,7 @@
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
-                {{`さんへのレビュー・${relativeTime}`}}
+                {{ `さんへのレビュー・${relativeTime}` }}
               </span>
             </span>
           </v-list-item-title>
