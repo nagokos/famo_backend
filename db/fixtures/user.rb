@@ -6,7 +6,7 @@ User.create!(
   password: 'foobar1111'
 )
 
-20.times do
+100.times do
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   email = Faker::Internet.unique.email
@@ -18,6 +18,18 @@ User.create!(
     email: email,
     birth_date: birth_date,
     password: password
+  )
+end
+
+User.limit(40).each do |user|
+  user.update(role: "player")
+  user.create_profile(
+    position: (0..3).to_a.shuffle.first,
+    official_number: (1..99).to_a.shuffle.first,
+    user_id: user.id,
+    group_id: Group.pluck(:id).shuffle.first,
+    team_id: Team.pluck(:id).shuffle.first,
+    rate: format('%10.2f', rand(1.0..5.0)).strip.to_f
   )
 end
 
