@@ -42,13 +42,12 @@
               cols="12"
             >
               <v-select
-                :value="position"
+                v-model="positionData"
                 outlined
                 dense
                 :items="positions"
                 item-text="name"
                 item-value="value"
-                @change="$emit('update:position', $event)"
               />
             </v-col>
             <v-col
@@ -62,13 +61,12 @@
               cols="12"
             >
               <v-select
-                :value="teamId"
+                v-model="teamData"
                 outlined
                 dense
                 :items="teams"
                 item-value="id"
                 item-text="name"
-                @change="$emit('update:teamId', $event)"
               />
             </v-col>
             <v-col cols="12">
@@ -112,6 +110,8 @@ export default {
   data() {
     return {
       dialog: false,
+      teamData: this.teamId,
+      positionData: this.position,
       positions: [
         {
           name: "指定なし",
@@ -136,20 +136,29 @@ export default {
       ]
     }
   },
+  watch: {
+    $route() {
+      this.resetSearch()
+    }
+  },
   methods: {
     open() {
       this.dialog = true
     },
     close() {
+      this.teamData = this.teamId,
+      this.positionData = this.position,
       this.dialog = false
     },
     searchPlayer() {
+      this.$emit("update:teamId", this.teamData)
+      this.$emit("update:position", this.positionData)
       this.dialog = false
       this.$emit("search-player")
     },
     resetSearch() {
-      this.$emit("update:position", "")
-      this.$emit("update:teamId", "")
+      this.positionData = ""
+      this.teamData = ""
     },
   }
 }
