@@ -153,6 +153,11 @@ export default {
       return groups
     },
   },
+  watch: {
+    dialog() {
+      this.setId()
+    }
+  },
   async created() {
     await this.getLeagueData()
     await this.setId()
@@ -177,6 +182,8 @@ export default {
       this.dialog = true
     },
     close() {
+      this.league = ""
+      this.resetId()
       this.dialog = false
     },
     pushWhole() {
