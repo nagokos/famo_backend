@@ -126,7 +126,7 @@ export default {
       default: "",
       required: true
     },
-    reviewDays: {
+    gameDates: {
       type: Array,
       default: () => {},
       required: true

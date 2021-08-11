@@ -65,6 +65,14 @@ class User < ApplicationRecord
     end
   end
 
+  def filter_reviews_dates
+    if reviewer?
+      active_reviews.joins(:reviewee).merge(User.where(role: 'player'))
+    else
+      passive_reviews
+    end
+  end
+
   private
 
   def set_uuid

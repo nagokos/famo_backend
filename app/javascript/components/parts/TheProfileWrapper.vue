@@ -88,13 +88,13 @@
             <review-search-mobile
               v-show="!isRelation && $vuetify.breakpoint.mobile"
               :q="q"
-              :review-days="reviewDays"
+              :game-dates="gameDates"
               @search="getReviews"
             />
             <review-search
               v-show="!isRelation && !$vuetify.breakpoint.mobile"
               v-bind.sync="q"
-              :review-days="reviewDays"
+              :game-dates="gameDates"
               @search="getReviews"
             />
           </v-col>
@@ -180,6 +180,7 @@ export default {
       reviews: [],
       followingIds: [],
       followersIds: [],
+      gameDates: [],
       q: {
         sort: "created",
         gameDate: ""
@@ -193,9 +194,6 @@ export default {
     isMypage() {
       return this.$route.path.includes("/profile")
     },
-    reviewDays() {
-      return this.reviews.map(review => this.$dayjs(review.gameDate).format("YYYY-MM-DD"))
-    }
   },
   watch: {
     $route(to, from) {
@@ -214,6 +212,7 @@ export default {
     await this.checkFollow()
     await this.getReviews()
     this.loading = true
+    this.getGameDates()
   },
   methods: {
     setFollowingIds(id) {
@@ -237,6 +236,16 @@ export default {
     },
     pushReview(review) {
       this.reviews.unshift(review)
+    },
+    async getGameDates() {
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/game_dates")
+        this.gameDates = response.data.reviews
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/game_dates`)
+        console.log(response);
+        this.gameDates = response.data.reviews
+      }
     },
     async getReviews() {
       if (this.isMypage) {

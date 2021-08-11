@@ -5,7 +5,7 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
   def index
     user = User.find(params[:user_id])
     search_reviews_form = SearchReviewsForm.new(search_params)
-    reviews = search_reviews_form.search(user)
+    reviews = search_reviews_form.search(user).everyone
     render json: reviews, include: '**'
   end
 

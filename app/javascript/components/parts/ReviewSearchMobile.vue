@@ -19,7 +19,7 @@
     <the-review-search-dialog
       ref="reviewSearchdialog"
       v-bind.sync="q"
-      :review-days="reviewDays"
+      :game-dates="gameDates"
       @search="$emit('search')"
     />
   </v-card-actions>
@@ -38,7 +38,7 @@ export default {
       default: () => {},
       required: true
     },
-    reviewDays: {
+    gameDates: {
       type: Array,
       default: () => {},
       required: true
