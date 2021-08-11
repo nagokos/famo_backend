@@ -39,7 +39,6 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.resetSearch()
     this.getPlayers()
   },
   data() {
@@ -51,7 +50,8 @@ export default {
       teams: [],
       q: {
         position: "",
-        teamId: ""
+        teamId: "",
+        rating: false
       }
     }
   },
@@ -78,10 +78,6 @@ export default {
     this.getData()
   },
   methods: {
-    resetSearch() {
-      this.q.teamId = ""
-      this.q.position = ""
-    },
     async getData() {
       await this.getPlayers()
       await this.getLeagues()
