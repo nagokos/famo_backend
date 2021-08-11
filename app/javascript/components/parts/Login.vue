@@ -92,7 +92,7 @@
                   class="mb-0 mt-2"
                   style="font-size: 10px"
                 >
-                  ＊ ログインできない場合は
+                  ※ ログインできない場合は
                   <strong
                     style="cursor: pointer;"
                     class="red--text"
