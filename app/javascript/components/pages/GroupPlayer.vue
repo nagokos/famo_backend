@@ -41,7 +41,6 @@ export default {
     if (to.params.groupId !== from.params.groupId) {
       this.getData()
     } else {
-      this.resetSearch()
       this.getPlayers()
     }
   },
@@ -53,11 +52,10 @@ export default {
       teams: [],
       loading: false,
       q: {
-        leagueId: "",
-        categoryId: "",
         groupId: "",
         position: "",
-        teamId: ""
+        teamId: "",
+        rating: false
       }
     }
   },
@@ -95,10 +93,6 @@ export default {
     this.getData()
   },
   methods: {
-    resetSearch() {
-      this.q.teamId = ""
-      this.q.position = ""
-    },
     async getData() {
       this.loading = false
       await this.getGroup()
