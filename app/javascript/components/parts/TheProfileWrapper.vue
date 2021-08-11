@@ -75,7 +75,7 @@
       />
     </div>
     <v-divider />
-    <div class="contents mt-5">
+    <div :class="$vuetify.breakpoint.mobile ? '' : 'contents mt-5'">
       <v-container>
         <v-row>
           <!-- 選手カード -->
@@ -83,11 +83,26 @@
             v-if="!isRelation"
             cols="12"
             md="4"
-          />
+            :class="$vuetify.breakpoint.mobile ? '' : 'pr-10'"
+          >
+            <review-search-mobile
+              v-show="!isRelation && $vuetify.breakpoint.mobile"
+              :q="q"
+              :review-days="reviewDays"
+              @search="getReviews"
+            />
+            <review-search
+              v-show="!isRelation && !$vuetify.breakpoint.mobile"
+              v-bind.sync="q"
+              :review-days="reviewDays"
+              @search="getReviews"
+            />
+          </v-col>
           <v-col
             v-if="!isRelation"
             cols="12"
             md="8"
+            :class="$vuetify.breakpoint.mobile ? '' : 'pl-0'"
           >
             <keep-alive
               v-for="(review, index) in reviews"
@@ -132,6 +147,9 @@ import IntroductionEdit from '../parts/IntroductionEdit'
 import ProfileTab from "../parts/ProfileTab"
 import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
+import ReviewSearch from './ReviewSearch'
+import ReviewSearchMobile from "./ReviewSearchMobile"
+
 
 export default {
   components: {
@@ -143,6 +161,8 @@ export default {
     ProfileTab,
     ReviewCard,
     RelationCard,
+    ReviewSearch,
+    ReviewSearchMobile
   },
   props: {
     user: {
@@ -172,6 +192,9 @@ export default {
     },
     isMypage() {
       return this.$route.path.includes("/profile")
+    },
+    reviewDays() {
+      return this.reviews.map(review => this.$dayjs(review.gameDate).format("YYYY-MM-DD"))
     }
   },
   watch: {
@@ -187,7 +210,7 @@ export default {
       }
     }
   },
-  async  created() {
+  async created() {
     await this.checkFollow()
     await this.getReviews()
     this.loading = true
@@ -217,10 +240,14 @@ export default {
     },
     async getReviews() {
       if (this.isMypage) {
-        const response = await this.$axios.get("/api/v1/users/current/reviews")
+        const response = await this.$axios.get("/api/v1/users/current/reviews", {
+          params: { q: this.q }
+        })
         this.reviews = response.data.reviews
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`, {
+          params: { q: this.q }
+        })
         this.reviews = response.data.reviews
       }
     },
