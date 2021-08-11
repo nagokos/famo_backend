@@ -10,6 +10,10 @@ class Review < ApplicationRecord
   enum privacy: { published: 0, player_only: 1 }
 
   scope :desc, -> { order(created_at: :desc) }
+  scope :game_desc, -> { order(game_date: :desc) }
+  scope :game_asc, -> { order(game_date: :asc) }
+  scope :rating, -> { order(rate: :desc) }
+  scope :game_select_day, ->(day) { where(game_date: day.all_day) }
   scope :everyone, -> { where(privacy: 'published') }
   scope :require_reviewer, -> { where.not(reviewer_id: nil) }
   scope :conditions_shuffle, -> { where('LENGTH(content) >= 80').order('RAND()').limit(4) }

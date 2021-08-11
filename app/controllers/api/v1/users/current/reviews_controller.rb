@@ -3,7 +3,8 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
   before_action :check_activation, only: %i[destroy]
 
   def index
-    reviews = current_user.filter_reviews.desc
+    search_reviews_form = SearchReviewsForm.new(search_params)
+    reviews = search_reviews_form.search(current_user)
     render json: reviews, include: '**'
   end
 
@@ -24,5 +25,9 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
 
   def review_params
     params.require(:review).permit(:privacy)
+  end
+
+  def search_params
+    params[:q]&.permit(:sort, :game_date)
   end
 end

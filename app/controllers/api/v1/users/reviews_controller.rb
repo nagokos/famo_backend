@@ -4,7 +4,8 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
 
   def index
     user = User.find(params[:user_id])
-    reviews = user.filter_reviews.everyone.desc
+    search_reviews_form = SearchReviewsForm.new(search_params)
+    reviews = search_reviews_form.search(user)
     render json: reviews, include: '**'
   end
 
@@ -23,5 +24,9 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
 
   def review_params
     params.require(:review).permit(:rate, :content, :game_date, :privacy)
+  end
+
+  def search_params
+    params[:q]&.permit(:sort, :game_date)
   end
 end
