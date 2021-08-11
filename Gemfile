@@ -20,6 +20,8 @@ gem 'config'
 gem 'seed-fu'
 # json
 gem 'active_model_serializers'
+# ページネーション
+gem 'pagy'
 
 group :development, :test do
   gem 'awesome_print'
