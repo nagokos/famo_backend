@@ -3,7 +3,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
   before_action :check_activation, only: %i[create]
 
   def index
-    teams = Profile.player_team
+    teams = Team.all
     render json: teams
   end
 
