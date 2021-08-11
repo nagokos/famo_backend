@@ -75,7 +75,7 @@
       />
     </div>
     <v-divider />
-    <div class="contents mt-5">
+    <div :class="$vuetify.breakpoint.mobile ? '' : 'contents mt-5'">
       <v-container>
         <v-row>
           <!-- 選手カード -->
