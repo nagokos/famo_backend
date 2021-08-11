@@ -82,14 +82,11 @@ export default {
     switchFollow(ids) {
       if (!this.$refs.relationComp) return
       if (ids.length === 0) return
-      let indexArray = []
-      ids.filter(comp => {
-        const index = this.$refs.relationComp.findIndex(el => {
-          return el.user.id === comp
+      const indexArray = ids.map(id => {
+        return this.$refs.relationComp.findIndex(el => {
+          return el.user.id === id
         })
-        indexArray.push(index)
       })
-      console.log(indexArray);
       indexArray.forEach(index => {
         if (index !== -1) {
           this.$refs.relationComp[index].switchFollow()
