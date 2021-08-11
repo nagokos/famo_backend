@@ -194,9 +194,6 @@ export default {
     isMypage() {
       return this.$route.path.includes("/profile")
     },
-    reviewDays() {
-      return this.reviews.map(review => this.$dayjs(review.gameDate).format("YYYY-MM-DD"))
-    }
   },
   watch: {
     $route(to, from) {
