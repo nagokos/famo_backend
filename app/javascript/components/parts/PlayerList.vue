@@ -199,30 +199,43 @@ export default {
     isWhole() {
       return this.$route.path.includes("whole")
     },
-    playerName() {
-      if (this.isWhole) {
-        return "wholePlayer"
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return "leaguePlayer"
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        return "categoryPlayer"
-      } else {
-        return "groupPlayer"
-      }
-    },
-    ratingName() {
-      if (this.isWhole) {
-        return "wholeRating"
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return "leagueRating"
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        return "categoryRating"
-      } else {
-        return "groupRating"
-      }
+    rankIndex() {
+      return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
+    }
+  },
+  created() {
+    if (this.$route.path.includes("ratings")) {
+      this.$router.push({ name: "wholeRating", query: { page: this.page } }, () => {})
+      this.tab = 1
     }
   },
   methods: {
+    pushPlayer() {
+      this.tab = 0
+      this.$emit("update:page", 1)
+      if (this.isWhole) {
+        return this.$router.push({ name: "wholePlayer" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return this.$router.push({ name: "leaguePlayer" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return this.$router.push({ name: "categoryPlayer" }, () => {})
+      } else {
+        return this.$router.push({ name: "groupPlayer" }, () => {})
+      }
+    },
+    pushRating() {
+      this.tab = 1
+      this.$emit("update:page", 1)
+      if (this.isWhole) {
+        return this.$router.push({ name: "wholeRating" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return this.$router.push({ name: "leagueRating" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return this.$router.push({ name: "categoryRating" }, () => {})
+      } else {
+        return this.$router.push({ name: "groupRating" }, () => {})
+      }
+    },
     searchPlayer(q, data) {
       this.searchData = data
       this.$emit("search-player", q)
@@ -244,6 +257,26 @@ export default {
         break
       }
       return position
+    },
+    pagination(e) {
+      this.$emit("update:page", e)
+      if (e === 1) {
+        this.$router.push({ name: this.$route.name }, () => {})
+        return this.$vuetify.goTo(0)
+      }
+      if (this.isWhole) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      }
     }
   }
 }
