@@ -20,6 +20,10 @@
           :teams="teams"
           :area="league"
           :q="q"
+          :page.sync="page"
+          :total-count="totalCount"
+          :total-pages="totalPages"
+          :current-page="currentPage"
           @search-player="getPlayers"
         />
       </v-row>
@@ -56,7 +60,11 @@ export default {
         position: "",
         teamId: "",
         rating: false
-      }
+      },
+      page: 1,
+      totalPages: 1,
+      currentPage: 1,
+      totalCount: 0
     }
   },
   computed: {
@@ -100,8 +108,15 @@ export default {
       this.q.leagueId = leagueId
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
-        params: { q: this.q }
+        params: {
+          q: this.q,
+          page: this.page
+        }
       })
+      console.log(response.headers);
+      this.totalCount = +response.headers["total-count"]
+      this.currentPage = +response.headers["current-page"]
+      this.totalPages = +response.headers["total-pages"]
       this.users = response.data.users
     },
     async getTeams() {
