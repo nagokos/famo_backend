@@ -4,7 +4,7 @@ class Api::V1::PlayersController < Api::V1::BaseController
     users = search_users_form.search
     begin
       @pagy, users = pagy(users)
-    rescue Pagy::OverflowError => e
+    rescue Pagy::OverflowError
       return head :not_found
     end
     render json: users
