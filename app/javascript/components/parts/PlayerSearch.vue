@@ -257,6 +257,7 @@ export default {
       this.$emit("search-player")
     },
     pushLeague(league) {
+      this.resetSearch()
       if (!this.$route.params.categoryId && !this.$route.params.groupId) {
         const leagueEigo = this.leagueNameEigo(league.name)
         this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo } })
@@ -268,11 +269,12 @@ export default {
       this.menu = false
     },
     pushChildPage(child) {
-       if (!this.$route.params.categoryId) {
-         this.$router.push({ name: "categoryPlayer", params: { categoryId: child.id } })
-       } else {
-         this.$router.push({ name: "groupPlayer", params: { groupId: child.id } })
-       }
+      this.resetSearch()
+      if (!this.$route.params.categoryId) {
+        this.$router.push({ name: "categoryPlayer", params: { categoryId: child.id } })
+      } else {
+        this.$router.push({ name: "groupPlayer", params: { groupId: child.id } })
+      }
     }
   }
 }
