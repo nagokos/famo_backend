@@ -25,23 +25,22 @@
       </span>
     </div>
     <v-tabs
+      v-model="tab"
       class="mt-2"
       background-color="#FAFAFA"
       color="black"
     >
       <v-tab
-        exact
         class="font-weight-bold"
         :ripple="false"
-        :to="{ name: playerName }"
+        @click="pushPlayer"
       >
         選手一覧
       </v-tab>
       <v-tab
-        exact
         class="font-weight-bold"
         :ripple="false"
-        :to="{ name: ratingName }"
+        @click="pushRating"
       >
         ランキング
       </v-tab>
