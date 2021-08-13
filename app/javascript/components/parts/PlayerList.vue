@@ -169,6 +169,7 @@ export default {
   data() {
     return {
       searchData: "",
+      tab: 0,
       routes: [
         {
           name: "選手一覧",
