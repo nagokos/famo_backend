@@ -82,15 +82,19 @@ export default {
     }
   },
   computed: {
-    ratingStyle() {
-    if (this.$vuetify.breakpoint.mobile && this.index >= 10) {
-      return "position: absolute; bottom: 93px; left: 14px; z-index: 1;"
-    } else if (this.$vuetify.breakpoint.mobile && this.index < 10) {
-      return "position: absolute; bottom: 93px; left: 18px; z-index: 1;"
-    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 10) {
-      return "position: absolute; bottom: 114px; left: 14px; z-index: 1;"
-    } else {
+    rankStyle() {
+    if (!this.$vuetify.breakpoint.mobile && this.index < 10) {
       return "position: absolute; bottom: 114px; left: 18px; z-index: 1;"
+    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 10 && this.index < 100) {
+      return "position: absolute; bottom: 114px; left: 14px; z-index: 1;"
+    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 100) {
+      return "position: absolute; bottom: 114px; left: 12px; z-index: 1;"
+    } else if (this.$vuetify.breakpoint.mobile && this.index < 10) {
+       return "position: absolute; bottom: 93px; left: 18px; z-index: 1;"
+    } else if (this.$vuetify.breakpoint.mobile && this.index >= 10 && this.index < 100) {
+      return "position: absolute; bottom: 93px; left: 14px; z-index: 1;"
+    } else {
+      return "position: absolute; bottom: 93px; left: 12px; z-index: 1;"
     }
     },
     setColor() {
