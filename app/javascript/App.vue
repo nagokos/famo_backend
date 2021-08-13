@@ -4,7 +4,10 @@
     <v-main style="background: #FAFAFA;">
       <the-flash-message />
       <not-found v-if="isNotFound" />
-      <router-view v-if="!isNotFound" />
+      <router-view
+        v-if="!isNotFound"
+        class="mb-16"
+      />
     </v-main>
     <the-footer />
   </v-app>

@@ -25,23 +25,22 @@
       </span>
     </div>
     <v-tabs
+      v-model="tab"
       class="mt-2"
       background-color="#FAFAFA"
       color="black"
     >
       <v-tab
-        exact
         class="font-weight-bold"
         :ripple="false"
-        :to="{ name: playerName }"
+        @click="pushPlayer"
       >
         選手一覧
       </v-tab>
       <v-tab
-        exact
         class="font-weight-bold"
         :ripple="false"
-        :to="{ name: ratingName }"
+        @click="pushRating"
       >
         ランキング
       </v-tab>
@@ -71,13 +70,35 @@
       :class="$vuetify.breakpoint.mobile ? 'pt-0' : 'mt-3'"
       color="#FAFAFA"
     >
-      <player-list-item
-        v-for="(user, index) in users"
-        :key="user.id"
-        :user="user"
-        :index="index + 1"
-      />
+      <template v-for="(user, index) in users">
+        <player-list-item
+          :key="user.id"
+          :user="user"
+          :index="rankIndex[index]"
+        />
+        <v-divider
+          v-if="users.length > index + 1"
+          :key="index"
+          :class="$vuetify.breakpoint.mobile ? '' : 'my-5'"
+        />
+      </template>
     </v-list>
+    <template v-if="totalCount > 20">
+      <v-divider class="mt-10" />
+      <v-card
+        outlined
+        color="#f1f4f8"
+      >
+        <v-pagination
+          :value="page"
+          :length="totalPages"
+          color="#3949AB"
+          class="my-5"
+          @input="pagination($event)"
+        />
+      </v-card>
+      <v-divider />
+    </template>
     <the-area-change-dialog
       v-if="$vuetify.breakpoint.mobile"
       ref="areaChangeDialog"
@@ -123,11 +144,32 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    page: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    totalPages: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    currentPage: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    totalCount: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   data() {
     return {
       searchData: "",
+      tab: 0,
       routes: [
         {
           name: "選手一覧",
@@ -157,30 +199,43 @@ export default {
     isWhole() {
       return this.$route.path.includes("whole")
     },
-    playerName() {
-      if (this.isWhole) {
-        return "wholePlayer"
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return "leaguePlayer"
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        return "categoryPlayer"
-      } else {
-        return "groupPlayer"
-      }
-    },
-    ratingName() {
-      if (this.isWhole) {
-        return "wholeRating"
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return "leagueRating"
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        return "categoryRating"
-      } else {
-        return "groupRating"
-      }
+    rankIndex() {
+      return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
+    }
+  },
+  created() {
+    if (this.$route.path.includes("ratings")) {
+      this.$router.push({ name: "wholeRating", query: { page: this.page } }, () => {})
+      this.tab = 1
     }
   },
   methods: {
+    pushPlayer() {
+      this.tab = 0
+      this.$emit("update:page", 1)
+      if (this.isWhole) {
+        return this.$router.push({ name: "wholePlayer" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return this.$router.push({ name: "leaguePlayer" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return this.$router.push({ name: "categoryPlayer" }, () => {})
+      } else {
+        return this.$router.push({ name: "groupPlayer" }, () => {})
+      }
+    },
+    pushRating() {
+      this.tab = 1
+      this.$emit("update:page", 1)
+      if (this.isWhole) {
+        return this.$router.push({ name: "wholeRating" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        return this.$router.push({ name: "leagueRating" }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        return this.$router.push({ name: "categoryRating" }, () => {})
+      } else {
+        return this.$router.push({ name: "groupRating" }, () => {})
+      }
+    },
     searchPlayer(q, data) {
       this.searchData = data
       this.$emit("search-player", q)
@@ -202,6 +257,26 @@ export default {
         break
       }
       return position
+    },
+    pagination(e) {
+      this.$emit("update:page", e)
+      if (e === 1) {
+        this.$router.push({ name: this.$route.name }, () => {})
+        return this.$vuetify.goTo(0)
+      }
+      if (this.isWhole) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else if (!this.isWhole && !this.$route.params.groupId) {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      } else {
+        this.$vuetify.goTo(0)
+        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
+      }
     }
   }
 }

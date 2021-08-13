@@ -83,7 +83,6 @@ const routes = [
       }
     ]
   },
-
   {
     path: "/account/:type",
     name: "passwordReset",

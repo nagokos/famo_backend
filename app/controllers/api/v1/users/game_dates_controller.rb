@@ -1,4 +1,4 @@
-class Api::V1::Users::GameDatesController < ApplicationController
+class Api::V1::Users::GameDatesController < Api::V1::BaseController
   def index
     user = User.find(params[:user_id])
     game_dates = user.filter_reviews_dates.everyone.map(&:game_date).map(&:strftime)

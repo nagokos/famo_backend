@@ -1,73 +1,68 @@
 <template>
-  <div>
-    <v-list-item
-      :key="user.id"
-      class="pl-0"
-      inactive
-      :ripple="false"
-      style="cursor: pointer;"
-      @click="pushUserPage"
+  <v-list-item
+    :key="user.id"
+    class="pl-0"
+    inactive
+    :ripple="false"
+    style="cursor: pointer;"
+    @click="pushUserPage"
+  >
+    <v-icon
+      v-if="$route.path.includes('ratings')"
+      size="45"
+      :color="setColor"
+      :style="$vuetify.breakpoint.mobile ? 'position: absolute; bottom: 82px; z-index: 1;' : 'position: absolute; bottom: 102px; z-index: 1;'"
     >
-      <v-icon
-        v-if="$route.path.includes('ratings')"
-        size="45"
-        :color="setColor"
-        :style="$vuetify.breakpoint.mobile ? 'position: absolute; bottom: 82px; z-index: 1;' : 'position: absolute; bottom: 102px; z-index: 1;'"
+      mdi-bookmark
+    </v-icon>
+    <span
+      v-if="$route.path.includes('ratings')"
+      :class="index >= 100 ? 'font-weight-bold text-caption white--text' : 'font-weight-bold white--text'"
+      :style="rankStyle"
+    >
+      {{ index }}
+    </span>
+    <v-avatar
+      :size="$vuetify.breakpoint.mobile ? 100 : 130"
+      rounded
+    >
+      <v-img
+        :src="user.avatar"
+      />
+    </v-avatar>
+    <v-list-item-content class="ml-5">
+      <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-4'">
+        {{ fullName }}
+      </v-list-item-title>
+      <v-list-item-subtitle
+        :class="$vuetify.breakpoint.mobile ? 'text-caption mt-1' : 'mt-2'"
+        style="margin-left: 1px;"
       >
-        mdi-bookmark
-      </v-icon>
-      <span
-        v-if="$route.path.includes('ratings')"
-        class="font-weight-bold white--text"
-        :style="ratingStyle"
+        {{ information }}
+      </v-list-item-subtitle>
+      <v-card-actions
+        class="pl-0"
+        :style="$vuetify.breakpoint.mobile ? 'position: relative; bottom: 5px;' : ''"
       >
-        {{ index }}
-      </span>
-      <v-avatar
-        :size="$vuetify.breakpoint.mobile ? 100 : 130"
-        rounded
-      >
-        <v-img
-          :src="user.avatar"
+        <v-rating
+          :value="+user.profile.rate"
+          background-color="#ef5350"
+          color="#ef5350"
+          readonly
+          :size="$vuetify.breakpoint.mobile ? 20 : 30"
+          dense
+          :half-increments="true"
+          style="position: relative; right: 3px;"
         />
-      </v-avatar>
-      <v-list-item-content class="ml-5">
-        <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-4'">
-          {{ fullName }}
-        </v-list-item-title>
-        <v-list-item-subtitle
-          :class="$vuetify.breakpoint.mobile ? 'text-caption mt-1' : 'mt-2'"
-          style="margin-left: 1px;"
+        <span
+          :class="$vuetify.breakpoint.mobile ? 'text-subtitle-1 font-weight-bold' : 'ml-1 text-h5 font-weight-bold'"
+          :style="$vuetify.breakpoint.mobile ? '' : 'margin-top: 2px;'"
         >
-          {{ information }}
-        </v-list-item-subtitle>
-        <v-card-actions
-          class="pl-0"
-          :style="$vuetify.breakpoint.mobile ? 'position: relative; bottom: 5px;' : ''"
-        >
-          <v-rating
-            :value="+user.profile.rate"
-            background-color="#ef5350"
-            color="#ef5350"
-            readonly
-            :size="$vuetify.breakpoint.mobile ? 20 : 30"
-            dense
-            :half-increments="true"
-            style="position: relative; right: 3px;"
-          />
-          <span
-            :class="$vuetify.breakpoint.mobile ? 'text-subtitle-1 font-weight-bold' : 'ml-1 text-h5 font-weight-bold'"
-            :style="$vuetify.breakpoint.mobile ? '' : 'margin-top: 2px;'"
-          >
-            {{ user.profile.rate }}
-          </span>
-        </v-card-actions>
-      </v-list-item-content>
-    </v-list-item>
-    <v-divider
-      :class="$vuetify.breakpoint.mobile ? '' : 'my-5'"
-    />
-  </div>
+          {{ user.profile.rate }}
+        </span>
+      </v-card-actions>
+    </v-list-item-content>
+  </v-list-item>
 </template>
 
 <script>
@@ -87,15 +82,19 @@ export default {
     }
   },
   computed: {
-    ratingStyle() {
-    if (this.$vuetify.breakpoint.mobile && this.index >= 10) {
-      return "position: absolute; bottom: 93px; left: 14px; z-index: 1;"
-    } else if (this.$vuetify.breakpoint.mobile && this.index < 10) {
-      return "position: absolute; bottom: 93px; left: 18px; z-index: 1;"
-    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 10) {
-      return "position: absolute; bottom: 114px; left: 14px; z-index: 1;"
-    } else {
+    rankStyle() {
+    if (!this.$vuetify.breakpoint.mobile && this.index < 10) {
       return "position: absolute; bottom: 114px; left: 18px; z-index: 1;"
+    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 10 && this.index < 100) {
+      return "position: absolute; bottom: 114px; left: 14px; z-index: 1;"
+    } else if (!this.$vuetify.breakpoint.mobile && this.index >= 100) {
+      return "position: absolute; bottom: 114px; left: 12px; z-index: 1;"
+    } else if (this.$vuetify.breakpoint.mobile && this.index < 10) {
+       return "position: absolute; bottom: 93px; left: 18px; z-index: 1;"
+    } else if (this.$vuetify.breakpoint.mobile && this.index >= 10 && this.index < 100) {
+      return "position: absolute; bottom: 93px; left: 14px; z-index: 1;"
+    } else {
+      return "position: absolute; bottom: 93px; left: 12px; z-index: 1;"
     }
     },
     setColor() {
