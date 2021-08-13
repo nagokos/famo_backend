@@ -144,6 +144,26 @@ export default {
       type: Object,
       default: () => {},
       required: true
+    },
+    page: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    totalPages: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    currentPage: {
+      type: Number,
+      default: 1,
+      required: true
+    },
+    totalCount: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   data() {
