@@ -70,13 +70,35 @@
       :class="$vuetify.breakpoint.mobile ? 'pt-0' : 'mt-3'"
       color="#FAFAFA"
     >
-      <player-list-item
-        v-for="(user, index) in users"
-        :key="user.id"
-        :user="user"
-        :index="index + 1"
-      />
+      <template v-for="(user, index) in users">
+        <player-list-item
+          :key="user.id"
+          :user="user"
+          :index="rankIndex[index]"
+        />
+        <v-divider
+          v-if="users.length > index + 1"
+          :key="index"
+          :class="$vuetify.breakpoint.mobile ? '' : 'my-5'"
+        />
+      </template>
     </v-list>
+    <template v-if="totalCount > 20">
+      <v-divider class="mt-10" />
+      <v-card
+        outlined
+        color="#f1f4f8"
+      >
+        <v-pagination
+          :value="page"
+          :length="totalPages"
+          color="#3949AB"
+          class="my-5"
+          @input="pagination($event)"
+        />
+      </v-card>
+      <v-divider />
+    </template>
     <the-area-change-dialog
       v-if="$vuetify.breakpoint.mobile"
       ref="areaChangeDialog"
