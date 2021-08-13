@@ -93,6 +93,7 @@ export default {
     }
   },
   created() {
+    if (!!this.$route.query.page) this.page = +this.$route.query.page
     if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
