@@ -83,6 +83,7 @@ export default {
     }
   },
   created() {
+    if (!!this.$route.query.page) this.page = +this.$route.query.page
     this.getData()
   },
   methods: {
