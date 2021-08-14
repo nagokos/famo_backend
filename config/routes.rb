@@ -20,15 +20,15 @@ Rails.application.routes.draw do
             end
           end
         end
+        resource :relationship, only: %i[create destroy] do
+          get :check
+        end
         scope module: :users do
           resources :reviews, only: %i[index create]
           resources :followers, only: %i[index]
           resource :rating_average, only: %i[show]
           resources :following, only: %i[index]
           resources :game_dates, only: %i[index]
-          resource :relationship, only: %i[create destroy] do
-            get :check
-          end
         end
       end
       resources :players, only: %i[index]
