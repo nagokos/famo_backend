@@ -105,7 +105,7 @@ export default {
     },
     async follow() {
       try {
-        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationships`)
+        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationship`)
         this.followStatus = true
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
@@ -116,7 +116,7 @@ export default {
     },
     async unfollow() {
       try {
-        await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationships`)
+        await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationship`)
         this.followStatus = false
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {

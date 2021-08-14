@@ -99,12 +99,12 @@ export default {
       }
     },
     async checkFollow() {
-      const response = await this.$axios.get(`/api/v1/users/${this.user.id}/relationships/check`)
+      const response = await this.$axios.get(`/api/v1/users/${this.user.id}/relationship/check`)
       this.isFollow = response.data.status
     },
     async follow() {
       try {
-        await this.$axios.post(`/api/v1/users/${this.user.id}/relationships`)
+        await this.$axios.post(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = true
         this.$emit("check-follow", this.user.id)
       } catch(error) {
@@ -116,7 +116,7 @@ export default {
     },
     async unfollow() {
       try {
-        await this.$axios.delete(`/api/v1/users/${this.user.id}/relationships`)
+        await this.$axios.delete(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = false
         this.$emit("check-follow", this.user.id)
       } catch(error) {

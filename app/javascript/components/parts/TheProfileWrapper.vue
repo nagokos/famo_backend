@@ -262,7 +262,7 @@ export default {
     },
     async checkFollow() {
       if (!this.isMypage) {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationship/check`)
         this.isFollow = response.data.status
       }
     }

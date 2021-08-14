@@ -158,7 +158,7 @@ export default {
     },
     async changePassword() {
       try {
-        await this.$axios.patch("/api/v1/users/current/password_changes", {
+        await this.$axios.patch("/api/v1/users/current/password_change", {
           currentPassword: this.currentPassword,
           user: this.user
         })
