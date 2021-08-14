@@ -90,6 +90,11 @@ export default {
       type: Array,
       default: () => {},
       required: true
+    },
+    totalCount: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   computed: {
@@ -150,11 +155,7 @@ export default {
       }
     },
     reviewCount() {
-      if (this.reviews.length === 0) {
-        return "0件"
-      } else {
-        return `${this.reviews.length}件`
-      }
+      return `${this.totalCount}件`
     },
     reviewAverage() {
       if (this.reviews.length === 0) return 0
