@@ -169,7 +169,7 @@ export default {
   methods: {
     pushPage(path, route, params) {
       if (this.$route.path !== path) {
-        this.$router.push({ name: route, params: { type: params } })
+        this.$router.push({ name: route, params: { type: params } }, () => {})
       }
     },
     async logout() {

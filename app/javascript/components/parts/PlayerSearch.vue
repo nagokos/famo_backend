@@ -254,6 +254,7 @@ export default {
       this.$emit("update:teamId", "")
     },
     searchPlayer() {
+      this.$router.push({ name: this.$route.name }, () => {})
       this.$emit("search-player")
     },
     pushLeague(league) {
@@ -269,7 +270,6 @@ export default {
       this.menu = false
     },
     pushChildPage(child) {
-      this.resetSearch()
       if (!this.$route.params.categoryId) {
         this.$router.push({ name: "categoryPlayer", params: { categoryId: child.id } })
       } else {

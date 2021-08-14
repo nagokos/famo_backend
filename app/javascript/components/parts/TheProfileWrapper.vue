@@ -59,6 +59,7 @@
             <profile-table
               :profile="user.profile"
               :reviews="reviews"
+              :total-count="totalCount"
             />
           </v-col>
         </v-row>
@@ -89,13 +90,13 @@
               v-show="!isRelation && $vuetify.breakpoint.mobile"
               :q="q"
               :game-dates="gameDates"
-              @search="getReviews"
+              @search="searchReviews"
             />
             <review-search
               v-show="!isRelation && !$vuetify.breakpoint.mobile"
               v-bind.sync="q"
               :game-dates="gameDates"
-              @search="getReviews"
+              @search="searchReviews"
             />
           </v-col>
           <v-col
@@ -115,6 +116,22 @@
                 @delete-review="filterReview"
               />
             </keep-alive>
+            <template v-if="totalCount >= 20">
+              <v-divider class="mt-10" />
+                <v-card
+                  outlined
+                  color="#f1f4f8"
+                >
+                  <v-pagination
+                    v-model="page"
+                    :length="totalPages"
+                    color="#3949AB"
+                    class="my-5"
+                    @input="pagination($event)"
+                  />
+                </v-card>
+              <v-divider />
+            </template>
           </v-col>
           <keep-alive>
             <relation-card
@@ -184,7 +201,11 @@ export default {
       q: {
         sort: "created",
         gameDate: ""
-      }
+      },
+      page: 1,
+      totalPages: 1,
+      currentPage: 1,
+      totalCount: 0
     }
   },
   computed: {
@@ -209,6 +230,7 @@ export default {
     }
   },
   async created() {
+    if (!!this.$route.query.page) this.page = +this.$route.query.page
     await this.checkFollow()
     await this.getReviews()
     this.loading = true
@@ -237,26 +259,60 @@ export default {
     pushReview(review) {
       this.reviews.unshift(review)
     },
+    pagination(event) {
+      this.page = event
+      this.getReviews()
+      if (event === 1) {
+        this.$router.push({ name: this.$route.name })
+        return this.$vuetify.goTo(0)
+      }
+      if (this.isMypage) {
+        this.$router.push({ name: "myReview", query: { page: event } })
+        return this.$vuetify.goTo(0)
+      } else if (this.$route.path.includes("users")) {
+        this.$router.push({ name: "reviewerReview", query: { page: event } })
+        return this.$vuetify.goTo(0)
+      } else {
+        this.$router.push({ name: "playerReview", query: { page: event } })
+        return this.$vuetify.goTo(0)
+      }
+    },
+    searchReviews() {
+      this.page = 1
+      this.$router.push({ name: this.$route.name }, () => {})
+      this.getReviews()
+    },
     async getGameDates() {
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/game_dates")
         this.gameDates = response.data.reviews
       } else {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/game_dates`)
-        console.log(response);
         this.gameDates = response.data.reviews
       }
     },
     async getReviews() {
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/reviews", {
-          params: { q: this.q }
+          params: {
+            q: this.q,
+            page: this.page
+          }
         })
+        this.totalCount = +response.headers["total-count"]
+        this.currentPage = +response.headers["current-page"]
+        this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       } else {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`, {
-          params: { q: this.q }
+          params: {
+            q: this.q,
+            page: this.page
+          }
         })
+        this.totalCount = +response.headers["total-count"]
+        this.currentPage = +response.headers["current-page"]
+        this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       }
     },
