@@ -254,6 +254,7 @@ export default {
       this.$emit("update:teamId", "")
     },
     searchPlayer() {
+      this.$router.push({ name: this.$route.name }, () => {})
       this.$emit("search-player")
     },
     pushLeague(league) {
