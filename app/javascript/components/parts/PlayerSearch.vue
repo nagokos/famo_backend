@@ -270,7 +270,6 @@ export default {
       this.menu = false
     },
     pushChildPage(child) {
-      this.resetSearch()
       if (!this.$route.params.categoryId) {
         this.$router.push({ name: "categoryPlayer", params: { categoryId: child.id } })
       } else {
