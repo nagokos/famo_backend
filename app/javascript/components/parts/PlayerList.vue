@@ -203,37 +203,34 @@ export default {
       return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
     }
   },
-  created() {
-    if (this.$route.path.includes("ratings")) {
-      this.$router.push({ name: "wholeRating", query: { page: this.page } }, () => {})
-      this.tab = 1
-    }
+  mounted() {
+    if (this.$route.path.includes("ratings")) this.tab = 1
   },
   methods: {
     pushPlayer() {
       this.tab = 0
-      this.$emit("update:page", 1)
+      const query = { team: this.$route.query.team, position: this.$route.query.position, page: undefined }
       if (this.isWhole) {
-        return this.$router.push({ name: "wholePlayer" }, () => {})
+        return this.$router.push({ name: "wholePlayer", query: query }, () => {})
       } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return this.$router.push({ name: "leaguePlayer" }, () => {})
+        return this.$router.push({ name: "leaguePlayer", query: query }, () => {})
       } else if (!this.isWhole && !this.$route.params.groupId) {
-        return this.$router.push({ name: "categoryPlayer" }, () => {})
+        return this.$router.push({ name: "categoryPlayer", query: query }, () => {})
       } else {
-        return this.$router.push({ name: "groupPlayer" }, () => {})
+        return this.$router.push({ name: "groupPlayer", query: query }, () => {})
       }
     },
     pushRating() {
       this.tab = 1
-      this.$emit("update:page", 1)
+      const query = { team: this.$route.query.team, position: this.$route.query.position, page: undefined }
       if (this.isWhole) {
-        return this.$router.push({ name: "wholeRating" }, () => {})
+        return this.$router.push({ name: "wholeRating", query: query }, () => {})
       } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        return this.$router.push({ name: "leagueRating" }, () => {})
+        return this.$router.push({ name: "leagueRating", query: query }, () => {})
       } else if (!this.isWhole && !this.$route.params.groupId) {
-        return this.$router.push({ name: "categoryRating" }, () => {})
+        return this.$router.push({ name: "categoryRating", query: query }, () => {})
       } else {
-        return this.$router.push({ name: "groupRating" }, () => {})
+        return this.$router.push({ name: "groupRating", query: query }, () => {})
       }
     },
     searchPlayer(q, data) {
@@ -260,23 +257,8 @@ export default {
     },
     pagination(e) {
       this.$emit("update:page", e)
-      if (e === 1) {
-        this.$router.push({ name: this.$route.name }, () => {})
-        return this.$vuetify.goTo(0)
-      }
-      if (this.isWhole) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      }
+      const query = { team: this.$route.query.team, position: this.$route.query.position, page: e }
+      this.$router.push({ name: this.$route.name, query: query }, () => {})
     }
   }
 }

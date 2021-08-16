@@ -95,6 +95,11 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    average: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   computed: {
@@ -126,7 +131,7 @@ export default {
         },
         {
           name: "レビュー平均",
-          information: this.reviewAverage
+          information: this.average
         }
       ]
     },
@@ -156,15 +161,6 @@ export default {
     },
     reviewCount() {
       return `${this.totalCount}件`
-    },
-    reviewAverage() {
-      if (this.reviews.length === 0) return 0
-      const rateArray = this.reviews.map(review => +review.rate)
-      const sumRate = rateArray.reduce((rate, currentRate) => {
-        return rate + currentRate
-      })
-      const rateAverage = sumRate / this.reviews.length
-      return Math.round(rateAverage * 10) / 10
     }
   },
 }

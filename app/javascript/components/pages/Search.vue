@@ -121,9 +121,15 @@
                     class="py-0"
                     cols="12"
                   >
-                    <v-select
+                    <v-autocomplete
+                      v-model="q.team"
                       outlined
                       dense
+                      :items="teams"
+                      item-text="name"
+                      item-value="name"
+                      persistent-hint
+                      hint="※ チームを指定すると全国での表示になります"
                     />
                   </v-col>
                 </template>
@@ -159,35 +165,21 @@ export default {
       dialog: false,
       deepSearch: false,
       leagues: [],
+      teams: [],
       q: {
         leagueId: "",
         categoryId: "",
         groupId: "",
-        position: "",
-        teamId: ""
+        position: "指定なし",
+        team: "指定なし"
       },
       loading: false,
       positions: [
-        {
-          name: "指定なし",
-          value: ""
-        },
-        {
-          name: "GK",
-          value: 0
-        },
-        {
-          name: "DF",
-          value: 1
-        },
-        {
-          name: "MF",
-          value: 2
-        },
-        {
-          name: "FW",
-          value: 3
-        }
+        { name: "指定なし"},
+        { name: "GK" },
+        { name: "DF" },
+        { name: "MF" },
+        { name: "FW" }
       ]
     }
   },
@@ -218,36 +210,57 @@ export default {
       return groups
     },
   },
-  async created() {
-    await this.getLeagueData()
-    await this.setLeagueData()
-    this.loading = true
+  created() {
+    this.setData()
   },
   methods: {
+    async setData() {
+      await this.getLeagueData()
+      await this.setLeagueUnspecified()
+      await this.getTeams()
+      await this.setTeamUnspecified()
+      this.loading = true
+    },
     resetId() {
       this.q.groupId = ""
       this.q.categoryId = ""
     },
-    setLeagueData() {
+    setLeagueUnspecified() {
       const unspecified = { name: "指定なし", id: "" }
       this.leagues.unshift(unspecified)
     },
+    setTeamUnspecified() {
+      const unspecified = { name: "指定なし", id: "" }
+      this.teams.unshift(unspecified)
+    },
+    checkQuery() {
+      if (this.q.team === "指定なし") this.q.team = undefined
+      if (this.q.position === "指定なし") this.q.position = undefined
+    },
     pushSearchPage() {
+      this.checkQuery()
+      const query = { team: this.q.team, position: this.q.position }
+      if (!!this.q.team) return this.$router.push({ name: "wholePlayer", query: query })
+      delete query.team
       if (!this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
-        this.$router.push({ name: 'wholePlayer', params: { q: this.q } })
+        this.$router.push({ name: "wholePlayer", query: query })
       } else if (this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId)
         const leagueEigo = this.leagueNameEigo(league.name)
-        this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo, search: this.q } })
+        this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo }, query: query })
       } else if (this.q.leagueId && this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
         const leagueEigo = this.leagueNameEigo(league)
-        this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, search: this.q } })
+        this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId }, query: query })
       } else {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
         const leagueEigo = this.leagueNameEigo(league)
-        this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId, search: this.q } })
+        this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId }, query: query })
       }
+    },
+    async getTeams() {
+      const response = await this.$axios.get("/api/v1/teams")
+      this.teams = response.data.teams
     },
     async getLeagueData() {
       const response = await this.$axios.get("/api/v1/hierarchy_leagues")
