@@ -149,10 +149,16 @@ export default {
   methods: {
     sortChange(value) {
       this.$emit("update:sort", value)
-      this.$emit("search")
+      delete this.$route.query.page
+      const query = { game_date: this.gameDate, sort: value, page: undefined }
+      if (!this.gameDate) query.game_date = undefined
+      this.$router.push({ name: this.$route.name, query: query }, () => {})
     },
     clickSearch() {
-      this.$emit("search")
+      delete this.$route.query.page
+      const query = { game_date: this.gameDate, sort: this.sort, page: undefined }
+      if (!this.gameDate) query.game_date = undefined
+      this.$router.push({ name: this.$route.name, query: query })
     },
     cancel() {
       this.$emit("update:gameDate", "")
