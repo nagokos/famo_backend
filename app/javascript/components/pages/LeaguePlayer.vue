@@ -89,6 +89,33 @@ export default {
     this.getData()
   },
   methods: {
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.position = this.positionTransForm(this.$route.query.position)
+      this.q.teamId = this.teamTransForm()
+    },
+    teamTransForm() {
+      const team = this.teams.find(team => team.name === this.$route.query.team)
+      return !!team ? team.id : ""
+    },
+    positionTransForm(name) {
+      let position = ""
+      switch (name) {
+      case "GK":
+        position = 0
+        break
+      case "DF":
+        position = 1
+        break
+      case "MF":
+        position = 2
+        break
+      case "FW":
+        position = 3
+        break
+      }
+      return position
+    },
     async getData() {
       this.loading = false
       await this.getLeague()
