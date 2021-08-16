@@ -20,7 +20,6 @@
       ref="reviewSearchdialog"
       v-bind.sync="q"
       :game-dates="gameDates"
-      @search="$emit('search')"
     />
   </v-card-actions>
 </template>
