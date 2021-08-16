@@ -124,10 +124,11 @@ export default {
     },
     async getData() {
       this.loading = false
-      await this.getCategory()
-      await this.getPlayers()
-      await this.getCategories()
       await this.getTeams()
+      await this.setQuery()
+      await this.getPlayers()
+      await this.getCategory()
+      await this.getCategories()
       this.loading = true
     },
     async getPlayers() {
