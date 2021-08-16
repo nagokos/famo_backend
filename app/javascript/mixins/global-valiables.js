@@ -311,6 +311,12 @@ export default {
         break
       }
       return id
-    }
+    },
+    toTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto'
+      })
+    },
   }
 }
