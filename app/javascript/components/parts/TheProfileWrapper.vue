@@ -117,20 +117,27 @@
             </keep-alive>
             <template v-if="totalCount >= 20">
               <v-divider class="mt-10" />
-                <v-card
-                  outlined
-                  color="#f1f4f8"
-                >
-                  <v-pagination
-                    v-model="page"
-                    :length="totalPages"
-                    color="#3949AB"
-                    class="my-5"
-                    @input="pagination($event)"
-                  />
-                </v-card>
+              <v-card
+                outlined
+                color="#f1f4f8"
+              >
+                <v-pagination
+                  v-model="page"
+                  :length="totalPages"
+                  color="#3949AB"
+                  class="my-5"
+                  @input="pagination($event)"
+                />
+              </v-card>
               <v-divider />
             </template>
+            <v-col
+              v-if="reviews.length === 0"
+              align="center"
+              class="text-h6"
+            >
+              レビューがありません
+            </v-col>
           </v-col>
           <keep-alive>
             <relation-card
@@ -165,7 +172,6 @@ import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
-
 
 export default {
   components: {
