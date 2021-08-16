@@ -257,23 +257,8 @@ export default {
     },
     pagination(e) {
       this.$emit("update:page", e)
-      if (e === 1) {
-        this.$router.push({ name: this.$route.name }, () => {})
-        return this.$vuetify.goTo(0)
-      }
-      if (this.isWhole) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else if (!this.isWhole && !this.$route.params.categoryId && !this.$route.params.groupId) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else if (!this.isWhole && !this.$route.params.groupId) {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      } else {
-        this.$vuetify.goTo(0)
-        return this.$router.push({ name: this.$route.name, query: { page: e } }, () => {})
-      }
+      const query = { team: this.$route.query.team, position: this.$route.query.position, page: e }
+      this.$router.push({ name: this.$route.name, query: query }, () => {})
     }
   }
 }
