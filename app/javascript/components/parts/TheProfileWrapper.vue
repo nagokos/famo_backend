@@ -60,6 +60,7 @@
               :profile="user.profile"
               :reviews="reviews"
               :total-count="totalCount"
+              :average="average"
             />
           </v-col>
         </v-row>
@@ -194,6 +195,7 @@ export default {
       isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user },
+      average: 0,
       reviews: [],
       followingIds: [],
       followersIds: [],
