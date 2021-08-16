@@ -65,10 +65,15 @@ export default {
       default: () => {},
       required: true
     },
+    status: {
+      type: Boolean,
+      default: false,
+      required: true
+    }
   },
   data() {
     return {
-      isFollow: false,
+      isFollow: this.status,
     }
   },
   computed: {
@@ -78,9 +83,6 @@ export default {
         return `${user.lastName} ${user.firstName}`
       }
     }
-  },
-  created() {
-    this.checkFollow()
   },
   methods: {
     switchFollow() {
@@ -98,15 +100,11 @@ export default {
         this.$router.push({ name: "reviewerReview", params: { userId: user.id } })
       }
     },
-    async checkFollow() {
-      const response = await this.$axios.get(`/api/v1/users/${this.user.id}/relationship/check`)
-      this.isFollow = response.data.status
-    },
     async follow() {
       try {
         await this.$axios.post(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = true
-        this.$emit("check-follow", this.user.id)
+        this.$emit("emit-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
@@ -118,7 +116,7 @@ export default {
       try {
         await this.$axios.delete(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = false
-        this.$emit("check-follow", this.user.id)
+        this.$emit("emit-follow", this.user.id)
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",

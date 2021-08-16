@@ -77,7 +77,7 @@
       />
     </div>
     <v-divider />
-    <div :class="$vuetify.breakpoint.mobile ? '' : 'contents mt-5'">
+    <div class="contents mt-5">
       <v-container>
         <v-row>
           <!-- 選手カード -->
@@ -143,7 +143,7 @@
             <relation-card
               v-if="$route.path.includes('/following')"
               ref="following"
-              @check-follow="setFollowingIds"
+              @emit-follow="setFollowingIds"
               @reset-ids="followersIds = []"
             />
           </keep-alive>
@@ -151,7 +151,7 @@
             <relation-card
               v-if="$route.path.includes('/followers')"
               ref="followers"
-              @check-follow="setFollowersIds"
+              @emit-follow="setFollowersIds"
               @reset-ids="followingIds = []"
             />
           </keep-alive>
