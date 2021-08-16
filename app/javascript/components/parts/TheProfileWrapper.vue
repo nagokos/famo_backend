@@ -235,14 +235,23 @@ export default {
       if (!this.isRelation) this.getReviews()
     }
   },
-  async created() {
-    if (!!this.$route.query.page) this.page = +this.$route.query.page
-    await this.checkFollow()
-    await this.getReviews()
-    this.loading = true
-    this.getGameDates()
+  created() {
+    this.setData()
   },
   methods: {
+    async setData() {
+      await this.checkFollow()
+      await this.getGameDates()
+      await this.setQuery()
+      await this.getReviews()
+      await this.getAverage()
+      this.loading = true
+    },
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.sort = !!this.$route.query.sort ? this.$route.query.sort : "created"
+      this.q.gameDate = this.$route.query.game_date
+    },
     setFollowingIds(id) {
       this.followingIds.push(id)
     },
