@@ -41,6 +41,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.toTop()
     this.getPlayers()
   },
   data() {
