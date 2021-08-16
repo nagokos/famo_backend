@@ -23,7 +23,6 @@
           :total-count="totalCount"
           :total-pages="totalPages"
           :current-page="currentPage"
-          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
