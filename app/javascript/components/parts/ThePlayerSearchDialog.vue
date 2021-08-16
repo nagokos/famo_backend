@@ -136,11 +136,6 @@ export default {
       ]
     }
   },
-  watch: {
-    $route() {
-      this.resetSearch()
-    }
-  },
   methods: {
     open() {
       this.dialog = true
