@@ -113,9 +113,10 @@ export default {
       return position
     },
     async getData() {
+      await this.getTeams()
+      await this.setQuery()
       await this.getPlayers()
       await this.getLeagues()
-      await this.getTeams()
       this.loading = true
     },
     async getLeagues() {
