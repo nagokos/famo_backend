@@ -76,6 +76,7 @@
             full-width
             :day-format="date => new Date(date).getDate()"
             locale="jp-ja"
+            :allowed-dates="allowedDates"
             @input="$emit('update:gameDate', $event)"
           >
             <v-spacer />
@@ -166,12 +167,18 @@ export default {
       this.dateDialog = false
     },
     reviewFilter() {
-      this.$emit("search")
+      delete this.$route.query.page
+      const query = { game_date: this.gameDate, sort: this.sort, page: undefined }
+      if (!this.gameDate) query.game_date = undefined
+      this.$router.push({ name: this.$route.name, query: query }, () => {})
       this.dialog = false
     },
     resetSearch() {
       this.$emit("update:sort", "created")
       this.$emit("update:gameDate", "")
+    },
+    allowedDates(val) {
+      return this.gameDates.includes(val)
     }
   }
 }
