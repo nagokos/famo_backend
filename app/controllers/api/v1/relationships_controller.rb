@@ -1,4 +1,4 @@
-class Api::V1::Users::RelationshipsController < Api::V1::BaseController
+class Api::V1::RelationshipsController < Api::V1::BaseController
   before_action :required_login, only: %i[create destroy]
   before_action :check_activation, only: %i[create destroy]
 
