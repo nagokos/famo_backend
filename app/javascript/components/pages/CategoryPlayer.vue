@@ -13,7 +13,6 @@
           :leagues="categories"
           :teams="teams"
           v-bind.sync="q"
-          @search-player="getPlayers"
         />
         <router-view
           :users="users"
@@ -24,7 +23,6 @@
           :total-count="totalCount"
           :total-pages="totalPages"
           :current-page="currentPage"
-          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -42,6 +40,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.toTop()
     if (to.params.categoryId !== from.params.categoryId) {
       this.getData()
     } else {
@@ -93,21 +92,48 @@ export default {
     }
   },
   created() {
-    if (!!this.$route.query.page) this.page = +this.$route.query.page
-    if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
   methods: {
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.position = this.positionTransForm(this.$route.query.position)
+      this.q.teamId = this.teamTransForm()
+    },
+    teamTransForm() {
+      const team = this.teams.find(team => team.name === this.$route.query.team)
+      return !!team ? team.id : ""
+    },
+    positionTransForm(name) {
+      let position = ""
+      switch (name) {
+      case "GK":
+        position = 0
+        break
+      case "DF":
+        position = 1
+        break
+      case "MF":
+        position = 2
+        break
+      case "FW":
+        position = 3
+        break
+      }
+      return position
+    },
     async getData() {
       this.loading = false
-      await this.getCategory()
-      await this.getPlayers()
-      await this.getCategories()
       await this.getTeams()
+      await this.setQuery()
+      await this.getPlayers()
+      await this.getCategory()
+      await this.getCategories()
       this.loading = true
     },
     async getPlayers() {
-      this.q.categoryId = this.category.id
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.categoryId = this.$route.params.categoryId
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
         params: {
@@ -125,7 +151,7 @@ export default {
       this.category = response.data.category
     },
     async getTeams() {
-      const response = await this.$axios.get(`/api/v1/categories/${this.category.id}/teams`)
+      const response = await this.$axios.get(`/api/v1/categories/${this.$route.params.categoryId}/teams`)
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
