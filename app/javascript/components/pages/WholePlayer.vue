@@ -124,7 +124,7 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
-      if (!!this.$route.query.page) this.page = +this.$route.query.page
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
         params: {
