@@ -13,7 +13,6 @@
           :leagues="groups"
           :teams="teams"
           v-bind.sync="q"
-          @search-player="getPlayers"
         />
         <router-view
           :users="users"
@@ -24,7 +23,6 @@
           :total-count="totalCount"
           :total-pages="totalPages"
           :current-page="currentPage"
-          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
