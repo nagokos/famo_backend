@@ -232,6 +232,7 @@ export default {
            this.$refs.followers.switchFollow(this.followingIds)
         })
       }
+      if (!this.isRelation) this.getReviews()
     }
   },
   async created() {
