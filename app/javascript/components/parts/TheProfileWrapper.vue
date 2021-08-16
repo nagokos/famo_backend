@@ -91,13 +91,11 @@
               v-show="!isRelation && $vuetify.breakpoint.mobile"
               :q="q"
               :game-dates="gameDates"
-              @search="searchReviews"
             />
             <review-search
               v-show="!isRelation && !$vuetify.breakpoint.mobile"
               v-bind.sync="q"
               :game-dates="gameDates"
-              @search="searchReviews"
             />
           </v-col>
           <v-col
@@ -206,7 +204,6 @@ export default {
       },
       page: 1,
       totalPages: 1,
-      currentPage: 1,
       totalCount: 0
     }
   },
@@ -279,11 +276,6 @@ export default {
         return this.$vuetify.goTo(0)
       }
     },
-    searchReviews() {
-      this.page = 1
-      this.$router.push({ name: this.$route.name }, () => {})
-      this.getReviews()
-    },
     async getGameDates() {
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/game_dates")
@@ -302,7 +294,6 @@ export default {
           }
         })
         this.totalCount = +response.headers["total-count"]
-        this.currentPage = +response.headers["current-page"]
         this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       } else {
@@ -313,7 +304,6 @@ export default {
           }
         })
         this.totalCount = +response.headers["total-count"]
-        this.currentPage = +response.headers["current-page"]
         this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       }
