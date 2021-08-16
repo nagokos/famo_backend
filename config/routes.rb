@@ -16,6 +16,7 @@ Rails.application.routes.draw do
                 resources :game_dates, only: %i[index]
                 resource :profile, only: %i[create update destroy]
                 resource :password_change, only: %i[update]
+                resource :rating_average, only: %i[show]
               end
             end
           end
@@ -26,9 +27,9 @@ Rails.application.routes.draw do
         scope module: :users do
           resources :reviews, only: %i[index create]
           resources :followers, only: %i[index]
-          resource :rating_average, only: %i[show]
           resources :following, only: %i[index]
           resources :game_dates, only: %i[index]
+          resource :rating_average, only: %i[show]
         end
       end
       resources :players, only: %i[index]
