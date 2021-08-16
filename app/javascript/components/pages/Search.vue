@@ -238,20 +238,24 @@ export default {
       if (this.q.position === "指定なし") this.q.position = undefined
     },
     pushSearchPage() {
+      this.checkQuery()
+      const query = { team: this.q.team, position: this.q.position }
+      if (!!this.q.team) return this.$router.push({ name: "wholePlayer", query: query })
+      delete query.team
       if (!this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
-        this.$router.push({ name: 'wholePlayer', params: { q: this.q } })
+        this.$router.push({ name: "wholePlayer", query: query })
       } else if (this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId)
         const leagueEigo = this.leagueNameEigo(league.name)
-        this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo, search: this.q } })
+        this.$router.push({ name: "leaguePlayer", params: { league: leagueEigo }, query: query })
       } else if (this.q.leagueId && this.q.categoryId && !this.q.groupId) {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
         const leagueEigo = this.leagueNameEigo(league)
-        this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, search: this.q } })
+        this.$router.push({ name: "categoryPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId }, query: query })
       } else {
         const league = this.leagues.find(league => league.id === this.q.leagueId).name
         const leagueEigo = this.leagueNameEigo(league)
-        this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId, search: this.q } })
+        this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId }, query: query })
       }
     },
     async getTeams() {
