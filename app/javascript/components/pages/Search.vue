@@ -229,6 +229,14 @@ export default {
       const unspecified = { name: "指定なし", id: "" }
       this.leagues.unshift(unspecified)
     },
+    setTeamUnspecified() {
+      const unspecified = { name: "指定なし", id: "" }
+      this.teams.unshift(unspecified)
+    },
+    checkQuery() {
+      if (this.q.team === "指定なし") this.q.team = undefined
+      if (this.q.position === "指定なし") this.q.position = undefined
+    },
     pushSearchPage() {
       if (!this.q.leagueId && !this.q.categoryId && !this.q.groupId) {
         this.$router.push({ name: 'wholePlayer', params: { q: this.q } })
@@ -245,6 +253,10 @@ export default {
         const leagueEigo = this.leagueNameEigo(league)
         this.$router.push({ name: "groupPlayer", params: { league: leagueEigo, categoryId: this.q.categoryId, groupId: this.q.groupId, search: this.q } })
       }
+    },
+    async getTeams() {
+      const response = await this.$axios.get("/api/v1/teams")
+      this.teams = response.data.teams
     },
     async getLeagueData() {
       const response = await this.$axios.get("/api/v1/hierarchy_leagues")
