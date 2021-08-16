@@ -13,7 +13,6 @@
           :leagues="leagues"
           :teams="teams"
           v-bind.sync="q"
-          @search-player="getPlayers"
         />
         <router-view
           :users="users"
@@ -24,7 +23,6 @@
           :total-count="totalCount"
           :total-pages="totalPages"
           :current-page="currentPage"
-          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -42,6 +40,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.toTop()
     if (to.params.league !== from.params.league) {
       this.getData()
     } else {
@@ -87,17 +86,43 @@ export default {
     }
   },
   created() {
-    if (!!this.$route.query.page) this.page = +this.$route.query.page
-    if (!!this.$route.params.search) this.q = this.$route.params.search
     this.getData()
   },
   methods: {
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.position = this.positionTransForm(this.$route.query.position)
+      this.q.teamId = this.teamTransForm()
+    },
+    teamTransForm() {
+      const team = this.teams.find(team => team.name === this.$route.query.team)
+      return !!team ? team.id : ""
+    },
+    positionTransForm(name) {
+      let position = ""
+      switch (name) {
+      case "GK":
+        position = 0
+        break
+      case "DF":
+        position = 1
+        break
+      case "MF":
+        position = 2
+        break
+      case "FW":
+        position = 3
+        break
+      }
+      return position
+    },
     async getData() {
       this.loading = false
-      await this.getLeague()
-      await this.getPlayers()
-      await this.getLeagues()
       await this.getTeams()
+      await this.setQuery()
+      await this.getPlayers()
+      await this.getLeague()
+      await this.getLeagues()
       this.loading = true
     },
     async getLeagues() {
@@ -105,6 +130,7 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       const leagueId = this.getLeagueId(this.$route.params.league)
       this.q.leagueId = leagueId
       this.isRating ? this.q.rating = true : this.q.rating = false
@@ -114,7 +140,6 @@ export default {
           page: this.page
         }
       })
-      console.log(response.headers);
       this.totalCount = +response.headers["total-count"]
       this.currentPage = +response.headers["current-page"]
       this.totalPages = +response.headers["total-pages"]
