@@ -6,8 +6,9 @@
           v-show="loading"
           ref="relationComp"
           :key="user.id"
-          :user="user"
-          @check-follow="checkFollow"
+          :user="user.user"
+          :status="user.status"
+          @emit-follow="emitFollow"
         />
       </template>
       <v-col
@@ -36,6 +37,15 @@
       >
         フォロワーはいません
       </v-col>
+      <v-col v-if="infiniteLoading" cols="12">
+        <infinite-loading
+          spinner="spiral"
+          @infinite="infiniteHandler"
+        >
+          <span slot="no-more">全て表示済みです</span>
+          <span slot="no-results" />
+        </infinite-loading>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -50,8 +60,11 @@ export default {
   data() {
     return {
       loading: false,
+      infiniteLoading: false,
       inactiveComp: "",
       users: [],
+      page: 1,
+      totalCount: 0,
       routes: [
         {
           name: "フォロー",
@@ -79,6 +92,22 @@ export default {
     this.$emit("reset-ids")
   },
   methods: {
+    emitFollow(id) {
+      this.$emit("emit-follow", id)
+    },
+    async infiniteHandler($state) {
+      // 全部ロードし終わっていたら$state.complete(), まだあるなら $state.loaded()
+      if (this.users.length === this.totalCount) {
+        $state.complete()
+      } else {
+        if (this.isFollowing) {
+          await this.getFollowing()
+        } else {
+          await this.getFollowers()
+        }
+        $state.loaded()
+      }
+    },
     switchFollow(ids) {
       if (!this.$refs.relationComp) return
       if (ids.length === 0) return
@@ -94,35 +123,63 @@ export default {
       })
       this.$emit("reset-ids")
     },
-    checkFollow(id) {
-      this.$emit("check-follow", id)
-    },
     async getUsers() {
       if (this.isFollowing) {
         await this.getFollowing()
       } else {
         await this.getFollowers()
       }
-      if (!this.$refs.relationComp) return this.loading = true
-      await this.$refs.relationComp[this.$refs.relationComp.length - 1].checkFollow()
       this.loading = true
+      this.infiniteLoading = true
     },
     async getFollowing() {
       if (this.isMypage) {
-        const response = await this.$axios.get("/api/v1/users/current/following")
-        this.users = response.data.users
+        const response = await this.$axios.get("/api/v1/users/current/following", {
+          params: { page: this.page }
+        })
+        this.totalCount = +response.headers["total-count"]
+        this.page = +response.headers["current-page"] + 1
+        await Promise.all(response.data.users.map(async resUser => {
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const user = { user: resUser, status: status.data.status }
+          this.users.push(user)
+        }));
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/following`)
-        this.users = response.data.users
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/following`, {
+          params: { page: this.page }
+        })
+        this.totalCount = +response.headers["total-count"]
+        this.page = +response.headers["current-page"] + 1
+        await Promise.all(response.data.users.map(async resUser => {
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const user = { user: resUser, status: status.data.status }
+          this.users.push(user)
+        }));
       }
     },
     async getFollowers() {
       if (this.isMypage) {
-        const response = await this.$axios.get("/api/v1/users/current/followers")
-        this.users = response.data.users
+        const response = await this.$axios.get("/api/v1/users/current/followers", {
+          params: { page: this.page }
+        })
+        this.totalCount = +response.headers["total-count"]
+        this.page = +response.headers["current-page"] + 1
+        await Promise.all(response.data.users.map(async resUser => {
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const user = { user: resUser, status: status.data.status }
+          this.users.push(user)
+        }));
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/followers`)
-        this.users = response.data.users
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/followers`, {
+          params: { page: this.page }
+        })
+        this.totalCount = +response.headers["total-count"]
+        this.page = +response.headers["current-page"] + 1
+        await Promise.all(response.data.users.map(async resUser => {
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const user = { user: resUser, status: status.data.status }
+          this.users.push(user)
+        }));
       }
     }
   }
