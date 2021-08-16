@@ -128,10 +128,11 @@ export default {
     },
     async getData() {
       this.loading = false
-      await this.getGroup()
-      await this.getPlayers()
-      await this.getGroups()
       await this.getTeams()
+      await this.setQuery()
+      await this.getPlayers()
+      await this.getGroup()
+      await this.getGroups()
       this.loading = true
     },
     async getPlayers() {
