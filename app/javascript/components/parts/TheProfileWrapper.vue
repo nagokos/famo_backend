@@ -274,12 +274,17 @@ export default {
     pushReview(review) {
       this.reviews.unshift(review)
     },
-    pagination(event) {
-      this.page = event
-      this.getReviews()
-      if (event === 1) {
-        this.$router.push({ name: this.$route.name })
-        return this.$vuetify.goTo(0)
+    toReview() {
+      if (this.$vuetify.breakpoint.mobile) {
+        window.scrollTo({
+          top: 268,
+          behavior: "auto"
+        })
+      } else {
+        window.scrollTo({
+          top: 285,
+          behavior: "auto"
+        })
       }
       if (this.isMypage) {
         this.$router.push({ name: "myReview", query: { page: event } })
