@@ -220,12 +220,17 @@ export default {
       return groups
     },
   },
-  async created() {
-    await this.getLeagueData()
-    await this.setLeagueData()
-    this.loading = true
+  created() {
+    this.setData()
   },
   methods: {
+    async setData() {
+      await this.getLeagueData()
+      await this.setLeagueUnspecified()
+      await this.getTeams()
+      await this.setTeamUnspecified()
+      this.loading = true
+    },
     resetId() {
       this.q.groupId = ""
       this.q.categoryId = ""
