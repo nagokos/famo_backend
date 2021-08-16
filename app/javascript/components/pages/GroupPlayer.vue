@@ -158,7 +158,7 @@ export default {
       }
     },
     async getTeams() {
-      const response = await this.$axios.get(`/api/v1/groups/${this.group.id}/teams`)
+      const response = await this.$axios.get(`/api/v1/groups/${this.$route.params.groupId}/teams`)
       this.teams = response.data.teams
       const unspecified = { name: "指定なし", id: "" }
       this.teams.unshift(unspecified)
