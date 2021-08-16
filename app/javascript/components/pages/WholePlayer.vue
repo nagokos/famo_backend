@@ -14,7 +14,6 @@
           :leagues="leagues"
           :teams="teams"
           v-bind.sync="q"
-          @search-player="getPlayers"
         />
         <router-view
           :users="users"
@@ -25,7 +24,6 @@
           :total-pages="totalPages"
           :current-page="currentPage"
           :total-count="totalCount"
-          @search-player="getPlayers"
         />
       </v-row>
     </v-container>
@@ -43,6 +41,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.toTop()
     this.getPlayers()
   },
   data() {
@@ -83,14 +82,41 @@ export default {
     }
   },
   created() {
-    if (!!this.$route.query.page) this.page = +this.$route.query.page
     this.getData()
   },
   methods: {
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.position = this.positionTransForm(this.$route.query.position)
+      this.q.teamId = this.teamTransForm()
+    },
+    teamTransForm() {
+      const team = this.teams.find(team => team.name === this.$route.query.team)
+      return !!team ? team.id : ""
+    },
+    positionTransForm(name) {
+      let position = ""
+      switch (name) {
+      case "GK":
+        position = 0
+        break
+      case "DF":
+        position = 1
+        break
+      case "MF":
+        position = 2
+        break
+      case "FW":
+        position = 3
+        break
+      }
+      return position
+    },
     async getData() {
+      await this.getTeams()
+      await this.setQuery()
       await this.getPlayers()
       await this.getLeagues()
-      await this.getTeams()
       this.loading = true
     },
     async getLeagues() {
@@ -98,7 +124,7 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
-      if (!!this.$route.query.page) this.page = +this.$route.query.page
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
         params: {
