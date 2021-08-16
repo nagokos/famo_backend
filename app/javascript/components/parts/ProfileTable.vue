@@ -131,7 +131,7 @@ export default {
         },
         {
           name: "レビュー平均",
-          information: this.average
+          information: this.average.toFixed(1)
         }
       ]
     },
