@@ -95,6 +95,11 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    average: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   computed: {
@@ -126,7 +131,7 @@ export default {
         },
         {
           name: "レビュー平均",
-          information: this.reviewAverage
+          information: this.average
         }
       ]
     },
