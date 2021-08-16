@@ -165,34 +165,30 @@ export default {
       dialog: false,
       deepSearch: false,
       leagues: [],
+      teams: [],
       q: {
         leagueId: "",
         categoryId: "",
         groupId: "",
-        position: "",
-        teamId: ""
+        position: "指定なし",
+        team: "指定なし"
       },
       loading: false,
       positions: [
         {
           name: "指定なし",
-          value: ""
         },
         {
           name: "GK",
-          value: 0
         },
         {
           name: "DF",
-          value: 1
         },
         {
           name: "MF",
-          value: 2
         },
         {
           name: "FW",
-          value: 3
         }
       ]
     }
