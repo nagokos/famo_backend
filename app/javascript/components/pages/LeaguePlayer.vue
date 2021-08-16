@@ -118,10 +118,11 @@ export default {
     },
     async getData() {
       this.loading = false
-      await this.getLeague()
-      await this.getPlayers()
-      await this.getLeagues()
       await this.getTeams()
+      await this.setQuery()
+      await this.getPlayers()
+      await this.getLeague()
+      await this.getLeagues()
       this.loading = true
     },
     async getLeagues() {
