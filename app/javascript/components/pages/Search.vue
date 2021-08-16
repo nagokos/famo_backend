@@ -225,7 +225,7 @@ export default {
       this.q.groupId = ""
       this.q.categoryId = ""
     },
-    setLeagueData() {
+    setLeagueUnspecified() {
       const unspecified = { name: "指定なし", id: "" }
       this.leagues.unshift(unspecified)
     },
