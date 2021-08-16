@@ -22,6 +22,10 @@ Vue.mixin(globalMethods)
 import VeeValidate from "../plugins/vee-validate"
 Vue.mixin(VeeValidate)
 
+// InfiniteLoading
+import InfiniteLoading from "vue-infinite-loading"
+Vue.use(InfiniteLoading)
+
 // dayjs
 import dayjs from "../plugins/dayjs"
 Vue.prototype.$dayjs = dayjs
