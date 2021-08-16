@@ -130,6 +130,7 @@ export default {
       this.leagues = response.data.leagues
     },
     async getPlayers() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       const leagueId = this.getLeagueId(this.$route.params.league)
       this.q.leagueId = leagueId
       this.isRating ? this.q.rating = true : this.q.rating = false
@@ -139,7 +140,6 @@ export default {
           page: this.page
         }
       })
-      console.log(response.headers);
       this.totalCount = +response.headers["total-count"]
       this.currentPage = +response.headers["current-page"]
       this.totalPages = +response.headers["total-pages"]
