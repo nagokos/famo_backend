@@ -132,7 +132,8 @@ export default {
       this.loading = true
     },
     async getPlayers() {
-      this.q.categoryId = this.category.id
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.categoryId = this.$route.params.categoryId
       this.isRating ? this.q.rating = true : this.q.rating = false
       const response = await this.$axios.get("/api/v1/players", {
         params: {
