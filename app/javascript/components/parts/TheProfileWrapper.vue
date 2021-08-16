@@ -60,6 +60,7 @@
               :profile="user.profile"
               :reviews="reviews"
               :total-count="totalCount"
+              :average="average"
             />
           </v-col>
         </v-row>
@@ -90,13 +91,11 @@
               v-show="!isRelation && $vuetify.breakpoint.mobile"
               :q="q"
               :game-dates="gameDates"
-              @search="searchReviews"
             />
             <review-search
               v-show="!isRelation && !$vuetify.breakpoint.mobile"
               v-bind.sync="q"
               :game-dates="gameDates"
-              @search="searchReviews"
             />
           </v-col>
           <v-col
@@ -118,20 +117,27 @@
             </keep-alive>
             <template v-if="totalCount >= 20">
               <v-divider class="mt-10" />
-                <v-card
-                  outlined
-                  color="#f1f4f8"
-                >
-                  <v-pagination
-                    v-model="page"
-                    :length="totalPages"
-                    color="#3949AB"
-                    class="my-5"
-                    @input="pagination($event)"
-                  />
-                </v-card>
+              <v-card
+                outlined
+                color="#f1f4f8"
+              >
+                <v-pagination
+                  v-model="page"
+                  :length="totalPages"
+                  color="#3949AB"
+                  class="my-5"
+                  @input="pagination($event)"
+                />
+              </v-card>
               <v-divider />
             </template>
+            <v-col
+              v-if="reviews.length === 0"
+              align="center"
+              class="text-h6"
+            >
+              レビューがありません
+            </v-col>
           </v-col>
           <keep-alive>
             <relation-card
@@ -167,7 +173,6 @@ import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
 
-
 export default {
   components: {
     ProfileTable,
@@ -194,6 +199,7 @@ export default {
       isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user },
+      average: 0,
       reviews: [],
       followingIds: [],
       followersIds: [],
@@ -204,7 +210,6 @@ export default {
       },
       page: 1,
       totalPages: 1,
-      currentPage: 1,
       totalCount: 0
     }
   },
@@ -227,16 +232,26 @@ export default {
            this.$refs.followers.switchFollow(this.followingIds)
         })
       }
+      if (!this.isRelation) this.getReviews()
     }
   },
-  async created() {
-    if (!!this.$route.query.page) this.page = +this.$route.query.page
-    await this.checkFollow()
-    await this.getReviews()
-    this.loading = true
-    this.getGameDates()
+  created() {
+    this.setData()
   },
   methods: {
+    async setData() {
+      await this.checkFollow()
+      await this.getGameDates()
+      await this.setQuery()
+      await this.getReviews()
+      await this.getAverage()
+      this.loading = true
+    },
+    setQuery() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.q.sort = !!this.$route.query.sort ? this.$route.query.sort : "created"
+      this.q.gameDate = this.$route.query.game_date
+    },
     setFollowingIds(id) {
       this.followingIds.push(id)
     },
@@ -259,28 +274,33 @@ export default {
     pushReview(review) {
       this.reviews.unshift(review)
     },
-    pagination(event) {
-      this.page = event
-      this.getReviews()
-      if (event === 1) {
-        this.$router.push({ name: this.$route.name })
-        return this.$vuetify.goTo(0)
-      }
-      if (this.isMypage) {
-        this.$router.push({ name: "myReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
-      } else if (this.$route.path.includes("users")) {
-        this.$router.push({ name: "reviewerReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
+    toReview() {
+      if (this.$vuetify.breakpoint.mobile) {
+        window.scrollTo({
+          top: 268,
+          behavior: "auto"
+        })
       } else {
-        this.$router.push({ name: "playerReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
+        window.scrollTo({
+          top: 285,
+          behavior: "auto"
+        })
       }
     },
-    searchReviews() {
-      this.page = 1
-      this.$router.push({ name: this.$route.name }, () => {})
-      this.getReviews()
+    pagination(event) {
+      this.toReview()
+      const query = { game_date: this.$route.query.game_date, sort: this.$route.query.sort, page: event }
+      this.$router.push({ name: this.$route.name, query: query })
+    },
+    async getAverage() {
+      if (this.user.role === "player") return
+      if (this.isMypage) {
+        const response = await this.$axios.get("/api/v1/users/current/rating_average")
+        this.average = response.data
+      } else {
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/rating_average`)
+        this.average = response.data
+      }
     },
     async getGameDates() {
       if (this.isMypage) {
@@ -292,6 +312,7 @@ export default {
       }
     },
     async getReviews() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/reviews", {
           params: {
@@ -300,7 +321,6 @@ export default {
           }
         })
         this.totalCount = +response.headers["total-count"]
-        this.currentPage = +response.headers["current-page"]
         this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       } else {
@@ -311,7 +331,6 @@ export default {
           }
         })
         this.totalCount = +response.headers["total-count"]
-        this.currentPage = +response.headers["current-page"]
         this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
       }
