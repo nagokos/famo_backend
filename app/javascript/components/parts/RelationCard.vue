@@ -37,7 +37,10 @@
       >
         フォロワーはいません
       </v-col>
-      <v-col v-if="infiniteLoading" cols="12">
+      <v-col
+        v-if="infiniteLoading"
+        cols="12"
+      >
         <infinite-loading
           spinner="spiral"
           @infinite="infiniteHandler"
