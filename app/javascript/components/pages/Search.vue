@@ -175,21 +175,11 @@ export default {
       },
       loading: false,
       positions: [
-        {
-          name: "指定なし",
-        },
-        {
-          name: "GK",
-        },
-        {
-          name: "DF",
-        },
-        {
-          name: "MF",
-        },
-        {
-          name: "FW",
-        }
+        { name: "指定なし"},
+        { name: "GK" },
+        { name: "DF" },
+        { name: "MF" },
+        { name: "FW" }
       ]
     }
   },
