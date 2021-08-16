@@ -40,6 +40,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
+    this.toTop()
     if (to.params.categoryId !== from.params.categoryId) {
       this.getData()
     } else {
