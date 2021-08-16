@@ -203,11 +203,8 @@ export default {
       return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
     }
   },
-  created() {
-    if (this.$route.path.includes("ratings")) {
-      this.$router.push({ name: "wholeRating", query: { page: this.page } }, () => {})
-      this.tab = 1
-    }
+  mounted() {
+    if (this.$route.path.includes("ratings")) this.tab = 1
   },
   methods: {
     pushPlayer() {
