@@ -148,8 +148,13 @@ export default {
     searchPlayer() {
       this.$emit("update:teamId", this.teamData)
       this.$emit("update:position", this.positionData)
+      delete this.$route.query.page
+      let team = this.teams.find(team => team.id === this.teamData)
+      if (team.name === "指定なし") team = ""
+      let position = this.positions.find(position => position.value === this.positionData)
+      if (position.name === "指定なし") position = ""
+      this.$router.push({ name: this.$route.name, query: { team: team.name, position: position.name, page: undefined } }, () => {})
       this.dialog = false
-      this.$emit("search-player")
     },
     resetSearch() {
       this.positionData = ""
