@@ -121,9 +121,15 @@
                     class="py-0"
                     cols="12"
                   >
-                    <v-select
+                    <v-autocomplete
+                      v-model="q.team"
                       outlined
                       dense
+                      :items="teams"
+                      item-text="name"
+                      item-value="name"
+                      persistent-hint
+                      hint="※ チームを指定すると全国での表示になります"
                     />
                   </v-col>
                 </template>
