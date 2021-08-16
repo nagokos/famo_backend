@@ -13,7 +13,6 @@
           :leagues="categories"
           :teams="teams"
           v-bind.sync="q"
-          @search-player="getPlayers"
         />
         <router-view
           :users="users"
