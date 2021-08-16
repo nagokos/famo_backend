@@ -286,15 +286,20 @@ export default {
           behavior: "auto"
         })
       }
+    },
+    pagination(event) {
+      this.toReview()
+      const query = { game_date: this.$route.query.game_date, sort: this.$route.query.sort, page: event }
+      this.$router.push({ name: this.$route.name, query: query })
+    },
+    async getAverage() {
+      if (this.user.role === "player") return
       if (this.isMypage) {
-        this.$router.push({ name: "myReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
-      } else if (this.$route.path.includes("users")) {
-        this.$router.push({ name: "reviewerReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
+        const response = await this.$axios.get("/api/v1/users/current/rating_average")
+        this.average = response.data
       } else {
-        this.$router.push({ name: "playerReview", query: { page: event } })
-        return this.$vuetify.goTo(0)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/rating_average`)
+        this.average = response.data
       }
     },
     async getGameDates() {
@@ -307,6 +312,7 @@ export default {
       }
     },
     async getReviews() {
+      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/reviews", {
           params: {
