@@ -72,7 +72,6 @@
             <!-- テーブル -->
             <profile-table
               :profile="user.profile"
-              :reviews="reviews"
               :total-count="totalCount"
               :average="average"
             />
@@ -148,7 +147,6 @@
             <v-col
               v-if="reviews.length === 0"
               align="center"
-              class="text-h6"
             >
               レビューがありません
             </v-col>
