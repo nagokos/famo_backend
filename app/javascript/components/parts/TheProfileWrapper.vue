@@ -50,6 +50,20 @@
               @send-introduction="$emit('update-introduction', userEdit)"
               @close-form="closeIntroduction"
             />
+            <div
+              v-if="$vuetify.breakpoint.mobile"
+              class="my-3"
+            >
+              <v-btn
+                :ripple="false"
+                class="font-weight-bold"
+                depressed
+                block
+                @click="$refs.showProfileDialog.open()"
+              >
+                ユーザー情報をみる
+              </v-btn>
+            </div>
           </v-col>
           <v-col
             v-if="!$vuetify.breakpoint.mobile"
