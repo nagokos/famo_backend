@@ -193,6 +193,7 @@
           v-if="review.content.length >= 350"
           class="text-caption mt-1 ml-3 blue--text text--darken-2"
           style="cursor: pointer;"
+          @click="$refs.showReviewDialog.open()"
         >
           もっとみる
         </span>
@@ -202,16 +203,23 @@
       ref="reviewDeleteDialog"
       @click-delete="deleteReview"
     />
+    <the-show-review-dialog
+      ref="showReviewDialog"
+      :user="user"
+      :review="review"
+    />
   </v-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import TheReviewDeleteDialog from "./TheReviewDeleteDialog.vue"
+import TheReviewDeleteDialog from "./TheReviewDeleteDialog"
+import TheShowReviewDialog from "./TheShowReviewDialog"
 
 export default {
   components: {
-    TheReviewDeleteDialog
+    TheReviewDeleteDialog,
+    TheShowReviewDialog
   },
   props: {
     user: {
