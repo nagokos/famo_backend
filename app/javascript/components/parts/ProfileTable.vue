@@ -86,11 +86,6 @@ export default {
       default: () => {},
       required: false
     },
-    reviews: {
-      type: Array,
-      default: () => {},
-      required: true
-    },
     totalCount: {
       type: Number,
       default: 0,
