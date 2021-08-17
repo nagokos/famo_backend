@@ -60,7 +60,12 @@
               </span>
             </v-list-item-subtitle>
           </v-list-item-content>
-          <v-btn :ripple="false" small icon @click="dialog = false">
+          <v-btn
+            :ripple="false"
+            small
+            icon
+            @click="dialog = false"
+          >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-list-item>
@@ -95,10 +100,10 @@
         </span>
         <p class="text-justify">
           {{ review.content }}
-       </p>
-     </v-card-text>
-   </v-card>
- </v-dialog>
+        </p>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>

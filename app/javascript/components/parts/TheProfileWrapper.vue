@@ -170,6 +170,12 @@
         </v-row>
       </v-container>
     </div>
+    <the-show-profile-dialog
+      ref="showProfileDialog"
+      :user="user"
+      :total-count="totalCount"
+      :average="average"
+    />
   </div>
 </template>
 
@@ -184,6 +190,7 @@ import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
+import TheShowProfileDialog from "./TheShowProfileDialog.vue"
 
 export default {
   components: {
@@ -196,7 +203,8 @@ export default {
     ReviewCard,
     RelationCard,
     ReviewSearch,
-    ReviewSearchMobile
+    ReviewSearchMobile,
+    TheShowProfileDialog
   },
   props: {
     user: {
