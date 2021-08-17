@@ -50,6 +50,20 @@
               @send-introduction="$emit('update-introduction', userEdit)"
               @close-form="closeIntroduction"
             />
+            <div
+              v-if="$vuetify.breakpoint.mobile"
+              class="my-3"
+            >
+              <v-btn
+                :ripple="false"
+                class="font-weight-bold"
+                depressed
+                block
+                @click="$refs.showProfileDialog.open()"
+              >
+                ユーザー情報をみる
+              </v-btn>
+            </div>
           </v-col>
           <v-col
             v-if="!$vuetify.breakpoint.mobile"
@@ -58,7 +72,6 @@
             <!-- テーブル -->
             <profile-table
               :profile="user.profile"
-              :reviews="reviews"
               :total-count="totalCount"
               :average="average"
             />
@@ -134,7 +147,6 @@
             <v-col
               v-if="reviews.length === 0"
               align="center"
-              class="text-h6"
             >
               レビューがありません
             </v-col>
@@ -158,6 +170,12 @@
         </v-row>
       </v-container>
     </div>
+    <the-show-profile-dialog
+      ref="showProfileDialog"
+      :user="user"
+      :total-count="totalCount"
+      :average="average"
+    />
   </div>
 </template>
 
@@ -172,6 +190,7 @@ import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
+import TheShowProfileDialog from "./TheShowProfileDialog.vue"
 
 export default {
   components: {
@@ -184,7 +203,8 @@ export default {
     ReviewCard,
     RelationCard,
     ReviewSearch,
-    ReviewSearchMobile
+    ReviewSearchMobile,
+    TheShowProfileDialog
   },
   props: {
     user: {
