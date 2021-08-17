@@ -60,10 +60,27 @@
         </v-row>
       </v-container>
     </div>
-    <home-reviews
-      :reviews="reviews"
-      class="review-area mb-16"
-    />
+    <div class="review-area">
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <p class="text-h4 font-weight-bold mb-1">
+              みんなの評価
+            </p>
+          </v-col>
+          <v-col
+            v-for="(review, index) in reviews"
+            :key="index"
+            cols="12"
+            lg="6"
+          >
+            <home-reviews
+              :review="review"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
     <signup-dialog
       ref="signupDialog"
     />
