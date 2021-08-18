@@ -108,7 +108,6 @@
       ref="playerSearchDialog"
       :teams="teams"
       v-bind.sync="q"
-      @search-player="searchPlayer"
     />
   </v-col>
 </template>
@@ -202,9 +201,6 @@ export default {
     rankIndex() {
       return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
     }
-  },
-  mounted() {
-    if (this.$route.path.includes("ratings")) this.tab = 1
   },
   methods: {
     pushPlayer() {
