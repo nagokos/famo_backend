@@ -190,7 +190,7 @@ import ReviewCard from "../parts/ReviewCard"
 import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
-import TheShowProfileDialog from "./TheShowProfileDialog.vue"
+import TheShowProfileDialog from "./TheShowProfileDialog"
 
 export default {
   components: {
@@ -252,7 +252,10 @@ export default {
            this.$refs.followers.switchFollow(this.followingIds)
         })
       }
-      if (!this.isRelation) this.getReviews()
+      if (!this.isRelation) {
+        this.getReviews()
+        this.getGameDates()
+      }
     }
   },
   created() {
@@ -293,6 +296,7 @@ export default {
     },
     pushReview(review) {
       this.reviews.unshift(review)
+      this.getGameDates()
     },
     toReview() {
       if (this.$vuetify.breakpoint.mobile) {
