@@ -25,7 +25,6 @@
         v-if="loading && $route.path.includes('/following') && users.length === 0"
         cols="12"
         align="center"
-        class="text-h6"
       >
         フォローしていません
       </v-col>
@@ -33,7 +32,6 @@
         v-if="loading && $route.path.includes('/followers') && users.length === 0"
         cols="12"
         align="center"
-        class="text-h6"
       >
         フォロワーはいません
       </v-col>

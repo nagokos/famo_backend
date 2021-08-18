@@ -50,7 +50,7 @@
       v-if="$vuetify.breakpoint.mobile"
       class="pb-0 mt-2"
     >
-      <span class="font-weight-bold">
+      <span class="font-weight-bold text-subtitle-2">
         {{ searchDataInformation }}
       </span>
       <v-spacer />
@@ -108,7 +108,6 @@
       ref="playerSearchDialog"
       :teams="teams"
       v-bind.sync="q"
-      @search-player="searchPlayer"
     />
   </v-col>
 </template>
@@ -181,6 +180,9 @@ export default {
       ]
     }
   },
+  mounted() {
+    if (this.$route.path.includes("ratings")) this.tab = 1
+  },
   computed: {
     searchDataInformation() {
       if (this.q.position === "" && !this.q.teamId) {
@@ -202,9 +204,6 @@ export default {
     rankIndex() {
       return [...Array(20)].map((_, i) => (this.currentPage - 1) * 20 + 1 + i * 1)
     }
-  },
-  mounted() {
-    if (this.$route.path.includes("ratings")) this.tab = 1
   },
   methods: {
     pushPlayer() {
