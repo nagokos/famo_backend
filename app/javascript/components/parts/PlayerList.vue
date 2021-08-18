@@ -50,7 +50,7 @@
       v-if="$vuetify.breakpoint.mobile"
       class="pb-0 mt-2"
     >
-      <span class="font-weight-bold">
+      <span class="font-weight-bold text-subtitle-2">
         {{ searchDataInformation }}
       </span>
       <v-spacer />
