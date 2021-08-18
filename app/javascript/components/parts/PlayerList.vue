@@ -180,6 +180,9 @@ export default {
       ]
     }
   },
+  mounted() {
+    if (this.$route.path.includes("ratings")) this.tab = 1
+  },
   computed: {
     searchDataInformation() {
       if (this.q.position === "" && !this.q.teamId) {
