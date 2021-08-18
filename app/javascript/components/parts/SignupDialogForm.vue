@@ -69,7 +69,65 @@
                 cols="12"
                 class="pt-0"
               >
+                <v-dialog
+                  v-if="$vuetify.breakpoint.mobile"
+                  ref="dialog"
+                  v-model="dateDialog"
+                  fullscreen
+                  width="290px"
+                >
+                  <template #activator="{ on, attrs }">
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      vid="birth_date"
+                      :rules="{ required: true, formFormat: /\d{4}-\d{2}-\d{2}/ }"
+                      name="生年月日"
+                    >
+                      <v-text-field
+                        v-model="user.birth_date"
+                        label="生年月日"
+                        outlined
+                        dense
+                        readonly
+                        v-bind="attrs"
+                        background-color="#F2F4F8"
+                        required
+                        :error-messages="errors"
+                        v-on="on"
+                      />
+                    </ValidationProvider>
+                  </template>
+                  <v-date-picker
+                    color="primary"
+                    v-model="user.birth_date"
+                    :active-picker.sync="activePicker"
+                    :max="$dayjs().format('YYYY-MM-DD')"
+                    min="1900-01-01"
+                    full-width
+                    :day-format="date => new Date(date).getDate()"
+                    locale="jp-ja"
+                  >
+                    <v-spacer />
+                    <v-btn
+                      text
+                      color="primary"
+                      :ripple="false"
+                      @click="dialogCancel"
+                    >
+                      キャンセル
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      :ripple="false"
+                      @click="dateSave"
+                    >
+                      指定
+                    </v-btn>
+                  </v-date-picker>
+                </v-dialog>
                 <v-menu
+                  v-if="!$vuetify.breakpoint.mobile"
                   ref="menu"
                   v-model="menu"
                   :close-on-content-click="false"
@@ -98,14 +156,32 @@
                     </ValidationProvider>
                   </template>
                   <v-date-picker
+                    color="primary"
                     v-model="user.birth_date"
                     :active-picker.sync="activePicker"
-                    :max="new Date().toISOString().substr(0, 10)"
+                    :max="$dayjs().format('YYYY-MM-DD')"
                     min="1900-01-01"
                     :day-format="date => new Date(date).getDate()"
                     locale="jp-ja"
-                    @change="save"
-                  />
+                  >
+                    <v-spacer />
+                    <v-btn
+                      text
+                      color="primary"
+                      :ripple="false"
+                      @click="menuCancel"
+                    >
+                      キャンセル
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      :ripple="false"
+                      @click="$refs.menu.save(user.birth_date)"
+                    >
+                      指定
+                    </v-btn>
+                  </v-date-picker>
                 </v-menu>
               </v-col>
               <v-col
@@ -188,6 +264,7 @@ export default {
     return {
       show: false,
       menu: false,
+      dateDialog: false,
       activePicker: "",
       user: {
         first_name: "",
@@ -202,10 +279,22 @@ export default {
     menu (val) {
       val && setTimeout(() => (this.activePicker = "YEAR"))
     },
+    dateDialog (val) {
+      val && setTimeout(() => (this.activePicker = "YEAR"))
+    }
   },
   methods: {
-    save(date) {
-      this.$refs.menu.save(date)
+    menuCancel() {
+      this.menu = false
+      this.user.birth_date = ""
+    },
+    dialogCancel() {
+      this.dateDialog = false
+      this.user.birth_date = ""
+    },
+    dateSave() {
+      this.$refs.dialog.save(this.user.birth_date)
+      this.dateDialog = false
     },
     async sendUserData() {
       try {
