@@ -91,7 +91,7 @@
     </div>
     <v-divider />
     <div class="contents mt-5">
-      <v-container>
+      <v-container :class="$vuetify.breakpoint.mobile ? 'pt-0' : ''">
         <v-row>
           <!-- 選手カード -->
           <v-col
