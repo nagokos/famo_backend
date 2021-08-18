@@ -8,7 +8,7 @@
         <v-list-item-avatar
           size="45"
           class="mr-2"
-          :style="!!reviewUser.id ? 'cursor: pointer;' : ''"
+          :style="!!reviewUser ? 'cursor: pointer;' : ''"
           @click="pushUserPage"
         >
           <v-img
@@ -20,12 +20,12 @@
             <span :class="$vuetify.breakpoint.mobile ? 'text-caption font-weight-bold' : 'text-body-2 font-weight-bold'">
               <span
                 v-cloak
-                :style="!!reviewUser.id ? 'cursor: pointer;' : ''"
+                :style="!!reviewUser ? 'cursor: pointer;' : ''"
                 @click="pushUserPage"
               >
                 {{ fullName }}
               </span>
-              <span v-if="user.role === 'player' && !!reviewUser.id">
+              <span v-if="user.role === 'player' && !!reviewUser">
                 さんのレビュー
               </span>
               <span v-if="user.role === 'reviewer'">
@@ -258,9 +258,11 @@ export default {
       return this.$dayjs(this.review.createdAt).fromNow()
     },
     isMyReview() {
+      if (!this.reviewUser) return
       return this.review.reviewer.id === this.currentUser.id
     },
     fullName() {
+      if (!this.reviewUser) return "退会したユーザー"
       return this.user.role === 'player' ? `${this.review.reviewer.lastName} ${this.review.reviewer.firstName}` :
                                            `${this.review.reviewee.lastName} ${this.review.reviewee.firstName}`
     },
@@ -300,6 +302,7 @@ export default {
       }
     },
     pushUserPage() {
+      if (!this.reviewUser) return
       if (this.currentUser.id === this.reviewUser.id) return this.$router.push({ name: "myReview" })
       if (this.reviewUser.role === "player") {
         const leagueEigo = this.leagueNameEigo(this.reviewUser.profile.league.name)
