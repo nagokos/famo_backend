@@ -74,7 +74,7 @@
             cols="12"
             lg="6"
           >
-            <home-reviews
+            <home-review
               :review="review"
             />
           </v-col>
@@ -89,13 +89,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import HomeReviews from "../parts/HomeReviews"
+import HomeReview from "../parts/HomeReview"
 import HomePlayerSearch from "../parts/HomePlayerSearch"
 import SignupDialog from "../parts/SignupDialog"
 
 export default {
   components: {
-    HomeReviews,
+    HomeReview,
     HomePlayerSearch,
     SignupDialog,
   },

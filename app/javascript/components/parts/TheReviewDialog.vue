@@ -41,6 +41,21 @@
           </ValidationProvider>
           <v-col class="pl-0 text-h6 font-weight-bold pb-0">
             評価点
+            <v-tooltip :max-width="$vuetify.breakpoint.mobile ? 250 : 300" color="black" bottom :nudge-right="$vuetify.breakpoint.mobile ? 50 : 100">
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                size="20"
+              >
+                mdi-help-circle
+              </v-icon>
+            </template>
+            <ul class="text-caption my-3">
+              <li>評価点は選手のプレーを総合的に見て判断してください。</li>
+              <li>3.0を及第点とし、1.0 ~ 5.0の間で評価してください。</li>
+            </ul>
+          </v-tooltip>
           </v-col>
           <div class="text-center mt-5 mb-5">
             <v-col
@@ -78,7 +93,69 @@
         <v-divider />
         <v-card-actions class="justify-space-between">
           <!-- 試合日 -->
+          <v-dialog
+            v-if="$vuetify.breakpoint.mobile"
+            ref="dialog"
+            v-model="dateDialog"
+            fullscreen
+            width="290px"
+          >
+            <template #activator="{ on, attrs }">
+              <v-btn
+                :ripple="false"
+                color="primary"
+                v-bind="attrs"
+                text
+                rounded
+                v-on="on"
+              >
+                <v-icon class="mr-1">
+                  mdi-calendar
+                </v-icon>
+                <span
+                  v-if="review.gameDate === ''"
+                  class="text-caption"
+                >
+                  試合日
+                </span>
+                <span
+                  v-if="review.gameDate !== ''"
+                  class="text-caption"
+                >
+                  {{ review.gameDate }}
+                </span>
+              </v-btn>
+            </template>
+            <v-date-picker
+              v-model="review.gameDate"
+              :max="$dayjs().format('YYYY-MM-DD')"
+              min="1900-01-01"
+              color="primary"
+              full-width
+              :day-format="date => new Date(date).getDate()"
+              locale="jp-ja"
+            >
+              <v-spacer />
+              <v-btn
+                text
+                color="primary"
+                :ripple="false"
+                @click="dialogCancel"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                text
+                color="primary"
+                :ripple="false"
+                @click="dateSave"
+              >
+                指定
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
           <v-menu
+            v-if="!$vuetify.breakpoint.mobile"
             ref="menu"
             v-model="menu"
             top
@@ -125,7 +202,7 @@
                 text
                 color="primary"
                 :ripple="false"
-                @click="menu = false"
+                @click="menuCancel"
               >
                 キャンセル
               </v-btn>
@@ -224,6 +301,7 @@ export default {
   data() {
     return {
       dialog: false,
+      dateDialog: false,
       menu: false,
       activePicker: "",
       review: {
@@ -253,6 +331,18 @@ export default {
     close() {
       Object.assign(this.$data, this.$options.data())
       this.$refs.observer.reset()
+    },
+    menuCancel() {
+      this.menu = false
+      this.review.gameDate = ""
+    },
+    dialogCancel() {
+      this.dateDialog = false
+      this.review.gameDate = ""
+    },
+    dateSave() {
+      this.$refs.dialog.save(this.review.gameDate)
+      this.dateDialog = false
     },
     checkRate() {
       if (this.review.rate < 1) {
