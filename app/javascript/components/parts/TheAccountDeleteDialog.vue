@@ -71,8 +71,9 @@
                     color="red"
                     :dark="!invalid"
                     width="300"
+                    :loading="loading"
                     class="font-weight-bold"
-                    @click="$emit('delete-user')"
+                    @click="clickDelete"
                   >
                     アカウントを削除
                   </v-btn>
@@ -92,6 +93,7 @@ export default {
     return {
       dialog: false,
       checkbox: null,
+      loading: false,
       precautions: [
         "アカウントを削除すると、あなたのプロフィール情報、つながり、選手情報が全て削除されます。",
         "Famoで投稿した評価はサイトに残り続けます。",
@@ -106,6 +108,10 @@ export default {
     close() {
       this.dialog = false
       this.checkbox = null
+    },
+    clickDelete() {
+      this.loading = true
+      this.$emit("delete-user")
     }
   }
 }
