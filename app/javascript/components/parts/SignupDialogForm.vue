@@ -98,8 +98,8 @@
                     </ValidationProvider>
                   </template>
                   <v-date-picker
-                    color="primary"
                     v-model="user.birth_date"
+                    color="primary"
                     :active-picker.sync="activePicker"
                     :max="$dayjs().format('YYYY-MM-DD')"
                     min="1900-01-01"
@@ -156,8 +156,8 @@
                     </ValidationProvider>
                   </template>
                   <v-date-picker
-                    color="primary"
                     v-model="user.birth_date"
+                    color="primary"
                     :active-picker.sync="activePicker"
                     :max="$dayjs().format('YYYY-MM-DD')"
                     min="1900-01-01"
