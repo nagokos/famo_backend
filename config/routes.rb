@@ -52,6 +52,7 @@ Rails.application.routes.draw do
           resources :teams, only: %i[index]
         end
       end
+      resources :top_players, only: %i[index]
       resources :hierarchy_leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
       resources :teams, only: %i[index create]

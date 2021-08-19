@@ -52,10 +52,22 @@
     <div class="players-area">
       <v-container>
         <v-row>
-          <v-col cols="12">
+          <v-col
+            cols="12"
+            class="mx-auto"
+            style="max-width: 1050px;"
+          >
             <p class="text-h4 font-weight-bold mb-1">
               The Best Players
             </p>
+          </v-col>
+          <v-col
+            cols="12"
+            class="px-0 py-0"
+          >
+            <home-best-player
+              :users="users"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -91,6 +103,7 @@
 import { mapGetters } from 'vuex'
 import HomeReview from "../parts/HomeReview"
 import HomePlayerSearch from "../parts/HomePlayerSearch"
+import homeBestPlayer from "../parts/HomeBestPlayer"
 import SignupDialog from "../parts/SignupDialog"
 
 export default {
@@ -98,11 +111,13 @@ export default {
     HomeReview,
     HomePlayerSearch,
     SignupDialog,
+    homeBestPlayer
   },
   data() {
     return {
       reviews: [],
       leagues: [],
+      users: []
     }
   },
   computed: {
@@ -111,6 +126,7 @@ export default {
   created() {
     this.getLeagues()
     this.getReviews()
+    this.getTopPlayers()
   },
   mounted() {
     this.isActivation()
@@ -153,22 +169,34 @@ export default {
       const response = await this.$axios.get("/api/v1/hierarchy_leagues")
       this.leagues = response.data.leagues
     },
+    async getTopPlayers() {
+      const response = await this.$axios.get("/api/v1/top_players")
+      if (this.$vuetify.breakpoint.mobile) return this.users = response.data.users
+      const arrayUser = response.data.users
+      while (!!arrayUser.length) this.users.push(arrayUser.splice(0, 5));
+
+    }
   }
 }
 </script>
 
 <style scoped>
-  .top {
+  .site-concept {
     max-width: 1050px;
     margin: 0 auto;
   }
   .player-search {
+    max-width: 1050px;
+    margin: 0 auto;
     margin-top: 100px;
   }
   .players-area {
+    max-width: 1050px;
+    margin: 0 auto;
     margin-top: 100px;
   }
   .review-area {
-    margin-top: 100px;
+    max-width: 1050px;
+    margin: 0 auto;
   }
 </style>

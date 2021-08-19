@@ -1,6 +1,7 @@
 <template>
   <v-card
     outlined
+    elevation="1"
     class="mb-8"
   >
     <v-list class="pb-0">
