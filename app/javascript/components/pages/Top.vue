@@ -52,10 +52,22 @@
     <div class="players-area">
       <v-container>
         <v-row>
-          <v-col cols="12">
+          <v-col
+            cols="12"
+            class="mx-auto"
+            style="max-width: 1050px;"
+          >
             <p class="text-h4 font-weight-bold mb-1">
               The Best Players
             </p>
+          </v-col>
+          <v-col
+            cols="12"
+            class="px-0 py-0"
+          >
+            <home-best-player
+              :users="users"
+            />
           </v-col>
         </v-row>
       </v-container>
