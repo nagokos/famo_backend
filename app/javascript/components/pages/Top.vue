@@ -103,6 +103,7 @@
 import { mapGetters } from 'vuex'
 import HomeReview from "../parts/HomeReview"
 import HomePlayerSearch from "../parts/HomePlayerSearch"
+import homeBestPlayer from "../parts/HomeBestPlayer"
 import SignupDialog from "../parts/SignupDialog"
 
 export default {
@@ -110,6 +111,7 @@ export default {
     HomeReview,
     HomePlayerSearch,
     SignupDialog,
+    homeBestPlayer
   },
   data() {
     return {
