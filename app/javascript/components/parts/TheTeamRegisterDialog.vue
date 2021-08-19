@@ -36,11 +36,11 @@
                     class="font-weight-bold grey--text text--darken-1"
                     :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px'"
                   >
-                    大会に記載しているチーム名で登録してください。
+                    ※ 大会に記載しているチーム名で登録してください。
                     <br>
-                    〇〇高校、〇〇U18、〇〇ユースの形で登録してください。
+                    ※ 〇〇高校、〇〇U-18、〇〇ユースの形で登録してください。
                     <br>
-                    2nd、3rdなどの区別はしないでください。
+                    ※ 2nd、3rdなどの区別はしないでください。
                   </span>
                 </v-col>
                 <v-col cols="12">
