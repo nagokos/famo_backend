@@ -181,17 +181,22 @@ export default {
 </script>
 
 <style scoped>
-  .top {
+  .site-concept {
     max-width: 1050px;
     margin: 0 auto;
   }
   .player-search {
+    max-width: 1050px;
+    margin: 0 auto;
     margin-top: 100px;
   }
   .players-area {
+    max-width: 1050px;
+    margin: 0 auto;
     margin-top: 100px;
   }
   .review-area {
-    margin-top: 100px;
+    max-width: 1050px;
+    margin: 0 auto;
   }
 </style>
