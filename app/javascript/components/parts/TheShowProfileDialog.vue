@@ -22,48 +22,76 @@
             </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="text-subtitle-2">名前</v-list-item-title>
-            <v-list-item-subtitle class="mt-1 text-caption">{{ fullName }}</v-list-item-subtitle>
+            <v-list-item-title class="text-subtitle-2">
+              名前
+            </v-list-item-title>
+            <v-list-item-subtitle class="mt-1 text-caption">
+              {{ fullName }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-divider inset></v-divider>
+        <v-divider inset />
         <template v-if="user.role === 'player'">
-          <v-list-item v-for="data in areaData" :key="data.title">
+          <v-list-item
+            v-for="data in areaData"
+            :key="data.title"
+          >
             <v-list-item-icon>
               <v-icon color="#3949AB">
                 {{ data.icon }}
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title class="text-subtitle-2">{{ data.title }}</v-list-item-title>
-              <v-list-item-subtitle class="mt-1 text-caption">{{ data.value }}</v-list-item-subtitle>
+              <v-list-item-title class="text-subtitle-2">
+                {{ data.title }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="mt-1 text-caption">
+                {{ data.value }}
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-divider inset></v-divider>
-          <v-list-item v-for="data in playerData" :key="data.title">
+          <v-divider inset />
+          <v-list-item
+            v-for="data in playerData"
+            :key="data.title"
+          >
             <v-list-item-icon>
               <v-icon color="#3949AB">
                 {{ data.icon }}
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title class="text-subtitle-2">{{ data.title }}</v-list-item-title>
-              <v-list-item-subtitle class="mt-1 text-caption">{{ data.value }}</v-list-item-subtitle>
+              <v-list-item-title class="text-subtitle-2">
+                {{ data.title }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="mt-1 text-caption">
+                {{ data.value }}
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </template>
-        <v-list-item v-else v-for="data in reviewerData" :key="data.title">
+        <v-list-item
+          v-for="data in reviewerData"
+          v-else
+          :key="data.title"
+        >
           <v-list-item-icon>
             <v-icon color="#3949AB">
               {{ data.icon }}
             </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="text-subtitle-2">{{ data.title }}</v-list-item-title>
+            <v-list-item-title class="text-subtitle-2">
+              {{ data.title }}
+            </v-list-item-title>
             <v-list-item-subtitle class="mt-1 text-caption">
               <span v-if="data.title !== 'レビュー平均'">{{ data.value }}</span>
               <div v-else>
-                <v-icon color="orange" x-small style="position: relative; bottom: 1px;">
+                <v-icon
+                  color="orange"
+                  x-small
+                  style="position: relative; bottom: 1px;"
+                >
                   mdi-star
                 </v-icon>
                 <span class="mt-1">
