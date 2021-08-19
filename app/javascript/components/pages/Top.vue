@@ -117,6 +117,7 @@ export default {
     return {
       reviews: [],
       leagues: [],
+      users: []
     }
   },
   computed: {
@@ -125,6 +126,7 @@ export default {
   created() {
     this.getLeagues()
     this.getReviews()
+    this.getTopPlayers()
   },
   mounted() {
     this.isActivation()
@@ -167,6 +169,13 @@ export default {
       const response = await this.$axios.get("/api/v1/hierarchy_leagues")
       this.leagues = response.data.leagues
     },
+    async getTopPlayers() {
+      const response = await this.$axios.get("/api/v1/top_players")
+      if (this.$vuetify.breakpoint.mobile) return this.users = response.data.users
+      const arrayUser = response.data.users
+      while (!!arrayUser.length) this.users.push(arrayUser.splice(0, 5));
+
+    }
   }
 }
 </script>
