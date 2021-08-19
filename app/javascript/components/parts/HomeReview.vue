@@ -1,6 +1,7 @@
 <template>
   <v-card
     outlined
+    elevation="1"
     :max-height="$vuetify.breakpoint.mobile ? '' : 450"
   >
     <v-list-item two-line>
