@@ -41,21 +41,26 @@
           </ValidationProvider>
           <v-col class="pl-0 text-h6 font-weight-bold pb-0">
             評価点
-            <v-tooltip :max-width="$vuetify.breakpoint.mobile ? 250 : 300" color="black" bottom :nudge-right="$vuetify.breakpoint.mobile ? 50 : 100">
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                v-bind="attrs"
-                v-on="on"
-                size="20"
-              >
-                mdi-help-circle
-              </v-icon>
-            </template>
-            <ul class="text-caption my-3">
-              <li>評価点は選手のプレーを総合的に見て判断してください。</li>
-              <li>3.0を及第点とし、1.0 ~ 5.0の間で評価してください。</li>
-            </ul>
-          </v-tooltip>
+            <v-tooltip
+              :max-width="$vuetify.breakpoint.mobile ? 250 : 300"
+              color="black"
+              bottom
+              :nudge-right="$vuetify.breakpoint.mobile ? 50 : 100"
+            >
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  size="20"
+                  v-on="on"
+                >
+                  mdi-help-circle
+                </v-icon>
+              </template>
+              <ul class="text-caption my-3">
+                <li>評価点は選手のプレーを総合的に見て判断してください。</li>
+                <li>3.0を及第点とし、1.0 ~ 5.0の間で評価してください。</li>
+              </ul>
+            </v-tooltip>
           </v-col>
           <div class="text-center mt-5 mb-5">
             <v-col
