@@ -44,7 +44,7 @@
         :width="$vuetify.breakpoint.mobile ? 100 : 120"
         :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
         color="primary"
-        @click="$refs.reviewDialog.open()"
+        @click="openReviewDialog"
       >
         レビューを書く
       </v-btn>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import TheReviewDialog from "./TheReviewDialog"
 
 export default {
@@ -95,6 +96,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
     isMypage() {
       return this.$route.path.includes("/profile")
     }
@@ -103,7 +105,24 @@ export default {
     createReview(review) {
       this.$emit("create-review", review)
     },
+    openReviewDialog() {
+      if (!this.currentUser) {
+        this.$router.push({ name: "login" })
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "ログインしてください"
+        })
+      }
+      this.$refs.reviewDialog.open()
+    },
     async follow() {
+      if (!this.currentUser) {
+        this.$router.push({ name: "login" })
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "ログインしてください"
+        })
+      }
       try {
         await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationship`)
         this.followStatus = true
@@ -115,6 +134,13 @@ export default {
       }
     },
     async unfollow() {
+      if (!this.currentUser) {
+        this.$router.push({ name: "login" })
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "ログインしてください"
+        })
+      }
       try {
         await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationship`)
         this.followStatus = false
