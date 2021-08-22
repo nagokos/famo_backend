@@ -52,6 +52,7 @@
                         :value="+user.profile.rate"
                         color="amber"
                         dense
+                        background-color="amber"
                         half-increments
                         readonly
                         size="14"
@@ -138,6 +139,7 @@
                         :value="+user.profile.rate"
                         color="amber"
                         dense
+                        background-color="amber"
                         half-increments
                         readonly
                         size="14"
