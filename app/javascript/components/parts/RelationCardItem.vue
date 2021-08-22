@@ -102,6 +102,13 @@ export default {
     },
     async follow() {
       try {
+        if (!this.currentUser) {
+          this.$router.push({ name: "login" })
+          return this.$store.dispatch("flash/setFlash", {
+            type: "error",
+            message: "ログインしてください"
+          })
+        }
         await this.$axios.post(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = true
         this.$emit("emit-follow", this.user.id)
@@ -114,6 +121,13 @@ export default {
     },
     async unfollow() {
       try {
+        if (!this.currentUser) {
+          this.$router.push({ name: "login" })
+          return this.$store.dispatch("flash/setFlash", {
+            type: "error",
+            message: "ログインしてください"
+          })
+        }
         await this.$axios.delete(`/api/v1/users/${this.user.id}/relationship`)
         this.isFollow = false
         this.$emit("emit-follow", this.user.id)
