@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true, length: { maximum: 30 }
   validates :last_name, presence: true, length: { maximum: 30 }
-  validates :birth_date, format: { with: /\d{4}-\d{2}-\d{2}/ }
+  validates :birth_date, format: { with: /\d{4}-\d{2}-\d{2}/ }, allow_blank: true
   validates :avatar, presence: true
   validates :role, presence: true
   validates :introduction, length: { maximum: 400 }

@@ -1,6 +1,8 @@
 class Api::V1::Users::Current::ProfilesController < Api::V1::BaseController
   before_action :required_login, only: %i[create update destroy]
   before_action :check_activation, only: %i[create update destroy]
+  before_action :check_birthday, only: %i[create update]
+  before_action :check_age, only: %i[create update]
 
   def create
     profile = current_user.build_profile(profile_params)
@@ -31,5 +33,21 @@ class Api::V1::Users::Current::ProfilesController < Api::V1::BaseController
 
   def profile_params
     params.require(:profile).permit(:position, :official_number, :practice_number, :career, :group_id, :team_id)
+  end
+
+  def check_birthday
+    return render json: { message: '生年月日を登録してください' }, status: :bad_request unless current_user.birth_date.present?
+  end
+
+  def check_age
+    today = if Date.today.strftime('%m%d').to_i < '0402'.to_i
+              Date.today.ago(1.years)
+            else
+              Date.today
+            end
+    first = today.ago(15.years).strftime('%Y0401')
+    third = today.ago(18.years).strftime('%Y0402')
+    birth = current_user.birth_date.strftime('%Y%m%d')
+    return render json: { message: '高校生のみ登録可能です' }, status: :bad_request unless birth.to_i >= third.to_i && birth.to_i <= first.to_i
   end
 end

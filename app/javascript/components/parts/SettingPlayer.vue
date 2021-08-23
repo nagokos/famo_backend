@@ -11,12 +11,14 @@
             <!-- チーム選択 -->
             <v-col
               cols="12"
-              class="pt-2"
+              class="pt-2 mb-1"
             >
               <span
                 class="font-weight-bold grey--text text--darken-1"
                 :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
               >
+                生年月日を登録していないと選手登録はできません
+                <br>
                 選手登録をすることで評価を受けられるようになります(高校生のみ登録可能)
                 <br>
                 所属チームが見つからない場合はチームを登録してください
@@ -179,6 +181,7 @@ import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
 import PlayerFormCareer from "./PlayerFormCareer"
 import TheTeamRegisterDialog from "./TheTeamRegisterDialog"
+import { mapGetters } from 'vuex'
 
 export default {
   components : {
@@ -222,6 +225,25 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    today() {
+      if (+this.$dayjs().format('MMDD') < +'0402') {
+        return this.$dayjs().subtract(1, 'year').format("YYYYMMDD")
+      } else {
+        return this.$dayjs().format("YYYYMMDD")
+      }
+    },
+    first() {
+      return this.$dayjs(this.today).subtract(15, 'year').format("YYYY0401")
+    },
+    third() {
+      return this.$dayjs(this.today).subtract(18, 'year').format("YYYY0402")
+    },
+    birth() {
+      return this.$dayjs(this.currentUser.birthDate).format("YYYYMMDD")
+    }
+  },
   created() {
     this.setData()
     this.serProfile()
@@ -252,6 +274,18 @@ export default {
       this.prefectures = response.data.prefectures
     },
     async sendPlayerData() {
+      if (!this.user.birthDate) {
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "生年月日の登録が必要です"
+        })
+      }
+      if (+this.birth < +this.third || +this.birth > +this.first) {
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "高校生のみ登録可能です"
+        })
+      }
       try {
         if (!this.user.profile) {
           const response = await this.$axios.post("/api/v1/users/current/profile", {

@@ -35,6 +35,9 @@
               :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
             >
               メールアドレス変更時には再度アカウント認証が必要になります
+              <br>
+              選手登録には生年月日の登録が必要です(公開はされません)
+              <br>
             </span>
             <ValidationProvider
               v-slot="{ errors }"
@@ -71,6 +74,63 @@
                 @input="$emit('update:firstName', $event)"
               />
             </ValidationProvider>
+            <v-dialog
+              ref="dialog"
+              v-model="dateDialog"
+              :fullscreen="$vuetify.breakpoint.mobile"
+              :transition="$vuetify.breakpoint.mobile ? 'dialog-bottom-transition' : 'dialog-transition'"
+              width="330px"
+            >
+              <template #activator="{ on, attrs }">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  vid="birth_date"
+                  :rules="{ formFormat: /\d{4}-\d{2}-\d{2}/ }"
+                  name="生年月日"
+                >
+                  <v-text-field
+                    :value="birthDate"
+                    label="生年月日"
+                    outlined
+                    dense
+                    readonly
+                    v-bind="attrs"
+                    background-color="#F2F4F8"
+                    :error-messages="errors"
+                    v-on="on"
+                  />
+                </ValidationProvider>
+              </template>
+              <v-date-picker
+                :value="birthDate"
+                color="primary"
+                :active-picker.sync="activePicker"
+                :max="$dayjs().format('YYYY-MM-DD')"
+                min="1900-01-01"
+                full-width
+                :day-format="date => new Date(date).getDate()"
+                locale="jp-ja"
+                @input="$emit('update:birthDate', $event)"
+              >
+                <v-spacer />
+                <v-btn
+                  text
+                  color="primary"
+                  :ripple="false"
+                  @click="dateDialog = false"
+                >
+                  キャンセル
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  :ripple="false"
+                  @click="dateDialog = false"
+                >
+                  指定
+                </v-btn>
+              </v-date-picker>
+            </v-dialog>
             <ValidationProvider
               v-slot="{ errors }"
               name="メールアドレス"
@@ -161,6 +221,25 @@ export default {
       type: String,
       default: "",
       required: false
+    },
+    birthDate: {
+      type: String,
+      default: "",
+      required: false
+    }
+  },
+  data() {
+    return {
+      activePicker: "",
+      dateDialog: false
+    }
+  },
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = "YEAR"))
+    },
+    dateDialog (val) {
+      val && setTimeout(() => (this.activePicker = "YEAR"))
     }
   },
   methods: {

@@ -30,6 +30,17 @@
             >
               今すぐはじめる
             </v-btn>
+            <v-btn
+              v-if="!!currentUser"
+              dark
+              color="black"
+              class="mt-4 font-weight-bold"
+              x-large
+              :ripple="false"
+              :to="{ name: 'myReview' }"
+            >
+              マイページ
+            </v-btn>
           </v-col>
           <v-col
             align="center"
