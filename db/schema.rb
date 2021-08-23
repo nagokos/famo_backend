@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2021_08_07_202756) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "avatar", default: "https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png", null: false
-    t.date "birth_date", null: false
+    t.date "birth_date"
     t.integer "role", default: 0, null: false
     t.text "introduction"
     t.string "email", null: false
