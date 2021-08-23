@@ -16,6 +16,7 @@ services:
       - .:/myapp:delegated
       - bundle_path:/bundle
     environment:
+      - EDITOR=vim
       - BUNDLE_PATH=/bundle
       - WEBPACKER_DEV_SERVER_HOST=web
     ports:
