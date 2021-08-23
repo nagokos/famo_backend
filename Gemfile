@@ -32,8 +32,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'foreman'
-  gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rails_best_practices', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false
