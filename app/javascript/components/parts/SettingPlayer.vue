@@ -11,12 +11,14 @@
             <!-- チーム選択 -->
             <v-col
               cols="12"
-              class="pt-2"
+              class="pt-2 mb-1"
             >
               <span
                 class="font-weight-bold grey--text text--darken-1"
                 :style="$vuetify.breakpoint.mobile ? 'font-size: 10px;' : 'font-size: 12px;'"
               >
+                生年月日を登録していないと選手登録はできません
+                <br>
                 選手登録をすることで評価を受けられるようになります(高校生のみ登録可能)
                 <br>
                 所属チームが見つからない場合はチームを登録してください
