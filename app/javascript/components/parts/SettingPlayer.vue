@@ -179,6 +179,7 @@ import PlayerFormPosition from "./PlayerFormPosition"
 import PlayerFormNumber from "./PlayerFormNumber"
 import PlayerFormCareer from "./PlayerFormCareer"
 import TheTeamRegisterDialog from "./TheTeamRegisterDialog"
+import { mapGetters } from 'vuex'
 
 export default {
   components : {
@@ -222,6 +223,25 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+    today() {
+      if (+this.$dayjs().format('MMDD') < +'0402') {
+        return this.$dayjs().subtract(1, 'year').format("YYYYMMDD")
+      } else {
+        return this.$dayjs().format("YYYYMMDD")
+      }
+    },
+    first() {
+      return this.$dayjs(this.today).subtract(15, 'year').format("YYYY0401")
+    },
+    third() {
+      return this.$dayjs(this.today).subtract(18, 'year').format("YYYY0402")
+    },
+    birth() {
+      return this.$dayjs(this.currentUser.birthDate).format("YYYYMMDD")
+    }
+  },
   created() {
     this.setData()
     this.serProfile()
@@ -252,6 +272,18 @@ export default {
       this.prefectures = response.data.prefectures
     },
     async sendPlayerData() {
+      if (!this.user.birthDate) {
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "生年月日の登録が必要です"
+        })
+      }
+      if (+this.birth < +this.third || +this.birth > +this.first) {
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "高校生のみ登録可能です"
+        })
+      }
       try {
         if (!this.user.profile) {
           const response = await this.$axios.post("/api/v1/users/current/profile", {
