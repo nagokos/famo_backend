@@ -22,6 +22,8 @@ gem 'seed-fu'
 gem 'active_model_serializers'
 # ページネーション
 gem 'pagy'
+# 外部API
+gem 'google-apis-people_v1'
 
 group :development, :test do
   gem 'awesome_print'
@@ -31,6 +33,7 @@ group :development, :test do
   gem 'faker'
   gem 'foreman'
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rails_best_practices', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false

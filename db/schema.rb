@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_07_202756) do
+ActiveRecord::Schema.define(version: 2021_08_23_030647) do
+
+  create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+    t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -93,7 +103,7 @@ ActiveRecord::Schema.define(version: 2021_08_07_202756) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "avatar", default: "https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png", null: false
-    t.date "birth_date", null: false
+    t.date "birth_date"
     t.integer "role", default: 0, null: false
     t.text "introduction"
     t.string "email", null: false
