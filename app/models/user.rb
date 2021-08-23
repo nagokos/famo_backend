@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :active_reviews, class_name: 'Review', foreign_key: 'reviewer_id', dependent: :nullify
   has_many :passive_reviews, class_name: 'Review', foreign_key: 'reviewee_id', dependent: :destroy
 
+  has_many :authentications, dependent: :destroy
+  accepts_nested_attributes_for :authentications
+
   authenticates_with_sorcery!
 
   EMAIL_FORMAT = /\A[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}\z/i
