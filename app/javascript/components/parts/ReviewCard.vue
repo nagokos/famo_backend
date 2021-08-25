@@ -24,7 +24,7 @@
                 :style="!!reviewUser ? 'cursor: pointer;' : ''"
                 @click="pushUserPage"
               >
-                {{ fullName }}
+                {{ userName }}
               </span>
               <span v-if="user.role === 'player' && !!reviewUser">
                 さんのレビュー
@@ -262,10 +262,9 @@ export default {
       if (!this.reviewUser) return
       return this.review.reviewer.id === this.currentUser.id
     },
-    fullName() {
+    userName() {
       if (!this.reviewUser) return "退会したユーザー"
-      return this.user.role === 'player' ? `${this.review.reviewer.lastName} ${this.review.reviewer.firstName}` :
-                                           `${this.review.reviewee.lastName} ${this.review.reviewee.firstName}`
+      return this.user.role === 'player' ? this.review.reviewer.name : this.review.reviewee.name
     },
     reviewUser() {
       return this.user.role === 'player' ? this.review.reviewer : this.review.reviewee
