@@ -4,7 +4,7 @@
       class="font-weight-bold text-h5"
       style="margin-left: 2px;"
     >
-      {{ fullName }}
+      {{ user.name }}
     </v-list-item-title>
     <v-list-item-title v-if="user.role === 'player'">
       <v-rating
@@ -33,11 +33,6 @@ export default {
       type: Object,
       default: () => {},
       required: true
-    }
-  },
-  computed: {
-    fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
     }
   }
 }

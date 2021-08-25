@@ -20,7 +20,7 @@
             style="cursor: pointer"
             @click="pushUserPage(user)"
           >
-            {{ fullName(user) }}
+            {{ user.name }}
           </span>
         </v-list-item-title>
         <v-spacer />
@@ -77,12 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName: () => {
-      return(user) => {
-        return `${user.lastName} ${user.firstName}`
-      }
-    }
+    ...mapGetters({ currentUser: "user/currentUser" })
   },
   methods: {
     switchFollow() {

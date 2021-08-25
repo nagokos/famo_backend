@@ -26,7 +26,7 @@
               名前
             </v-list-item-title>
             <v-list-item-subtitle class="mt-1 text-caption">
-              {{ fullName }}
+              {{ user.name }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -200,9 +200,6 @@ export default {
     },
     reviewCount() {
       return `${this.totalCount}件`
-    },
-    fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
     }
   },
   methods: {

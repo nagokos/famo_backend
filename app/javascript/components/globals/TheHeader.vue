@@ -80,7 +80,7 @@
                     :src="currentUser.avatar"
                   />
                 </v-avatar>
-                <span class="ml-2 mt-1 font-weight-bold">{{ fullName }}</span>
+                <span class="ml-2 mt-1 font-weight-bold">{{ currentUser.name }}</span>
               </v-btn>
             </v-col>
             <v-divider />
@@ -162,9 +162,6 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.currentUser.lastName} ${this.currentUser.firstName}`
-    }
   },
   methods: {
     pushPage(path, route, params) {

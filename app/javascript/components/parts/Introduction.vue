@@ -21,7 +21,7 @@
       class="text-caption"
       style="color: #616161; overflow-wrap: break-word;"
     >
-      {{ user.introduction ? user.introduction : `${fullName}です。よろしくお願いします。` }}
+      {{ user.introduction ? user.introduction : `${user.name}です。よろしくお願いします。` }}
     </p>
   </div>
 </template>
@@ -39,9 +39,6 @@ export default {
     isMypage() {
       return this.$route.path.includes("/profile")
     },
-    fullName() {
-      return `${this.user.lastName}${this.user.firstName}`
-    }
   }
 }
 </script>

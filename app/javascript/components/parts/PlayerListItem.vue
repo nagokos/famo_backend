@@ -32,7 +32,7 @@
     </v-avatar>
     <v-list-item-content class="ml-5">
       <v-list-item-title :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h6 mt-6' : 'font-weight-bold text-h5 mt-4'">
-        {{ fullName }}
+        {{ user.name }}
       </v-list-item-title>
       <v-list-item-subtitle
         :class="$vuetify.breakpoint.mobile ? 'text-caption mt-1' : 'mt-2'"
@@ -104,9 +104,6 @@ export default {
       else return "#d3b572"
     },
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.user.lastName} ${this.user.firstName}`
-    },
     information() {
       if (this.$vuetify.breakpoint.mobile && this.$vuetify.breakpoint.width <= 320) {
         const information = `${this.user.profile.team} / ${this.user.profile.position}`
