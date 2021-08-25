@@ -39,15 +39,12 @@ export default {
           disabled: false
         },
         {
-          text: `${this.fullName}さん`,
+          text: `${this.user.name}さん`,
           to: this.$route.path,
           disabled: true
         },
       ]
     },
-    fullName() {
-      return `${this.user.lastName}${this.user.firstName}`
-    }
   },
   created() {
     this.getUser(this.$route.params.userId)
