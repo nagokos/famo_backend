@@ -1,20 +1,17 @@
 User.create!(
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
+  name: Faker::Name.name,
   email: 'rails@gmail.com',
   birth_date: Time.zone.now.strftime("%F"),
   password: 'foobar1111'
 )
 
 1000.times do
-  first_name = Faker::Name.first_name
-  last_name = Faker::Name.last_name
+  name = Faker::Name.name
   email = Faker::Internet.unique.email
   birth_date = Time.zone.now.strftime("%F")
   password = 'foobar1111'
   user = User.create!(
-    first_name: first_name,
-    last_name: last_name,
+    name: name,
     email: email,
     birth_date: birth_date,
     password: password
