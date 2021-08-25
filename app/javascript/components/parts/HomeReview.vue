@@ -21,7 +21,7 @@
             style="cursor: pointer;"
             @click="pushUserPage(review.reviewee)"
           >
-            {{ fullName(review.reviewee) }}
+            {{ review.reviewee.name }}
           </span>
           さんへのレビュー
         </v-list-item-title>
@@ -95,7 +95,7 @@
         style="cursor: pointer;"
         @click="pushUserPage(review.reviewer)"
       >
-        {{ fullName(review.reviewer) }}
+        {{ review.reviewer.name }}
       </span>
     </v-card-actions>
     <the-show-review-dialog
@@ -123,11 +123,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName: () => {
-      return(user) => {
-        return `${user.lastName} ${user.firstName}`
-      }
-    }
   },
   methods: {
     pushUserPage(user) {
