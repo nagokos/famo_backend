@@ -86,9 +86,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName() {
-      return `${this.currentUser.lastName} ${this.currentUser.firstName}`
-    },
     breadCrumbs() {
       return [
         {
@@ -97,7 +94,7 @@ export default {
           disabled: false
         },
         {
-          text: this.fullName,
+          text: this.currentUser.name,
           to: "/profile",
           disabled: false
         },
