@@ -37,7 +37,7 @@
                   max-height="150"
                 />
                 <v-card-title class="text-subtitle-2 font-weight-bold pb-1">
-                  {{ fullName(user) }}
+                  {{ user.name }}
                 </v-card-title>
                 <v-card-text class="mb-1">
                   <v-card-subtitle class="px-0 pt-0 text-caption">
@@ -124,7 +124,7 @@
                   max-height="130"
                 />
                 <v-card-title class="text-subtitle-2 font-weight-bold pb-1">
-                  {{ fullName(user) }}
+                  {{ user.name }}
                 </v-card-title>
                 <v-card-text class="mb-1">
                   <v-card-subtitle class="px-0 pt-0 text-caption">
@@ -174,11 +174,6 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUser: "user/currentUser" }),
-    fullName: () => {
-      return(user) => {
-        return `${user.lastName} ${user.firstName}`
-      }
-    },
     information: () => {
       return(user) => {
         return `${user.profile.team}`
