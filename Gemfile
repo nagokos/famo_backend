@@ -22,8 +22,6 @@ gem 'seed-fu'
 gem 'active_model_serializers'
 # ページネーション
 gem 'pagy'
-# 外部API
-gem 'google-apis-people_v1'
 
 group :development, :test do
   gem 'awesome_print'
