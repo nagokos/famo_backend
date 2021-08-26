@@ -2,3 +2,5 @@ mailer:
   host: 'localhost:3000'
 google:
   callback: 'http://localhost:3000/api/v1/oauth/callback?provider=google'
+line:
+  callback: 'http://localhost:3000/api/v1/oauth/callback?provider=line'
