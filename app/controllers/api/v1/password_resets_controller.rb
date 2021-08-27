@@ -3,7 +3,7 @@ class Api::V1::PasswordResetsController < Api::V1::BaseController
     if (user = User.find_by(email: params[:email]))
       user.deliver_reset_password_instructions!
     else
-      render json: { errors: { email: 'ユーザーが見つかりませんでした' }, message: 'フォームに不備があります' }, status: :not_found
+      render json: { errors: { email: 'ユーザーが見つかりませんでした' }, message: 'フォームに不備があります' }, status: :bad_request
     end
   end
 
@@ -32,6 +32,7 @@ class Api::V1::PasswordResetsController < Api::V1::BaseController
     if (user = User.load_from_reset_password_token(params[:id]))
       user.password_confirmation = params[:user][:password_confirmation]
       if user.change_password(params[:user][:password])
+        # クッキーを削除
         cookies[:reset_token] = { value: token, path: account_password_reset_path, expires: 50.years.ago }
         head :ok
       else
