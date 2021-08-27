@@ -185,7 +185,6 @@ export default {
       if (this.$vuetify.breakpoint.mobile) return this.users = response.data.users
       const arrayUser = response.data.users
       while (!!arrayUser.length) this.users.push(arrayUser.splice(0, 5));
-
     }
   }
 }
