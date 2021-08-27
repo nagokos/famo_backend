@@ -104,40 +104,48 @@
                 </p>
               </v-col>
               <v-col
-                align="center"
-                cols="12 pb-0"
-              >
-                <p class="caption">
-                  - 他サイトのアカウントで登録済みの方はこちら -
-                </p>
-              </v-col>
-              <v-col
                 cols="6"
-                align="center"
-                class="pt-1"
+                class="pr-1"
               >
-                <v-avatar
-                  size="55"
-                  class="ml-14"
+                <v-btn
+                  :ripple="false"
+                  block
+                  outlined
+                  height="42"
+                  class="font-weight-bold"
+                  href="/api/v1/oauth/line"
                 >
                   <v-img
                     src="/img/line.png"
+                    max-width="25"
+                    max-height="25"
+                    class="ml-1"
                   />
-                </v-avatar>
+                  <span class="mx-auto text-caption font-weight-bold">LINE</span>
+                </v-btn>
               </v-col>
               <v-col
                 cols="6"
-                align="center"
-                class="pt-1"
+                class="mb-14 pl-1"
               >
-                <v-avatar
-                  size="55"
-                  class="mr-14"
+                <v-btn
+                  outlined
+                  block
+                  height="42"
+                  :ripple="false"
+                  class="font-weight-bold text-capitalize"
+                  href="/api/v1/oauth/google"
                 >
                   <v-img
-                    src="/img/facebook.png"
+                    src="/img/google.png"
+                    max-width="25"
+                    max-height="25"
+                    class="ml-1"
                   />
-                </v-avatar>
+                  <span class="mx-auto text-caption font-weight-bold">
+                    Google
+                  </span>
+                </v-btn>
               </v-col>
             </v-row>
           </v-container>
