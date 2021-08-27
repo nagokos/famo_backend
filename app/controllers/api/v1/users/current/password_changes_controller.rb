@@ -11,7 +11,7 @@ class Api::V1::Users::Current::PasswordChangesController < Api::V1::BaseControll
         render json: { errors: current_user.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
       end
     else
-      render json: { errors: { current_password: '有効なパスワードを入力してください' }, message: 'フォームに不備があります' }, status: :not_found
+      render json: { errors: { current_password: '有効なパスワードを入力してください' }, message: 'フォームに不備があります' }, status: :bad_request
     end
   end
 
