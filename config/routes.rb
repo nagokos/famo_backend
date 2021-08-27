@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'account/password_reset', to: 'home#index'
   get 'account/send_password_reset', to: 'home#index'
+  get '/profile', to: 'home#index'
+  get '/login', to: 'home#index'
 
   namespace :api do
     namespace :v1 do
@@ -59,6 +61,9 @@ Rails.application.routes.draw do
       resources :account_activations, only: %i[create edit]
       post '/login', to: 'user_sessions#create'
       delete '/logout', to: 'user_sessions#destroy'
+      post 'oauth/callback', to: 'oauths#callback'
+      get 'oauth/callback', to: 'oauths#callback'
+      get 'oauth/:provider', to: 'oauths#oauth'
     end
   end
 
