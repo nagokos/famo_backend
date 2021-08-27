@@ -52,7 +52,29 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.emailBlank()
+    this.emailTaken()
+  },
   methods: {
+    emailBlank() {
+      if (document.cookie.includes("email_blank=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "LINEからメールアドレスを取得できませんでした"
+        })
+        document.cookie = "email_blank=; max-age=0"
+      }
+    },
+    emailTaken() {
+      if (document.cookie.includes("email_taken=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "取得したメールアドレスが既に使用されています"
+        })
+        document.cookie = "email_taken=; max-age=0"
+      }
+    },
     async sendLoginData(user) {
       try {
         await this.$store.dispatch("user/loginUser", user)
