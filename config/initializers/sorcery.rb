@@ -222,8 +222,8 @@ Rails.application.config.sorcery.configure do |config|
   config.line.key = Rails.application.credentials.sorcery.dig(:line, :key)
   config.line.secret = Rails.application.credentials.sorcery.dig(:line, :secret)
   config.line.callback_url = Settings.line.callback
-  config.line.scope = "profile openid email"
-  config.line.bot_prompt = "normal"
+  config.line.scope = 'profile openid email'
+  config.line.bot_prompt = 'normal'
   config.line.user_info_mapping = { name: 'displayName' }
 
   # For information about Discord API
