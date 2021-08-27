@@ -9,7 +9,7 @@
         mdi-close
       </v-icon>
     </v-btn>
-    <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h5">
+    <v-card-title class="pt-0 pb-5 font-weight-bold justify-center text-h6">
       新規登録
     </v-card-title>
     <v-divider />
@@ -45,6 +45,7 @@
             x-large
             :ripple="false"
             class="font-weight-bold"
+            @click="$emit('line-agree')"
           >
             <v-img
               src="/img/line.png"
@@ -65,15 +66,16 @@
             x-large
             :ripple="false"
             class="font-weight-bold text-capitalize"
+            href="/api/v1/oauth/google"
           >
             <v-img
-              src="/img/facebook.png"
+              src="/img/google.png"
               class="mr-2"
               max-width="25"
               max-height="25"
             />
             <span class="mx-auto">
-              FaceBookで登録
+              Googleで登録
             </span>
           </v-btn>
         </v-col>
