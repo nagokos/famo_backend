@@ -22,43 +22,20 @@
           <v-container>
             <v-row>
               <v-col
-                cols="6"
-                class="mt-3"
+                cols="12"
+                class="mt-5"
               >
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|max:30"
-                  vid="last_name"
-                  name="性"
+                  vid="name"
+                  name="名前"
                 >
                   <v-text-field
-                    v-model="user.last_name"
+                    v-model="user.name"
                     outlined
-                    dense
-                    label="性"
-                    placeholder="例）中山"
-                    background-color="#F2F4F8"
-                    required
-                    :error-messages="errors"
-                  />
-                </ValidationProvider>
-              </v-col>
-              <v-col
-                cols="6"
-                class="mt-3"
-              >
-                <ValidationProvider
-                  v-slot="{ errors }"
-                  rules="required|max:30"
-                  vid="first_name"
-                  name="名"
-                >
-                  <v-text-field
-                    v-model="user.first_name"
-                    outlined
-                    dense
-                    placeholder="例）太郎"
-                    label="名"
+                    label="お名前"
+                    placeholder="例）中山太朗"
                     background-color="#F2F4F8"
                     required
                     :error-messages="errors"
@@ -81,7 +58,6 @@
                   <v-text-field
                     v-model="user.email"
                     outlined
-                    dense
                     label="メールアドレス"
                     placeholder="例）famo0123@example.com"
                     background-color="#F2F4F8"
@@ -109,7 +85,6 @@
                     hint="＊英字、数字の両方を含めてください"
                     :persistent-hint="true"
                     outlined
-                    dense
                     counter
                     background-color="#F2F4F8"
                     required
@@ -146,8 +121,7 @@ export default {
       show: false,
       activePicker: "",
       user: {
-        first_name: "",
-        last_name: "",
+        name: "",
         email: "",
         password: ""
       }
