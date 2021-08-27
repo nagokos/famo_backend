@@ -38,7 +38,29 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.signupUser()
+    this.loginUser()
+  },
   methods: {
+    signupUser() {
+      if (document.cookie.includes("signup=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: '新規登録しました'
+        })
+        document.cookie = "signup=; max-age=0"
+      }
+    },
+    loginUser() {
+      if (document.cookie.includes("login=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: 'ログインしました'
+        })
+        document.cookie = "login=; max-age=0"
+      }
+    },
     async updateIntroduction(userEdit) {
       try {
         await this.$store.dispatch("user/updateCurrentUser", userEdit)
