@@ -36,42 +36,25 @@
             >
               メールアドレス変更時には再度アカウント認証が必要になります
               <br>
-              選手登録には生年月日の登録が必要です(公開はされません)
+              選手登録には生年月日が必要です(公開はされません)
               <br>
             </span>
             <ValidationProvider
               v-slot="{ errors }"
-              name="性"
-              vid="last_name"
+              name="名前"
+              vid="name"
               rules="required|max:30"
             >
               <v-text-field
                 class="mt-3"
-                :value="lastName"
+                :value="name"
                 outlined
                 dense
-                label="性"
+                label="名前"
                 required
                 background-color="#F2F4F8"
                 :error-messages="errors"
-                @input="$emit('update:lastName', $event)"
-              />
-            </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="名"
-              vid="first_name"
-              rules="required|max:30"
-            >
-              <v-text-field
-                :value="firstName"
-                outlined
-                dense
-                label="名"
-                required
-                background-color="#F2F4F8"
-                :error-messages="errors"
-                @input="$emit('update:firstName', $event)"
+                @input="$emit('update:name', $event)"
               />
             </ValidationProvider>
             <v-dialog
@@ -202,12 +185,7 @@ export default {
       default: "",
       required: true
     },
-    lastName: {
-      type: String,
-      default: "",
-      required: true
-    },
-    firstName: {
+    name: {
       type: String,
       default: "",
       required: true
