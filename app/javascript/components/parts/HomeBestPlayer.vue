@@ -26,8 +26,8 @@
                 max-height="285"
                 min-width="190"
                 max-width="190"
-                @click="pushUserPage(user)"
                 style="cursor: pointer; z-index: 1;"
+                @click="pushUserPage(user)"
               >
                 <v-img
                   :src="user.avatar"
@@ -67,7 +67,10 @@
         </v-container>
       </v-window-item>
     </v-window>
-    <v-card-actions v-if="!$vuetify.breakpoint.mobile" style="position: relative; bottom: 200px;">
+    <v-card-actions
+      v-if="!$vuetify.breakpoint.mobile"
+      style="position: relative; bottom: 200px;"
+    >
       <v-btn
         v-if="!!users.length && onboarding !== 0"
         fab
@@ -99,12 +102,15 @@
       class="mb-16"
     >
       <v-slide-item
-         v-for="(user, index) in users"
+        v-for="(user, index) in users"
         :key="user.id"
       >
         <v-container>
           <v-row>
-            <v-col style="max-width: 208px;" :class="index + 1 === users.length ? '' : 'pr-0'">
+            <v-col
+              style="max-width: 208px;"
+              :class="index + 1 === users.length ? '' : 'pr-0'"
+            >
               <v-card
                 :ripple="false"
                 outlined
@@ -113,8 +119,8 @@
                 max-height="265"
                 min-width="180"
                 max-width="180"
-                @click="pushUserPage(user)"
                 style="cursor: pointer; z-index: 1;"
+                @click="pushUserPage(user)"
               >
                 <v-img
                   :src="user.avatar"
