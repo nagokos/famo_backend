@@ -140,6 +140,7 @@ export default {
     this.getTopPlayers()
   },
   mounted() {
+    this.toTop()
     this.isActivation()
     this.isLogout()
     this.isDelete()

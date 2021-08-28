@@ -14,6 +14,8 @@ import CategoryPlayer from "../components/pages/CategoryPlayer"
 import GroupPlayer from "../components/pages/GroupPlayer"
 import Search from "../components/pages/Search"
 import NotFound from "../components/pages/NotFound"
+import Terms from "../components/pages/Terms"
+import PrivacyPolicy from "../components/pages/PrivacyPolicy"
 import PlayerList from "../components/parts/PlayerList"
 import ReviewCard from "../components/parts/ReviewCard"
 import RelationCard from "../components/parts/RelationCard"
@@ -23,6 +25,16 @@ const routes = [
     path: "/",
     name: "top",
     component: Top
+  },
+  {
+    path: "/terms",
+    name: "terms",
+    component: Terms
+  },
+  {
+    path: "/privacy",
+    name: "privacy",
+    component: PrivacyPolicy
   },
   {
     path: "/login",

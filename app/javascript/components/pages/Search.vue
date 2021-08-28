@@ -3,158 +3,149 @@
     v-if="loading"
     class="search mx-auto mt-6"
   >
-    <v-container>
-      <v-row>
-        <v-col cols="12">
-          <v-sheet
-            :color="$vuetify.breakpoint.mobile ? '#FAFAFA' : 'white'"
-            rounded
-            class="rounded-xl"
-          >
-            <v-container style="max-width: 400px;">
-              <v-row>
-                <v-col
-                  align="center"
-                  class="font-weight-bold text-h5 mt-4"
-                  cols="12"
-                >
-                  選手検索
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="pb-0 font-weight-bold text-subtitle-1"
-                >
-                  リーグ
-                </v-col>
-                <v-col
-                  class="py-0"
-                  cols="12"
-                >
-                  <v-select
-                    v-model="q.leagueId"
-                    outlined
-                    :items="leagues"
-                    item-value="id"
-                    item-text="name"
-                    dense
-                    @click="resetId"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="py-0 font-weight-bold text-subtitle-1"
-                >
-                  カテゴリ
-                </v-col>
-                <v-col
-                  class="py-0"
-                  cols="12"
-                >
-                  <v-select
-                    v-model="q.categoryId"
-                    outlined
-                    :items="filterCategories"
-                    item-value="id"
-                    item-text="name"
-                    dense
-                    no-data-text="表示できるカテゴリがありません"
-                    @click="group = ''"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="py-0 font-weight-bold text-subtitle-1"
-                >
-                  グループ
-                </v-col>
-                <v-col
-                  class="py-0"
-                  cols="12"
-                >
-                  <v-select
-                    v-model="q.groupId"
-                    outlined
-                    :items="filterGroups"
-                    item-value="id"
-                    item-text="name"
-                    dense
-                    no-data-text="表示できるグループがありません"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="py-0"
-                >
-                  <span
-                    class="blue--text text--darken-2"
-                    style="cursor: pointer;"
-                    @click="deepSearch = !deepSearch"
-                  >{{ deepSearch ? '閉じる' : '絞り込み' }}</span>
-                </v-col>
-                <template v-if="deepSearch">
-                  <v-col
-                    class="font-weight-bold pb-1"
-                    cols="12"
-                  >
-                    ポジション
-                  </v-col>
-                  <v-col
-                    class="py-0"
-                    cols="12"
-                  >
-                    <v-select
-                      v-model="q.position"
-                      outlined
-                      dense
-                      :items="positions"
-                      item-text="name"
-                      item-value="value"
-                    />
-                  </v-col>
-                  <v-col
-                    class="font-weight-bold pt-0 pb-1"
-                    cols="12"
-                  >
-                    チーム
-                  </v-col>
-                  <v-col
-                    class="py-0"
-                    cols="12"
-                  >
-                    <v-autocomplete
-                      v-model="q.team"
-                      outlined
-                      dense
-                      :items="teams"
-                      item-text="name"
-                      item-value="name"
-                      persistent-hint
-                      hint="※ チームを指定すると全国での表示になります"
-                    />
-                  </v-col>
-                </template>
-                <v-col
-                  class="pt-1"
-                  cols="12"
-                >
-                  <v-btn
-                    class="font-weight-bold mb-8"
-                    large
-                    dark
-                    color="#3949AB"
-                    block
-                    :ripple="false"
-                    @click="pushSearchPage"
-                  >
-                    検索する
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-sheet>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-card
+      :color="$vuetify.breakpoint.mobile ? '#FAFAFA' : 'white'"
+      elevation="0"
+    >
+      <v-card-title class="text-h5 font-weight-bold justify-center pt-10">
+        選手検索
+      </v-card-title>
+      <v-card-text class="black--text">
+        <v-container style="max-width: 400px;">
+          <v-row>
+            <v-col
+              cols="12"
+              class="pb-0 font-weight-bold text-subtitle-1"
+            >
+              リーグ
+            </v-col>
+            <v-col
+              class="py-0"
+              cols="12"
+            >
+              <v-select
+                v-model="q.leagueId"
+                outlined
+                :items="leagues"
+                item-value="id"
+                item-text="name"
+                dense
+                @click="resetId"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              class="py-0 font-weight-bold text-subtitle-1"
+            >
+              カテゴリ
+            </v-col>
+            <v-col
+              class="py-0"
+              cols="12"
+            >
+              <v-select
+                v-model="q.categoryId"
+                outlined
+                :items="filterCategories"
+                item-value="id"
+                item-text="name"
+                dense
+                no-data-text="表示できるカテゴリがありません"
+                @click="group = ''"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              class="py-0 font-weight-bold text-subtitle-1"
+            >
+              グループ
+            </v-col>
+            <v-col
+              class="py-0"
+              cols="12"
+            >
+              <v-select
+                v-model="q.groupId"
+                outlined
+                :items="filterGroups"
+                item-value="id"
+                item-text="name"
+                dense
+                no-data-text="表示できるグループがありません"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              class="py-0"
+            >
+              <span
+                class="blue--text text--darken-2"
+                style="cursor: pointer;"
+                @click="deepSearch = !deepSearch"
+              >{{ deepSearch ? '閉じる' : '絞り込み' }}</span>
+            </v-col>
+            <template v-if="deepSearch">
+              <v-col
+                class="font-weight-bold pb-1"
+                cols="12"
+              >
+                ポジション
+              </v-col>
+              <v-col
+                class="py-0"
+                cols="12"
+              >
+                <v-select
+                  v-model="q.position"
+                  outlined
+                  dense
+                  :items="positions"
+                  item-text="name"
+                  item-value="value"
+                />
+              </v-col>
+              <v-col
+                class="font-weight-bold pt-0 pb-1"
+                cols="12"
+              >
+                チーム
+              </v-col>
+              <v-col
+                class="py-0"
+                cols="12"
+              >
+                <v-autocomplete
+                  v-model="q.team"
+                  outlined
+                  dense
+                  :items="teams"
+                  item-text="name"
+                  item-value="name"
+                  persistent-hint
+                  hint="※ チームを指定すると全国での表示になります"
+                />
+              </v-col>
+            </template>
+            <v-col
+              class="pt-1"
+              cols="12"
+            >
+              <v-btn
+                class="font-weight-bold mb-8"
+                large
+                dark
+                color="#3949AB"
+                block
+                :ripple="false"
+                @click="pushSearchPage"
+              >
+                検索する
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -272,6 +263,6 @@ export default {
 
 <style scoped>
   .search {
-    max-width: 650px;
+    max-width: 600px;
   }
 </style>

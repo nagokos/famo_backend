@@ -19,6 +19,14 @@
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items class="align-center">
+        <v-icon
+          color="#FAFAFA"
+          :class="currentUser ? 'mr-6' : 'mr-1'"
+          size="27"
+          @click="pushPage('/search', 'search')"
+        >
+          mdi-magnify
+        </v-icon>
         <v-btn
           v-if="!currentUser"
           text
@@ -32,15 +40,6 @@
             登録 ｜ ログイン
           </span>
         </v-btn>
-        <v-icon
-          v-if="currentUser"
-          color="#FAFAFA"
-          class="mr-6"
-          size="27"
-          @click="pushPage('/search', 'search')"
-        >
-          mdi-magnify
-        </v-icon>
         <v-menu
           v-if="currentUser"
           left
@@ -114,6 +113,7 @@
                 large
                 :ripple="false"
                 class="justify-start"
+                @click="contact"
               >
                 <v-icon
                   class="mr-2"
@@ -168,6 +168,9 @@ export default {
       if (this.$route.path !== path) {
         this.$router.push({ name: route, params: { type: params } }, () => {})
       }
+    },
+    contact() {
+      window.open("https://forms.gle/dCQkKciZmr4ACiAg7", "_blank")
     },
     async logout() {
       await this.$store.dispatch("user/logout")
