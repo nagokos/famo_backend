@@ -60,7 +60,7 @@ class GroupDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(group)
-    group_name = group.name.present? ? group.name : ''
+    group_name = group.name? ? group.name : ''
     "#{group.category.league.name}#{group.category.name}(#{group_name})"
   end
 end
