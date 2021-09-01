@@ -24,19 +24,25 @@
               class="text-caption blue--text text--darken-2"
               style="cursor: pointer;"
               @click="contact"
-            >お問い合わせ</span>
+            >
+              お問い合わせ
+            </span>
             <br v-if="$vuetify.breakpoint.mobile">
             <span
-              class="text-caption blue--text text--darken-2"
+              :class="$vuetify.breakpoint.mobile ? 'text-caption blue--text text--darken-2' : 'text-caption blue--text text--darken-2 px-2'"
               style="cursor: pointer;"
               @click="$router.push({ name: 'terms' }, () => {})"
-            >利用規約</span>
+            >
+              利用規約
+            </span>
             <br v-if="$vuetify.breakpoint.mobile">
             <span
               class="text-caption blue--text text--darken-2"
               style="cursor: pointer;"
               @click="$router.push({ name: 'privacy' }, () => {})"
-            >プライパシーポリシー</span>
+            >
+              プライパシーポリシー
+            </span>
           </v-col>
         </v-row>
       </v-container>
