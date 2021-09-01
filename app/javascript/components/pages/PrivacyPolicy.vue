@@ -1,6 +1,10 @@
 <template>
   <div class="terms">
-    <v-card elevation="0" :class="$vuetify.breakpoint.mobile ? '' : 'mt-15 '" :color="$vuetify.breakpoint.mobile ? '#FAFAFA' : 'white'">
+    <v-card
+      elevation="0"
+      :class="$vuetify.breakpoint.mobile ? '' : 'mt-15 '"
+      :color="$vuetify.breakpoint.mobile ? '#FAFAFA' : 'white'"
+    >
       <v-card-title class="justify-center text-h5 font-weight-bold py-8">
         プライバシーポリシー
       </v-card-title>
@@ -11,22 +15,40 @@
             <v-col cols="12">
               本サービス運営者（以下、「運営者」といいます。）は、本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第1条（個人情報）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、その他の記述等により特定の個人を識別できる情報を指します。
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第2条（個人情報の収集方法）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               本サービスは、ユーザーが利用登録をする際に氏名、メールアドレスなどの個人情報をお尋ねすることがあります。また、ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を,本サービスの提携先などから収集することがあります。
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第3条（個人情報を収集・利用する目的）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               本サービスが個人情報を収集・利用する目的は、以下のとおりです。
               <ol class="mt-4">
                 <li>
@@ -49,10 +71,16 @@
                 </li>
               </ol>
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第4条（個人情報の第三者提供）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               運営者は、次に掲げる場合を除いて、あらかじめユーザーの同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。
               <ol class="mt-4 mb-5">
                 <li>
@@ -89,10 +117,16 @@
                 </li>
               </ol>
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第5条（個人情報の訂正および削除）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               <ol>
                 <li>
                   ユーザーは、運営者の保有する自己の個人情報が誤った情報である場合には、運営者が定める手続きにより、運営者に対して個人情報の訂正、追加または削除を請求することができます。
@@ -105,10 +139,16 @@
                 </li>
               </ol>
             </v-col>
-            <v-col cols="12" :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'">
+            <v-col
+              cols="12"
+              :class="$vuetify.breakpoint.mobile ? 'text-h6 font-weight-bold mt-3' : 'text-h5 font-weight-bold mt-5'"
+            >
               第6条（プライバシーポリシーの変更）
             </v-col>
-            <v-col cols="12" class="pt-0">
+            <v-col
+              cols="12"
+              class="pt-0"
+            >
               <ol>
                 <li>
                   本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、ユーザーに通知することなく、変更することができるものとします。
@@ -118,7 +158,10 @@
                 </li>
               </ol>
             </v-col>
-            <v-col align="end" cols="12">
+            <v-col
+              align="end"
+              cols="12"
+            >
               以上
             </v-col>
           </v-row>
