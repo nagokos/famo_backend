@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ProfileDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -18,7 +18,7 @@ class ProfileDashboard < Administrate::BaseDashboard
     career: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    rate: Field::String.with_options(searchable: false),
+    rate: Field::String.with_options(searchable: false)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -76,7 +76,7 @@ class ProfileDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how profiles are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(profile)
+  def display_resource(_profile)
     ''
   end
 end
