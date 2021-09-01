@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    root to: 'users#index'
+    resources :profiles
+    resources :reviews
+    resources :leagues
+    resources :categories
+    resources :groups
+    resources :prefectures
+    resources :teams
+    resources :authentications
+    resources :relationships
+    resources :users
+  end
+
   root to: 'home#index'
   get 'account/password_reset', to: 'home#index'
   get 'account/send_password_reset', to: 'home#index'

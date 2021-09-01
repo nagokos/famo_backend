@@ -7,6 +7,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'mysql2', '~> 0.5'
 gem 'puma', '~> 5.3'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+gem 'sprockets', '~> 3.7.2' # 4系だとassetsがない場合にエラーが発生する
 gem 'webpacker', '~> 5.0'
 
 # 日本語化
@@ -22,6 +23,8 @@ gem 'seed-fu'
 gem 'active_model_serializers'
 # ページネーション
 gem 'pagy'
+# 管理者ページ
+gem 'administrate'
 
 group :development, :test do
   gem 'awesome_print'
