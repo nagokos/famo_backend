@@ -76,7 +76,7 @@ class ProfileDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how profiles are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(_profile)
+  def display_resource(profile)
     ''
   end
 end
