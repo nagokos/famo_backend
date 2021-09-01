@@ -36,21 +36,21 @@
       <v-col cols="12">
         <p style="font-size: 10px;">
           ※ 会員登録することでFamoの
-            <span
-              class="blue--text text--darken-2"
-              style="cursor: pointer"
-              @click="$router.push({ name: 'terms' })"
-            >
-              利用規約
-            </span>
-            ・
-            <span
-              class="blue--text text--darken-2"
-              style="cursor: pointer"
-              @click="$router.push({ name: 'privacy' })"
-            >
-              プライバシーポリシー
-            </span>
+          <span
+            class="blue--text text--darken-2"
+            style="cursor: pointer"
+            @click="$router.push({ name: 'terms' })"
+          >
+            利用規約
+          </span>
+          ・
+          <span
+            class="blue--text text--darken-2"
+            style="cursor: pointer"
+            @click="$router.push({ name: 'privacy' })"
+          >
+            プライバシーポリシー
+          </span>
           に同意するものとします。
         </p>
         <p style="font-size: 10px;">
