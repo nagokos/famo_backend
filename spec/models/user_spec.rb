@@ -4,7 +4,6 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     context 'presence' do
       it { is_expected.to validate_presence_of(:name) }
-      it { is_expected.to validate_presence_of(:avatar) }
       it { is_expected.to validate_presence_of(:role) }
       it { is_expected.to validate_presence_of(:email) }
       it { is_expected.to validate_presence_of(:password) }
@@ -67,10 +66,6 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
     it 'roleがreviewerであること' do
       expect(user.role).to eq('reviewer')
-    end
-
-    it 'avatarのURLがデフォルトであること' do
-      expect(user.avatar).to eq('https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png')
     end
   end
 

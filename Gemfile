@@ -25,6 +25,10 @@ gem 'active_model_serializers'
 gem 'pagy'
 # 管理者ページ
 gem 'administrate'
+# s3
+gem 'aws-sdk'
+# 画像
+gem 'carrierwave'
 
 group :development, :test do
   gem 'awesome_print'
