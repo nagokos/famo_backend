@@ -4,4 +4,4 @@ Aws.config.update(
 )
 
 s3_resource = Aws::S3::Resource.new
-S3_BUCKET = s3_resource.bucket('terraform-20210903005815201900000001')
+S3_BUCKET = s3_resource.bucket(Rails.application.credentials.aws[:bucket])
