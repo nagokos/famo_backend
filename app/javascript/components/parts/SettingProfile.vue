@@ -11,20 +11,26 @@
             md="3"
             :align="$vuetify.breakpoint.mobile ? 'center' : ''"
           >
-            <v-avatar
-              size="130"
+            <span
               style="cursor: pointer;"
               @click="$refs.fileInput.$refs.input.click()"
             >
-              <v-img
-                :src="avatar"
+              <v-avatar size="130">
+                <v-img
+                  :src="avatar"
+                />
+              </v-avatar>
+              <br>
+              <v-file-input
+                ref="fileInput"
+                class="d-none"
+                accept="image/*"
+                @change="$emit('avatar-change', $event)"
               />
-            </v-avatar>
-            <br>
-            <v-file-input
-              ref="fileInput"
-              class="d-none"
-            />
+              <div class="text-center mt-1 text-subtitle-2 grey--text text--darken-1">
+                <span :class="$vuetify.breakpoint.mobile ? '' : 'mr-5'">変更</span>
+              </div>
+            </span>
           </v-col>
           <v-col
             cols="12"

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include JwtToken
+  mount_uploader :avatar, AvatarUploader
 
   before_validation :set_password, if: -> { new_record? }
   before_save :email_downcase, if: -> { email_changed? }
