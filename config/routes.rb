@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         collection do
           scope module: :users do
             resource :current, only: %i[show update destroy] do
+              post :presigned_post
               scope module: :current do
                 resources :followers, only: %i[index]
                 resources :following, only: %i[index]
