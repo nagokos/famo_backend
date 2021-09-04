@@ -21,6 +21,11 @@ class Api::V1::Users::CurrentsController < Api::V1::BaseController
     @current_user = nil
   end
 
+  def presigned_post
+    current_user.update_column('avatar', user_params[:avatar])
+    render json: { id: current_user.id, avatar_url: current_user.avatar.presigned_url }
+  end
+
   private
 
   def user_params
