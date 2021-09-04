@@ -36,6 +36,7 @@
         ref="profileEdit"
         v-bind.sync="userEdit"
         @click-update="updateProfile"
+        @avatar-change="avatarChange"
       />
       <!-- 選手情報 -->
       <setting-player
@@ -82,6 +83,8 @@ export default {
     return {
       activationDialog: false,
       userEdit: {},
+      presignedUrl: "",
+      uploadFile: {},
     }
   },
   computed: {
@@ -126,6 +129,39 @@ export default {
     },
     fetchCurrentUser() {
       this.$store.dispatch("user/getCurrentUserFromAPI")
+    },
+    async avatarChange(file) {
+      try {
+        this.uploadFile = file
+        const response = await this.$axios.post("/api/v1/users/current/presigned_post", {
+          user: {
+            avatar: file.name
+          }
+        })
+        this.presignedUrl = response.data.avatar_url
+        await this.fileUpload()
+        const user = await this.$store.dispatch("user/getCurrentUserFromAPI")
+        this.userEdit = { ...user }
+        this.$store.dispatch("flash/setFlash", {
+          type: "success",
+          message: "プロフィール写真を更新しました"
+        })
+      } catch(error) {
+        console.log(error.response.data);
+      }
+    },
+    async fileUpload() {
+      try {
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        }
+        // formDataは使わずファイルをそのままアップロードする
+        await this.$axios.put(this.presignedUrl, this.uploadFile, config)
+      } catch(error) {
+        console.error(error.response.data)
+      }
     },
     async updateProfile() {
       try {
