@@ -29,6 +29,8 @@ gem 'administrate'
 gem 'aws-sdk'
 # 画像
 gem 'carrierwave'
+# 定期実行
+gem 'whenever'
 
 group :development, :test do
   gem 'awesome_print'
