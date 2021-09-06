@@ -13,7 +13,7 @@
           @click="pushUserPage"
         >
           <v-img
-            :src="user.avatar"
+            :src="reviewUser.avatar"
           />
         </v-list-item-avatar>
         <v-list-item-content class="mt-1">
