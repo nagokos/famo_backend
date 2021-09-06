@@ -134,9 +134,7 @@ export default {
       try {
         this.uploadFile = file
         const response = await this.$axios.post("/api/v1/users/current/presigned_post", {
-          user: {
-            avatar: file.name
-          }
+          avatar: file.name
         })
         this.presignedUrl = response.data.avatar_url
         await this.fileUpload()
