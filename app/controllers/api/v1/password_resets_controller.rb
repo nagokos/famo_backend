@@ -17,11 +17,14 @@ class Api::V1::PasswordResetsController < Api::V1::BaseController
       else
         case failure_reason
         when :invalid_token
-          render json: { message: '再設定メールの取得からやり直してください' }, status: :bad_request
+          cookies[:password_reset] = { value: 1, expires: 1.minutes.from_now }
+          redirect_to root_path
         when :user_not_found
-          render json: { message: '再設定済み又はURLが無効です' }, status: :bad_request
+          cookies[:password_reset] = { value: 2, expires: 1.minutes.from_now }
+          redirect_to root_path
         when :token_expired
-          render json: { message: '再設定メールの取得からやり直してください' }, status: :bad_request
+          cookies[:password_reset] = { value: 1, expires: 1.minutes.from_now }
+          redirect_to root_path
         end
       end
     end
