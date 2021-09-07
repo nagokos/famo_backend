@@ -60,6 +60,7 @@ class User < ApplicationRecord
   end
 
   def filter_reviews
+    # 管理者は想定していない
     if reviewer?
       active_reviews.joins(:reviewee).cache_profile.merge(User.where(role: 'player'))
     else

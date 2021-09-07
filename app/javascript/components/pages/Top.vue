@@ -141,12 +141,14 @@ export default {
   },
   mounted() {
     this.toTop()
-    this.isActivation()
-    this.isLogout()
-    this.isDelete()
+    this.activationSuccess()
+    this.logoutSuccess()
+    this.deleteSuccess()
+    this.faildActivationUrl()
+    this.faildPasswordResetUrl()
   },
   methods: {
-    isActivation() {
+    activationSuccess() {
       if (document.cookie.includes("activation=1")) {
         this.$store.dispatch("flash/setFlash", {
           type: "success",
@@ -155,7 +157,7 @@ export default {
         document.cookie = "activation=; max-age=0"
       }
     },
-    isLogout() {
+    logoutSuccess() {
       if (localStorage.getItem('logout')) {
         this.$store.dispatch("flash/setFlash", {
           type: "success",
@@ -164,13 +166,43 @@ export default {
         localStorage.removeItem("logout")
       }
     },
-    isDelete() {
+    deleteSuccess() {
       if (localStorage.getItem('delete')) {
         this.$store.dispatch("flash/setFlash", {
           type: "success",
           message: "アカウントを削除しました"
         })
         localStorage.removeItem("delete")
+      }
+    },
+    faildActivationUrl() {
+      if (document.cookie.includes("activation=2")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: '認証メールの取得からやり直してください'
+        })
+        document.cookie = "activation=; max-age=0"
+      } else if (document.cookie.includes("activation=3")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: '認証済み又はURLが無効です'
+        })
+        document.cookie = "activation=; max-age=0"
+      }
+    },
+    faildPasswordResetUrl() {
+      if (document.cookie.includes("password_reset=1")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: '再設定メールの取得からやり直してください'
+        })
+        document.cookie = "password_reset=; max-age=0"
+      } else if (document.cookie.includes("password_reset=2")) {
+        this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: '再設定済み又はURLが無効です'
+        })
+        document.cookie = "password_reset=; max-age=0"
       }
     },
     async getReviews() {
