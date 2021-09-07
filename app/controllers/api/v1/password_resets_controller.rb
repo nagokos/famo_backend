@@ -16,7 +16,7 @@ class Api::V1::PasswordResetsController < Api::V1::BaseController
         redirect_to account_password_reset_path
       else
         case failure_reason
-        when :invalid_token || :token_expired
+        when :invalid_token, :token_expired
           cookies[:password_reset] = { value: 1, expires: 1.minutes.from_now }
         when :user_not_found
           cookies[:password_reset] = { value: 2, expires: 1.minutes.from_now }
