@@ -28,11 +28,14 @@ class Api::V1::AccountActivationsController < Api::V1::BaseController
       else
         case failure_reason
         when :invalid_token
-          render json: { message: '認証メールの取得からやり直してください' }, status: :bad_request
+          cookies[:activation] = { value: 2, expires: 1.minutes.from_now }
+          redirect_to root_path
         when :user_not_found
-          render json: { message: '認証済み又はURLが無効です' }, status: :bad_request
+          cookies[:activation] = { value: 3, expires: 1.minutes.from_now }
+          redirect_to root_path
         when :token_expired
-          render json: { message: '認証メールの取得からやり直してください' }, status: :bad_request
+          cookies[:activation] = { value: 2, expires: 1.minutes.from_now }
+          redirect_to root_path
         end
       end
     end
