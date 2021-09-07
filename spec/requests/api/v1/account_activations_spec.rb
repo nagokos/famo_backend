@@ -70,11 +70,11 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
       end
 
       it '失敗して４００を返す' do
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(302)
       end
 
       it 'エラーメッセージを返す' do
-        expect(json['message']).to eq('認証メールの取得からやり直してください')
+        expect(response.headers['Set-Cookie'].split(';').first.split('activation=').second).to_not be_empty
       end
     end
 
@@ -84,12 +84,12 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
 
       it '失敗して４００を返す' do
         get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(302)
       end
 
       it 'エラーメッセージを返す' do
         get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
-        expect(json['message']).to eq('認証済み又はURLが無効です')
+        expect(response.headers['Set-Cookie'].split(';').first.split('activation=').second).to_not be_empty
       end
     end
   end
