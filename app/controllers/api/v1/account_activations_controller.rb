@@ -26,7 +26,7 @@ class Api::V1::AccountActivationsController < Api::V1::BaseController
         cookies[:activation] = { value: 1, expires: 1.minutes.from_now }
       else
         case failure_reason
-        when :invalid_token || :token_expired
+        when :invalid_token, :token_expired
           cookies[:activation] = { value: 2, expires: 1.minutes.from_now }
         when :user_not_found
           cookies[:activation] = { value: 3, expires: 1.minutes.from_now }
