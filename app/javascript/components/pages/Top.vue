@@ -60,7 +60,10 @@
       class="player-search"
       :leagues="leagues"
     />
-    <div class="players-area">
+    <div
+      v-if="users.length !== 0"
+      class="players-area"
+    >
       <v-container>
         <v-row>
           <v-col
@@ -83,7 +86,10 @@
         </v-row>
       </v-container>
     </div>
-    <div class="review-area">
+    <div
+      v-if="reviews.length !== 0"
+      class="review-area"
+    >
       <v-container>
         <v-row>
           <v-col cols="12">

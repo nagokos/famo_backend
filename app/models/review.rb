@@ -14,7 +14,7 @@ class Review < ApplicationRecord
   scope :game_asc, -> { order(game_date: :asc) }
   scope :rating, -> { order(rate: :desc) }
   scope :game_select_day, ->(day) { where(game_date: day.all_day) }
-  scope :everyone, -> { where(privacy: 'published') }
+  scope :published, -> { where(privacy: 'published') }
   scope :require_reviewer, -> { where.not(reviewer_id: nil) }
   scope :conditions_shuffle, -> { where('LENGTH(content) > 230').order('RAND()').limit(4) }
   scope :cache_profile, -> { includes(reviewer: :profile, reviewee: { profile: [team: :prefecture, group: { category: :league }] }) }

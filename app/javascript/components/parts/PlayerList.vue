@@ -65,9 +65,15 @@
         <span class="text-caption font-weight-bold ml-1">フィルター</span>
       </v-btn>
     </v-card-actions>
+    <v-col
+      class="pb-0 text-caption grey--text text--darken-1"
+      align="end"
+    >
+      ※ 評価点は毎週水曜日に更新されます
+    </v-col>
     <v-list
       three-line
-      :class="$vuetify.breakpoint.mobile ? 'pt-0' : 'mt-3'"
+      :class="$vuetify.breakpoint.mobile ? 'pt-0' : ''"
       color="#FAFAFA"
     >
       <template v-for="(user, index) in users">
