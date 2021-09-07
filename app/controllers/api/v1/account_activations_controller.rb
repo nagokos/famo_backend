@@ -24,20 +24,15 @@ class Api::V1::AccountActivationsController < Api::V1::BaseController
         token = user.create_token
         cookies[:token] = { value: token, expires: 1.month.from_now, secure: Rails.env.production?, httponly: true, same_site: 'Lax' }
         cookies[:activation] = { value: 1, expires: 1.minutes.from_now }
-        redirect_to root_path
       else
         case failure_reason
-        when :invalid_token
+        when :invalid_token || :token_expired
           cookies[:activation] = { value: 2, expires: 1.minutes.from_now }
-          redirect_to root_path
         when :user_not_found
           cookies[:activation] = { value: 3, expires: 1.minutes.from_now }
-          redirect_to root_path
-        when :token_expired
-          cookies[:activation] = { value: 2, expires: 1.minutes.from_now }
-          redirect_to root_path
         end
       end
     end
+    redirect_to root_path
   end
 end
