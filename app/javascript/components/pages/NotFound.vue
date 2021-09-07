@@ -1,30 +1,29 @@
 <template>
-  <div class="content pt-10 pb-5">
-    <h1 class="display-3 font-weight-thin">
-      404 NotFound
-    </h1>
-    <div class="mt-10 mb-10">
-      <p>お探しのページが見つかりませんでした。</p>
-      <p>
-        一時的にアクセスができない状況にあるか
-        <br class="d-flex d-sm-none">移動もしくは削除された可能性があります。
-      </p>
-      <p>URLにお間違いがないか再度ご確認ください。</p>
+  <v-container>
+    <div class="not-found pt-10 pb-5">
+      <h1 class="font-weight-bold text-h2">
+        404
+        <span class="text-h4 grey--text text--darken-1">Not Found</span>
+      </h1>
+      <div class="mt-10 mb-10">
+        <p>お探しのページは一時的にアクセスができない状況にあるか、移動もしくは削除された可能性があります。</p>
+        <p>また、URLにお間違いがないか再度ご確認ください。</p>
+      </div>
+      <v-btn
+        color="#3949AB"
+        :ripple="false"
+        large
+        class="font-weight-bold"
+        :to="{ name: 'top' }"
+      >
+        <span class="white--text">トップに戻る</span>
+      </v-btn>
     </div>
-    <v-btn
-      color="primary"
-      depressed
-      :to="{ name: 'top' }"
-    >
-      <v-icon left>
-        mdi-exit-run
-      </v-icon>トップページに戻る
-    </v-btn>
-  </div>
+  </v-container>
 </template>
 
 <style scoped>
-.content {
+.not-found {
   margin: 0 auto;
   max-width: 400px;
 }
