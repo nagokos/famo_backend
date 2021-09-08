@@ -2,10 +2,8 @@ module ErrorHandle
   extend ActiveSupport::Concern
 
   included do
-    class Forbidden < ActionController::ActionControllerError; end
     rescue_from Exception, with: :rescue500
     rescue_from ActiveRecord::RecordNotFound, with: :rescue404
-    rescue_from Forbidden, with: :rescue403
     rescue_from Pagy::OverflowError, with: :pagy_overflow
   end
 
