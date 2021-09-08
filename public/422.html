@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The change you wanted was rejected (422)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ページが表示できません</title>
+  <meta http-equiv="content-type" charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    .v-application {
+      background: #FAFAFA;
+    }
+    .container {
+      max-width: 800px;
+    }
   </style>
 </head>
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <div>
-      <h1>The change you wanted was rejected.</h1>
-      <p>Maybe you tried to change something you didn't have access to.</p>
+<body>
+  <div
+    data-app="true"
+    class="v-application v-application--is-ltr theme--light"
+    id="app"
+  >
+    <div class="container">
+      <div class="not-found pt-10 pb-5">
+        <h1 :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h4' : 'font-weight-bold text-h3'">
+          ページが表示できません
+        </h1>
+        <div class="mt-10 mb-10 font-weight-bold">
+          <p>申し訳ありません。一時的なエラーが発生しました。</p>
+          <p>正常にご覧いただけるよう、解決に取り組んでおります。</p>
+          <p>しばらく時間を置いてもご覧いただけない場合は、<a class="blue--text text--darken-2" href="https://forms.gle/dCQkKciZmr4ACiAg7">お問い合わせ</a>ください。</p>
+        </div>
+        <a
+          href="/"
+          aria-current="page"
+          class="font-weight-bold v-btn--active v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--large"
+          style="background-color: rgb(57, 73, 171); border-color: rgb(57, 73, 171);"
+        >
+          <span class="v-btn__content">
+            <span class="white--text">
+              トップに戻る
+            </span>
+          </span>
+        </a>
+      </div>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+    })
+  </script>
 </body>
 </html>
