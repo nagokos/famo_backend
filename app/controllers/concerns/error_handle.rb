@@ -27,23 +27,19 @@ module ErrorHandle
 
   private
 
-  def rescue500(e)
-    @exception = e
-    return head :internal_server_error
+  def rescue500
+    head :internal_server_error
   end
 
-  def rescue403(e)
-    @exception = e
-    return head :forbidden
+  def rescue403
+    head :forbidden
   end
 
-  def rescue404(e)
-    @exception = e
-    return head :not_found
+  def rescue404
+    head :not_found
   end
 
-  def pagy_overflow(e)
-    @exception = e
-    return head :not_found
+  def pagy_overflow
+    head :not_found
   end
 end
