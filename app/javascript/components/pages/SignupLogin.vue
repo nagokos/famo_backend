@@ -70,7 +70,7 @@ export default {
       if (document.cookie.includes("email_taken=1")) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: "取得したメールアドレスが既に使用されています"
+          message: "取得したメールアドレスは既に使用されています"
         })
         document.cookie = "email_taken=; max-age=0"
       }
