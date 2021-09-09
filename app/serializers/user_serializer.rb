@@ -5,7 +5,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def avatar
     if object.avatar.url
-      "https://#{Rails.application.credentials.aws[:bucket]}.s3.ap-northeast-1.amazonaws.com#{object.avatar.url}"
+      "#{Aws::S3::Object.new(Rails.application.credentials.aws[:bucket], object.avatar.file.file.delete_prefix("/myapp/public/")).public_url}?#{Time.zone.now.to_i}"
     else
       'https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png'
     end
