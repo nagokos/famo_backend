@@ -232,7 +232,10 @@ export default {
   data() {
     return {
       activePicker: "",
-      dateDialog: false
+      dateDialog: false,
+      blobUrl: "",
+      isInput: true,
+      fileName: ""
     }
   },
   watch: {
