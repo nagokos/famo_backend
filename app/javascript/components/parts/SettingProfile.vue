@@ -247,6 +247,12 @@ export default {
     }
   },
   methods: {
+    fileChange(file) {
+      this.isInput = false
+      this.fileName = file.name
+      this.blobUrl = URL.createObjectURL(file)
+      this.$refs.cropperDialog.open()
+    },
     removeWhiteSpace(text) {
       return text.replace(/[\s\/]/g, '');
     },
