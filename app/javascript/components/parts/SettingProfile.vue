@@ -261,6 +261,9 @@ export default {
     },
     setErrors(errors) {
       this.$refs.observer.setErrors(errors)
+    },
+    setAvatar(file) {
+      this.$emit("avatar-change", file)
     }
   }
 }
