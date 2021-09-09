@@ -152,7 +152,7 @@ export default {
       try {
         const config = {
           headers: {
-            'content-type': 'multipart/form-data'
+            "content-type": "multipart/form-data",
           }
         }
         // formDataは使わずファイルをそのままアップロードする

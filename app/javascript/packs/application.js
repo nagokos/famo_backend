@@ -30,6 +30,10 @@ Vue.use(InfiniteLoading)
 import dayjs from "../plugins/dayjs"
 Vue.prototype.$dayjs = dayjs
 
+// vue-cropper
+import VueCropper from 'vue-cropper'
+Vue.use(VueCropper)
+
 // Vuetify
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
