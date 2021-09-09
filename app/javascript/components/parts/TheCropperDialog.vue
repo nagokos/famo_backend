@@ -33,20 +33,19 @@
       <v-divider />
       <v-card-text>
         <vue-cropper
-          style="height: 400px;"
           ref="cropper"
+          style="height: 400px;"
           :img="blobUrl"
-          :autoCrop="true"
-        >
-        </vue-cropper>
+          :auto-crop="true"
+        />
         <v-slider
-          class="mt-4"
           v-model="size"
+          class="mt-4"
           max="20"
-          @input="changeSize"
           hide-details
           append-icon="mdi-magnify-plus-outline"
           prepend-icon="mdi-magnify-minus-outline"
+          @input="changeSize"
           @click:append="plusSize"
           @click:prepend="minusSize"
         />
