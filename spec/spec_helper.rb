@@ -94,4 +94,10 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+    fixture_path = "#{Rails.root}/spec/initial_data"
+    SeedFu.seed(fixture_path)
+  end
 end
