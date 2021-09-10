@@ -8,4 +8,8 @@ FactoryBot.define do
   trait :invalid do
     name { nil }
   end
+
+  trait :player do
+    role { 'player' }
+  end
 end
