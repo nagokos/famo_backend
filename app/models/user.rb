@@ -59,7 +59,7 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  def filter_reviews
+  def role_reviews
     # 管理者は想定していない
     if reviewer?
       active_reviews.joins(:reviewee).cache_profile.merge(User.where(role: 'player'))
@@ -68,7 +68,7 @@ class User < ApplicationRecord
     end
   end
 
-  def filter_reviews_dates
+  def role_and_game_date_reviews
     if reviewer?
       active_reviews.joins(:reviewee).merge(User.where(role: 'player'))
     else
