@@ -13,7 +13,7 @@
           @click="pushUserPage"
         >
           <v-img
-            :src="reviewUser.avatar"
+            :src="avatar"
           />
         </v-list-item-avatar>
         <v-list-item-content class="mt-1">
@@ -268,6 +268,13 @@ export default {
     },
     reviewUser() {
       return this.user.role === 'player' ? this.review.reviewer : this.review.reviewee
+    },
+    avatar() {
+      if (this.reviewUser) {
+        return this.reviewUser.avatar
+      } else {
+        return 'https://pics.prcm.jp/a508a977c6fa9/84540173/png/84540173.png'
+      }
     },
     items() {
       return [
