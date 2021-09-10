@@ -6,7 +6,7 @@ class SearchReviewsForm
   attribute :game_date, :date
 
   def search(user)
-    relation = user.filter_reviews
+    relation = user.role_reviews
 
     relation = sort_change(relation)
     relation = relation.game_select_day(game_date) if game_date.present?
