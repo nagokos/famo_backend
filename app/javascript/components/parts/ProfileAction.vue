@@ -124,7 +124,7 @@ export default {
         })
       }
       try {
-        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationship`)
+        await this.$axios.post(`/api/v1/users/${this.$route.params.userId}/relationships`)
         this.followStatus = true
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
@@ -142,7 +142,7 @@ export default {
         })
       }
       try {
-        await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationship`)
+        await this.$axios.delete(`/api/v1/users/${this.$route.params.userId}/relationships`)
         this.followStatus = false
       } catch(error) {
         this.$store.dispatch("flash/setFlash", {
