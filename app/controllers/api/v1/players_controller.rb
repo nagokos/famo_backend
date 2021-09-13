@@ -6,6 +6,11 @@ class Api::V1::PlayersController < Api::V1::BaseController
     render json: users
   end
 
+  def show
+    user = User.find(params[:id])
+    render json: user
+  end
+
   private
 
   def search_params
