@@ -49,9 +49,6 @@ Rails.application.routes.draw do
           resource :rating_average, only: %i[show]
         end
       end
-      resources :players, only: %i[index]
-      resources :password_resets, only: %i[create edit update]
-      resources :reviews, only: %i[index]
       resources :leagues, only: %i[index show] do
         resources :categories, only: %i[index]
         scope module: :leagues do
@@ -69,6 +66,10 @@ Rails.application.routes.draw do
           resources :teams, only: %i[index]
         end
       end
+      resources :players, only: %i[index show]
+      resources :reviewers, only: %i[show]
+      resources :password_resets, only: %i[create edit update]
+      resources :reviews, only: %i[index]
       resources :top_players, only: %i[index]
       resources :hierarchy_leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
