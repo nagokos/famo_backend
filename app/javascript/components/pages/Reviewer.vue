@@ -52,7 +52,7 @@ export default {
   methods: {
     async getUser(userId) {
       this.loading = false
-      const response = await this.$axios.get(`/api/v1/users/${userId}?role=reviewer`)
+      const response = await this.$axios.get(`/api/v1/reviewers/${userId}`)
       this.user = response.data.user
       this.loading = true
     },
