@@ -361,7 +361,7 @@ export default {
     },
     async checkFollow() {
       if (!this.isMypage) {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationship/check`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
       }
     }

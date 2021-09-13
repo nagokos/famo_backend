@@ -104,7 +104,7 @@ export default {
             message: "ログインしてください"
           })
         }
-        await this.$axios.post(`/api/v1/users/${this.user.id}/relationship`)
+        await this.$axios.post(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = true
         this.$emit("emit-follow", this.user.id)
       } catch(error) {
@@ -123,7 +123,7 @@ export default {
             message: "ログインしてください"
           })
         }
-        await this.$axios.delete(`/api/v1/users/${this.user.id}/relationship`)
+        await this.$axios.delete(`/api/v1/users/${this.user.id}/relationships`)
         this.isFollow = false
         this.$emit("emit-follow", this.user.id)
       } catch(error) {

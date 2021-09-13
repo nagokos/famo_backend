@@ -38,7 +38,7 @@ Rails.application.routes.draw do
             end
           end
         end
-        resource :relationship, only: %i[create destroy] do
+        resource :relationships, only: %i[create destroy] do
           get :check
         end
         scope module: :users do
