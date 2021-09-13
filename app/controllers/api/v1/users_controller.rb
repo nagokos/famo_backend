@@ -8,11 +8,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  def show
-    user = User.find_by!(id: params[:id], role: params[:role])
-    render json: user
-  end
-
   private
 
   def user_params
