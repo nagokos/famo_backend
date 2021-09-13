@@ -185,13 +185,13 @@ export default {
       if (document.cookie.includes("activation=2")) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: '認証メールの取得からやり直してください'
+          message: '認証済み又はURLが無効です'
         })
         document.cookie = "activation=; max-age=0"
       } else if (document.cookie.includes("activation=3")) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: '認証済み又はURLが無効です'
+          message: '認証メールの有効期限が切れています'
         })
         document.cookie = "activation=; max-age=0"
       }
@@ -200,13 +200,13 @@ export default {
       if (document.cookie.includes("password_reset=1")) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: '再設定メールの取得からやり直してください'
+          message: '再設定済み又はURLが無効です'
         })
         document.cookie = "password_reset=; max-age=0"
       } else if (document.cookie.includes("password_reset=2")) {
         this.$store.dispatch("flash/setFlash", {
           type: "error",
-          message: '再設定済み又はURLが無効です'
+          message: '再設定メールの有効期限が切れています'
         })
         document.cookie = "password_reset=; max-age=0"
       }
