@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Relationships", type: :request do
+  let!(:user) { create(:user) }
+  let!(:user2) { create(:user) }
   before do
     @header = { 'X-Requested-With': 'XMLHttpRequest' }
     login_as(user)
@@ -8,8 +10,6 @@ RSpec.describe "Api::V1::Relationships", type: :request do
   end
 
   describe 'GET /api/v1/users/:user_id/relationship/check' do
-    let!(:user) { create(:user) }
-    let!(:user2) { create(:user) }
     context 'フォローしている場合' do
       it 'trueを返す' do
         get "/api/v1/users/#{user2.id}/relationships/check"
@@ -27,8 +27,6 @@ RSpec.describe "Api::V1::Relationships", type: :request do
   end
 
   describe 'DELETE /api/v1/users/:user_id/relationship' do
-    let!(:user) { create(:user) }
-    let!(:user2) { create(:user) }
     before { delete "/api/v1/users/#{user2.id}/relationships", headers: @header }
     context '正常系' do
       it '成功して２００を返す' do
@@ -42,8 +40,6 @@ RSpec.describe "Api::V1::Relationships", type: :request do
   end
 
   describe 'POST /api/v1/users/:user_id/relationship' do
-    let!(:user) { create(:user) }
-    let!(:user2) { create(:user) }
     context '正常系' do
       it '成功して２０１を返す' do
         expect(response.status).to eq(201)
