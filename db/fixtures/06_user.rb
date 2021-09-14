@@ -1,16 +1,16 @@
-User.create!(
+User.seed(
   name: Faker::Name.name,
   email: 'rails@gmail.com',
   birth_date: Time.zone.now.strftime("%F"),
   password: 'foobar1111'
 )
 
-1000.times do
+200.times do
   name = Faker::Name.name
   email = Faker::Internet.unique.email
   birth_date = Time.zone.now.strftime("%F")
   password = 'foobar1111'
-  user = User.create!(
+  User.seed(
     name: name,
     email: email,
     birth_date: birth_date,
@@ -18,9 +18,9 @@ User.create!(
   )
 end
 
-User.limit(800).each do |user|
+User.limit(100).each do |user|
   user.update(role: "player")
-  user.create_profile(
+  Profile.seed(
     position: (0..3).to_a.shuffle.first,
     official_number: (1..99).to_a.shuffle.first,
     user_id: user.id,
