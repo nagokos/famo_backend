@@ -40,14 +40,14 @@ class Api::V1::Users::Current::ProfilesController < Api::V1::BaseController
   end
 
   def check_age
-    today = if Date.today.strftime('%m%d').to_i < '0402'.to_i
-              Date.today.ago(1.years)
+    today = if Time.current.strftime('%m%d').to_i < '0402'.to_i
+              Time.current.ago(1.years)
             else
-              Date.today
+              Time.current
             end
     first = today.ago(15.years).strftime('%Y0401')
     third = today.ago(18.years).strftime('%Y0402')
     birth = current_user.birth_date.strftime('%Y%m%d')
-    return render json: { message: '高校生のみ登録可能です' }, status: :bad_request unless birth.to_i >= third.to_i && birth.to_i <= first.to_i
+    return render json: { message: '高校生のみ登録可能です' }, status: :bad_request if birth.to_i < third.to_i || birth.to_i > first.to_i
   end
 end

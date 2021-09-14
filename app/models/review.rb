@@ -12,7 +12,7 @@ class Review < ApplicationRecord
   scope :desc, -> { order(created_at: :desc) }
   scope :game_desc, -> { order(game_date: :desc) }
   scope :game_asc, -> { order(game_date: :asc) }
-  scope :rating, -> { order(rate: :desc) }
+  scope :rate_desc, -> { order(rate: :desc) }
   scope :game_select_day, ->(day) { where(game_date: day.all_day) }
   scope :published, -> { where(privacy: 'published') }
   scope :require_reviewer, -> { where.not(reviewer_id: nil) } # トップページのみ

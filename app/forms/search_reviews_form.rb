@@ -25,7 +25,7 @@ class SearchReviewsForm
     when 'old_game'
       relation.game_asc
     when 'rating'
-      relation.rating
+      relation.rate_desc
     end
   end
 end
