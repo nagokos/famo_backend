@@ -87,12 +87,12 @@ RSpec.describe Review, type: :model do
       end
     end
 
-    describe ':rating' do
+    describe ':rate_desc' do
       let!(:high_review) { create(:review, reviewer: reviewer, reviewee: reviewee, rate: 5.0) }
       let!(:low_review) { create(:review, reviewer: reviewer, reviewee: reviewee, rate: 1.0) }
       it 'rateを基準に降順で並ぶこと' do
-        expect(Review.rating.first).to eq(high_review)
-        expect(Review.rating.last).to eq(low_review)
+        expect(Review.rate_desc.first).to eq(high_review)
+        expect(Review.rate_desc.last).to eq(low_review)
       end
     end
 
