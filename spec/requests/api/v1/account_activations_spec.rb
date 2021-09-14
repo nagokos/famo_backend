@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::AccountActivations', type: :request do
-  before { @header = { 'X-Requested-With': 'XMLHttpRequest' } }
+  let!(:header) { { 'X-Requested-With': 'XMLHttpRequest' } }
   describe 'POST /api/v1/account_activations' do
     let!(:user) { create(:user) }
     context 'パラメーターと一致するユーザーがいる場合' do
-      before { post '/api/v1/account_activations', headers: @header, params: { email: user.email } }
+      before { post '/api/v1/account_activations', headers: header, params: { email: user.email } }
 
       it '成功して２００を返す' do
         expect(response.status).to eq(200)
@@ -17,7 +17,7 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
     end
 
     context 'パラメータと一致するユーザーが見つからない場合' do
-      before  { post '/api/v1/account_activations', headers: @header, params: { email: 'rails@example.com' } }
+      before  { post '/api/v1/account_activations', headers: header, params: { email: 'rails@example.com' } }
 
       it '失敗して４００を返す' do
         expect(response.status).to eq(400)
@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
     context '既に認証済みの場合' do
       before do
         user.activate!
-        post '/api/v1/account_activations', headers: @header, params: { email: user.email }
+        post '/api/v1/account_activations', headers: header, params: { email: user.email }
       end
 
       it '失敗して４００を返す' do
@@ -47,7 +47,7 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
   describe 'GET /api/v1/account_activation/:id(token)/edit' do
     context '認証URLが正常である場合' do
       let!(:user) { create(:user) }
-      before { get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header }
+      before { get "/api/v1/account_activations/#{user.activation_token}/edit", headers: header }
 
       it '成功してリダイレクトする' do
         expect(response.status).to eq(302)
@@ -66,10 +66,10 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
       let!(:user) { create(:user) }
       before do
         travel_to(1.day.since)
-        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
+        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: header
       end
 
-      it '失敗して４００を返す' do
+      it 'リダイレクト' do
         expect(response.status).to eq(302)
       end
 
@@ -80,15 +80,15 @@ RSpec.describe 'Api::V1::AccountActivations', type: :request do
 
     context '認証URLが使用済みである場合' do #user_not_found
       let!(:user) { create(:user) }
-      before { get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header }
+      before { get "/api/v1/account_activations/#{user.activation_token}/edit", headers: header }
 
-      it '失敗して４００を返す' do
-        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
+      it 'リダイレクト' do
+        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: header
         expect(response.status).to eq(302)
       end
 
       it 'エラーメッセージを返す' do
-        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: @header
+        get "/api/v1/account_activations/#{user.activation_token}/edit", headers: header
         expect(response.headers['Set-Cookie'].split(';').first.split('activation=').second).to_not be_empty
       end
     end

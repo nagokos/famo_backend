@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::UserSessions", type: :request do
+  let!(:header) { { 'X-Requested-With': 'XMLHttpRequest' } }
   describe "POST /api/v1/login" do
     let(:user) { create(:user) }
-    before { @header = { 'X-Requested-With': 'XMLHttpRequest' } }
 
     context '正常系' do
       before { user.activate! }
-      before { post '/api/v1/login', headers: @header, params: { email: user.email, password: 'Foobar0123' } }
+      before { post '/api/v1/login', headers: header, params: { email: user.email, password: 'Foobar0123' } }
 
       it '成功して２００を返す' do
         expect(response.status).to eq(200)
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
 
     context '異常系' do
       context 'メールアドレスが間違っている' do
-        before { post '/api/v1/login', headers: @header, params: { email: 'rails@example.com', password: 'Foobar0123' } }
+        before { post '/api/v1/login', headers: header, params: { email: 'rails@example.com', password: 'Foobar0123' } }
 
         it '４００を返す' do
           expect(response.status).to eq(400)
@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
       end
 
       context 'ユーザーが有効ではない' do
-        before { post '/api/v1/login', headers: @header, params: { email: user.email, password: 'Foobar0123' } }
+        before { post '/api/v1/login', headers: header, params: { email: user.email, password: 'Foobar0123' } }
 
         it '４００を返す' do
           expect(response.status).to eq(400)
@@ -50,7 +50,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
       context 'パスワードが間違っている' do
         before do
           user.activate!
-          post '/api/v1/login', headers: @header, params: { email: user.email, password: 'invalid0000' }
+          post '/api/v1/login', headers: header, params: { email: user.email, password: 'invalid0000' }
         end
 
         it '４００を返す' do
@@ -65,7 +65,7 @@ RSpec.describe "Api::V1::UserSessions", type: :request do
   end
 
   describe 'DELETE /api/v1/logout' do
-    before { delete '/api/v1/logout', headers: @header }
+    before { delete '/api/v1/logout', headers: header }
 
     it 'cookiesのtokenが削除されること' do
       expect(response.headers['Set-Cookie']).to be_falsey
