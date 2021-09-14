@@ -41,6 +41,8 @@ class User < ApplicationRecord
   enum role: { reviewer: 0, player: 1, admin: 2 }
 
   scope :cache_profile, -> { includes(profile: [team: :prefecture, group: [category: :league]]) }
+  scope :top_rate, -> { where('rate >= 3.8') }
+  scope :rate_desc, -> { order(rate: :desc) }
 
   def activate_attributes
     activate!
