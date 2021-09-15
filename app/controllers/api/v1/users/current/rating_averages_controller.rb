@@ -1,5 +1,5 @@
 class Api::V1::Users::Current::RatingAveragesController < Api::V1::BaseController
-  def show
+  def index
     average = current_user.active_reviews.average(:rate)
     average = if average.nil?
                 0
