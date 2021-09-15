@@ -19,7 +19,7 @@ module ErrorHandle
     render json: { message: 'アカウントを認証してください' }, status: :forbidden
   end
 
-  def required_login
+  def check_login
     return if current_user
 
     render json: { message: 'ログインしてください' }, status: :unauthorized
