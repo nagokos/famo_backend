@@ -1,5 +1,5 @@
 class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
-  before_action :required_login, only: %i[destroy]
+  before_action :check_login, only: %i[destroy]
   before_action :check_activation, only: %i[destroy]
 
   def index
@@ -11,11 +11,8 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
 
   def update
     review = current_user.active_reviews.find(params[:id])
-    if review.update(review_params)
-      render json: review
-    else
-      render json: { errors: review.errors }
-    end
+    review.update!(review_params)
+    render json: review
   end
 
   def destroy
