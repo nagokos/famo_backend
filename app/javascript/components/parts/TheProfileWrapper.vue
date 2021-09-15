@@ -319,10 +319,10 @@ export default {
     async getAverage() {
       if (this.user.role === "player") return
       if (this.isMypage) {
-        const response = await this.$axios.get("/api/v1/users/current/rating_average")
+        const response = await this.$axios.get("/api/v1/users/current/rating_averages")
         this.average = response.data
       } else {
-        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/rating_average`)
+        const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/rating_averages`)
         this.average = response.data
       }
     },
