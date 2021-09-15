@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Users::RatingAverages", type: :request do
   let!(:reviewer) { create(:user) }
-  let!(:reviewee) { create(:user, :player) }
+  let!(:reviewee) { create(:user, :player_student) }
   before { create_list(:review, 10, reviewer: reviewer, reviewee: reviewee) }
   describe "GET /api/v1/users/:user_id/rating_average" do
     it '評価点の平均を返す' do
