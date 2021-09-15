@@ -1,5 +1,5 @@
 class Api::V1::Users::Current::ProfilesController < Api::V1::BaseController
-  before_action :required_login, only: %i[create update destroy]
+  before_action :check_login, only: %i[create update destroy]
   before_action :check_activation, only: %i[create update destroy]
   before_action :check_birthday, only: %i[create update]
   before_action :check_age, only: %i[create update]
