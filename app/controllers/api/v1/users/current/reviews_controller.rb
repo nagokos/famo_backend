@@ -11,11 +11,8 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
 
   def update
     review = current_user.active_reviews.find(params[:id])
-    if review.update(review_params)
-      render json: review
-    else
-      render json: { errors: review.errors }
-    end
+    review.update!(review_params)
+    render json: review
   end
 
   def destroy
