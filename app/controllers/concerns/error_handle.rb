@@ -10,7 +10,7 @@ module ErrorHandle
   def check_xhr_header
     return if request.xhr?
 
-    render json: { messge: 'アクセス権がありません' }, status: :forbidden
+    render json: { message: 'アクセス権がありません' }, status: :forbidden
   end
 
   def check_activation
