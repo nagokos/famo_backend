@@ -166,7 +166,7 @@ export default {
         this.totalCount = +response.headers["total-count"]
         this.page = +response.headers["current-page"] + 1
         await Promise.all(response.data.users.map(async resUser => {
-          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationships/check`)
           const user = { user: resUser, status: status.data.status }
           this.users.push(user)
         }));
@@ -177,7 +177,7 @@ export default {
         this.totalCount = +response.headers["total-count"]
         this.page = +response.headers["current-page"] + 1
         await Promise.all(response.data.users.map(async resUser => {
-          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationship/check`)
+          const status = await this.$axios.get(`/api/v1/users/${resUser.id}/relationships/check`)
           const user = { user: resUser, status: status.data.status }
           this.users.push(user)
         }));
