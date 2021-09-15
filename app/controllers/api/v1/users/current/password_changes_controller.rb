@@ -1,5 +1,5 @@
 class Api::V1::Users::Current::PasswordChangesController < Api::V1::BaseController
-  before_action :required_login, only: %i[update]
+  before_action :check_login, only: %i[update]
   before_action :check_activation, only: %i[update]
 
   def update
