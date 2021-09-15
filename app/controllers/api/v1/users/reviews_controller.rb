@@ -1,5 +1,5 @@
 class Api::V1::Users::ReviewsController < Api::V1::BaseController
-  before_action :required_login, only: %i[create]
+  before_action :check_login, only: %i[create]
   before_action :check_activation, only: %i[create]
 
   def index
