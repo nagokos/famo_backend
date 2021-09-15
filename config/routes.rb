@@ -31,9 +31,9 @@ Rails.application.routes.draw do
                 resources :following, only: %i[index]
                 resources :reviews, only: %i[index update destroy]
                 resources :game_dates, only: %i[index]
+                resources :rating_averages, only: %i[index]
                 resource :profile, only: %i[create update destroy]
                 resource :password_change, only: %i[update]
-                resource :rating_average, only: %i[show]
               end
             end
           end
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
           resources :followers, only: %i[index]
           resources :following, only: %i[index]
           resources :game_dates, only: %i[index]
-          resource :rating_average, only: %i[show]
+          resources :rating_averages, only: %i[index]
         end
       end
       resources :leagues, only: %i[index show] do
