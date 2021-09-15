@@ -9,9 +9,13 @@ FactoryBot.define do
     name { nil }
   end
 
-  trait :player do
+  trait :high_school do
+    birth_date { Time.current.ago(16.years).strftime('%F') }
+  end
+
+  trait :player_student do
     role { 'player' }
-    birth_date { Time.current.ago(16.years) }
+    birth_date { Time.current.ago(16.years).strftime('%F') }
     after(:build) do |user|
       create(:profile, rate: 3.0, user: user)
     end
@@ -19,7 +23,7 @@ FactoryBot.define do
 
   trait :high_rate do
     role { 'player' }
-    birth_date { Time.current.ago(16.years) }
+    birth_date { Time.current.ago(16.years).strftime('%F') }
     after(:build) do |user|
       create(:profile, rate: 5.0, user: user)
     end
@@ -27,7 +31,7 @@ FactoryBot.define do
 
   trait :low_rate do
     role { 'player' }
-    birth_date { Time.current.ago(16.years) }
+    birth_date { Time.current.ago(16.years).strftime('%F') }
     after(:build) do |user|
       create(:profile, rate: 1.0, user: user)
     end

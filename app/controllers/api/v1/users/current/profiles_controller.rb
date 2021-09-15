@@ -25,8 +25,8 @@ class Api::V1::Users::Current::ProfilesController < Api::V1::BaseController
   end
 
   def destroy
-    current_user.profile.destroy!
     current_user.reviewer!
+    current_user.profile.destroy!
   end
 
   private

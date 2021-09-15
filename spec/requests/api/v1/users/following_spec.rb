@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Users::Followings', type: :request do
+RSpec.describe 'Api::V1::Users::Following', type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
 

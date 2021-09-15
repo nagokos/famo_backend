@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Users::GameDates", type: :request do
   let!(:reviewer) { create(:user) }
-  let!(:reviewee) { create(:user, :player) }
+  let!(:reviewee) { create(:user, :player_student) }
   before { create_list(:review, 10, reviewer: reviewer, reviewee: reviewee) }
   describe "GET /api/v1/users/:user_id/game_dates" do
     before { get "/api/v1/users/#{reviewee.id}/game_dates" }
