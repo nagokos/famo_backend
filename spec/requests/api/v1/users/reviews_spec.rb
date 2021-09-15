@@ -5,7 +5,7 @@ require 'rails_helper'
 
 RSpec.describe 'Api::V1::Users::Reviews', type: :request do
   let!(:reviewer) { create(:user) }
-  let!(:reviewee) { create(:user, :player) }
+  let!(:reviewee) { create(:user, :player_student) }
   let!(:header) { { 'X-Requested-With': 'XMLHttpRequest' } }
   describe 'GET /api/v1/users/:user_id/reviews' do
     context 'sort=created' do
