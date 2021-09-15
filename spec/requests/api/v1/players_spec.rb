@@ -17,18 +17,24 @@ RSpec.describe 'Api::V1::Players', type: :request do
     end
 
     context 'page=2' do
-      let!(:user) { User.first }
-      before { get "/api/v1/players", params: { page: 2 } }
+      before do
+        create_list(:user, 21) { |user| user.create_profile(attributes_for(:profile)) }
+        get '/api/v1/players', params: { page: 2 }
+      end
+
       it '二ページ目のユーザーを返す' do
-        expect(json['users'].pluck('id')).to_not include(user.id)
+        expect(response.headers['Current-Page']).to eq('2')
       end
     end
 
     context 'rating=trueの場合' do
-      let!(:user) { User.joins(:profile).order(rate: :desc).first }
+      let!(:user) { create(:user, :high_rate) }
+      let!(:user2) { create(:user, :low_rate) }
       before { get "/api/v1/players", params: { q: { rating: true } } }
+
       it 'レートを基準に降順に並び替える' do
         expect(json['users'].first['id']).to eq(user.id)
+        expect(json['users'].last['id']).to eq(user2.id)
       end
     end
   end
