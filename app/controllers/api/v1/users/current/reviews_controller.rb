@@ -1,5 +1,5 @@
 class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
-  before_action :required_login, only: %i[destroy]
+  before_action :check_login, only: %i[destroy]
   before_action :check_activation, only: %i[destroy]
 
   def index
