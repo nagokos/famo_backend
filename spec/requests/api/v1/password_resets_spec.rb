@@ -65,20 +65,52 @@ RSpec.describe "Api::V1::PasswordResets", type: :request do
 
   describe 'PATCH /api/v1/password_resets/:id' do
     let!(:user) { create(:user) }
-    before do
-      user.deliver_reset_password_instructions!
-      patch "/api/v1/password_resets/#{user.reset_password_token}", headers: header, params: {
-        user: { password: 'rails0000', password_confirmation: 'rails0000' }
-      }
-    end
+    before { user.deliver_reset_password_instructions! }
 
     context '正常系' do
+      before do
+        patch "/api/v1/password_resets/#{user.reset_password_token}", headers: header, params: {
+          user: { password: 'rails0000', password_confirmation: 'rails0000' }
+        }
+      end
       it '成功して２００' do
         expect(response.status).to eq(200)
       end
 
       it 'Cookieを過去の日付にする(削除)' do
         expect(response.headers['Set-Cookie'].split(';').third.split(',').second < Time.current).to be_truthy
+      end
+    end
+
+    context '無効なトークン' do
+      before do
+        patch "/api/v1/password_resets/gajkgjalgjla", headers: header, params: {
+          user: { password: 'rails0000', password_confirmation: 'rails0000' }
+        }
+      end
+
+      it '４００を返す' do
+        expect(response.status).to eq(400)
+      end
+
+      it 'エラーメッセージを返す' do
+        expect(json['message']).to eq('再設定メールの取得からやり直してください')
+      end
+    end
+
+    context 'パスワードの変更に失敗' do
+      before do
+        patch "/api/v1/password_resets/#{user.reset_password_token}", headers: header, params: {
+          user: { password: 'rails0000', password_confirmation: 'rails0001' }
+        }
+      end
+
+      it '４２２を返す' do
+        expect(response.status).to eq(422)
+      end
+
+      it 'エラーメッセージを返す' do
+        expect(json['message']).to eq('フォームに不備があります')
       end
     end
   end
