@@ -14,7 +14,17 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
-SimpleCov.start 'rails'
+SimpleCov.start :rails do
+  groups.clear
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Models', 'app/models'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Serializers', 'app/serializers'
+  add_group 'Forms', 'app/forms'
+  add_group 'Libraries', 'lib/'
+
+  add_filter %w[app/controllers/admin app/dashboards app/jobs app/channels]
+end
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
