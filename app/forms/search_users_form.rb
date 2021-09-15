@@ -17,7 +17,7 @@ class SearchUsersForm
     relation = relation.joins(profile: :group).merge(Group.where(id: group_id)) if group_id.present?
     relation = relation.merge(Profile.where(position: position)) if position.present?
     relation = relation.merge(Profile.where(team_id: team_id)) if team_id.present?
-    relation = relation.order(rate: :desc) if rating
+    relation = relation.rate_desc if rating
 
     relation
   end

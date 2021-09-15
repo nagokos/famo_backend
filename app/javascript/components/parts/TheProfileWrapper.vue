@@ -329,10 +329,10 @@ export default {
     async getGameDates() {
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/game_dates")
-        this.gameDates = response.data.reviews
+        this.gameDates = response.data.dates
       } else {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/game_dates`)
-        this.gameDates = response.data.reviews
+        this.gameDates = response.data.dates
       }
     },
     async getReviews() {

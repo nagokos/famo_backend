@@ -87,12 +87,11 @@ export default {
     },
   },
   created() {
-    this.getUser()
+    this.getUser(this.$route.params.userId)
   },
   methods: {
-    async getUser() {
+    async getUser(userId) {
       this.loading = false
-      const userId = this.$route.params.userId
       const response = await this.$axios.get(`/api/v1/players/${userId}`)
       this.user = response.data.user
       this.loading = true
