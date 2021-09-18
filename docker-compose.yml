@@ -15,6 +15,9 @@ services:
     volumes:
       - .:/myapp:delegated
       - bundle_path:/bundle
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+      - log-data:/var/log/nginx
     environment:
       - EDITOR=vim
       - BUNDLE_PATH=/bundle
@@ -22,10 +25,20 @@ services:
     ports:
       - '3000:3000'
       - '3035:3035'
-    depends_on:
+    links:
       - db
-    stdin_open: true
     tty: true
+    stdin_open: true
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - '80:80'
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    depends_on:
+      - web
   mailhog:
     image: mailhog/mailhog:v1.0.0
     ports:
@@ -37,6 +50,11 @@ services:
       - maildir:/tmp
 volumes:
   bundle_path:
+  public-data:
+  tmp-data:
+    driver: local
+  log-data:
+    driver: local
   maildir:
   mysql-data:
     driver: local
