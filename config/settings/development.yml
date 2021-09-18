@@ -1,6 +1,6 @@
 mailer:
-  host: 'localhost:3000'
+  host: 'localhost'
 google:
-  callback: 'http://localhost:3000/api/v1/oauth/callback?provider=google'
+  callback: 'http://localhost/api/v1/oauth/callback?provider=google'
 line:
-  callback: 'http://localhost:3000/api/v1/oauth/callback?provider=line'
+  callback: 'http://localhost/api/v1/oauth/callback?provider=line'
