@@ -14,3 +14,5 @@ RUN bundle install
 COPY . /myapp
 
 RUN mkdir -p tmp/sockets
+
+CMD bundle exec puma -C config/puma.rb
