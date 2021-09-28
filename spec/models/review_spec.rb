@@ -16,7 +16,7 @@ require 'rails_helper'
 #   scope :game_asc, -> { order(game_date: :asc) }
 #   scope :rating, -> { order(rate: :desc) }
 #   scope :game_select_day, ->(day) { where(game_date: day.all_day) }
-#   scope :published, -> { where(privacy: 'published') }
+#   scope :open, -> { where(privacy: 'published') }
 #   scope :require_reviewer, -> { where.not(reviewer_id: nil) }
 #   scope :conditions_shuffle, -> { where('LENGTH(content) > 230').order('RAND()').limit(4) }
 #   scope :cache_profile, -> { includes(reviewer: :profile, reviewee: { profile: [team: :prefecture, group: { category: :league }] }) }
@@ -107,8 +107,8 @@ RSpec.describe Review, type: :model do
       let!(:published_review) { create(:review, reviewer: reviewer, reviewee: reviewee, privacy: 'published') }
       let!(:player_only_review) { create(:review, reviewer: reviewer, reviewee: reviewee, privacy: 'player_only') }
       it '公開に設定してあるレビューのみ取得すること' do
-        expect(Review.published).to include(published_review)
-        expect(Review.published).to_not include(player_only_review)
+        expect(Review.open).to include(published_review)
+        expect(Review.open).to_not include(player_only_review)
       end
     end
 
