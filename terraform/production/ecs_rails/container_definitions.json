@@ -1,0 +1,98 @@
+[
+  {
+    "name": "nginx",
+    "image": "${account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/nginx:latest",
+    "essential": true,
+    "memory": 128,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "nginx",
+        "awslogs-group": "/ecs/rails-famo/nginx"
+      }
+    },
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": [
+      {
+        "sourceContainer": "rails"
+      }
+    ],
+    "dependsOn": [
+      {
+        "containerName": "rails",
+        "condition": "START"
+      }
+    ]
+  },
+  {
+    "name": "rails",
+    "image": "${account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/rails:latest",
+    "essential": true,
+    "memory": 128,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "rails",
+        "awslogs-group": "/ecs/rails-famo/rails"
+      }
+    },
+    "command": [
+      "bundle",
+      "exec",
+      "puma",
+      "-C",
+      "config/puma.rb"
+    ],
+    "environment": [
+      {
+        "name": "RAILS_ENV",
+        "value": "production"
+      },
+      {
+        "name": "RDS_DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+        "name": "RDS_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "RDS_USERNAME",
+        "value": "${db_username}"
+      },
+      {
+        "name": "RDS_PORT",
+        "value": "3306"
+      },
+      {
+        "name": "RAILS_LOG_TO_STDOUT",
+        "value": "true"
+      },
+      {
+        "name": "RAILS_SERVE_STATIC_FILES",
+        "value": "true"
+      }
+    ],
+    "secrets": [
+      {
+        "name": "RAILS_MASTER_KEY",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:529205646558:parameter/rails_master_key"
+      },
+      {
+        "name": "RDS_PASSWORD",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:529205646558:parameter/db_password"
+      },
+      {
+        "name": "RDS_URL",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:529205646558:parameter/db_url"
+      }
+    ]
+  }
+]
