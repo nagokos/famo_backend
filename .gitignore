@@ -40,9 +40,10 @@ config/settings/*.local.yml
 config/environments/*.local.yml
 
 /coverage/
-/config/credentials/development.key
 
+/config/credentials/development.key
 /config/credentials/test.key
+/config/credentials/production.key
 
 **/.terraform/*
 

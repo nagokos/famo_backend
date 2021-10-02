@@ -8,11 +8,19 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && apt-get install -y vim
 
 WORKDIR /myapp
+RUN mkdir -p tmp/pids
+RUN mkdir -p tmp/sockets
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
+RUN yarn install
 COPY . /myapp
 
-RUN mkdir -p tmp/sockets
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+VOLUME /myapp/public
+VOLUME /myapp/tmp
 
 CMD bundle exec puma -C config/puma.rb
