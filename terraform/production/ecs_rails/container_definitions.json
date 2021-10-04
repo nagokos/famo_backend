@@ -44,13 +44,6 @@
       "-C",
       "config/puma.rb"
     ],
-    "healthCheck": {
-      "command": [
-        "CMD-SHELL",
-        "curl --unix-socket /myapp/tmp/sockets/puma.sock ./ || exit 1"
-      ],
-      "startPeriod": 15
-    },
     "environment": [
       {
         "name": "RAILS_ENV",
