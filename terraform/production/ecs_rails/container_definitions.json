@@ -22,12 +22,6 @@
       {
         "sourceContainer": "rails"
       }
-    ],
-    "dependsOn": [
-      {
-        "containerName": "rails",
-        "condition": "HEALTHY"
-      }
     ]
   },
   {
