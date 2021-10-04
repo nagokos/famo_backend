@@ -22,19 +22,13 @@
       {
         "sourceContainer": "rails"
       }
-    ],
-    "dependsOn": [
-      {
-        "containerName": "rails",
-        "condition": "HEALTHY"
-      }
     ]
   },
   {
     "name": "rails",
     "image": "${account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/rails:latest",
     "essential": true,
-    "memory": 128,
+    "memory": 500,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
@@ -50,13 +44,6 @@
       "-C",
       "config/puma.rb"
     ],
-    "healthCheck": {
-      "command": [
-        "CMD-SHELL",
-        "curl --unix-socket /myapp/tmp/sockets/puma.sock ./ || exit 1"
-      ],
-      "startPeriod": 15
-    },
     "environment": [
       {
         "name": "RAILS_ENV",
