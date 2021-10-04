@@ -28,12 +28,11 @@ resource "aws_lb_target_group" "target_group" {
   }
 }
 
-resource "aws_lb_listener_rule" "http_rule" {
+resource "aws_lb_listener_rule" "http_to_https" {
   listener_arn = var.http_listener_arn
 
   action {
-    type             = "redirect"
-    target_group_arn = aws_lb_target_group.target_group.arn
+    type = "redirect"
 
     redirect {
       port        = "443"
@@ -49,7 +48,7 @@ resource "aws_lb_listener_rule" "http_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "http_to_https" {
+resource "aws_lb_listener_rule" "https" {
   listener_arn = var.https_listener_arn
 
   action {
