@@ -45,8 +45,6 @@ const vuetify = new Vuetify({
   }
 })
 
-Vue.config.productionTip = false
-
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: "#app",
