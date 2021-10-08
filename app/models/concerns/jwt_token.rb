@@ -1,7 +1,11 @@
 module JwtToken
   extend ActiveSupport::Concern
 
-  SECRET_KEY_BASE = Rails.application.secrets.secret_key_base
+  SECRET_KEY_BASE = if Rails.env == 'production'
+                      Rails.application.credentials[:secret_key_base]
+                    else
+                       Rails.application.secrets.secret_key_base
+                    end
 
   class_methods do
     def decode(encoded_token)
