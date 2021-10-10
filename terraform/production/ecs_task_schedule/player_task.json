@@ -1,0 +1,13 @@
+{
+  "containerOverrides": [
+    {
+      "name": "rails",
+      "command": [
+        "bundle",
+        "exec",
+        "rails",
+        "rate:week_rate"
+      ]
+    }
+  ]
+}

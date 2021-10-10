@@ -20,6 +20,18 @@ resource "aws_iam_role_policy" "this" {
           "arn:aws:ssm:ap-northeast-1:529205646558:parameter/db_password",
           "arn:aws:ssm:ap-northeast-1:529205646558:parameter/db_url"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
+        ]
+        Resource = [
+          "*"
+        ]
       }
     ]
   })
