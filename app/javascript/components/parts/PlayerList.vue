@@ -69,7 +69,7 @@
       class="pb-0 text-caption grey--text text--darken-1"
       align="end"
     >
-      ※ 評価点は毎週水曜日に更新されます
+      ※ 評価点は毎週木曜日に更新されます
     </v-col>
     <v-list
       three-line
