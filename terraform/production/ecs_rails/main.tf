@@ -79,6 +79,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     db_username = var.db_username
   })
   execution_role_arn = module.iam_role.iam_role_arn
+  task_role_arn      = module.iam_role.iam_role_arn
 }
 
 resource "aws_ecs_service" "ecs_service" {
@@ -88,6 +89,8 @@ resource "aws_ecs_service" "ecs_service" {
   cluster                           = var.cluster_name
   task_definition                   = aws_ecs_task_definition.task_definition.arn
   health_check_grace_period_seconds = 3600
+
+  enable_execute_command = true
 
   network_configuration {
     security_groups  = [var.alb_security_group.id]
