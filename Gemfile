@@ -27,6 +27,8 @@ gem 'pagy'
 gem 'administrate'
 # s3
 gem 'aws-sdk'
+# ses
+gem 'aws-sdk-rails'
 # 画像
 gem 'carrierwave'
 
