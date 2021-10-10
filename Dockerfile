@@ -13,9 +13,15 @@ RUN mkdir -p tmp/pids
 RUN mkdir -p tmp/sockets
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+COPY yarn.lock /myapp
+COPY package.json /myapp
 RUN bundle install
 RUN yarn install
 COPY . /myapp
+
+RUN bundle exec rails webpacker:install
+RUN bundle exec rails webpacker:install:vue
+RUN bundle exec rails webpacker:compile
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
