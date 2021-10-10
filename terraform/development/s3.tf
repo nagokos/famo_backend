@@ -20,12 +20,12 @@ resource "aws_s3_bucket_policy" "bucket1" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "AllowPublicRead"
+        Sid    = "AllowPublicRead"
         Effect = "Allow"
         Principal = {
           AWS = "*"
         }
-        Action  = "s3:*"
+        Action = "s3:*"
         Resource = [
           aws_s3_bucket.bucket1.arn,
           "${aws_s3_bucket.bucket1.arn}/*"

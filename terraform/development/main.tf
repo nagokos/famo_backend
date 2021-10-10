@@ -1,15 +1,15 @@
 provider "aws" {
   profile = "develop"
-  region = "ap-northeast-1"
+  region  = "ap-northeast-1"
 }
 
 terraform {
   required_version = ">= 0.12"
   backend "s3" {
-    bucket = "tfstate-terraform-dev"
-    region = "ap-northeast-1"
+    bucket  = "tfstate-terraform-dev"
+    region  = "ap-northeast-1"
     profile = "develop"
-    key = "terraform.tfstate"
+    key     = "terraform.tfstate"
     encrypt = true
   }
 }
