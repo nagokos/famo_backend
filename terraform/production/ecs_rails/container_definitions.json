@@ -22,7 +22,10 @@
       {
         "sourceContainer": "rails"
       }
-    ]
+    ],
+    "linuxParameters": {
+      "initProcessEnabled": true
+    }
   },
   {
     "name": "rails",
@@ -44,6 +47,9 @@
       "-C",
       "config/puma.rb"
     ],
+    "linuxParameters": {
+      "initProcessEnabled": true
+    },
     "environment": [
       {
         "name": "RAILS_ENV",
