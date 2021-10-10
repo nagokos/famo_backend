@@ -5,3 +5,5 @@ Aws.config.update(
 
 s3_resource = Aws::S3::Resource.new
 S3_BUCKET = s3_resource.bucket(Rails.application.credentials.aws[:bucket])
+
+Aws::Rails.add_action_mailer_delivery_method(:ses) if Rails.env == 'production'
