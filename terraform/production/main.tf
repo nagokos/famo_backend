@@ -110,3 +110,18 @@ module "ecs_rails" {
   cluster_name       = module.ecs_cluster.cluster_name
   public_subnet_ids  = module.network.public_subnet_ids
 }
+
+module "s3" {
+  source = "./s3"
+
+  bucket_name = "famo-avatar-bucket"
+}
+
+module "ecs_task_schedule" {
+  source = "./ecs_task_schedule"
+
+  cluster_arn         = module.ecs_cluster.cluster_arn
+  task_definition_arn = module.ecs_rails.task_definition_arn
+  public_subnet_ids   = module.network.public_subnet_ids
+  alb_security_group  = module.elb.alb_security_group
+}
