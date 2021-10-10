@@ -56,6 +56,10 @@
         "value": "production"
       },
       {
+        "name": "NODE_ENV",
+        "value": "production"
+      },
+      {
         "name": "RDS_DB_NAME",
         "value": "${db_name}"
       },
