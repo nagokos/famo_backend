@@ -93,14 +93,16 @@
                   />
                 </ValidationProvider>
               </v-col>
-              <v-col class="pt-0 mb-8">
+              <v-col class="pt-0 mb-4">
                 <v-btn
                   color="#3949AB"
                   class="font-weight-bold"
                   large
-                  dark
                   block
                   :ripple="false"
+                  :dark="!isSignup"
+                  :disabled="isSignup"
+                  :loading="isSignup"
                   @click="handleSubmit(sendUserData)"
                 >
                   登録する
@@ -119,6 +121,7 @@ export default {
   data() {
     return {
       show: false,
+      isSignup: false,
       activePicker: "",
       user: {
         name: "",
@@ -129,6 +132,7 @@ export default {
   },
   methods: {
     async sendUserData() {
+      this.isSignup = true
       try {
         await this.$axios.post("/api/v1/users", {
           user: this.user
@@ -138,7 +142,8 @@ export default {
           message: "認証メールを送信しました"
         })
         this.$emit("create-user", this.user.email)
-      } catch(err) {
+      } catch(error) {
+        this.isSignup = false
         this.$store.dispatch("flash/setFlash", {
           type: "error",
           message: "フォームに不備があります"
