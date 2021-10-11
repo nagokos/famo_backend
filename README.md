@@ -16,8 +16,8 @@
 ## サービス作成の背景
 | トップページ | ログイン画面 |
 | --- | --- |
-| [![Image from Gyazo](https://i.gyazo.com/30e4a4f6003b6d1893934a0153522b51.gif)](https://gyazo.com/30e4a4f6003b6d1893934a0153522b51) | [![Image from Gyazo](https://i.gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c.png)](https://gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c) |
-|トップ画面です。| |
+| [![Image from Gyazo](https://i.gyazo.com/4ab87f9790e682e0551acfc7b0633b3b.png)](https://gyazo.com/4ab87f9790e682e0551acfc7b0633b3b) | [![Image from Gyazo](https://i.gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c.png)](https://gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c) |
+|トップ画面です。<br>今すぐはじめるをクリックすると、ログイン画面へ遷移します。その他、三つのコンテンツを表示しています。| ログイン画面です。<br>新規登録又は、ログインを行うことができます。 |
 
 <br>
 
