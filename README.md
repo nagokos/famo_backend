@@ -10,14 +10,13 @@
 
 ## サービス概要
 高校生のサッカープレーヤをターゲットにした、評価サイトです。
-
 <br>
 
-## サービス作成の背景
+## サービス画面
 | トップページ | ログイン画面 |
 | --- | --- |
 | [![Image from Gyazo](https://i.gyazo.com/4ab87f9790e682e0551acfc7b0633b3b.png)](https://gyazo.com/4ab87f9790e682e0551acfc7b0633b3b) | [![Image from Gyazo](https://i.gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c.png)](https://gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c) |
-|トップ画面です。<br>今すぐはじめるをクリックすると、ログイン画面へ遷移します。その他、三つのコンテンツを表示しています。| ログイン画面です。<br>新規登録又は、ログインを行うことができます。 |
+|トップ画面です。<br>今すぐはじめるをクリックすると、ログイン画面へ遷移します。その他、三つのコンテンツを表示しています。| ログイン画面です。<br>新規登録、ログインを行うことができます。 |
 
 | 認証メール送信 | 選手一覧 |
 | --- | --- |
@@ -28,7 +27,7 @@
 | マイページ(選手) | ユーザーページ(選手) |
 | --- | --- |
 | [![Image from Gyazo](https://i.gyazo.com/9b1994c377f916b581319940d4a5ba3e.png)](https://gyazo.com/9b1994c377f916b581319940d4a5ba3e) | [![Image from Gyazo](https://i.gyazo.com/9b913daa957a6af2e5373373504822d7.png)](https://gyazo.com/9b913daa957a6af2e5373373504822d7) |
-| 選手情報やレビューが表示されます。 | フォローすることと、レビューを書くことができます。 |
+| 選手情報やレビューが表示されます。 | レビューを書くことができます。 |
 
 
 | 選手登録 | アカウント |
@@ -36,19 +35,10 @@
 | [![Image from Gyazo](https://i.gyazo.com/5a380a2d826df3302489a92e5e2e2d09.png)](https://gyazo.com/5a380a2d826df3302489a92e5e2e2d09) | [![Image from Gyazo](https://i.gyazo.com/87927d9af76f2acaa3b3e38e40c82560.png)](https://gyazo.com/87927d9af76f2acaa3b3e38e40c82560) |
 | 選手登録ページです。<br>新規登録時はレビュワーとして登録されますが、選手登録をすることでレビューをもらえるようになります。 | パスワードの変更、選手の場合は選手登録を解除、アカウントの削除が行えます。 |
 
-| レビュー作成 |  |
+| プロフィール | レビュー |
 | --- | --- |
-| [![Image from Gyazo](https://i.gyazo.com/aa8c720474e14bf0554d607dda3f2978.png)](https://gyazo.com/aa8c720474e14bf0554d607dda3f2978) | [![Image from Gyazo](https://i.gyazo.com/db1d82f33e0738d4d77f38ab081645b4.png)](https://gyazo.com/db1d82f33e0738d4d77f38ab081645b4) |
-| 選手に対してレビューを書くことができます。 | |
-
-
-<br>
-
-
-## サービス画面
-
-
-
+| [![Image from Gyazo](https://i.gyazo.com/db1d82f33e0738d4d77f38ab081645b4.png)](https://gyazo.com/db1d82f33e0738d4d77f38ab081645b4) | [![Image from Gyazo](https://i.gyazo.com/aa8c720474e14bf0554d607dda3f2978.png)](https://gyazo.com/aa8c720474e14bf0554d607dda3f2978) | 
+| プロフィールを編集できます。 | 選手に対してレビューを書くことができます。 |
 <br>
 
 ## AWS 構成図
