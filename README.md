@@ -6,7 +6,6 @@
 ![https://img.shields.io/badge/-AWS-orange](https://img.shields.io/badge/-AWS-orange)
 
 ### **https://famo.work** 
-<br>
 
 ## サービス概要
 高校生のサッカープレーヤをターゲットにした、評価サイトです。
