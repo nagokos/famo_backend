@@ -4,18 +4,21 @@
 ![https://img.shields.io/badge/-Docker-blue](https://img.shields.io/badge/-Docker-blue)
 ![https://img.shields.io/badge/-Terraform-blueviolet](https://img.shields.io/badge/-Terraform-blueviolet)
 ![https://img.shields.io/badge/-AWS-orange](https://img.shields.io/badge/-AWS-orange)
-
-### **https://famo.work** 
-
-## サービス概要
-高校生のサッカープレーヤをターゲットにした、評価サイトです。
 <br>
 
-## サービス画面
+## サービスURL (レスポンシブ対応しています)
+### **https://famo.work** 
+<br>
+
+## サービス概要
+高校生のサッカープレーヤをターゲットにした、サービスです。
+<br>
+
+## 使用画面
 | トップページ | ログイン画面 |
 | --- | --- |
 | [![Image from Gyazo](https://i.gyazo.com/4ab87f9790e682e0551acfc7b0633b3b.png)](https://gyazo.com/4ab87f9790e682e0551acfc7b0633b3b) | [![Image from Gyazo](https://i.gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c.png)](https://gyazo.com/9bd245f6d3d64ffd8a19abfae7e1156c) |
-|トップ画面です。<br>今すぐはじめるをクリックすると、ログイン画面へ遷移します。その他、三つのコンテンツを表示しています。| ログイン画面です。<br>新規登録、ログインを行うことができます。 |
+|トップページです。<br>今すぐはじめるをクリックすると、ログイン画面へ遷移します。その他、三つのコンテンツを表示しています。| ログイン画面です。<br>新規登録、ログインを行うことができます。<br>メールアドレス、LINE、Googleのいずれかで登録ができます。 |
 
 | 認証メール送信 | 選手一覧 |
 | --- | --- |
