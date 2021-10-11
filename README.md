@@ -6,12 +6,12 @@
 ![https://img.shields.io/badge/-AWS-orange](https://img.shields.io/badge/-AWS-orange)
 <br>
 
-## サービスURL (レスポンシブ対応しています)
-### **https://famo.work** 
-
 ## サービス概要
 高校生のサッカープレーヤをターゲットにした、サービスです。
 <br>
+
+## サービスURL (レスポンシブ対応しています)
+### **https://famo.work** 
 
 ## 使用画面
 | トップページ | ログイン画面 |
