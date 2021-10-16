@@ -32,6 +32,9 @@ Rails.application.routes.draw do
                 resources :reviews, only: %i[index update destroy]
                 resources :game_dates, only: %i[index]
                 resources :rating_averages, only: %i[index]
+                resources :notifications, only: %i[index update] do
+                  get :check, on: :collection
+                end
                 resource :profile, only: %i[create update destroy]
                 resource :password_change, only: %i[update]
               end
