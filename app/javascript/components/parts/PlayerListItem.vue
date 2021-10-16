@@ -82,6 +82,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
     rankStyle() {
     if (!this.$vuetify.breakpoint.mobile && this.index < 10) {
       return "position: absolute; bottom: 114px; left: 18px; z-index: 1;"
@@ -103,7 +104,6 @@ export default {
       if (this.index === 3) return "#816D46"
       else return "#d3b572"
     },
-    ...mapGetters({ currentUser: "user/currentUser" }),
     information() {
       if (this.$vuetify.breakpoint.mobile && this.$vuetify.breakpoint.width <= 320) {
         const information = `${this.user.profile.team} / ${this.user.profile.position}`
