@@ -27,6 +27,9 @@
         >
           mdi-magnify
         </v-icon>
+        <notification 
+          v-if="currentUser"
+        />
         <v-btn
           v-if="!currentUser"
           text
@@ -158,10 +161,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Notification from "../parts/Notification.vue"
 
 export default {
+  components: {
+    Notification
+  },
   computed: {
-    ...mapGetters({ currentUser: "user/currentUser" }),
+    ...mapGetters({ currentUser: "user/currentUser" })
   },
   methods: {
     pushPage(path, route, params) {
