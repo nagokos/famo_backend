@@ -15,6 +15,7 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
     review = current_user.active_reviews.build(review_params)
     review.reviewee = reviewee
     if review.save
+      current_user.active_notifications.create(notifiable_id: review.id, action: 'created', visited_id: reviewee.id)
       render json: review, status: :created
     else
       render json: { errors: review.errors, message: 'フォームに不備があります' }, status: :unprocessable_entity
