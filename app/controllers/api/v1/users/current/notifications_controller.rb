@@ -8,7 +8,7 @@ class Api::V1::Users::Current::NotificationsController < Api::V1::BaseController
   end
 
   def update
-    if params[:id] != "0"
+    if params[:id] != '0'
       notification = current_user.passive_notifications.find(params[:id])
       notification.checked = true
       notification.save
