@@ -151,7 +151,7 @@ export default {
         }
       })
       this.notifications = response.data.notifications
-      this.seeMore = true
+      if (+response.headers['total-count'] > 5) this.seeMore = true
       this.checkNotifications()
     },
     async checkNotifications() {
