@@ -109,7 +109,7 @@
       class="pr-5"
     >
       <v-spacer />
-      <div class="mr-3">
+      <div>
         <v-icon 
           v-if="isLike"
           size="20"
@@ -129,12 +129,12 @@
           style="position: relative; top: 1px;"
         >{{ likeCount }}</span>
       </div>
-      <v-icon 
+      <!-- <v-icon 
         size="20" 
         @click="$refs.reviewReportDialog.open()"
       >
         mdi-flag-outline
-      </v-icon>
+      </v-icon> -->
     </v-card-actions>
     <the-review-report-dialog
       ref="reviewReportDialog"
