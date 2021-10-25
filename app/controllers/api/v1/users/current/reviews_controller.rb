@@ -5,7 +5,7 @@ class Api::V1::Users::Current::ReviewsController < Api::V1::BaseController
   def index
     search_reviews_form = SearchReviewsForm.new(search_params)
     reviews = search_reviews_form.search(current_user)
-    @pagy, reviews = pagy(reviews)
+    @pagy, reviews = pagy(reviews, items: 10)
     render json: reviews, include: '**'
   end
 
