@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :like_reviews, through: :likes, source: :review
+
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
 
