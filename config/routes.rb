@@ -72,7 +72,12 @@ Rails.application.routes.draw do
       resources :players, only: %i[index show]
       resources :reviewers, only: %i[show]
       resources :password_resets, only: %i[create edit update]
-      resources :reviews, only: %i[index]
+      resources :reviews, only: %i[index] do
+        resource :like, only: %i[create destroy] do
+          get :check
+          get :count
+        end
+      end
       resources :top_players, only: %i[index]
       resources :hierarchy_leagues, only: %i[index]
       resources :prefecture_teams, only: %i[index]
