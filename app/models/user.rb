@@ -67,6 +67,18 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def like(review)
+    like_reviews << review
+  end
+
+  def unlike(review)
+    like_reviews.delete(review)
+  end
+
+  def like?(review)
+    review.likes.pluck(:user_id).include?(id)
+  end
+
   def role_reviews
     # 管理者は想定していない
     if reviewer?
