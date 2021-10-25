@@ -167,11 +167,11 @@ export default {
       this.dateDialog = false
     },
     reviewFilter() {
-      delete this.$route.query.page
-      const query = { game_date: this.gameDate, sort: this.sort, page: undefined }
+      const query = { game_date: this.gameDate, sort: this.sort, page: 1 }
       if (!this.gameDate) query.game_date = undefined
       this.$router.push({ name: this.$route.name, query: query }, () => {})
       this.dialog = false
+      this.$emit("review-search")
     },
     resetSearch() {
       this.$emit("update:sort", "created")

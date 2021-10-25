@@ -6,7 +6,7 @@ class Api::V1::Users::ReviewsController < Api::V1::BaseController
     user = User.find(params[:user_id])
     search_reviews_form = SearchReviewsForm.new(search_params)
     reviews = search_reviews_form.search(user).open
-    @pagy, reviews = pagy(reviews)
+    @pagy, reviews = pagy(reviews, items: 10)
     render json: reviews, include: '**'
   end
 
