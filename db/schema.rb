@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_081503) do
+ActiveRecord::Schema.define(version: 2021_10_16_162153) do
 
   create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "user_id", null: false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2021_10_16_081503) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_likes_on_review_id"
+    t.index ["user_id", "review_id"], name: "index_likes_on_user_id_and_review_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -137,6 +147,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_081503) do
 
   add_foreign_key "categories", "leagues"
   add_foreign_key "groups", "categories"
+  add_foreign_key "likes", "reviews"
   add_foreign_key "profiles", "groups"
   add_foreign_key "profiles", "teams"
   add_foreign_key "teams", "prefectures"
