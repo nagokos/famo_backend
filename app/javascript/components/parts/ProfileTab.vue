@@ -8,7 +8,7 @@
       exact
       :ripple="false"
       class="font-weight-bold"
-      :to="{ name: setReviewName }"
+      @click="transitionReview"
     >
       レビュー
     </v-tab>
@@ -16,7 +16,7 @@
       exact
       :ripple="false"
       class="font-weight-bold"
-      :to="{ name: setFollowingName }"
+      @click="transitionFollowing"
     >
       フォロー
     </v-tab>
@@ -24,7 +24,7 @@
       exact
       :ripple="false"
       class="font-weight-bold"
-      :to="{ name: setFollowersName }"
+      @click="transitionFollowers"
     >
       フォロワー
     </v-tab>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     user: {
@@ -41,31 +42,48 @@ export default {
     }
   },
   computed: {
-    setReviewName() {
+    ...mapGetters({ currentUser: "user/currentUser" }),
+  },
+  methods: {
+    transitionReview() {
       if (this.$route.path.includes("profile")) {
-        return "myReview"
+        this.$router.push({ name: "myReview" }, () => {})
       } else if (this.$route.path.includes("users")) {
-        return "reviewerReview"
+        this.$router.push({ name: "reviewerReview" }, () => {})
       } else {
-        return "playerReview"
+        this.$router.push({ name: "playerReview" }, () => {})
       }
     },
-    setFollowingName() {
+    transitionFollowing() {
+      if (!this.currentUser) {
+        this.$router.push({ name: "login" })
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "ログインしてください"
+        })
+      }
       if (this.$route.path.includes("profile")) {
-        return "myFollowing"
+        this.$router.push({ name: "myFollowing" }, () => {})
       } else if (this.$route.path.includes("users")) {
-        return "reviewerFollowing"
+        this.$router.push({ name: "reviewerFollowing" }, () => {})
       } else {
-        return "playerFollowing"
+        this.$router.push({ name: "playerFollowing" }, () => {})
       }
     },
-    setFollowersName() {
+    transitionFollowers() {
+      if (!this.currentUser) {
+        this.$router.push({ name: "login" })
+        return this.$store.dispatch("flash/setFlash", {
+          type: "error",
+          message: "ログインしてください"
+        })
+      }
       if (this.$route.path.includes("profile")) {
-        return "myFollowers"
+        this.$router.push({ name: "myFollowers" }, () => {})
       } else if (this.$route.path.includes("users")) {
-        return "reviewerFollowers"
+        this.$router.push({ name: "reviewerFollowers" }, () => {})
       } else {
-        return "playerFollowers"
+        this.$router.push({ name: "playerFollowers" }, () => {})
       }
     }
   }

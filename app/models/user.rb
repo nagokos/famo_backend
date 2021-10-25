@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :like_reviews, through: :likes, source: :review
+
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
 
@@ -62,6 +65,18 @@ class User < ApplicationRecord
 
   def follow?(other_user)
     following.include?(other_user)
+  end
+
+  def like(review)
+    like_reviews << review
+  end
+
+  def unlike(review)
+    like_reviews.delete(review)
+  end
+
+  def like?(review)
+    review.likes.pluck(:user_id).include?(id)
   end
 
   def role_reviews

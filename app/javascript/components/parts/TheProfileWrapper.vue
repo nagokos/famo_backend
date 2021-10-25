@@ -191,6 +191,7 @@ import RelationCard from "../parts/RelationCard"
 import ReviewSearch from './ReviewSearch'
 import ReviewSearchMobile from "./ReviewSearchMobile"
 import TheShowProfileDialog from "./TheShowProfileDialog"
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -234,6 +235,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({ currentUser: "user/currentUser" }),
     isRelation() {
       return this.$route.path.includes("/following") || this.$route.path.includes("/followers")
     },
@@ -360,6 +362,7 @@ export default {
       }
     },
     async checkFollow() {
+      if (!this.currentUser) return
       if (!this.isMypage) {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/relationships/check`)
         this.isFollow = response.data.status
