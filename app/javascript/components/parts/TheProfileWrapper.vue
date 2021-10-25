@@ -104,11 +104,13 @@
               v-show="!isRelation && $vuetify.breakpoint.mobile"
               :q="q"
               :game-dates="gameDates"
+              @review-search="searchReviews"
             />
             <review-search
               v-show="!isRelation && !$vuetify.breakpoint.mobile"
               v-bind.sync="q"
               :game-dates="gameDates"
+              @review-search="searchReviews"
             />
           </v-col>
           <v-col
@@ -117,35 +119,49 @@
             md="8"
             :class="$vuetify.breakpoint.mobile ? '' : 'pl-0'"
           >
-            <keep-alive
-              v-for="(review, index) in reviews"
-              :key="index"
-            >
-              <review-card
-                v-if="!isRelation"
-                :user="user"
-                :review="review"
-                @delete-review="filterReview"
-              />
-            </keep-alive>
-            <template v-if="totalCount >= 20">
-              <v-divider class="mt-10" />
-              <v-card
-                outlined
-                color="#f1f4f8"
+            <template v-if="reviewLoading">
+              <keep-alive
+                v-for="(data, index) in reviews"
+                :key="index"
               >
-                <v-pagination
-                  v-model="page"
-                  :length="totalPages"
-                  color="#3949AB"
-                  class="my-5"
-                  @input="pagination($event)"
+                <review-card
+                  v-if="!isRelation"
+                  :user="user"
+                  :review="data.review"
+                  :status="data.status"
+                  :count="data.count"
+                  @delete-review="filterReview"
                 />
-              </v-card>
-              <v-divider />
+              </keep-alive>
+              <template v-if="totalCount >= 20">
+                <v-divider class="mt-10" />
+                <v-card
+                  outlined
+                  color="#f1f4f8"
+                >
+                  <v-pagination
+                    v-model="page"
+                    :length="totalPages"
+                    color="#3949AB"
+                    class="my-5"
+                    @input="pagination($event)"
+                  />
+                </v-card>
+                <v-divider />
+              </template>
             </template>
             <v-col
-              v-if="reviews.length === 0"
+              v-if="!reviewLoading"
+              cols="12"
+              align="center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="primary"
+              />
+            </v-col>
+            <v-col
+              v-if="reviewLoading && reviews.length === 0"
               align="center"
             >
               レビューがありません
@@ -217,6 +233,7 @@ export default {
   data() {
     return {
       loading: false,
+      reviewLoading: false,
       isFollow: false,
       introductionForm: false,
       userEdit: { ...this.user },
@@ -254,21 +271,17 @@ export default {
            this.$refs.followers.switchFollow(this.followingIds)
         })
       }
-      if (!this.isRelation) {
-        this.getReviews()
-        this.getGameDates()
-      }
     }
   },
-  created() {
-    this.setData()
+  async created() {
+    await this.setData()
+    this.getReviews()
   },
   methods: {
     async setData() {
       await this.checkFollow()
       await this.getGameDates()
       await this.setQuery()
-      await this.getReviews()
       await this.getAverage()
       this.loading = true
     },
@@ -313,10 +326,15 @@ export default {
         })
       }
     },
+    searchReviews() {
+      this.page = 1
+      this.getReviews()
+    },
     pagination(event) {
       this.toReview()
       const query = { game_date: this.$route.query.game_date, sort: this.$route.query.sort, page: event }
       this.$router.push({ name: this.$route.name, query: query })
+      this.getReviews()
     },
     async getAverage() {
       if (this.user.role === "player") return
@@ -338,7 +356,7 @@ export default {
       }
     },
     async getReviews() {
-      this.page = !!this.$route.query.page ? +this.$route.query.page : 1
+      this.reviewLoading = false
       if (this.isMypage) {
         const response = await this.$axios.get("/api/v1/users/current/reviews", {
           params: {
@@ -349,6 +367,11 @@ export default {
         this.totalCount = +response.headers["total-count"]
         this.totalPages = +response.headers["total-pages"]
         this.reviews = response.data.reviews
+        this.reviews = await Promise.all(response.data.reviews.map(async resReview => {
+          const status = await this.$axios.get(`/api/v1/reviews/${resReview.id}/like/check`)
+          const count = await this.$axios.get(`/api/v1/reviews/${resReview.id}/like/count`)
+          return { review: resReview, status: status.data.status, count: count.data.count }
+        }));
       } else {
         const response = await this.$axios.get(`/api/v1/users/${this.$route.params.userId}/reviews`, {
           params: {
@@ -358,8 +381,13 @@ export default {
         })
         this.totalCount = +response.headers["total-count"]
         this.totalPages = +response.headers["total-pages"]
-        this.reviews = response.data.reviews
+        this.reviews = await Promise.all(response.data.reviews.map(async resReview => {
+          const status = await this.$axios.get(`/api/v1/reviews/${resReview.id}/like/check`)
+          const count = await this.$axios.get(`/api/v1/reviews/${resReview.id}/like/count`)
+          return { review: resReview, status: status.data.status, count: count.data.count }
+        }));
       }
+      this.reviewLoading = true
     },
     async checkFollow() {
       if (!this.currentUser) return
