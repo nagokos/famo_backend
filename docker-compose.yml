@@ -3,17 +3,17 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      - MYSQL_ROOT_PASSWORD=password
     ports:
       - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
   web:
-    build: .
-    command: bundle exec foreman start -f Procfile
+    build: ./api
+    command: bundle exec puma -C config/puma.rb
     volumes:
-      - .:/myapp:delegated
+      - ./api:/myapp
       - bundle_path:/bundle
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
@@ -21,17 +21,24 @@ services:
     environment:
       - EDITOR=vim
       - BUNDLE_PATH=/bundle
-      - WEBPACKER_DEV_SERVER_HOST=web
     ports:
       - '3000:3000'
-      - '3035:3035'
     links:
       - db
     tty: true
     stdin_open: true
+  front:
+    build: ./front
+    volumes:
+      - ./front:/myapp
+    ports:
+      - '8080:8080'
+    tty: true
+    stdin_open: true
+    command: yarn serve
   nginx:
     build:
-      context: ./containers/nginx
+      context: ./api/containers/nginx
     ports:
       - '80:80'
     volumes:
