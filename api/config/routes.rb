@@ -13,11 +13,6 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  get 'account/password_reset', to: 'home#index'
-  get 'account/send_password_reset', to: 'home#index'
-  get '/profile', to: 'home#index'
-  get '/login', to: 'home#index'
-
   namespace :api do
     namespace :v1 do
       resources :users, only: %i[create] do
@@ -89,6 +84,4 @@ Rails.application.routes.draw do
       get 'oauth/:provider', to: 'oauths#oauth'
     end
   end
-
-  get '*path', to: 'home#index'
 end
