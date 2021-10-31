@@ -44,12 +44,3 @@ config/environments/*.local.yml
 /config/credentials/development.key
 /config/credentials/test.key
 /config/credentials/production.key
-
-**/.terraform/*
-
-# .tfstate files
-*.tfstate
-*.tfstate.*
-
-# .tfvars files
-*.tfvars
