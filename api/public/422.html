@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ページが表示できません</title>
+  <meta http-equiv="content-type" charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <style>
+    .v-application {
+      background: #FAFAFA;
+    }
+    .container {
+      max-width: 800px;
+    }
+  </style>
+</head>
+
+<body>
+  <div
+    data-app="true"
+    class="v-application v-application--is-ltr theme--light"
+    id="app"
+  >
+    <div class="container">
+      <div class="not-found pt-10 pb-5">
+        <h1 :class="$vuetify.breakpoint.mobile ? 'font-weight-bold text-h4' : 'font-weight-bold text-h3'">
+          ページが表示できません
+        </h1>
+        <div class="mt-10 mb-10 font-weight-bold">
+          <p>申し訳ありません。一時的なエラーが発生しました。</p>
+          <p>正常にご覧いただけるよう、解決に取り組んでおります。</p>
+          <p>しばらく時間を置いてもご覧いただけない場合は、<a class="blue--text text--darken-2" href="https://forms.gle/dCQkKciZmr4ACiAg7">お問い合わせ</a>ください。</p>
+        </div>
+        <a
+          href="/"
+          aria-current="page"
+          class="font-weight-bold v-btn--active v-btn v-btn--is-elevated v-btn--has-bg v-btn--router theme--light v-size--large"
+          style="background-color: rgb(57, 73, 171); border-color: rgb(57, 73, 171);"
+        >
+          <span class="v-btn__content">
+            <span class="white--text">
+              トップに戻る
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+    })
+  </script>
+</body>
+</html>
