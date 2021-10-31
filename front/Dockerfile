@@ -1,10 +1,7 @@
-FROM node:17.0
+FROM node:16
 
 RUN mkdir -p /myapp
 WORKDIR /myapp
-
-COPY package.json ./
-COPY yarn.lock ./
 
 RUN yarn global add @vue/cli
 
