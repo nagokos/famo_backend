@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  root to: 'home#index'
   get 'account/password_reset', to: 'home#index'
   get 'account/send_password_reset', to: 'home#index'
   get '/profile', to: 'home#index'
