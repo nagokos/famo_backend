@@ -1,4 +1,0 @@
-google:
-  callback: 'https://famo.work/api/v1/oauth/callback?provider=google'
-line:
-  callback: 'https://famo.work/api/v1/oauth/callback?provider=line'
