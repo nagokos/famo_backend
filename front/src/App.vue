@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <the-header />
+    <v-main style="background: #fafafa">
+      <the-flash-message />
+      <not-found v-if="isNotFound" />
+      <router-view v-if="!isNotFound" class="mb-16" />
+    </v-main>
+    <the-footer />
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import TheHeader from "./components/globals/TheHeader";
+import TheFlashMessage from "./components/globals/TheFlashMessage";
+import TheFooter from "./components/globals/TheFooter";
+import NotFound from "./components/pages/NotFound";
+import { mapGetters } from "vuex";
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+export default {
+  components: {
+    TheHeader,
+    TheFlashMessage,
+    TheFooter,
+    NotFound,
+  },
+  computed: {
+    ...mapGetters({ isNotFound: "notFound/isNotFound" }),
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch("notFound/setNotFound", false);
+    },
+  },
+};
+</script>
