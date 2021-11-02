@@ -24,8 +24,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
+            - v1-gem-cache-{{ checksum "Gemfile.lock" }}
+            - v1-gem-cache-
 
       - run:
           name: bundle install
@@ -33,15 +33,11 @@ jobs:
             gem install bundler -v 2.2.3
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      - run:
-          name: yarn install
-          command: yarn install
-
       - save_cache:
          paths:
           - ./vendor/bundle
           - ./node_modules
-         key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+         key: v1-gem-cache-{{ checksum "Gemfile.lock" }}
 
       - run: mv config/database.ci.yml config/database.yml
       - run: bundle exec rails db:create
@@ -52,14 +48,8 @@ jobs:
           command: bundle exec rubocop
 
       - run:
-          name: Eslint
-          command: yarn run lint
-
-      - run:
           name: rails_best_practices
           command: bundle exec rails_best_practices .
-
-      - run: bundle exec bin/webpack
 
       - run:
           name: Rspec
