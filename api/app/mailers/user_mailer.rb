@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
 
   def activation_success_email(user)
     @user = user
-    @url = root_url
+    @url = Settings.url
     mail(to: user.email, subject: 'アカウント認証のお知らせ')
   end
 
