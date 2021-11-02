@@ -1,3 +1,4 @@
+url: 'https://famo.work'
 google:
   callback: 'https://famo.work/api/v1/oauth/callback?provider=google'
 line:
