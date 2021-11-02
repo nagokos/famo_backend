@@ -32,7 +32,7 @@ class Api::V1::AccountActivationsController < Api::V1::BaseController
           cookies[:activation] = { value: 3, expires: 1.minutes.from_now }
         end
       end
+      redirect_to Settings.url
     end
-    redirect_to root_path
   end
 end
