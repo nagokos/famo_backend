@@ -4,6 +4,6 @@ versions:
   - rubocop-rails: '2.5.2'
   - rubocop-performance: '1.5.2'
   - rubocop-rspec: '1.39.0'
-rubocop_config_path: './api/.rubocop.yml'
+rubocop_config_path: '.rubocop.yml'
 rubocop_force_exclusion: true
 check_scope: 'modified'
