@@ -15,6 +15,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: root
         volumes:
           - mysqlconf.d:/etc/mysql/conf.d
     steps:
@@ -31,7 +32,7 @@ jobs:
         run: bundle exec rubocop
 
       - name: set database.yml
-        run: cp config/database.ci.yml config/database.yml
+        run: mv config/database.ci.yml config/database.yml
       
       - name: db create
         run: |
