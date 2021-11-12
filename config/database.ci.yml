@@ -5,8 +5,8 @@ default: &default
   username: root
   port: 3306
   host: 127.0.0.1
-  password: password
+  password: 
 
 test:
   <<: *default
-  database: circle_test
+  database: github_test
