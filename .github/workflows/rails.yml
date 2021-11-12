@@ -12,11 +12,4 @@ jobs:
           ruby-version: 3.0
           bundler-cache: true 
       - name: rubocop
-        uses: reviewdog/action-rubocop@v2
-        with:
-          rubocop_version: gemfile
-          rubocop_extensions: rubocop-rails:gemfile rubocop-rspec:gemfile
-          reporter: github-pr-review # Default is github-pr-check
-          github_token: ${{ secrets.github_token }}
-      - name: rubocop
         run: bundle exec rubocop
