@@ -10,10 +10,10 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   web:
-    build: ./api
+    build: .
     command: bundle exec puma -C config/puma.rb
     volumes:
-      - ./api:/myapp
+      - .:/myapp
       - bundle_path:/bundle
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
@@ -29,7 +29,7 @@ services:
     stdin_open: true
   nginx:
     build:
-      context: ./api/containers/nginx
+      context: ./containers/nginx
     ports:
       - '80:80'
     volumes:
