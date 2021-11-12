@@ -7,6 +7,7 @@ env:
   SLACK_CHANNEL: github-actions
   RAILS_ENV: test
   DB_HOST: 127.0.0.1
+  BACKTRACE: true
 
 jobs:
   test:
@@ -38,6 +39,7 @@ jobs:
       - name: db create
         run: |
           bundle exec rails db:create 
+          bundle exec rails db:schema:load
       
       - name: run rspec
         run: bundle exec rspec
