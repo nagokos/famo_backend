@@ -16,7 +16,7 @@ jobs:
       github_test:
         image: mysql:8.0
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: password
           MYSQL_USER: root
         volumes:
           - mysqlconf.d:/etc/mysql/conf.d
