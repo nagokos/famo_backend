@@ -4,9 +4,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    env:
-      RAILS_ENV: test
-      DB_HOST: 127.0.0.1
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup Ruby and install gems

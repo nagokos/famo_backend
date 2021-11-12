@@ -40,7 +40,7 @@ Metrics/AbcSize:
     - "app/forms/*.rb"
 
 # 一行の長さは１５０文字まで。 コメントは制限しない
-Metrics/LineLength:
+Layout/LineLength:
   Max: 150
   IgnoredPatterns: ["^ *# "]
   Exclude:
