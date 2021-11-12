@@ -6,7 +6,6 @@ env:
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
   SLACK_CHANNEL: github-actions
   RAILS_ENV: test
-  DB_HOST: 127.0.0.1
   BACKTRACE: true
 
 jobs:
