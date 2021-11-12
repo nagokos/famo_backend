@@ -34,7 +34,9 @@ jobs:
         run: cp config/database.ci.yml config/database.yml
       
       - name: db create
-        run: bundle exec rails db:create db:schema:load
+        run: |
+          bundle exec rails db:create 
+          bundle exec rails db:schema:load
       
       - name: run rspec
         run: bundle exec rspec
