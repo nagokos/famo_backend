@@ -7,8 +7,6 @@ env:
   SLACK_CHANNEL: github-actions
   RAILS_ENV: test
   DB_HOST: 127.0.0.1
-  BACKTRACE: true
-  DB_PORT: 3306
 
 jobs:
   test:
@@ -39,7 +37,6 @@ jobs:
       
       - name: db create
         run: |
-          sudo systemctl start mysql
           bundle exec rails db:create 
           bundle exec rails db:schema:load
       
