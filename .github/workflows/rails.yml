@@ -4,8 +4,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    env:
-      RAILS_ENV: test
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup Ruby and install gems
