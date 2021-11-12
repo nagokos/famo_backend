@@ -1,15 +1,36 @@
 name: rails
 on: push
+
+env: 
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+  SLACK_CHANNEL: github-actions
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
         with:
           ruby-version: 3.0
           bundler-cache: true 
+
       - name: rubocop
         run: bundle exec rubocop
+
+      - name: Slack Notification on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2.0.2
+        env:
+          SLACK_TITLE: Test Success
+          SLACK_COLOR: good
+
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@v2.0.2
+        if: failure()
+        env:
+          SLACK_TITLE: Test Failure
+          SLACK_COLOR: danger
