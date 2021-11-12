@@ -1,15 +1,16 @@
 name: rails
+
 on: push
 
 env: 
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
   SLACK_CHANNEL: github-actions
+  RAILS_ENV: test
+  DB_HOST: 127.0.0.1
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-      DB_HOST: 127.0.0.1
     services:
       db:
         image: mysql:8.0
@@ -37,7 +38,6 @@ jobs:
       - name: db create
         run: |
           bundle exec rails db:create 
-          bundle exec rails db:schema:load
       
       - name: run rspec
         run: bundle exec rspec
