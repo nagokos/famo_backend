@@ -1,60 +1,69 @@
-name: rails
+name: github push
 
-on: push
-
-env: 
-  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-  SLACK_CHANNEL: github-actions
-  RAILS_ENV: test
+on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DB_HOST: 127.0.0.1
+
     services:
-      mysql:
-        image: mysql:8.0.23
-        env:
-          MYSQL_ROOT_PASSWORD:
-          MYSQL_DATABASE: github_test
-          MYSQL_USER: root
-          MYSQL_PASSWORD: password
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      db:
+        image: mysql:8.0
         volumes:
           - mysqlconf.d:/etc/mysql/conf.d
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: actions_test
 
-      - name: Setup Ruby and install gems
+    strategy:
+      matrix:
+        ruby-version: ['3.0']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
         uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
         with:
-          ruby-version: 3.0
+          ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true 
-
-      - name: rubocop
+      
+      - name: apt-get
+        run: |
+          sudo apt-get update
+          sudo apt-get install libmysqlclient-dev
+      
+      - name: RuboCop Linter Action
+        uses: andrewmcodes-archive/rubocop-linter-action@v3.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Rubocop checks
         run: bundle exec rubocop
 
-      - name: set database.yml
-        run: mv config/database.ci.yml config/database.yml
-      
-      - name: db create
+      - name: Rails Best Practices
+        run: bundle exec rails_best_practices
+
+      - name: Setup Database
         run: |
-          bundle exec rails db:create 
+          mv config/database.ci.yml config/database.yml
+          bundle exec rails db:create
           bundle exec rails db:schema:load
-      
-      - name: run rspec
+
+      - name: Rspec
         run: bundle exec rspec
 
-      - name: Slack Notification on Success
-        if: success()
-        uses: rtCamp/action-slack-notify@v2.0.2
+      - name: slack - GitHub Actions Slack integration
+        uses: act10ns/slack@v1.2.2
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: always()
         env:
-          SLACK_TITLE: Test Success
-          SLACK_COLOR: good
-
-      - name: Slack Notification on Failure
-        uses: rtCamp/action-slack-notify@v2.0.2
-        if: failure()
-        env:
-          SLACK_TITLE: Test Failure
-          SLACK_COLOR: danger
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          

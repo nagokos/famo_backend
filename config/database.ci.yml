@@ -4,9 +4,9 @@ default: &default
   pool: 5
   username: root
   port: 3306
-  host: mysql
+  host: 127.0.0.1
   password: password
 
 test:
   <<: *default
-  database: github_test
+  database: actions_test
