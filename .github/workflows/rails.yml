@@ -13,7 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      db:
+      github_test:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
