@@ -27,17 +27,6 @@ services:
       - db
     tty: true
     stdin_open: true
-  front:
-    build: ./front
-    volumes:
-      - ./front:/myapp
-    environment:
-      - VUE_APP_API_ENDPOINT=http://localhost
-    ports:
-      - '8080:8080'
-    tty: true
-    stdin_open: true
-    command: yarn serve
   nginx:
     build:
       context: ./api/containers/nginx

@@ -1,0 +1,9 @@
+url:
+  root: 'http://localhost:8080'
+  password_reset: 'http://localhost:8080/password_reset'
+mailer:
+  host: 'localhost'
+google:
+  callback: 'http://localhost/api/v1/oauth/callback?provider=google'
+line:
+  callback: 'http://localhost/api/v1/oauth/callback?provider=line'
