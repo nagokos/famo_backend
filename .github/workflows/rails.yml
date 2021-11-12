@@ -1,0 +1,26 @@
+name: rails
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      with:
+        ruby-version: 3.0
+        bundler-cache: true 
+    - name: RuboCop Linter Action
+      uses: andrewmcodes-archive/rubocop-linter-action@v3.3.0
+      env: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        action_config_path: .github/config/rubocop_linter_action.yml
+    - name: rubocop
+      run: bundle exec rubocop
