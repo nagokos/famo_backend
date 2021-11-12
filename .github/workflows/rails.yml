@@ -6,14 +6,16 @@ env:
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
   SLACK_CHANNEL: github-actions
   RAILS_ENV: test
+  DB_HOST: 127.0.0.1
   BACKTRACE: true
+  DB_PORT: 3306
 
 jobs:
   test:
     runs-on: ubuntu-latest
     services:
       github_test:
-        image: mysql:8.0
+        image: mysql:8.0.23
         env:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_USER: root
