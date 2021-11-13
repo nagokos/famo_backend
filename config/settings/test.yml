@@ -1,6 +1,8 @@
 url:
   root: 'http://localhost:8080'
   password_reset: 'http://localhost:8080/password_reset'
+  profile: 'http://localhost:8080/profile'
+  login: 'http://localhost:8080/login'
 mailer:
   host: 'localhost'
 google:
