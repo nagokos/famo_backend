@@ -41,17 +41,17 @@ RSpec.describe 'Api::V1::Users::Currents', type: :request do
     end
   end
 
-  describe 'POST /api/v1/users/current/presigned_post' do
-    before { post '/api/v1/users/current/presigned_post', headers: header, params: { avatar: 'test.png' } }
+  # describe 'POST /api/v1/users/current/presigned_post' do
+  #   before { post '/api/v1/users/current/presigned_post', headers: header, params: { avatar: 'test.png' } }
 
-    it '２００が返されること' do
-      expect(response.status).to eq(200)
-    end
+  #   it '２００が返されること' do
+  #     expect(response.status).to eq(200)
+  #   end
 
-    it '期限付きURLが返されること' do
-      expect(json['avatar_url']).to be_truthy
-    end
-  end
+  #   it '期限付きURLが返されること' do
+  #     expect(json['avatar_url']).to be_truthy
+  #   end
+  # end
 
   describe 'DELETE /api/v1/users/current' do
     before { delete '/api/v1/users/current', headers: header }

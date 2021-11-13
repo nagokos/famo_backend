@@ -1,10 +1,13 @@
-check_name: 'Rubocop Results'
+check_name: "RuboCop Results"
+
 versions:
   - rubocop
   - rubocop-rails
+  - rubocop-minitest
   - rubocop-performance: "1.5.1"
-  - rubocop-minitest: "latest"
   - rubocop-rspec: "1.37.0"
-rubocop_config_path: '.rubocop.yml'
+
+rubocop_config_path: ".rubocop.yml"
+rubocop_fail_level: "warning"
 rubocop_force_exclusion: true
-check_scope: 'modified'
+check_scope: "modified"

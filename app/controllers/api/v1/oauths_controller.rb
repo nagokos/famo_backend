@@ -5,20 +5,20 @@ class Api::V1::OauthsController < Api::V1::BaseController
 
   def callback
     provider = params[:provider]
-    return redirect_to root_path if params[:error].present?
+    return redirect_to Settings.url.root if params[:error].present?
 
     if (user = login_from(provider))
       cookies[:login] = { value: 1, expires: 1.minutes.from_now }
     else
       user = build_from(provider)
       user.authentications.build(provider: provider, uid: @user_hash[:uid])
-      return redirect_to login_path if set_email_from_line(user, provider) || check_email(user)
+      return redirect_to Settings.url.login if set_email_from_line(user, provider) || check_email(user)
 
       user.save(validate: false)
       cookies[:signup] = { value: 1, expires: 1.minutes.from_now }
     end
     set_token(user)
-    redirect_to profile_path
+    redirect_to Settings.url.profile
   end
 
   private
