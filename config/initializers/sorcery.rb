@@ -158,11 +158,11 @@ Rails.application.config.sorcery.configure do |config|
   # config.auth0.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=auth0"
   # config.auth0.site = "https://example.auth0.com"
   #
-  # config.google.key = Rails.application.credentials.sorcery.dig(:google, :key)
-  # config.google.secret = Rails.application.credentials.sorcery.dig(:google, :secret)
-  # config.google.callback_url = Settings.google.callback
-  # config.google.user_info_mapping = { email: 'email', name: 'name' }
-  # config.google.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+  config.google.key = Rails.application.credentials.sorcery.dig(:google, :key)
+  config.google.secret = Rails.application.credentials.sorcery.dig(:google, :secret)
+  config.google.callback_url = Settings.google.callback
+  config.google.user_info_mapping = { email: 'email', name: 'name' }
+  config.google.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
   #
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"
@@ -219,12 +219,12 @@ Rails.application.config.sorcery.configure do |config|
   # config.salesforce.scope = "full"
   # config.salesforce.user_info_mapping = {:email => "email"}
 
-  # config.line.key = Rails.application.credentials.sorcery.dig(:line, :key)
-  # config.line.secret = Rails.application.credentials.sorcery.dig(:line, :secret)
-  # config.line.callback_url = Settings.line.callback
-  # config.line.scope = 'profile openid email'
-  # config.line.bot_prompt = 'normal'
-  # config.line.user_info_mapping = { name: 'displayName' }
+  config.line.key = Rails.application.credentials.sorcery.dig(:line, :key)
+  config.line.secret = Rails.application.credentials.sorcery.dig(:line, :secret)
+  config.line.callback_url = Settings.line.callback
+  config.line.scope = 'profile openid email'
+  config.line.bot_prompt = 'normal'
+  config.line.user_info_mapping = { name: 'displayName' }
 
   # For information about Discord API
   # https://discordapp.com/developers/docs/topics/oauth2
