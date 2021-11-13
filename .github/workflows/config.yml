@@ -8,6 +8,7 @@ jobs:
     env:
       RAILS_ENV: test
       DB_HOST: 127.0.0.1
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     services:
       db:
